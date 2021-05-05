@@ -35,6 +35,7 @@ DSSREST  - DSS Backup restore
 DVMSQL   - Create sample DB and TB for DVM                                      
 EREP     - EREP processes logrec data set into reports                          
 HBOJBCOL - CDP z Batch SMF processor                                            
+HBOJBDC2 0 CDP z Batch DCOLLECT processor                                       
 HLASM    - Compile and link HLASM                                               
 ICKDSF01 - 3390 Initialize Volume                                               
 IDCAMCPY - Copy VSAM data                                                       
