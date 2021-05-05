@@ -1,0 +1,26 @@
+//IUSDSF JOB  (FB3),'SDSF',CLASS=A,MSGCLASS=H,                                  
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//*********************************************************                     
+//*  BATCH SDSF COMMANDS                                                        
+//*  USAGE:                                                                     
+//*  TO USE AN ACTION CHARACTER, CODE ++ACTION-CHARACTER                        
+//*  IN YOUR BATCH JOB  ++S IS SELECT                                           
+//*********************************************************                     
+//STEP1    EXEC PGM=SDSF,PARM='++32,1000'                                       
+//ISFOUT   DD  SYSOUT=*                                                         
+//ISFIN    DD  *                                                                
+   /D U,,,1000,10                                                               
+   /D U,,,1100,10                                                               
+   /D U,,,1200,10                                                               
+   /D U,,,1300,10                                                               
+/*                                                                              
+//                                                                              
+   /F CICSS1,CEMT I SYS                                                         
+   PREFIX CICSS1                                                                
+   DA OSTC                                                                      
+   FIND 'CICSS1'                                                                
+   ++?                                                                          
+   FIND 'JESMSGLG'                                                              
+   ++S                                                                          
+   FIND 'CICSTSLEVEL'                                                           
+/*                                                                              
