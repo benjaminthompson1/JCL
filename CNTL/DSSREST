@@ -1,6 +1,6 @@
-//XBTAA JOB (STG,1206),'EXT 97693',                                             
-//      CLASS=A,MSGCLASS=X,REGION=0M,TIME=1440,                                 
-//      NOTIFY=XBT,USER=XBT                                                     
+//IUDSSRE JOB (FB3),'DSSREST',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //******************************************************************            
 //*                                                                *            
 //* DSS DUMP DATASETS RETORE                                       *            
