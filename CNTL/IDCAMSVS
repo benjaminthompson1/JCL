@@ -1,0 +1,62 @@
+//IUIDCAMS JOB  (FB3),'IDCAMS CATALOG',CLASS=A,MSGCLASS=H,                      
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: IDCAMS                                                  *          
+//*                                                                  *          
+//********************************************************************          
+//CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  DEFINE CLUSTER -                                                              
+        (NAME (IBMUSER.DFAT.FSCN) -                                             
+         KEYS (9 0)            -                                                
+         SHR  (2 3))           -                                                
+  DATA                         -                                                
+       (NAME (IBMUSER.DFAT.FSCND) -                                             
+        RECSZ (150 150)        -                                                
+        CISZ  (4096)           -                                                
+        FREESPACE (0 0)        -                                                
+        CYL   (500 200))       -                                                
+  INDEX                        -                                                
+       (NAME (IBMUSER.DFAT.FSCNI) -                                             
+        CISZ  (4096))                                                           
+/*                                                                              
+//REPRO    EXEC PGM=IDCAMS,REGION=0M                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//INDD     DD DSN=IBMUSER.DFAT.FSCN.LOAD,DISP=SHR                               
+//OUTDD    DD DSN=IBMUSER.DFAT.FSCN,DISP=OLD                                    
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  REPRO INFILE(INDD) OUTFILE(OUTDD)                                             
+/*                                                                              
+//CREATEAX EXEC PGM=IDCAMS,REGION=0M                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  DEFINE ALTERNATEINDEX   -                                                     
+        (NAME (IBMUSER.DFAT.FSCN.AIX) -                                         
+         UPGRADE       -                                                        
+         RELATE (IBMUSER.DFAT.FSCN) -                                           
+         NONUNIQUEKEY  -                                                        
+         NOREUSE       -                                                        
+         NOERASE       -                                                        
+         NOWRITECHECK  -                                                        
+         UNORDERED     -                                                        
+         SUBALLOCATION -                                                        
+         KEYS (79 9) -                                                          
+         SHR (2 3)) -                                                           
+   DATA (NAME (IBMUSER.DFAT.FSCN.AIXD) -                                        
+         FREESPACE (0 0) -                                                      
+         RECSZ (93 93) -                                                        
+         CYL (300 50)  -                                                        
+         CISZ (6144)) -                                                         
+  INDEX (NAME (IBMUSER.DFAT.FSCN.AIXI) -                                        
+         CYL (2 1)  -                                                           
+         CISZ (2048))                                                           
+  DEFINE PATH -                                                                 
+        (NAME (IBMUSER.DFAT.FSCN.AIX.PATH) -                                    
+         PATHENTRY (IBMUSER.DFAT.FSCN.AIX) -                                    
+         UPDATE)                                                                
+  BLDINDEX INDATASET (IBMUSER.DFAT.FSCN) -                                      
+  OUTDATASET (IBMUSER.DFAT.FSCN.AIX.PATH)                                       
+/*                                                                              

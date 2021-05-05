@@ -1,0 +1,46 @@
+//IURACFZ JOB  (FB3),'RACF ZCX',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*                                                                             
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: Define zCX rules in RACF                                *          
+//*                                                                  *          
+//********************************************************************          
+//RACFSTC  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+ADDGROUP zcxprvg OMVS(AUTOGID) DATA('zCX Prov Group')                           
+ADDGROUP zcxstcg OMVS(AUTOGID) DATA('zCX STC Group')                            
+ADDGROUP zcxadmg OMVS(AUTOGID) DATA('zCX Admin Group')                          
+                                                                                
+ADDUSER ZCXPRV1 PASSWORD(NEW2DAY) +                                             
+  NAME('zCX Provision User 1') +                                                
+  OWNER(IBMUSER) UACC(ALTER) DFLTGRP(ZCXPRVG) +                                 
+  AUTHORITY(JOIN) GRPACC +                                                      
+  TSO(ACCTNUM(ACCNT#) PROC(IKJACCNT) SIZE(2096128) MAXSIZE(0) +                 
+  UNIT(SYSALLDA) COMMAND(ISPPDF)) +                                             
+  OMVS(AUTOUID HOME(/u/zcxprv1) PROGRAM(/bin/sh))                               
+                                                                                
+ADDUSER ZCXSTC1 +                                                               
+  NAME('zCX STC User 1') +                                                      
+  OWNER(IBMUSER) UACC(ALTER) DFLTGRP(ZCXSTCG) +                                 
+  AUTHORITY(JOIN) GRPACC +                                                      
+  NOPASSWORD NOOIDCARD +                                                        
+  TSO(ACCTNUM(ACCNT#) PROC(IKJACCNT) SIZE(2096128) MAXSIZE(0) +                 
+  UNIT(SYSALLDA) COMMAND(ISPPDF)) +                                             
+  OMVS(AUTOUID HOME(/u/zcxstc1) PROGRAM(/bin/sh))                               
+                                                                                
+ADDUSER ZCXADM1 PASSWORD(NEW2DAY) +                                             
+  NAME('zCX Admin User 1') +                                                    
+  OWNER(IBMUSER) UACC(ALTER) DFLTGRP(ZCXADMG) +                                 
+  AUTHORITY(JOIN) GRPACC +                                                      
+  TSO(ACCTNUM(ACCNT#) PROC(IKJACCNT) SIZE(2096128) MAXSIZE(0) +                 
+  UNIT(SYSALLDA) COMMAND(ISPPDF)) +                                             
+  OMVS(AUTOUID HOME(/u/zcxadm1) PROGRAM(/bin/sh))                               

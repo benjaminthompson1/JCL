@@ -1,0 +1,27 @@
+//IUDSSCPY JOB  (FB3),'DSS MOVE',CLASS=A,MSGCLASS=H,                            
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: COPY DATASET FROM SELECTED VOLUME                       *          
+//*                                                                  *          
+//* NOTES: PARM='TYPRUN=NORUN' <== TEST JOB                          *          
+//*                                                                  *          
+//********************************************************************          
+//COPY     EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
+//FROMVOL  DD  UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                               
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+ COPY DATASET(INC(HSMMGRS.V7101.**))                         -                  
+      RENAMEU(HSMMGRS.V7101.**,                              -                  
+              HSMMGRP.V7101.**)                              -                  
+      CATALOG                                                -                  
+      MGMTCLAS(STANDARD)                                     -                  
+      STORCLAS(STANDARD)                                     -                  
+      ALLD(*)                                                -                  
+      PROCESS(SYS1)                                          -                  
+      ADMIN                                                  -                  
+      ALLEXCP                                                -                  
+      SHARE                                                                     
+/*                                                                              
+      REPLACEU -                                                                
+      OUTDYNAM((TMM201)) -                                                      

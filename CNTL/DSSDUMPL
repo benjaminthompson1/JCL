@@ -1,0 +1,30 @@
+//IUDSSBK JOB (FB3),'DSS DUMP',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440,                                    
+//       TYPRUN=HOLD                                                            
+//******************************************************************            
+//*                                                                *            
+//* DSS DUMP DATASETS                                              *            
+//*                                                                *            
+//******************************************************************            
+//BACKUP  EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                                  
+//DUMPOUT DD DSN=IBMUSER.BACKUP.D040820,                                        
+//        DISP=(NEW,CATLG,DELETE),UNIT=DASD,                                    
+//        SPACE=(CYL,(500,100))                                                 
+//SYSPRINT  DD SYSOUT=*                                                         
+//SYSIN     DD *                                                                
+ DUMP DS(INC(IBMUSER.**)) -                                                     
+      ALLDATA(*) OUTDDNAME(DUMPOUT) TOL(ENQF) -                                 
+      WAIT(1,1) CANCELERROR                                                     
+/*                                                                              
+//**********************************************************************        
+//* VERIFY BACKUP TAPE                                                          
+//**********************************************************************        
+//*                                                                             
+//VERIFY  EXEC PGM=ADRDSSU,COND=(5,LT),REGION=4096K                             
+//SYSPRINT DD  SYSOUT=*                                                         
+//DUMMY    DD  DUMMY                                                            
+//TAPE     DD  DSN=*.BACKUP.DUMPOUT,DISP=(OLD,KEEP),UNIT=DASD                   
+//SYSIN    DD  *                                                                
+ COPYDUMP INDD(TAPE) OUTDD(DUMMY)                                               
+/*                                                                              
+//                                                                              

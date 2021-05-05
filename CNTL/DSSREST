@@ -1,0 +1,27 @@
+//XBTAA JOB (STG,1206),'EXT 97693',                                             
+//      CLASS=A,MSGCLASS=X,REGION=0M,TIME=1440,                                 
+//      NOTIFY=XBT,USER=XBT                                                     
+//******************************************************************            
+//*                                                                *            
+//* DSS DUMP DATASETS RETORE                                       *            
+//*                                                                *            
+//******************************************************************            
+//STEP1    EXEC PGM=ADRDSSU,PARM='TYPRUN=NORUN'                                 
+//TAPE     DD DSN=STG.WEEKLY.PRM006.BACKUP.G0745V00,DISP=SHR                    
+//OUT1     DD VOL=SER=PRM002,UNIT=SYSDA,DISP=SHR                                
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  RESTORE INDD(TAPE) -                                                          
+          OUTDD(OUT1) -                                                         
+  DS(INCL(HARBORRQ.DCSWEBZ1.**))  -                                             
+  RENAMEU(HARBORRQ.DCSWEBZ1.**,   -                                             
+          XBT.DCSWEBZ1.**)        -                                             
+  CATALOG                                                                       
+/*                                                                              
+//                                                                              
+  RESTORE INDD(TAPE) -                                                          
+          OUTDD(OUT1) -                                                         
+          MAKEMULTI -                                                           
+  OUTDYNAM((LAR001),(LAR002),(LAR003),(LAR004)) -                               
+  DS(INCL(CMPWAREP.LMS.CHKPT)) CATALOG REPLACE -                                
+//                                                                              

@@ -1,0 +1,77 @@
+//IULOGP1 JOB (FB3),'CSQLOGP1',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE:  MQ - PRINT LOG UTILITY - EXTRACT INFORMATION           *          
+//*                                                                  *          
+//********************************************************************          
+//PRTLOG   EXEC PGM=CSQ1LOGP                                                    
+//STEPLIB  DD  DISP=SHR,DSN=CSQ911.SCSQANLE                                     
+//         DD  DISP=SHR,DSN=CSQ911.SCSQLOAD                                     
+//*-------------------------------------------------------------------          
+//* ARCHIVE LOG DATASET(S)                                                      
+//*-------------------------------------------------------------------          
+//ARCHIVE DD  DISP=SHR,                                                         
+//            DSN=CSQARC1.CSQ9.A0000019                                         
+//*                                                                             
+//*-------------------------------------------------------------------          
+//* BSDS DATASET(S)                                                             
+//*-------------------------------------------------------------------          
+//*BSDS    DD  DISP=SHR,DSN=#MQHLQ.BSDS01                                       
+//*                                                                             
+//*-------------------------------------------------------------------          
+//* EXTRACT (OUTPUT) DATASETS                                                   
+//*-------------------------------------------------------------------          
+//CSQBACK  DD  DSN=IBMUSER.CSQ9.BACKOUT.DATASET,                                
+//            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//CSQCMT   DD  DSN=IBMUSER.CSQ9.COMMIT.DATASET,                                 
+//            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//CSQBOTH  DD  DSN=IBMUSER.CSQ9.BOTH.DATASET,                                   
+//            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//CSQINFLT DD  DSN=IBMUSER.CSQ9.INFLIGHT.DATASET,                               
+//            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//CSQOBJS  DD  DSN=IBMUSER.CSQ9.OBJECTS.DATASET,                                
+//            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//*                                                                             
+//*-------------------------------------------------------------------          
+//SYSPRINT DD DUMMY                                                             
+//SYSSUMRY DD DUMMY                                                             
+//SYSPRINT DD SYSOUT=*,LRECL=131                                                
+//SYSSUMRY DD SYSOUT=*,LRECL=131                                                
+//SYSIN    DD *                                                                 
+* SUMMARY REPORT ALSO (DEFAULT IS NO SUMMARY REPORT)                            
+ SUMMARY(YES)                                                                   
+                                                                                
+* EXTRACT LOG RECORDS TO DATASET(S) IN DD STATEMENTS                            
+ EXTRACT(YES)                                                                   
+                                                                                
+* ONLY LOG RECORDS FOR THESE PAGESET(S)                                         
+* //BSDS IS REQUIRED IF PAGESET IS SPECIFIED                                    
+* RBASTART IS REQUIRED IF PAGESET IS SPECIFIED                                  
+* I HAVENT BEEN ABLE TO GET THIS PARM WORKING                                   
+*PAGESET(00)                                                                    
+*PAGESET(01)                                                                    
+                                                                                
+* ONLY RECORDS FROM THIS RBA                                                    
+*RBASTART(000000900000)                                                         
+* ONLY RECORDS TO THIS RBA                                                      
+*RBAEND(000000968FFF)                                                           
+                                                                                
+* ONLY THIS UOW RECORD ID (=LOG RBA OF BEGIN UR RECORD)                         
+*URID(000000000000)                                                             
+                                                                                
+* ONLY DATA CONTAINING THIS HEX STRING                                          
+*DATA(E7C2E3)                                                                   
+*     X B T                                                                     
+/*                                                                              

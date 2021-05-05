@@ -1,0 +1,29 @@
+//IURACFS JOB  (FB3),'RACF STC',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*                                                                             
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: Define USERID STC and PERMIT required resources         *          
+//*          rules in RACF                                           *          
+//*                                                                  *          
+//********************************************************************          
+//RACFSTC  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+ADDUSER AVZS NAME('AVZ Server started task') -                                  
+ OMVS(HOME('/u/AVZS') PROGRAM('/bin/sh') AUTOUID) -                             
+   OWNER(IBMUSER) -                                                             
+   NOPASSWORD -                                                                 
+   DFLTGRP(SYS1)                                                                
+                                                                                
+RDEFINE STARTED AVZS.** LEVEL(0) OWNER(IBMUSER) -                               
+STDATA(USER(AVZS) GROUP(SYS1))                                                  
+SETROPTS REFRESH RACLIST(STARTED)                                               
+/*                                                                              

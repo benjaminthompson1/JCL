@@ -1,0 +1,9 @@
+//IUJVFY JOB  (FB3),'JES2 VERIFY',CLASS=A,MSGCLASS=H,                           
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: VERIFY JES2 PARM                                        *          
+//*                                                                  *          
+//********************************************************************          
+//JES2    EXEC JES2,REGION=0M                                                   
+//IEFPROC.HASPLIST DD SYSOUT=*                                                  

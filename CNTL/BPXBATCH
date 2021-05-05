@@ -1,0 +1,16 @@
+//IUMETAC JOB (FB3),'METAL C',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=4M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//******************************************************************            
+//* Run the USS script to compile, assemble and link-ed the program             
+//******************************************************************            
+//*                                                                             
+//BPXBATCH EXEC PGM=BPXBATCH                                                    
+//STDPARM  DD DSN=IBMUSER.CNTL(BPXPARM),DISP=SHR                                
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSERR   DD SYSOUT=*                                                          
+//SYSOUT   DD SYSOUT=*                                                          
+//CEEDUMP  DD SYSOUT=*                                                          
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//*                                                                             

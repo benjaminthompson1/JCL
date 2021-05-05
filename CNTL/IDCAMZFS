@@ -1,0 +1,72 @@
+//IUIDCAMS JOB  (FB3),'CREATE ZFS',CLASS=A,MSGCLASS=H,                          
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: CREATE ZFS DATASET AND MOUNTPOINT                       *          
+//*                                                                  *          
+//* NOTES: Modify the JOB statement as appropriate and change        *          
+//*        the following to suit your installation requirements      *          
+//*                                                                  *          
+//* @pathprefix@ - Directory path to prefix /usr/lpp/IBM             *          
+//*                                                                  *          
+//* @zfsdsn@ - Name of the 'common' ZFS dataset to be created *                 
+//*                and mounted at @pathprefix@                       *          
+//*                                                                  *          
+//* @volume@ - Volume on which tocreate ZFS dataset             *               
+//*                                                                  *          
+//********************************************************************          
+//CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  DEFINE -                                                                      
+       CLUSTER -                                                                
+         ( -                                                                    
+             NAME(@zfsdsn@) -                                                   
+             LINEAR -                                                           
+             TRACKS(800 200) VOLUME(@volume@) -                                 
+             DATACLASS(DCEXT) -                                                 
+             SHAREOPTIONS(3) -                                                  
+         )                                                                      
+/*                                                                              
+//*                                                                             
+// SET ZFSDSN='@zfsdsn@'                                                        
+//FORMAT   EXEC PGM=IOEAGFMT,REGION=0M,COND=(0,LT),                             
+// PARM='-aggregate &ZFSDSN -compat'                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//CEEDUMP  DD SYSOUT=*                                                          
+//*                                                                             
+//CREATDIR EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=99,COND=(0,LT)                  
+//*                                                                             
+//* Create mountpoint directory                                                 
+//*                                                                             
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+  PROFILE MSGID WTPMSG                                                          
+  MKDIR '@pathprefix@' +                                                        
+        MODE(7,7,5)                                                             
+/*                                                                              
+//*                                                                             
+//* Mount the dataset at the mountpoint directory                               
+//*                                                                             
+//MOUNT    EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=99,COND=(0,LT)                  
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+  PROFILE MSGID WTPMSG                                                          
+  MOUNT TYPE(ZFS) +                                                             
+    MODE(RDWR) +                                                                
+    MOUNTPOINT('@pathprefix@') +                                                
+    FILESYSTEM('@zfsdsn@')                                                      
+/*                                                                              
+//*                                                                             
+//* Change permissions                                                          
+//*                                                                             
+//CHMOD    EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=99,COND=(0,LT)                  
+//SYSEXEC   DD DISP=SHR,DSN=SYS1.SBPXEXEC                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+  OSHELL chmod 775 +                                                            
+    @pathprefix@                                                                
+/*                                                                              

@@ -1,0 +1,11 @@
+//IUCOBOL JOB (FB3),'COBOL RUN',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: COBOL EXECUTE PROGRAM                                   *          
+//*                                                                  *          
+//********************************************************************          
+//STEP1   EXEC PGM=FAVS                                                         
+//STEPLIB   DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD                                  
+//SYSPRINT  DD SYSOUT=*                                                         

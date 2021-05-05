@@ -1,0 +1,20 @@
+//IUDIAG JOB  (FB3),'DSS DIAG',CLASS=A,MSGCLASS=H,                              
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: CHECK VVR'S AND CATALOG ENTRIES FOR DATASETS            *          
+//*                                                                  *          
+//* NOTES:   WILL REPORT DUPLICATE AND ORPHANED VVR'S AND            *          
+//*          UNCATALOGED DATASETS ON THE VOLUME.                     *          
+//*                                                                  *          
+//********************************************************************          
+//CHECK   EXEC PGM=ADRDSSU,REGION=0M                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//DUMMY    DD DUMMY                                                             
+//SYSIN    DD *                                                                 
+ DUMP -                                                                         
+   DATASET(INCLUDE(**)) -                                                       
+   LOGINDY(USER0A) -                                                            
+   OUTDDNAME(DUMMY) -                                                           
+   TOL(ENQF)                                                                    
+/*                                                                              

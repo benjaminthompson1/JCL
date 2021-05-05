@@ -1,0 +1,41 @@
+//IUCALC JOB (FB3),'PICSCALS',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: PL/I BIT OFFSETS FOR DVM DFAT EXIT                      *          
+//*                                                                  *          
+//********************************************************************          
+// EXPORT SYMLIST=(EXITNAM)                                                     
+// SET EXITNAM=AVZXZPER                                                         
+//RUNREXX  EXEC PGM=IRXJCL,                                                     
+//             PARM='PICSCALC'                                                  
+//CSOURCE  DD  DISP=SHR,DSN=IBMUSER.DFAT.C(&EXITNAM)                            
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSEXEC  DD  DSN=IBMUSER.EXEC,DISP=SHR                                        
+//SYSTSIN  DD  *,SYMBOLS=JCLONLY                                                
+; First line holds the entry point name of the DVM exit routine                 
+&EXITNAM                                                                        
+; Next line holds the length of the uncompressed record                         
+1219                                                                            
+; Next line holds the number of uncompressed bytes at the start                 
+; of the VSAM record.  This value can be zero.                                  
+0                                                                               
+; Subsequent lines specify byte offsets to bit fields                           
+; If the bit fields occur only once, specify the byte offset on line 1          
+; then specify the bit-count for each field on the second line                  
+; If the bit fields occur more than once or are part of a structure             
+; that occurs more than once, specify the byte offset to the first              
+; occurence, the size of the repeating structure (could be 1, if the            
+; bit-field byte has many occurrences), and the number of occurrences           
+; of the byte/structure.  Then specify the bit-count for each field             
+; on the second line                                                            
+126                                                                             
+1 1 1 1 1 1 1 1                                                                 
+145                                                                             
+1 1 1 5                                                                         
+; repeating ZPER_NG structure of length 116 occurs 8 times                      
+; first bit-field byte occurs at offset 215                                     
+215 116 8                                                                       
+1 1 1 1 4                                                                       
+/*                                                                              

@@ -1,0 +1,13 @@
+//IUIEBCPY JOB (FB3),'IEBCOPY',CLASS=A,MSGCLASS=H,                              
+//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                        
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: COPY PDS MEMBERS                                        *          
+//*                                                                  *          
+//********************************************************************          
+//COPY1 EXEC PGM=IEBCOPY                                                        
+//SYSPRINT DD SYSOUT=*                                                          
+//DDIN     DD DISP=SHR,DSN=DVM110.SMPPTS.OLD                                    
+//DDOUT    DD DISP=SHR,DSN=DVM110.SMPPTS                                        
+//SYSIN    DD *                                                                 
+  COPY OUTDD=DDOUT,INDD=DDIN                                                    

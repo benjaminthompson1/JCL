@@ -1,0 +1,15 @@
+//IUIDCAM JOB  (FB3),'IDCAM COPY',CLASS=A,MSGCLASS=H,                           
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: IDCAMS COPY                                             *          
+//*                                                                  *          
+//********************************************************************          
+//IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
+//INDD    DD DSN=SYS2.HSM.BCDS,DISP=SHR                                         
+//OUTDD   DD DSN=IBMUSER.HSM.BCDS,DISP=(NEW,CATLG),                             
+//           UNIT=SYSDA,SPACE=(CYL,(10,10)),                                    
+//           DCB=(RECFM=VB,LRECL=32000,BLKSIZE=0)                               
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  REPRO INFILE(INDD) OUTFILE(OUTDD)                                             

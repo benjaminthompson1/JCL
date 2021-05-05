@@ -1,0 +1,72 @@
+//IUJBDC2 JOB (FB3),'HBOJBDC2',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*                                                                             
+//***************************************************************               
+//*                                                             *               
+//*  LICENSED MATERIALS - PROPERTY OF IBM                       *               
+//*                                                             *               
+//*  5698-ABN (C) Copyright IBM Corporation 2019, 2020          *               
+//*  All Rights Reserved.                                       *               
+//*                                                             *               
+//***************************************************************               
+//*                                                             *               
+//*  NAME: HBOJBDC2                                             *               
+//*                                                             *               
+//*  STATUS: IBM Z Common Data Provider 2.1.0                   *               
+//*                                                             *               
+//*  FUNCTION: Sample JCL for batch job to collect DCOLLECT data*               
+//*            and transfer to port.                            *               
+//*                                                             *               
+//* Run IBM Z Common Data Provider 2.1.0                        *               
+//*                                                             *               
+//* CHANGE ACTIVITY:                                            *               
+//* CHANGE FLAG TYPE   DATE                DESCRIPTION          *               
+//* ----------------------------------------------------------- *               
+//* $00=R071147,CDP210,2019-12-23,CSL(FL): New for CDP 2.1.0    *               
+//*                                                             *               
+//***************************************************************               
+//*                                                             *               
+//* Customization:                                              *               
+//*  a.  If affinity with a specific TCP/IP stack is needed     *               
+//*      add the name of the stack to the end of the HBOTCAFF   *               
+//*      job step, for example:                                 *               
+//*      //HBOTCAFF EXEC PGM=BPXTCAFF,PARM=TPNAME               *               
+//*  b.  Change HBOvrm to the high-level qualifier for your     *               
+//*      zCDP SMP/E-installed target libraries.                 *               
+//*  c.  Modify the value set for IBM_UPDATE_TARGET to specify  *               
+//*      the TCP/IP port configured for the zCDP Data Streamer. *               
+//*  d.  Replace the value /etc/cdpConfig/hboin.sde with the    *               
+//*      System Data Engine policy file created from the        *               
+//*      Configuration Tool.                                    *               
+//*  e.  Specify DCOLLECT log file name in <some DCOLLECT log>  *               
+//*                                                             *               
+//***************************************************************               
+//*                                                                             
+//HBOTCAFF EXEC PGM=BPXTCAFF,PARM=                                              
+//*                                                                             
+//*                                                                             
+//HBOSMFCL EXEC PGM=HBOPDE,REGION=0M,                                           
+//         PARM='SHOWINPUT=NO,ZIIPOFFLOAD=NO'                                   
+//STEPLIB  DD DISP=SHR,DSN=CDP210.SHBOLOAD                                      
+//*                                                                             
+//* CONTROL STATEMENTS                                                          
+//* The control statement file must be customised to match                      
+//* the target of the Common Data Provider configuration utility.               
+//*                                                                             
+//HBOIN    DD *                                                                 
+SET IBM_UPDATE_TARGET = 'PORT 12021';                                           
+SET IBM_FILE_FORMAT = 'CSV';                                                    
+//         DD  PATH='/var/local/CDPServer/cdpConfig/zCDP_DEMO.sde',             
+//         PATHDISP=(KEEP),RECFM=V,LRECL=255,FILEDATA=RECORD                    
+//*                                                                             
+//* Sample COLLECT statement for DCOLLECT data                                  
+//*                                                                             
+//         DD *                                                                 
+COLLECT DCOLLECT                                                                
+  COMMIT AFTER END OF FILE;                                                     
+/*                                                                              
+//HBOLOG   DD DISP=SHR,DSN=IBMUSER.DCOLLECT.DATA                                
+//HBOOUT   DD SYSOUT=*                                                          
+//HBODUMP  DD SYSOUT=*                                                          
+//HBODEBUG DD SYSOUT=*                                                          

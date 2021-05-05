@@ -1,0 +1,118 @@
+//IUTIJRS JOB (FB3),'DSNTIJRS',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//* JOB NAME = DSNTIJRS                                                         
+//*                                                                             
+//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                                  
+//*                                                                             
+//*    Licensed Materials - Property of IBM                                     
+//*    5650-DB2                                                                 
+//*    (C) COPYRIGHT 2016 IBM Corp.  All Rights Reserved.                       
+//*                                                                             
+//*    STATUS = Version 12                                                      
+//*                                                                             
+//* FUNCTION = CREATE RESTful SERVICES DATABASE OBJECTS.                        
+//*            NOTE THAT IN ORDER TO ENABLE RESTful SERVICES                    
+//*            VERSIONING SUPPORT, JOB DSNTIJR2 MUST ALSO BE                    
+//*            RUN AFTER SUCCESSFUL EXECUTION OF THIS JOB.                      
+//*                                                                             
+//* PSEUDOCODE =                                                                
+//*   DSNTICU  STEP     Optional: DROP the RESTful services database            
+//*   DSNTIAC  STEP     Create the RESTful services database                    
+//*                                                                             
+//* DEPENDENCIES =                                                              
+//*                                                                             
+//* NOTES =                                                                     
+//*    PRIOR TO RUNNING THIS JOB, customize it for your system:                 
+//*    (1) Review the buffer pool settings in the CREATE TABLESPACE             
+//*        statements processed by this job.  Update the values as              
+//*        necessary.                                                           
+//*    (2) Add a valid job card.                                                
+//*    (3) Change all occurrences of the following strings:                     
+//*        (A) Change the subsystem name 'DBCG' to the SSID of your             
+//*            DB2.                                                             
+//*        (B) Change 'DSN!!0' to the prefix of the target library              
+//*            for DB2.                                                         
+//*        (C) Change 'DSNTIA12' to the plan name for DSNTIAD on your           
+//*            DB2.                                                             
+//*    (4) This job must run successfully before REST service                   
+//*        versioning support can be enabled.  REST service versioning          
+//*        is enabled by running install job DSNTIJR2.  See DSNTIJR2            
+//*        for additional information.                                          
+//*                                                                             
+//* CHANGE LOG =                                                                
+//*   07/20/16 Added                                                            
+//*   05/01/18 Added REST service versioning support comments                   
+//*                                                                             
+//*********************************************************************         
+//JOBLIB  DD  DISP=SHR,                                                         
+//            DSN=DSNC10.SDSNLOAD                                               
+//*                                                                             
+//*  //****************************************************************         
+//*  //* Optional: Drop the RESTful services databases                          
+//*  //****************************************************************         
+//*  //DSNTICU EXEC PGM=IKJEFT01,DYNAMNBR=20                                    
+//*  //SYSTSPRT DD  SYSOUT=*                                                    
+//*  //SYSPRINT DD  SYSOUT=*                                                    
+//*  //SYSUDUMP DD  SYSOUT=*                                                    
+//*  //SYSTSIN  DD  *                                                           
+//*    DSN SYSTEM(DBCG)                                                         
+//*    RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA12) PARM('RC0') -                       
+//*         LIBRARY('DSNC10.DBCG.RUNLIB.LOAD')                                  
+//*    END                                                                      
+//*  //SYSIN    DD  *                                                           
+//*    DROP DATABASE DSNSVCDB;                                                  
+//*  /*                                                                         
+//*                                                                             
+//*********************************************************************         
+//* Create the RESTful services database                                        
+//*********************************************************************         
+//DSNTIAC EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                             
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSUDUMP DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBCG)                                                              
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA12) -                                        
+       LIBRARY('DSNC10.DBCG.RUNLIB.LOAD')                                       
+  END                                                                           
+//SYSIN    DD  *                                                                
+  CREATE DATABASE DSNSVCDB                                                      
+         CCSID UNICODE;                                                         
+                                                                                
+  CREATE TABLESPACE DSNSVCTS IN DSNSVCDB                                        
+         SEGSIZE 4                                                              
+         LOCKSIZE ROW                                                           
+         MAXPARTITIONS 1                                                        
+         USING STOGROUP SYSDEFLT                                                
+         PRIQTY 80                                                              
+         CLOSE NO                                                               
+         CCSID UNICODE                                                          
+         FREEPAGE 0                                                             
+         PCTFREE 10                                                             
+         BUFFERPOOL BP0;                                                        
+                                                                                
+  CREATE TABLE "SYSIBM"."DSNSERVICE"                                            
+         ( "NAME"        VARCHAR(128) NOT NULL                                  
+         , "COLLID"      VARCHAR(128) NOT NULL                                  
+         , "CONTOKEN"    CHAR(8) FOR BIT DATA NOT NULL                          
+         , "ENABLED"     CHAR(1) NOT NULL WITH DEFAULT 'Y'                      
+                         CHECK(ENABLED = 'Y' OR ENABLED = 'N')                  
+         , "CREATEDTS"   TIMESTAMP NOT NULL                                     
+         , "ALTEREDTS"   TIMESTAMP NOT NULL GENERATED BY DEFAULT                
+                         FOR EACH ROW ON UPDATE AS ROW CHANGE                   
+                         TIMESTAMP                                              
+         , "DESCRIPTION" VARCHAR(250) )                                         
+         IN DSNSVCDB.DSNSVCTS                                                   
+         CCSID UNICODE                                                          
+         WITH RESTRICT ON DROP;                                                 
+                                                                                
+  CREATE UNIQUE INDEX SYSIBM.DSNSVC01                                           
+         ON "SYSIBM"."DSNSERVICE"                                               
+         ( "COLLID"     ASC,                                                    
+           "NAME"       ASC)                                                    
+         FREEPAGE 0 PCTFREE 10                                                  
+         CLUSTER BUFFERPOOL BP0                                                 
+         CLOSE NO;                                                              
+/*                                                                              

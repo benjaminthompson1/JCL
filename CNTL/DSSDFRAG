@@ -1,0 +1,14 @@
+//IUDFRAG JOB  (FB3),'DSS DEFRAG',CLASS=A,MSGCLASS=H,                           
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: RELOCATES DATA SET EXTENTS ON A DASD VOLUME             *          
+//*                                                                  *          
+//* NOTES: PARM='TYPRUN=NORUN' <== TEST JOB                          *          
+//*                                                                  *          
+//********************************************************************          
+//DEFRAG  EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                        
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+   DEFRAG DYNAM(USER0D) CONSOLIDATE WRC                                         
+/*                                                                              

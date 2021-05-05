@@ -1,0 +1,43 @@
+//IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                     JOB04867
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: DB2 COBOL COMPILE, BIND AND GO                          *          
+//*                                                                  *          
+//********************************************************************          
+//COMPILE  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                              
+//         CPARM='SQL,TEST',                                                    
+//         BPARM='DYNAM=NO',                                                    
+//         GOPGM=COBTESTD                                                       
+//COBOL.STEPLIB DD DISP=SHR,DSN=DSNC10.DBCG.SDSNEXIT                            
+//              DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
+//COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.LEARN.COPYLIB                           
+//COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.LEARN.COBOL(&GOPGM)                     
+//COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                    
+//COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.LEARN.DBRMLIB(&GOPGM)                   
+//BIND.SYSLIB   DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
+//              DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD                              
+//BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                    
+//BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD(&GOPGM)                      
+//DB2BIND  EXEC PGM=IKJEFT01                                                    
+//STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBCG)                                                              
+  BIND PACKAGE(BENCOLL) MEMBER(COBTESTD) +                                      
+       LIBRARY('IBMUSER.LEARN.DBRMLIB') +                                       
+       EXPLAIN(YES) +                                                           
+       ACTION(REPLACE)                                                          
+  BIND PLAN(BENPLAN) PKLIST(BENCOLL.COBTESTD)                                   
+  END                                                                           
+//DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              
+//STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
+//         DD  DISP=SHR,DSN=EQAE10.SEQAMOD                                      
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBCG)                                                              
+  RUN PROGRAM(COBTESTD) PLAN(BENPLAN) LIBRARY('IBMUSER.LEARN.LOAD') +           
+    PARM('/TEST(,,,TCPIP&10.1.1.36%8001:*)')                                    
+  END                                                                           
+/*                                                                              

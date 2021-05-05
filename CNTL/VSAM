@@ -1,0 +1,23 @@
+//IUIDCAMS JOB  (FB3),'IDCAMS CATALOG',CLASS=A,MSGCLASS=H,              00010000
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                            00020000
+//********************************************************************  00030000
+//*                                                                  *  00040000
+//* PURPOSE: IDCAMS                                                  *  00050000
+//*                                                                  *  00060000
+//********************************************************************  00070000
+//CREATE   EXEC PGM=IDCAMS,REGION=0M                                    00071000
+//SYSPRINT DD SYSOUT=*                                                  00072000
+//SYSIN    DD *                                                         00073000
+  DEFINE CLUSTER -                                                      00080000
+        (NAME (IBMUSER.DFAT.FSCN)  -                                    00090000
+         KEYS (9 0)             -                                       00110000
+         SHR  (2 3))            -                                       00120000
+        DATA                    -                                       00130000
+        (NAME (IBMUSER.DFAT.FSCN.DATA) -                                00140000
+         RECSZ (150 150)        -                                       00150000
+         CISZ  (4096)           -                                       00160000
+         FREESPACE (0 0)        -                                       00170000
+         CYL   (500 200))       -                                       00180000
+        INDEX                   -                                       00190000
+        (NAME (IBMUSER.DFAT.FSCN.INDEX) -                               00200000
+         CISZ  (4096))                                                  00210000

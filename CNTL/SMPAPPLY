@@ -1,0 +1,30 @@
+//IUAPPLY JOB  (FB3),'SMPE APPLY',CLASS=A,MSGCLASS=H,                           
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                             
+//* PURPOSE: SMP/E APPLY                                                        
+//*                                                                             
+//* NOTES:                                                                      
+//* 1) #globalzone - SMP/E GLOBAL ZONE NAME                                     
+//*                                                                             
+//* 2) #target     - SMP/E TARGET ZONE NAME                                     
+//*                                                                             
+//* 3) #smplogdsn  - SMPLOG DATASET NAME - OPTIONAL                             
+//*                                                                             
+//********************************************************************          
+//APPLY  EXEC PGM=GIMSMP,REGION=0M,TIME=NOLIMIT                                 
+//SMPLOG   DD SYSOUT=*                                                          
+//*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
+//SMPCSI   DD DSN=#globalzone,                                                  
+//            DISP=SHR                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPCNTL  DD *                                                                 
+ SET BDY(#target) .                                                             
+   APPLY CHECK                                                                  
+   BYPASS(HOLDSYS)                                                              
+   GROUPEXTEND                                                                  
+   COMPRESS(ALL) .                                                              
+/*                                                                              
+//                                                                              
+   S (UI64830,UI64837,UI64839)                                                  
+   SOURCEID(FIX29)                                                              

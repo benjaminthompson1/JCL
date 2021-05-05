@@ -1,0 +1,30 @@
+//ICKDSF01 JOB  (FB3),'INIT 3380 DASD',CLASS=A,MSGCLASS=H,                      
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: 3390 INITIALIZE VOLUME                                  *          
+//*                                                                  *          
+//* NOTES: VARY DEVICE ONLINE/OFFLINE AT LEAST ONCE BEFORE           *          
+//*        RUNNING THIS JOB, OR I/O ERROR WILL OCCURAND NOT          *          
+//*        INITIALIZE                                                *          
+//*                                                                  *          
+//* CHANGE: VVVV - TO CUA ADDRESS OF DASD                            *          
+//*         NEWNNN - TO NEW DASD VOLID                               *          
+//*                                                                  *          
+//* THEN PLACE A VVDS AT CYL 0 TRK 10-14 WITH JOB IDCDEFVV           *          
+//*                                                                  *          
+//********************************************************************          
+//STEP01  EXEC PGM=ICKDSF,REGION=0M                                             
+//SYSPRINT  DD SYSOUT=*                                                         
+//SYSIN     DD *                                                                
+ INIT -                                                                         
+      MAP                /*  MAP DEFECTS           */ -                         
+      UNIT(VVVV)         /*  ADDRESS               */ -                         
+      NOCHECK -                                                                 
+      CONTINUE -                                                                
+      NOVERIFY           /*  DO NOT CHECK VOLID    */ -                         
+      VTOC(9,0,900)      /*  900 TRK VTOC          */ -                         
+      INDEX(0,1,134)     /*  134 TRK INDEX         */ -                         
+      OWNERID('IBMUSER') -                                                      
+      VOLID(NEWNNN)      /*  NEW VOLID             */                           
+//*                                                                             

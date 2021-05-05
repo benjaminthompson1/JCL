@@ -1,0 +1,17 @@
+//IUCOBOL JOB (FB3),'COBOL CB',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: COBOL COMPILE AND BIND                                  *          
+//*                                                                  *          
+//********************************************************************          
+//COBCB1  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                               
+//             CPARM=TEST,                                                      
+//             GOPGM=HELLOW                                                     
+//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.LEARN.COPYLIB                            
+//COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.LEARN.COBOL(&GOPGM)                      
+//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                     
+//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD                               
+//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                     
+//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD(&GOPGM)                       

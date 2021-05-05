@@ -1,0 +1,14 @@
+//IUCOBOL JOB (FB3),'COBOL C',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: COBOL COMPILE                                           *          
+//*                                                                  *          
+//********************************************************************          
+//COBC1  EXEC IGYQC,LNGPRFX=IGY630,LIBPRF1=CEE,                                 
+//            CPARM=TEST,                                                       
+//            GOPGM=HELLOW                                                      
+//SYSLIB DD   DISP=SHR,DSN=IBMUSER.LEARN.COPYLIB                                
+//SYSIN  DD   DISP=SHR,DSN=IBMUSER.LEARN.COBOL(&GOPGM)                          
+//SYSLIN DD   DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                         

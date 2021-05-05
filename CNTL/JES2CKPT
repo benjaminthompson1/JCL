@@ -1,0 +1,16 @@
+//IUJCHPT JOB  (FB3),'JES2 CHPT',CLASS=A,MSGCLASS=H,                            
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: CREATE JES2 CHECKPOINT DATA SETS                        *          
+//*          ALLOCATED TO NON SMS VOLUME A4SYS1                      *          
+//*                                                                  *          
+//********************************************************************          
+//ALLOCAT EXEC PGM=IEFBR14                                                      
+//CHECK1  DD DSN=SYS1.Z24C.CKPT1,UNIT=SYSDA,                                    
+//           VOLUME=SER=C4SYS1,DISP=(NEW,KEEP),                                 
+//           SPACE=(TRK,300),DCB=(DSORG=PSU)                                    
+//*                                                                             
+//CHECK2  DD DSN=SYS1.Z24C.CKPT2,UNIT=SYSDA,                                    
+//           VOLUME=SER=C4SYS1,DISP=(NEW,KEEP),                                 
+//           SPACE=(TRK,300),DCB=(DSORG=PSU)                                    

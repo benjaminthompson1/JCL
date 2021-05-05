@@ -1,0 +1,16 @@
+//IUJAVA JOB  (FB3),'JAVA',CLASS=A,MSGCLASS=H,                                  
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: VERIFY JAVA                                             *          
+//*                                                                  *          
+//********************************************************************          
+//MOUNTZFS EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDOUT DD SYSOUT=*                                                            
+//STDERR DD SYSOUT=*                                                            
+//SYSTSIN DD *                                                                  
+  BPXBATCH SH +                                                                 
+  /usr/lpp/java/J8.0_64/bin/java -version                                       

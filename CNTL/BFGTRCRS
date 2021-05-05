@@ -1,0 +1,44 @@
+//IUMQFTE JOB  (FB3),'FTE ADMIN',CLASS=A,MSGCLASS=H,                    JOB00690
+//        NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                         
+//*                                                                             
+//********************************************************************          
+//* <copyright                                                                  
+//* notice="lm-source"                                                          
+//* pids="5655-MF9"                                                             
+//* years="2013,2016"                                                           
+//* crc="3927276320" >                                                          
+//* Licensed Materials - Property of IBM                                        
+//*                                                                             
+//* 5655-MF9                                                                    
+//*                                                                             
+//* (C) Copyright IBM Corp. 2013, 2016 All Rights Reserved.                     
+//* </copyright>                                                                
+//********************************************************************          
+//* fteCreateTransfer Sample                                                    
+//* Transfer the contents of ADV910.SBFGCMDS.CSQ9FTEA                           
+//* to distributed agent's /tmp/JCL/ directory as text                          
+//* converting from EBCDIC to ASCII                                             
+//********************************************************************          
+//BFGCMD   EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSEXEC  DD DSN=ADV910.SBFGCMDS.CSQ9FTEA,DISP=SHR                             
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+ %BFGCMD CMD=fteCreateTransfer +                                                
+  -td /u/ibmuser/NAB01.xml                                                      
+/*                                                                              
+//                                                                              
+ %BFGCMD CMD=fteCreateTransfer -h                                               
+                                                                                
+  /* %BFGCMD CMD=fteCreateTransfer +                                            
+  /*    -p CSQ9    +                                                            
+  /*    -sa CSQ9FTEA               +                                            
+  /*    -da <destination-agent>    +                                            
+  /*    -dd /tmp/JCL               +                                            
+  /*    -t text                    +                                            
+  /*    -w 60                      +                                            
+  /*     "//'ADV910.SBFGCMDS.CSQ9FTEA'"                                         
+                                                                                
+/*                                                                              
+//                                                                              

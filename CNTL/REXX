@@ -1,0 +1,13 @@
+//IUREXX JOB (FB3),'REXX',CLASS=A,MSGCLASS=H,                                   
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: SUBMIT REXX IN BATCH                                    *          
+//*                                                                  *          
+//********************************************************************          
+//REXX     EXEC PGM=IRXJCL,PARM='MQRACF'                                        
+//* Next DD is the data set equivalent to terminal                              
+//SYSTSPRT DD SYSOUT=*                                                          
+//* Next DD points to a library of execs                                        
+//SYSEXEC  DD   DSN=IBMUSER.EXEC,DISP=SHR                                       

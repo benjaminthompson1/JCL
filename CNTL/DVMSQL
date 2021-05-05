@@ -1,0 +1,70 @@
+//IUDVMS JOB  (FB3),'DVM SQL',CLASS=A,MSGCLASS=H,                       JOB01593
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*                                                                             
+//DBPLANS  EXEC PGM=IKJEFT01,REGION=0M                                          
+//*        DB2 Runtime Libraries                                                
+//STEPLIB  DD DISP=SHR,DSN=DSNC10.DBCG.SDSNEXIT                                 
+//         DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                      
+//         DD DISP=SHR,DSN=DSNC10.SDSNLOD2                                      
+//         DD DISP=SHR,DSN=DSNC10.DBCG.RUNLIB.LOAD                              
+//DBRMLIB  DD DISP=SHR,DSN=DSNC10.SDSNDBRM                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+DSN SYSTEM(DBCG)                                                                
+   RUN -                                                                        
+     PROGRAM(DSNTEP2) -                                                         
+     PLAN(DSNTEP12)                                                             
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+                                                                                
+SET CURRENT SQLID = 'DVM';                                                      
+                                                                                
+CREATE DATABASE DVMDB                                                           
+CCSID UNICODE                                                                   
+BUFFERPOOL BP0                                                                  
+INDEXBP BP0;                                                                    
+COMMIT;                                                                         
+                                                                                
+CREATE TABLESPACE ZOFFITEM IN DVMDB                                             
+USING STOGROUP DB2ZDTSG                                                         
+PRIQTY -1 SECQTY -1                                                             
+FREEPAGE 0                                                                      
+PCTFREE  5                                                                      
+BUFFERPOOL BP0                                                                  
+MAXPARTITIONS 4096                                                              
+DSSIZE 4G                                                                       
+LOCKSIZE TABLESPACE;                                                            
+COMMIT;                                                                         
+                                                                                
+CREATE TABLE ZOFFICE_ITEM_SUPPLIER                                              
+ ( WS_ITEM_REF INT,                                                             
+   WS_MANUFACTURER_NAME varchar(20),                                            
+   WS_MANUFACTURER_ADDRESS varchar(30)                                          
+ ) IN DVMDB.ZOFFITEM;                                                           
+COMMIT;                                                                         
+                                                                                
+INSERT INTO ZOFFICE_ITEM_SUPPLIER                                               
+ ( WS_ITEM_REF ,                                                                
+   WS_MANUFACTURER_NAME,                                                        
+   WS_MANUFACTURER_ADDRESS)                                                     
+ VALUES                                                                         
+   (10, 'PENRUS' ,'Canberra' );                                                 
+                                                                                
+INSERT INTO ZOFFICE_ITEM_SUPPLIER                                               
+ ( WS_ITEM_REF ,                                                                
+   WS_MANUFACTURER_NAME,                                                        
+   WS_MANUFACTURER_ADDRESS)                                                     
+ VALUES                                                                         
+   (20, 'PENRUS' ,'Deakin' );                                                   
+                                                                                
+INSERT INTO ZOFFICE_ITEM_SUPPLIER                                               
+ ( WS_ITEM_REF ,                                                                
+   WS_MANUFACTURER_NAME,                                                        
+   WS_MANUFACTURER_ADDRESS)                                                     
+ VALUES                                                                         
+   (20, 'BIGPENS' ,'Germany' );                                                 
+COMMIT;                                                                         
+                                                                                
+SELECT WS_ITEM_REF, WS_MANUFACTURER_NAME, WS_MANUFACTURER_ADDRESS               
+FROM ZOFFICE_ITEM_SUPPLIER LIMIT 1000;                                          

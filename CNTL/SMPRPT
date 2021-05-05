@@ -1,0 +1,19 @@
+//IUREC JOB (FB3),'SMPE RECEIVE',CLASS=A,MSGCLASS=H,                            
+//          NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                       
+//*******************************************************************           
+//*                                                                             
+//* Create the consolidated inventory of products and service                   
+//* using the GIMXSID program introduced by SMP/E 3.2                           
+//*                                                                             
+//*******************************************************************           
+//*                                                                             
+//STEP1    EXEC PGM=GIMXSID,PARM='WAIT=10MIN,L=ENU'                             
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPOUT   DD SYSOUT=*                                                          
+//SMPXTOUT DD DSN=IBMUSER.ADV910.REPORT,DISP=(NEW,CATLG),                       
+//            DCB=(RECFM=FB,LRECL=12560,BLKSIZE=25120),                         
+//            SPACE=(TRK,(10,10))                                               
+//SYSIN    DD DATA,DLM=$$                                                       
+CSI=ADV910.GLOBAL.CSI                                                           
+TARGET=ADV910T                                                                  
+$$                                                                              

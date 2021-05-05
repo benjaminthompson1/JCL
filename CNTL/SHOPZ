@@ -1,0 +1,71 @@
+//IUSHOPZ JOB (FB3),'SHOPZ',CLASS=A,MSGCLASS=H,                                 
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//* DOWNLOAD TESTFILE TO TEST AN HTTPS DOWNLOAD.                                
+//*                                                                             
+//* READ ALL COMMENTS CAREFULLY AND MODIFY THEM TO SUIT YOUR                    
+//* ENVIRONMENT BEFORE SUBMITTING THE JOB.                                      
+//*                                                                             
+//* NOTE 1: CHANGE THE PATH NAME TO AN EXISTING PATH.                           
+//*                                                                             
+//* NOTE 2: DO NOT REMOVE OR COMMENT OUT THE JAVAHOME, DOWNLOADMETHOD,          
+//* OR DOWNLOADKEYRING ATTRIBUTES. THEY ARE ATTRIBUTES THAT                     
+//* ARE REQUIRED BY SMP/E AND MUST HAVE ASSIGNED VALUES.                        
+//*                                                                             
+//* NOTE 3: SPECIFY HTTP OR SOCKS PROXY SERVER INFORMATION IF NEEDED.           
+//*                                                                             
+//DWNHTTPS EXEC PGM=GIMGTPKG,COND=(4000,LT),REGION=0M                           
+//*                                                                             
+//SMPOUT DD SYSOUT=*                                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPNTS DD PATHDISP=KEEP,                                                      
+// PATH='/u/smpe/smpnts/'                                                       
+//*                                                                             
+//SMPSRVR DD *                                                                  
+<SERVER                                                                         
+host="deliverycb-bld.dhe.ibm.com"                                               
+user="B0000000"                                                                 
+pw="anonymous">                                                                 
+<PACKAGE                                                                        
+file="/GIMPAF.XML"                                                              
+hash="A90291034CCA32D4BDCA7244B2BA899EE1FA9FB0"                                 
+id="test.content">                                                              
+</PACKAGE>                                                                      
+</SERVER>                                                                       
+/*                                                                              
+//SMPCLNT DD *                                                                  
+<!-- -->                                                                        
+<!-- NOTE 2: -->                                                                
+<!-- FOR THE JAVAHOME ATTRIBUTE, SPECIFY THE LOCATION OF THE JAVA -->           
+<!-- RUNTIME LIBRARIES BY REPLACING XXXX IN THE JAVAHOME ATTRIBUTE -->          
+<!-- TO THE LEVEL OF JAVA RUNNING ON YOUR SYSTEM. -->                           
+<!-- FOR THE DOWNLOADKEYRING ATTRIBUTE, ENSURE THE APPROPRIATE -->              
+<!-- GLOBAL ROOT CA CERTIFICATES ARE CONNECTED TO THE KEYRING WITH -->          
+<!-- TRUST STATUS AND SPECIFY THE SECURITY MANAGER KEYRING OR -->               
+<!-- CERTAUTH VIRTUAL KEYRING (*AUTH*/*), OR KEEP THE KEYWORD -->               
+<!-- JAVATRUSTSTORE. FOR MORE INFORMATION, SEE THE CONNECTIVITY -->             
+<!-- TEST INSTRUCTIONS FILE. -->                                                
+<!-- -->                                                                        
+<CLIENT retry="3"                                                               
+javahome="/usr/lpp/java/J8.0_64"                                                
+downloadmethod="https"                                                          
+downloadkeyring="javatruststore">                                               
+</CLIENT>                                                                       
+/*                                                                              
+<!-- -->                                                                        
+<!-- NOTE 3: -->                                                                
+<!-- ALL HTTP AND SOCKS PROXY SERVER TAGS BELOW ARE COMMENTED OUT. -->          
+<!-- REMOVE THE XML COMMENT START AND END TAGS TO SPECIFY HTTP OR -->           
+<!-- SOCKS PROXY SERVER INFORMATION AND ADD THEM BEFORE THE ENDING -->          
+<!-- CLIENT TAG ABOVE. THE TAGS ARE OPTIONAL AND ARE DEFINED BY -->             
+<!-- SMP/E. FOR INFORMATION ABOUT THEM, SEE SMP/E COMMANDS. -->                 
+<!-- -->                                                                        
+<!-- <HTTPPROXY HOST="SERVER NAME|SERVER IP ADDRESS" -->                        
+<!-- USER="USERID" PW="PASSWORD" PORT="NUMBER"> -->                             
+<!-- </HTTPPROXY> -->                                                           
+<!-- -->                                                                        
+<!-- <HTTPSOCKSPROXY HOST="SERVER NAME|SERVER IP ADDRESS" -->                   
+<!-- USER="USERID" PW="PASSWORD" PORT="NUMBER"> -->                             
+<!-- </HTTPSOCKSPROXY> -->                                                      
+<!-- -->                                                                        
+//*                                                                             

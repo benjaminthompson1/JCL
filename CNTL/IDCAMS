@@ -1,0 +1,28 @@
+//IUIDCAMS JOB  (FB3),'IDCAMS CATALOG',CLASS=A,MSGCLASS=H,                      
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: IDCAMS                                                  *          
+//*                                                                  *          
+//********************************************************************          
+//CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  LISTCAT -                                                                     
+  ENTRIES(DSNC10.DBCG.SDSNEXIT) -                                               
+  ALL                                                                           
+/*                                                                              
+//                                                                              
+//* CREATE DATASET ALIAS                                                        
+ DEFINE ALIAS (NAME(DSNC10.SDSNEXIT) -                                          
+        RELATE(DSNC10.DBCG.SDSNEXIT))                                           
+//                                                                              
+//* REPRO DUMP VSAM DATASET                                                     
+//INDD DD DSN=IBMUSER.DFAT.FSCN.AIX,DISP=SHR                                    
+//OUTDD DD DSN=IBMUSER.DFAT.REPRO,DISP=(NEW,CATLG,DELETE),                      
+// SPACE=(CYL,(2,2)),UNIT=DASD                                                  
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN DD *                                                                    
+  REPRO INFILE(INDD) OUTFILE(OUTDD)                                             
+/*                                                                              
+                                                                                

@@ -1,0 +1,63 @@
+//IUZERT JOB (FB3),'ZERT SEC',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//STEP1  EXEC PGM=IKJEFT01,DYNAMNBR=99                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+                                                                                
+ /*                                                                */           
+ /*  Begin "zERT Network Analyzer" Setup                           */           
+ /*                                                                */           
+                                                                                
+ /*   Profile Definitions for "zERT Network Analyzer"              */           
+ RDEFINE ZMFAPLA IZUDFLT.ZOSMF.ZERT_NETWORK_ANALYZER +                          
+  UACC(NONE)                                                                    
+ RDEFINE EJBROLE IZUDFLT.IzuZertNetworkAnalyzer.izuUsers +                      
+  UACC(NONE)                                                                    
+                                                                                
+ /*                                                                */           
+ /*  Create the zERT Network Analyzer group                        */           
+ /*                                                                */           
+ ADDGROUP IZUZNA OMVS(AUTOGID)                                                  
+ PERMIT IZUDFLT            CLASS(APPL)    ID(IZUZNA) ACCESS(READ)               
+ PERMIT IZUDFLT.IzuZertNetworkAnalyzer.izuUsers CLASS(EJBROLE) +                
+  ID(IZUZNA) ACCESS(READ)                                                       
+ PERMIT IZUDFLT.ZOSMF      CLASS(ZMFAPLA) ID(IZUZNA) ACCESS(READ)               
+ PERMIT IZUDFLT.ZOSMF.ZERT_NETWORK_ANALYZER CLASS(ZMFAPLA) +                    
+  ID(IZUZNA) ACCESS(READ)                                                       
+                                                                                
+ /*                                                                */           
+ /*   End Create the zERT Network Analyzer group                   */           
+ /*                                                                */           
+                                                                                
+ /*                                                                */           
+ /*  Assign administrator privileges to IZUSVR                     */           
+ /*                                                                */           
+ RDEFINE EJBROLE +                                                              
+  IZUDFLT.com.ibm.ws.management.security.resource.Administrator +               
+  UACC(NONE)                                                                    
+ PERMIT +                                                                       
+  IZUDFLT.com.ibm.ws.management.security.resource.Administrator +               
+  CLASS(EJBROLE) ID(IZUSVR) ACCESS(READ)                                        
+ /*                                                                */           
+ /*   End Assign administrator privileges to IZUSVR                */           
+ /*                                                                */           
+                                                                                
+ /*  Connect the users of the zERT Network Analyzer to the         */           
+ /*  zERT Network Analyzer group                                   */           
+ /*  CONNECT USERID GROUP(IZUZNA)                                  */           
+ CONNECT IBMUSER GROUP(IZUZNA)                                                  
+ /*  End connect the users to zERT Network Analyzer group          */           
+                                                                                
+ /* Need to REFRESH these classes for Roles                        */           
+ SETROPTS RACLIST(APPL) REFRESH                                                 
+ SETROPTS RACLIST(ZMFAPLA) REFRESH                                              
+ SETROPTS RACLIST(EJBROLE) REFRESH                                              
+                                                                                
+ /*                                                                */           
+ /*  End "zERT Network Analyzer" Setup                             */           
+ /*                                                                */           
+                                                                                
+/*                                                                              
+                                                                                

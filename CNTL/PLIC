@@ -1,0 +1,17 @@
+//IUPLIC JOB (FB3),'PLIC',CLASS=A,MSGCLASS=H,                                   
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: PL/I COMPILE                                            *          
+//*                                                                  *          
+//********************************************************************          
+// EXPORT SYMLIST=(COPYBK)                                                      
+// SET COPYBK=PLIZPER                                                           
+//PLI      EXEC IBMZC,REGION=0M,PARM='AGGREGATE'                                
+//SYSLIB   DD  DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                               
+//SYSIN    DD  *,SYMBOLS=JCLONLY                                                
+ PICSPLI: PROC OPTIONS(MAIN);                                                   
+ %INCLUDE SYSLIB(&COPYBK);                                                      
+ END;                                                                           
+/*                                                                              

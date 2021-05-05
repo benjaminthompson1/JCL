@@ -1,0 +1,38 @@
+//IUHOLD JOB  (FB3),'SMPE HOLD',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//********************************************************************          
+//*                                                                             
+//* PURPOSE: SMP/E HOLDDATA LIST                                                
+//* You can limit which HOLDDATA entries are listed by coding one or            
+//* more of the following operands:                                             
+//*                                                                             
+//*     HOLDERROR                                                               
+//*     HOLDSYSTEM                                                              
+//*     HOLDUSER                                                                
+//*                                                                             
+//* If you specify more than one type of hold, SMP/E lists only                 
+//* entries containing holds for all the specified types. For example,          
+//* the following commands list all HOLDDATA entries with both                  
+//* HOLDERROR and HOLDSYSTEM reason IDs:                                        
+//*                                                                             
+//*   SET      BDY(GLOBAL)    /* set to global zone       */.                   
+//*   LIST     HOLDDATA       /* list only the HOLDDATA   */                    
+//*            HOLDERROR      /* entries that contain     */                    
+//*            HOLDSYSTEM     /* both error and system    */                    
+//*                           /* holds                    */.                   
+//*                                                                             
+//* NOTES:                                                                      
+//* 1) #globalzone - SMP/E GLOBAL ZONE NAME                                     
+//*                                                                             
+//********************************************************************          
+//REPORT EXEC PGM=GIMSMP,PARM='DATE=U',REGION=0M                                
+//SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
+//SMPOUT   DD SYSOUT=*                                                          
+//SMPRPT   DD SYSOUT=*                                                          
+//SMPHOLD  DD DUMMY                                                             
+//SMPCNTL  DD *                                                                 
+    SET BOUNDARY(GLOBAL) .                                                      
+    LIST SYSMODS HOLDSYS HOLDDATA.                                              
+    LIST SYSMODS HOLDERR HOLDDATA.                                              
+    LIST HOLDSYSTEM .                                                           
+/*                                                                              

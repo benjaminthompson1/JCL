@@ -1,0 +1,88 @@
+//IUECAT JOB  (FB3),'DFH$ECAT',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*********************************************************************         
+//*                                                                   *         
+//*                                                                   *         
+//*                                                                   *         
+//*     Licensed Materials - Property of IBM                          *         
+//*                                                                   *         
+//*     "Restricted Materials of IBM"                                 *         
+//*                                                                   *         
+//*     5655-Y04                                                      *         
+//*                                                                   *         
+//*     (C) Copyright IBM Corp. 2005, 2007"                           *         
+//*                                                                   *         
+//*                                                                   *         
+//*                                                                   *         
+//*                                                                   *         
+//* STATUS = 7.1.0                                                    *         
+//*                                                                   *         
+//* CHANGE ACTIVITY :                                                 *         
+//*          $MOD(DFH$ECAT),COMP(SAMPLES),PROD(CICS TS ):             *         
+//*                                                                   *         
+//*      PN= REASON REL YYMMDD HDXXIII : REMARKS                      *         
+//*     $D0= I07544 640 050114 HDIPCB  : Example App Cics Client      *         
+//*     $P0= D16161 650 061207 HDHCPC  : Fix typo in comments         *         
+//*     $P1= D13975 650 060301 HDIKTG  : Remove sequence numbers      *         
+//*     $P2= D17982 650 070412 HD3SCWG : Modify for use by DFHINST    *         
+//*                                                                   *         
+//*********************************************************************         
+//*********************************************************************         
+//*                                                                   *         
+//* JCL NAME = DFH$ECAT                                               *         
+//*                                                                   *         
+//* DESCRIPTIVE NAME = Web Services example application               *         
+//*                                                                   *         
+//* FUNCTION =                                                        *         
+//*    This is sample JCL to build the catalog data file required     *         
+//*    by the base application of the web services example            *         
+//*    application                                                    *         
+//*                                                                   *         
+//*********************************************************************         
+//DEFKSDS EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                                
+//SYSPRINT DD SYSOUT=*                                                          
+//AMSDUMP  DD SYSOUT=*                                                          
+//SYSIN DD *                                                                    
+   DELETE IBMUSER.EXMPLAPP.EXMPCAT PURGE CLUSTER                                
+   SET MAXCC=0                                                                  
+   DEFINE CLUSTER (NAME(IBMUSER.EXMPLAPP.EXMPCAT)-                              
+          TRK(1 1) -                                                            
+          KEYS(4 0) -                                                           
+          RECORDSIZE(80,80) -                                                   
+          SHAREOPTIONS(2 3) -                                                   
+          INDEXED -                                                             
+          ) -                                                                   
+          DATA (NAME(IBMUSER.EXMPLAPP.EXMPCAT.DATA) -                           
+          ) -                                                                   
+          INDEX (NAME(IBMUSER.EXMPLAPP.EXMPCAT.INDEX) -                         
+          )                                                                     
+//*                                                                             
+//CPYKSDS  EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                               
+//SYSPRINT DD SYSOUT=*                                                          
+//AMSDUMP  DD SYSOUT=*                                                          
+//INFILE   DD *                                                                 
+0010Ball Pens Black 24pk                    010002.900135000                    
+0020Ball Pens Blue 24pk                     010002.900006050                    
+0030Ball Pens Red 24pk                      010002.900106000                    
+0040Ball Pens Green 24pk                    010002.900080000                    
+0050Pencil with eraser 12pk                 010001.780083000                    
+0060Highlighters Assorted 5pk               010003.890013040                    
+0070Laser Paper 28-lb 108 Bright 500/ream   010007.440102020                    
+0080Laser Paper 28-lb 108 Bright 2500/case  010033.540025000                    
+0090Blue Laser Paper 20lb 500/ream          010005.350022000                    
+0100Green Laser Paper 20lb 500/ream         010005.350003020                    
+0110IBM Network Printer 24 - Toner cart     010169.560012000                    
+0120Standard Diary: Week to view 8 1/4x5 3/4010025.990007000                    
+0130Wall Planner: Eraseable 36x24           010018.850003000                    
+014070 Sheet Hard Back wire bound notepad   010005.890084000                    
+0150Sticky Notes 3x3 Assorted Colors 5pk    010005.350036045                    
+0160Sticky Notes 3x3 Assorted Colors 10pk   010009.750067030                    
+0170Sticky Notes 3x6 Assorted Colors 5pk    010007.550064030                    
+0180Highlighters Yellow 5pk                 010003.490088010                    
+0190Highlighters Blue 5pk                   010003.490076020                    
+020012 inch clear rule 5pk                  010002.120014010                    
+0210Clear sticky tape 5pk                   010004.270073000                    
+//OUTFILE  DD DSN=IBMUSER.EXMPLAPP.EXMPCAT,DISP=SHR                             
+//SYSIN DD *                                                                    
+ REPRO INFILE(INFILE) OUTFILE(OUTFILE)                                          
+//                                                                              

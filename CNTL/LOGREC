@@ -1,0 +1,12 @@
+//IULOGRC JOB (FB3),'CLEAR LOGREC',CLASS=A,MSGCLASS=H,                          
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* CLEAR AND INITIALIZE HARDWARE EVENT RECORDER DATASET             *          
+//*                                                                  *          
+//********************************************************************          
+//IFCDIP00 EXEC PGM=IFCDIP00                                                    
+//SERERDS  DD  DSN=SYS1.S0W1.LOGREC,DISP=OLD,                                   
+//             VOL=SER=C4SYS1,                                                  
+//             UNIT=SYSDA                                                       

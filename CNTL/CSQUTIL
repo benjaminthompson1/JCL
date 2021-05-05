@@ -1,0 +1,64 @@
+//IUCSQUT JOB (FB3),'CSQUTIL',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: COBOL COMPILE                                           *          
+//*                                                                  *          
+//********************************************************************          
+//*                                                                             
+//* MAKEDEF DEFINE NOREPLACE, WITH ALL THE ATTRIBUTES                           
+//* AND VALUES RETURNED BY THE DISPLAY COMMANDS.                                
+//*                                                                             
+//* MAKEDEL DELETE. FOR LOCAL QUEUES, NOPURGE IS USED.                          
+//*                                                                             
+//* MAKEREP DEFINE REPLACE, WITH ANY KEYWORDS AND VALUES                        
+//* FROM THE DATA SET SPECIFIED BY THE DATA KEYWORD.                            
+//*                                                                             
+//* MAKEALT ALTER, WITH ANY KEYWORDS AND VALUES FROM THE                        
+//* DATA SET SPECIFIED BY THE DATA KEYWORD.                                     
+//*                                                                             
+//CQSUTIL  EXEC PGM=CSQUTIL,PARM='CSQ9'                                         
+//STEPLIB  DD DISP=SHR,DSN=CSQ911.SCSQANLE                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//*OUTPUT1  DD DISP=(NEW,CATLG,DELETE),DSN=IBMUSER.USRDEF,                      
+//*            BLKSIZE=0,LRECL=80,RECFM=FB,SPACE=(CYL,(1,1))                    
+//*SYSIN    DD *                                                                
+//*   COMMAND DD(CMDINP) MAKEALT(OUTPUT1)                                       
+//SYSIN   DD *                                                                  
+     COMMAND                                                                    
+//CSQUCMD DD *                                                                  
+  CLEAR QL(IBMUSER.TEST)                                                        
+/*                                                                              
+//                                                                              
+//CMDINP  DD *                                                                  
+     DISPLAY CHANNEL(*) ALL                                                     
+/*                                                                              
+//                                                                              
+     DISPLAY QMGR ALL                                                           
+     DISPLAY STGCLASS(*) ALL                                                    
+     DISPLAY QUEUE(*) ALL                                                       
+     DISPLAY NAMELIST(*) ALL                                                    
+     DISPLAY PROCESS(*) ALL                                                     
+     DISPLAY CHANNEL(*) ALL                                                     
+//*                                                                             
+//* TO MOVE QUEUES AND THEIR MESSAGES FROM ONE PAGE SET TO ANOTHER              
+//*                                                                             
+//MOVEQ  DD    *                                                                
+  ALTER QL(QUEUE_TO_MOVE) PUT(DISABLED)                                         
+  DELETE QL(TEMP_QUEUE) PURGE                                                   
+  DEFINE QL(TEMP_QUEUE) LIKE(QUEUE_TO_MOVE) PUT(ENABLED) GET(ENABLED)           
+  MOVE QLOCAL(QUEUE_TO_MOVE) TOQLOCAL(TEMP_QUEUE)                               
+  DELETE QL(QUEUE_TO_MOVE)                                                      
+  DEFINE STGCLASS(NEW) PSID(2)                                                  
+  DEFINE QL(QUEUE_TO_MOVE) LIKE(TEMP_QUEUE) STGCLASS(NEW)                       
+  MOVE QLOCAL(TEMP_QUEUE) TOQLOCAL(QUEUE_TO_MOVE)                               
+  DELETE QL(TEMP_QUEUE)                                                         
+                                                                                
+//*                                                                             
+//* DISPLAY SELECT ATTRIBUTES                                                   
+//*                                                                             
+//ATTR   DD    *                                                                
+  DISPLAY QL(*) QDEPTHHI WHERE(QDEPTHHI EQ 5)                                   
+                                                                                
+  DISPLAY QUEUE(SYSTEM.*) WHERE (STGCLASS EQ SYSTEM)                            

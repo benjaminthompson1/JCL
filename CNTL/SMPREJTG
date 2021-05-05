@@ -1,0 +1,29 @@
+//IUREJECT JOB  (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                         
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: SMP/E REJECT                                            *          
+//*          REJECT ALL RECEIVED-ONLY                                *          
+//*                                                                  *          
+//* NOTES:                                                           *          
+//* 1) #globalzone - SMP/E GLOBAL ZONE NAME                          *          
+//*                                                                  *          
+//* 2) #smplogdsn - SMPLOG DATASET NAME                              *          
+//*                                                                  *          
+//********************************************************************          
+//RECNTS   EXEC PGM=GIMSMP,REGION=0M,                                           
+//         PARM='CSI=#globalzone'                                               
+//SMPOUT   DD SYSOUT=*                                                          
+//SMPLOG   DD SYSOUT=*                                                          
+//*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
+//*SMPJHOME DD PATH='/usr/lpp/java/xxxx/',PATHDISP=KEEP                         
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(100,20))                                   
+//SYSUT2   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
+//SYSUT3   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
+//SYSUT4   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPCNTL  DD *                                                                 
+ SET BDY(GLOBAL).                                                               
+ REJECT                                                                         
+ CHECK.                                                                         
+/*                                                                              

@@ -1,0 +1,29 @@
+//XBTC4 JOB (STG,1206),'EXT 97693',                                     00000110
+//      CLASS=A,MSGCLASS=X,REGION=0M,TIME=1440,                         00000210
+//      NOTIFY=XBT,USER=XBT TYPRUN=HOLD                                 00000314
+//*****************************************************************/    00011614
+//* DFSMSDSS FULL VOLUME DUMP                                     */    00011714
+//*****************************************************************/    00011814
+//BACKUP   EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                         00012113
+//SYSPRINT DD SYSOUT=*                                                  00012205
+//INDD     DD VOL=SER=DRPAK1,UNIT=SYSDA,DISP=OLD                        00012312
+//OUTDD    DD DSN=XBT.DRPAK1.MAINT.BACKUP,DISP=(,CATLG),                00018012
+//         DCB=TRTCH=COMP,                                              00019014
+//         UNIT=TAPE,RETPD=30                                           00020014
+//SYSIN DD *                                                            00030005
+ DUMP FULL OPT(4) -                                                     00040007
+      ALLD(*) ALLX -                                                    00050005
+      INDD(INDD) -                                                      00060008
+      OUTDD(OUTDD) -                                                    00070015
+      CONCURRENT                                                        00071015
+/*                                                                      00080005
+//*****************************************************************/    00090014
+//* VERIFY BACKUP TAPE                                            */    00100014
+//*****************************************************************/    00110014
+//VERIFY  EXEC PGM=ADRDSSU,COND=(5,LT),REGION=4096K                     00130009
+//SYSPRINT DD  SYSOUT=*                                                 00140009
+//DUMMY    DD  DUMMY                                                    00150009
+//TAPE     DD  DSN=*.BACKUP.OUTDD,DISP=(OLD,KEEP),UNIT=TAPE             00160009
+//SYSIN    DD  *                                                        00170009
+ COPYDUMP INDD(TAPE) OUTDD(DUMMY)                                       00180009
+/*                                                                      00190009

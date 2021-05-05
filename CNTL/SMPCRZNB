@@ -1,0 +1,292 @@
+//IUCZONEB JOB  (FB3),'SMPE DATASETS',CLASS=A,MSGCLASS=H,               JOB00634
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: SMP/E CREATE DATASET AND DDDEFS FOR GLOBAL ZONE         *          
+//*                                                                  *          
+//* NOTES:                                                           *          
+//*  1) THIS JOB IS OPTIONAL. EXECUTE THIS JOB ONLY IF YOU           *          
+//*     DEFINED A NEW SMP/E CSI DATA SET. THIS JOB                   *          
+//*     INITIALIZES THE CSI ZONES, ALLOCATES SMP/E DATA SETS,        *          
+//*     AND CREATES NECESSARY DDDEF ENTRIES REQUIRED BY SMP/E.       *          
+//*  2) CHANGE THE JOB CARD TO MEET YOUR SYSTEM'S REQUIREMENTS.      *          
+//*  3) REVIEW ALL OF THE STATEMENTS BEFORE SUBMITTING               *          
+//*     THIS JOB.                                                    *          
+//*  4) CHANGE DRL210 TO THE APPROPRIATE HIGH-LEVEL QUALIFIER        *          
+//*     THAT COMPLIES WITH YOUR SITE'S NAMING STANDARDS.             *          
+//*  5) CHANGE DRL210.GLOBAL.CSI TO THE DATA SET NAME OF YOUR        *          
+//*     CSI DATA SET.                                                *          
+//*  6) SYSALLDA IS THE DEFAULT UNIT IDENTIFICATION.                 *          
+//*     CHANGE THIS, IF REQUIRED, TO                                 *          
+//*     THE APPROPRIATE UNIT IDENTIFICATION.                         *          
+//*  7) CHANGE USER0A TO A VALID VOLUME SERIAL FOR THE               *          
+//*     SMP/E ENVIRONMENT.                                           *          
+//*  8) CHANGE DRL210T TO THE NAME OF YOUR TARGET ZONE.              *          
+//*  9) CHANGE DRL210D TO THE NAME OF YOUR DISTRIBUTION ZONE.        *          
+//* 10) CHANGE THE ZOSOPT FIELD TO A VALID OPTIONS NAME              *          
+//*     THAT COMPLIES WITH YOUR SITE'S NAMING CONVENTIONS.           *          
+//*                                                                  *          
+//********************************************************************          
+//*                                                                             
+//AVZALB   PROC SMPPRE='DRL210',                                                
+//             SMPVOL=USER0A,                                                   
+//             SMPUNIT=SYSALLDA                                                 
+//INITSMP  EXEC PGM=GIMSMP,REGION=0M                                            
+//*                                                                             
+//**************************************************************/               
+//*               INITIALIZE CSI DATA SET                      */               
+//**************************************************************/               
+//*                                                                             
+//SYSPRINT  DD SYSOUT=*                                                         
+//SMPCSI    DD DSN=DRL210.GLOBAL.CSI,                                           
+//             DISP=OLD                                                         
+//SMPLIST   DD SYSOUT=*                                                         
+//*                                                                             
+//**************************************************************/               
+//*                   SMP DATA SETS                            */               
+//**************************************************************/               
+//*                                                                             
+//SMPLOG   DD DSN=&SMPPRE..SMPLOG,DISP=(NEW,CATLG),                             
+//            UNIT=&SMPUNIT,VOL=SER=&SMPVOL,                                    
+//            DCB=(RECFM=VB,LRECL=510,BLKSIZE=0),                               
+//            SPACE=(3200,(6000,3000),,,ROUND)                                  
+//SMPLOGA  DD DSN=&SMPPRE..SMPLOGA,DISP=(NEW,CATLG),                            
+//            UNIT=&SMPUNIT,VOL=SER=&SMPVOL,                                    
+//            DCB=(RECFM=VB,LRECL=510,BLKSIZE=0),                               
+//            SPACE=(3200,(6000,3000),,,ROUND)                                  
+//SMPMTS   DD DSN=&SMPPRE..SMPMTS,DISP=(NEW,CATLG),                             
+//            UNIT=&SMPUNIT,VOL=SER=&SMPVOL,                                    
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
+//            SPACE=(3120,(60,20,60),,,ROUND)                                   
+//SMPPTS   DD DSN=&SMPPRE..SMPPTS,DISP=(NEW,CATLG),                             
+//            UNIT=&SMPUNIT,VOL=SER=&SMPVOL,                                    
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
+//            SPACE=(3120,(400,200,300),,,ROUND)                                
+//SMPSCDS  DD DSN=&SMPPRE..SMPSCDS,DISP=(NEW,CATLG),                            
+//            UNIT=&SMPUNIT,VOL=SER=&SMPVOL,                                    
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
+//            SPACE=(3120,(400,100,300),,,ROUND)                                
+//SMPSTS   DD DSN=&SMPPRE..SMPSTS,DISP=(NEW,CATLG),                             
+//            UNIT=&SMPUNIT,VOL=SER=&SMPVOL,                                    
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
+//            SPACE=(3120,(400,100,150),,,ROUND)                                
+//SMPLTS   DD DSN=&SMPPRE..SMPLTS,DISP=(NEW,CATLG),                             
+//            UNIT=&SMPUNIT,VOL=SER=&SMPVOL,                                    
+//            DCB=(RECFM=U,LRECL=0,BLKSIZE=32760),                              
+//            DSNTYPE=LIBRARY,                                                  
+//            SPACE=(6144,(850,250,150),,,ROUND)                                
+//SMPWRK1  DD UNIT=&SMPUNIT,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=6160            
+//SMPWRK2  DD UNIT=&SMPUNIT,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=6160            
+//SMPWRK3  DD UNIT=&SMPUNIT,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200            
+//SMPWRK4  DD UNIT=&SMPUNIT,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200            
+//SMPWRK6  DD UNIT=&SMPUNIT,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200            
+//SYSUT1   DD UNIT=&SMPUNIT,SPACE=(CYL,(150,50))                                
+//SYSUT2   DD UNIT=&SMPUNIT,SPACE=(CYL,(150,50))                                
+//SYSUT3   DD UNIT=&SMPUNIT,SPACE=(CYL,(150,50))                                
+//SYSUT4   DD UNIT=&SMPUNIT,SPACE=(CYL,(150,50))                                
+//*                                                                             
+//AVZALB   PEND                                                                 
+//ZONING   EXEC AVZALB                                                          
+//*                                                                             
+//**************************************************************/               
+//*              ALLOCATION AND INITIALIZATION                 */               
+//**************************************************************/               
+//*                                                                             
+//SMPCNTL  DD *                                                                 
+  SET BDY(GLOBAL).                                                              
+   UCLIN .                                                                      
+    ADD OPTIONS(ZOSOPT)                                                         
+               DSPREFIX(DRL210)                                                 
+               DSSPACE(7500,500,200) .                                          
+    ADD GLOBALZONE                                                              
+            SREL(Z038)                                                          
+            OPTIONS(ZOSOPT) .                                                   
+    ENDUCL.                                                                     
+    SET BDY(GLOBAL).                                                            
+    UCLIN.                                                                      
+       ADD GZONE                                                                
+           ZONEINDEX(                                                           
+              (DRL210T,DRL210.GLOBAL.CSI,TARGET)                                
+                    )   .                                                       
+       ADD GZONE                                                                
+           ZONEINDEX(                                                           
+              (DRL210D,DRL210.GLOBAL.CSI,DLIB)                                  
+                    )   .                                                       
+   ENDUCL.                                                                      
+  SET BDY(DRL210T).                                                             
+   UCLIN.                                                                       
+    ADD TARGETZONE(DRL210T)                                                     
+        OPTIONS(ZOSOPT)                                                         
+        SREL(Z038)                                                              
+        RELATED(DRL210D).                                                       
+   ENDUCL.                                                                      
+  SET BDY(DRL210D).                                                             
+   UCLIN.                                                                       
+    ADD DLIBZONE(DRL210D)                                                       
+        ACCJCLIN                                                                
+        OPTIONS(ZOSOPT)                                                         
+        SREL(Z038)                                                              
+        RELATED(DRL210T).                                                       
+   ENDUCL.                                                                      
+  LIST ALLZONES.                                                                
+/*                                                                              
+//DDDEF    EXEC PGM=GIMSMP,REGION=0M                                            
+//SMPCSI   DD DSN=DRL210.GLOBAL.CSI,                                            
+//            DISP=SHR                                                          
+//SMPPTS   DD DSN=DRL210.SMPPTS,                                                
+//            DISP=SHR                                                          
+//SMPLTS   DD DSN=DRL210.SMPLTS,                                                
+//            DISP=OLD                                                          
+//SMPLOG   DD DSN=DRL210.SMPLOG,                                                
+//            DISP=(MOD,KEEP)                                                   
+//SMPLOGA  DD DSN=DRL210.SMPLOGA,                                               
+//            DISP=(MOD,KEEP)                                                   
+//SMPCNTL  DD *                                                                 
+  SET BDY(GLOBAL).                                                              
+   UCLIN .                                                                      
+    ADD DDDEF(SMPLOG)                                                           
+        DATASET(DRL210.SMPLOG)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        MOD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPLOGA)                                                          
+        DATASET(DRL210.SMPLOGA)                                                 
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        MOD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPPTS)                                                           
+        DATASET(DRL210.SMPPTS)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        SHR                                                                     
+        .                                                                       
+    ADD DDDEF(SMPLTS)                                                           
+        DATASET(DRL210.SMPLTS)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        OLD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPTLIB) VOLUME(USER0A)                                           
+        UNIT(SYSALLDA).                                                         
+    ADD DDDEF(SYSUT1)  CYL SPACE(150,50) UNIT(SYSALLDA).                        
+    ADD DDDEF(SYSUT2)  CYL SPACE(150,50) UNIT(SYSALLDA).                        
+    ADD DDDEF(SYSUT3)  CYL SPACE(150,50) UNIT(SYSALLDA).                        
+    ADD DDDEF(SYSUT4)  CYL SPACE(150,50) UNIT(SYSALLDA).                        
+   ENDUCL.                                                                      
+  SET BDY(DRL210D).                                                             
+   UCLIN .                                                                      
+    ADD DDDEF(SMPLOG)                                                           
+        DATASET(DRL210.SMPLOG)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        MOD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPLOGA)                                                          
+        DATASET(DRL210.SMPLOGA)                                                 
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        MOD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPLTS)                                                           
+        DATASET(DRL210.SMPLTS)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        OLD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPPTS)                                                           
+        DATASET(DRL210.SMPPTS)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        SHR                                                                     
+        .                                                                       
+    ADD DDDEF(SMPMTS)                                                           
+        DATASET(DRL210.SMPMTS)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        OLD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPSCDS)                                                          
+        DATASET(DRL210.SMPSCDS)                                                 
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        OLD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPSTS)                                                           
+        DATASET(DRL210.SMPSTS)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        OLD                                                                     
+        .                                                                       
+    ADD DDDEF(SYSUT1)   CYL SPACE(150,50) UNIT(SYSALLDA).                       
+    ADD DDDEF(SYSUT2)   CYL SPACE(150,50) UNIT(SYSALLDA).                       
+    ADD DDDEF(SYSUT3)   CYL SPACE(150,50) UNIT(SYSALLDA).                       
+    ADD DDDEF(SYSUT4)   CYL SPACE(150,50) UNIT(SYSALLDA).                       
+    ADD DDDEF(SMPWRK1)  CYL SPACE(10,10) DIR(300) UNIT(SYSALLDA).               
+    ADD DDDEF(SMPWRK2)  CYL SPACE(10,10) DIR(300) UNIT(SYSALLDA).               
+    ADD DDDEF(SMPWRK3)  CYL SPACE(10,10) DIR(300) UNIT(SYSALLDA).               
+    ADD DDDEF(SMPWRK4)  CYL SPACE(10,10) DIR(300) UNIT(SYSALLDA).               
+    ADD DDDEF(SMPWRK6)  CYL SPACE(10,10) DIR(300) UNIT(SYSALLDA).               
+    ADD DDDEF(SYSLIB)   /* ASSIGN DDDEF TO SYSLIB CONCATENATION */              
+        CONCAT(SMPMTS   /* MUST BE FIRST */                                     
+             ).                                                                 
+   ENDUCL.                                                                      
+  SET BDY(DRL210T).                                                             
+   UCLIN .                                                                      
+    ADD DDDEF(SMPLOG)                                                           
+        DATASET(DRL210.SMPLOG)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        MOD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPLOGA)                                                          
+        DATASET(DRL210.SMPLOGA)                                                 
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        MOD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPLTS)                                                           
+        DATASET(DRL210.SMPLTS)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        OLD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPPTS)                                                           
+        DATASET(DRL210.SMPPTS)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        SHR                                                                     
+        .                                                                       
+    ADD DDDEF(SMPMTS)                                                           
+        DATASET(DRL210.SMPMTS)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        OLD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPSCDS)                                                          
+        DATASET(DRL210.SMPSCDS)                                                 
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        OLD                                                                     
+        .                                                                       
+    ADD DDDEF(SMPSTS)                                                           
+        DATASET(DRL210.SMPSTS)                                                  
+        UNIT(SYSALLDA)                                                          
+        WAITFORDSN                                                              
+        OLD                                                                     
+        .                                                                       
+    ADD DDDEF(SYSUT1)   CYL SPACE(10,10) UNIT(SYSALLDA).                        
+    ADD DDDEF(SYSUT2)   CYL SPACE(10,10) UNIT(SYSALLDA).                        
+    ADD DDDEF(SYSUT3)   CYL SPACE(10,10) UNIT(SYSALLDA).                        
+    ADD DDDEF(SYSUT4)   CYL SPACE(10,10) UNIT(SYSALLDA).                        
+    ADD DDDEF(SMPWRK1)  CYL SPACE(10,10) DIR(300) UNIT(SYSALLDA).               
+    ADD DDDEF(SMPWRK2)  CYL SPACE(10,10) DIR(300) UNIT(SYSALLDA).               
+    ADD DDDEF(SMPWRK3)  CYL SPACE(10,10) DIR(300) UNIT(SYSALLDA).               
+    ADD DDDEF(SMPWRK4)  CYL SPACE(10,10) DIR(300) UNIT(SYSALLDA).               
+    ADD DDDEF(SMPWRK6)  CYL SPACE(10,10) DIR(300) UNIT(SYSALLDA).               
+    ADD DDDEF(SYSLIB)   /* ASSIGN DDDEF TO SYSLIB CONCATENATION */              
+        CONCAT(SMPMTS   /* MUST BE FIRST */                                     
+              ).                                                                
+   ENDUCL.                                                                      
+/*                                                                              

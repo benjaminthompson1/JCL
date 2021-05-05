@@ -1,0 +1,25 @@
+//IUDFSRT JOB (FB3),'DFSORT',CLASS=A,MSGCLASS=H,                                
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: DFSORT                                                  *          
+//*                                                                  *          
+//********************************************************************          
+//DFSORT   EXEC PGM=SORT,REGION=0M                                              
+//SORTIN   DD DISP=SHR,DSN=OPS.SYSLOG.DAILY                                     
+//SORTOUT  DD DISP=SHR,DSN=XBT.SYSLOG                                           
+//SORTWK01 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(200,200))                
+//SORTWK02 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(200,200))                
+//SORTWK03 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(200,200))                
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSOUT   DD SYSOUT=*                                                          
+//SYSIN    DD   *                                                               
+  SORT FIELDS=(124,4,ZD,A,129,3,ZD,A)                                           
+/*                                                                              
+//                                                                              
+  INCLUDE COND=(103,4,CH,EQ,C'18TK')                                            
+//* DFSORT'S SUBSTRING SEARCH FEATURE                                           
+//* TOO PREVENT DFSORT FROM TERMINATING WITH VB RECORDSUSE VLSHRT               
+  OPTION COPY,VLSHRT                                                            
+  INCLUDE COND=(5,100,SS,EQ,C'COPY')                                            

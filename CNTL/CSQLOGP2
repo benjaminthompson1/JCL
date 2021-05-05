@@ -1,0 +1,55 @@
+//IULOGP2 JOB (FB3),'CSQLOGP2',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE:  MQ - PRINT LOG UTILITY - EXTRACT INFORMATION           *          
+//* JOB STEPS :                                                      *          
+//* =========                                                        *          
+//* PRTLOG     - EXTRACT COMMITED MESSAGE FROM ARCHIVE LOG           *          
+//* DFSORT     - EXTARCT ONLY SELECTED QUEUE                         *          
+//********************************************************************          
+//******************************************************************            
+//* PRINT LOG OF MQST ARCHIVE LOG                                               
+//******************************************************************            
+//PRTLOG   EXEC PGM=CSQ1LOGP                                                    
+//STEPLIB  DD  DISP=SHR,DSN=CSQ911.SCSQANLE                                     
+//         DD  DISP=SHR,DSN=CSQ911.SCSQLOAD                                     
+//*-------------------------------------------------------------------          
+//* ARCHIVE LOG DATASET(S)                                                      
+//*-------------------------------------------------------------------          
+//ARCHIVE DD  DISP=SHR,                                                         
+//            DSN=CSQARC1.CSQ9.A0000019                                         
+//*                                                                             
+//*-------------------------------------------------------------------          
+//* EXTRACT (OUTPUT) DATASETS                                                   
+//*-------------------------------------------------------------------          
+//CSQCMT   DD  DSN=&&TEMP,                                                      
+//            DISP=(NEW,PASS),UNIT=SYSDA,                                       
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(100,50,0))                                            
+//*-------------------------------------------------------------------          
+//SYSPRINT DD  DUMMY                                                            
+//SYSSUMRY DD  DUMMY                                                            
+//SYSIN    DD  *                                                                
+* EXTRACT LOG RECORDS TO DATASET(S) IN DD STATEMENTS                            
+ EXTRACT(YES)                                                                   
+/*                                                                              
+//******************************************************************            
+//* DFSORT EXTRACT ONLY NEVDIS MESSAGE FROM NTG                                 
+//******************************************************************            
+//DFSORT   EXEC PGM=SORT,COND=(0,NE)                                            
+//SORTIN   DD DISP=(OLD,DELETE),DSN=*.PRTLOG.CSQCMT                             
+//SORTOUT  DD DSN=XBT.INTRA.DATASET,                                            
+//            DISP=(NEW,CATLG,DELETE),UNIT=SYSDA,                               
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//SORTWK01 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(200,200))                
+//SORTWK02 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(200,200))                
+//SORTWK03 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(200,200))                
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSOUT   DD SYSOUT=*                                                          
+//SYSIN    DD   *                                                               
+  SORT FIELDS=(4,21,CH,D)                                                       
+  INCLUDE COND=(112,12,CH,EQ,C'IBMUSER.TEST')                                   
+  OUTREC BUILD=(1,4,5,TRAN=ATOE)                                                

@@ -1,0 +1,64 @@
+//IU4BCLR JOB (FB3),'CSQ4BCLR',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*CSQ4BCLR JOB                                                                 
+//******************************************************************            
+//*                                                                *            
+//* <copyright                                                     *            
+//* notice="lm-source"                                             *            
+//* pids="5655-MQ9"                                                *            
+//* years="1993,2016"                                              *            
+//* crc="2365888606" >                                             *            
+//* Licensed Materials - Property of IBM                           *            
+//*                                                                *            
+//* 5655-MQ9                                                       *            
+//*                                                                *            
+//* (C) Copyright IBM Corp. 1993, 2016 All Rights Reserved.        *            
+//* </copyright>                                                   *            
+//*                                                                *            
+//******************************************************************            
+//*                                                                             
+//* IBM MQ for z/OS                                                             
+//*                                                                             
+//* THIS JOB RUNS THE PRINT MESSAGES FROM QUEUE SAMPLE PROGRAM                  
+//*                                                                             
+//*  PROGRAM CSQ4BCL1 ISSUES MQGET WITH BROWSE ON A QUEUE UNTIL                 
+//*  EMPTY.                                                                     
+//*   - FIRST PARM (++QMGR++) IS QUEUE MANAGER NAME                             
+//*   - SECOND PARM (++QUEUE++) IS QUEUE NAME                                   
+//*  MESSAGES ARE PRINTED TO DD SYSPRINT                                        
+//*                                                                             
+//******************************************************************            
+//* CUSTOMIZE THIS JOB HERE FOR YOUR INSTALLATION                               
+//* YOU MUST DO GLOBAL CHANGES ON THESE PARAMETERS USING YOUR EDITOR            
+//*                                                                             
+//* Replace the following names with those for your installation                
+//*    ++THLQUAL++         - The high level qualifier of the                    
+//*                          IBM MQ target library data sets.                   
+//*    ++LANGLETTER++      - The language suffix letter:                        
+//*                          - C - Simplified Chinese                           
+//*                          - E - US English (Mixed case)                      
+//*                          - F - French                                       
+//*                          - K - Japanese                                     
+//*                          - U - US English (Uppercase)                       
+//*                                                                             
+//* If you create your own CSQ4BCL1 load module, replace the                    
+//* DD statement   //STEPLIB  DD DSN=++THLQUAL++.SCSQLOAD,DISP=SHR              
+//* with           //STEPLIB  DD DSN=++USERLIB++,DISP=SHR                       
+//* where ++USERLIB++ is the name of your load module library.                  
+//*                                                                             
+//*  IT IS ASSUMED THAT THE LE RUNTIME LIBRARY, SCEERUN, IS IN THE              
+//*  LINK LIST.  IF IT IS NOT, THEN ADD IT TO THE STEPLIB CONCATENATION         
+//*  IN THIS JOB.                                                               
+//*                                                                             
+//*********************************************************************         
+//*                                                                             
+//READQ    EXEC PGM=CSQ4BCL1,REGION=1024K,                                      
+//             PARM=('CSQ9 IBMUSER.TEST')                                       
+//STEPLIB  DD DSN=CSQ911.SCSQLOAD,DISP=SHR                                      
+//         DD DSN=CSQ911.SCSQANLE,DISP=SHR                                      
+//         DD DSN=CSQ911.CSQ9.SCSQAUTH,DISP=SHR                                 
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//                                                                              

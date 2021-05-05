@@ -1,0 +1,31 @@
+//IUHLASM JOB (FB3),'HLASM',CLASS=A,MSGCLASS=H,                                 
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: COMPILE AND LINK HLASM                                  *          
+//*                                                                  *          
+//********************************************************************          
+//ASM      EXEC PGM=ASMA90,REGION=1024K,PARM='NODECK,OBJECT'                    
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSLIB   DD DSN=SYS1.MACLIB,DISP=SHR                                          
+//SYSUT1   DD UNIT=3390,SPACE=(CYL,(20,5))                                      
+//SYSUT2   DD UNIT=3390,SPACE=(CYL,(10,1))                                      
+//SYSUT3   DD UNIT=3390,SPACE=(CYL,(2,1))                                       
+//SYSUT4   DD UNIT=3390,SPACE=(CYL,(2,1))                                       
+//SYSUT5   DD UNIT=3390,SPACE=(CYL,(2,1)),DCB=SYS1.MACLIB,                      
+//         DISP=(,PASS)                                                         
+//SYSLIN   DD DSN=IBMUSER.ASM.OBJECT(AVZFORME),DISP=SHR                         
+//SYSIN    DD DSN=IBMUSER.ASM.SOURCE(AVZFORME),DISP=SHR                         
+//*                                                                             
+//LKED     EXEC PGM=HEWL,REGION=1024K,                                          
+// PARM=('SIZE=(1000K,100K),NCAL,XREF,LET,LIST')                                
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSLMOD  DD DSN=IBMUSER.ASM.LOAD,DISP=SHR                                     
+//SYSUT1   DD UNIT=3390,SPACE=(6160,(230,760))                                  
+//SYSLIN   DD DSN=IBMUSER.ASM.OBJECT(AVZFORME),DISP=SHR                         
+//         DD *                                                                 
+  MODE RMODE(ANY),AMODE(31)                                                     
+  ENTRY AVZFORME                                                                
+  NAME AVZFORME(R)                                                              
+/*                                                                              

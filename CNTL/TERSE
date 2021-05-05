@@ -1,0 +1,22 @@
+//IUTERSE JOB (FB3),'TERSE',CLASS=A,MSGCLASS=H,                                 
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: TRSMAIN TO PACK / UNPACK DATASETS                       *          
+//*                                                                  *          
+//********************************************************************          
+//TRSMAIN1 EXEC PGM=TRSMAIN,PARM=UNPACK                                         
+//SYSPRINT DD SYSOUT=*                                                          
+//INFILE   DD DSN=IBMUSER.DFAT.TRS,                                             
+//            DISP=SHR                                                          
+//OUTFILE  DD DSN=IBMUSER.DFAT.XMIT,                                            
+//            DISP=(NEW,CATLG,DELETE),                                          
+//            UNIT=SYSDA,                                                       
+//            SPACE=(CYL,(10,10),RLSE)                                          
+//SYSIN    DD DUMMY                                                             
+//                                                                              
+//OUTFILE  DD DSN=CUST.AGL.SMF,                                                 
+//            DISP=(NEW,CATLG,DELETE),                                          
+//            LABEL=(1,SL,RETPD=10),                                            
+//            UNIT=3490                                                         

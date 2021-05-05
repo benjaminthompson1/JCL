@@ -1,0 +1,33 @@
+//IUDSSMVE JOB  (FB3),'DSS MOVE',CLASS=A,MSGCLASS=H,                            
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: MOVE DATASET FROM SELECTED VOLUME                       *          
+//*                                                                  *          
+//* NOTES: PARM='TYPRUN=NORUN' <== TEST JOB                          *          
+//*                                                                  *          
+//********************************************************************          
+//MOVE     EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
+//FROMVOL  DD  UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                               
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  COPY -                                                                        
+  DATASET(INCLUDE(HARBORP.**, -                                                 
+                  ZZCPM.**,   -                                                 
+                  ZZDB.**))   -                                                 
+  LOGINDD(FROMVOL)  -                                                           
+  ALLD(*)     -                                                                 
+  ALLEXCP     -                                                                 
+  SELECTMULTI(ANY) -                                                            
+  SPHERE      -                                                                 
+  CATALOG     -                                                                 
+  CANCELERROR -                                                                 
+  DELETE      -                                                                 
+  DYNALLOC    -                                                                 
+  OPT(4) TOL(ENQF) -                                                            
+  WAIT(10,10) -                                                                 
+  ADMINISTRATOR                                                                 
+/*                                                                              
+//                                                                              
+  STORCLAS(STGMGMT) -                                                           
+  OUTDYNAM((TMM201)) -                                                          

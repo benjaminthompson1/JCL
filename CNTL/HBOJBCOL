@@ -1,0 +1,73 @@
+//IUSMFCB JOB (FB3),'HBOSMFCB',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*                                                                             
+//***************************************************************               
+//*                                                             *               
+//*  Licensed Materials - Property of IBM                       *               
+//*                                                             *               
+//*  5698-ABN (C) Copyright IBM Corporation 2016, 2019          *               
+//*  All Rights Reserved.                                       *               
+//*                                                             *               
+//***************************************************************               
+//*                                                             *               
+//*  NAME: HBOJBCOL                                             *               
+//*                                                             *               
+//*  STATUS: IBM Z Common Data Provider 2.1.0                   *               
+//*                                                             *               
+//*  FUNCTION: Sample JCL for batch job to collect SMF data     *               
+//*            from a file.                                     *               
+//*                                                             *               
+//* Run IBM Z Common Data Provider 2.1.0                        *               
+//*                                                             *               
+//* CHANGE ACTIVITY:                                            *               
+//* CHANGE FLAG TYPE   DATE                DESCRIPTION          *               
+//* ----------------------------------------------------------- *               
+//* $00=R057569,CDP110,2016-08-09,ADL(SY): New for CDP 1.1.0    *               
+//* $01=R069533,CDP110,2019-03-25,CSL(KZ): zIIP Enablement      *               
+//* $02=R069460,CDP210,2019-08-29,RTP(KM): stack affinity       *               
+//*                                                             *               
+//***************************************************************               
+//*                                                             *               
+//* Customization:                                              *               
+//*  a.  Change HBOvrm to the high-level qualifier for your     *               
+//*      CDP/z SMP/E-installed target libraries.                *               
+//*  b.  Customize HBOIN as required.                           *               
+//*      Each HBORSnnn member maps SMF record type nnn.         *               
+//*      Each HBOUSnnn member extracts data from record type    *               
+//*      nnn and writes it to a file.                           *               
+//*      Non-repeated record data is generally written to       *               
+//*      file SMFnnn. Repeated section data (if present) is     *               
+//*      written to other files: refer to the SET HBO_FILE      *               
+//*      statements in each HBOUSnnn member for details.        *               
+//*  c.  If affinity with a specific TCP/IP stack is needed     *               
+//*      add the name of the stack to the end of the HBOTCAFF   *               
+//*      job step, for example:                                 *               
+//*      //HBOTCAFF EXEC PGM=BPXTCAFF,PARM=TPNAME               *               
+//*                                                             *               
+//***************************************************************               
+//*                                                                             
+//HBOTCAFF EXEC PGM=BPXTCAFF,PARM=                                              
+//*                                                                             
+//HBOSMFCB EXEC PGM=HBOPDE,REGION=0M,                                           
+//         PARM='SHOWINPUT=NO,ZIIPOFFLOAD=NO'                                   
+//STEPLIB  DD DISP=SHR,DSN=CDP210.SHBOLOAD                                      
+//*                                                                             
+//* CONTROL STATEMENTS                                                          
+//*                                                                             
+//HBOIN    DD DISP=SHR,DSN=HBOvrm.SHBODEFS(HBOCCSV)                             
+//         DD DISP=SHR,DSN=HBOvrm.SHBODEFS(HBOLLSMF)                            
+//         DD DISP=SHR,DSN=HBOvrm.SHBODEFS(HBORSnnn)                            
+//         DD DISP=SHR,DSN=HBOvrm.SHBODEFS(HBOUSnnn)                            
+//*                                                                             
+//* Sample COLLECT statement for processing log data                            
+//*                                                                             
+//         DD *                                                                 
+COLLECT SMF                                                                     
+  COMMIT AFTER END OF FILE;                                                     
+/*                                                                              
+//HBOLOG   DD DISP=SHR,DSN=<some SMF log>                                       
+//HBOOUT   DD SYSOUT=*                                                          
+//HBODUMP  DD SYSOUT=*                                                          
+//HBODEBUG DD SYSOUT=*                                                          
+//SMFnnn   DD SYSOUT=*,RECFM=V,LRECL=32756                                      

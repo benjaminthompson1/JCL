@@ -1,0 +1,36 @@
+//IUIDCAMS JOB  (FB3),'IDCAMS CATALOG',CLASS=A,MSGCLASS=H,              00010000
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                            00011000
+//********************************************************************  00012000
+//*                                                                  *  00013000
+//* PURPOSE: IDCAMS                                                  *  00014000
+//*                                                                  *  00015000
+//********************************************************************  00016000
+//CREATE   EXEC PGM=IDCAMS,REGION=0M                                    00017000
+//SYSPRINT DD SYSOUT=*                                                  00018000
+//SYSIN    DD *                                                         00018100
+          DEFINE ALTERNATEINDEX   -                                     00019000
+                   (NAME (IBMUSER.DFAT.FSCN.AIX) -                      00020000
+                    UPGRADE       -                                     00030000
+                    RELATE (IBMUSER.DFAT.FSCN) -                        00040000
+                    NONUNIQUEKEY  -                                     00050000
+                    NOREUSE       -                                     00070000
+                    NOERASE       -                                     00080000
+                    NOWRITECHECK  -                                     00090000
+                    UNORDERED     -                                     00100000
+                    SUBALLOCATION -                                     00120000
+                    KEYS (79 9) -                                       00130000
+                    SHR (2 3)) -                                        00140000
+              DATA (NAME (IBMUSER.DFAT.FSCN.AIX.DATA) -                 00150000
+                    FREESPACE (0 0) -                                   00160000
+                    RECSZ (93 93) -                                     00170000
+                    CYL (300 50)  -                                     00180000
+                    CISZ (6144)) -                                      00190000
+             INDEX (NAME (IBMUSER.DFAT.FSCN.AIX.INDEX) -                00200000
+                    CYL (2 1)  -                                        00210000
+                    CISZ (2048))                                        00220000
+    DEFINE PATH -                                                       00230000
+                   (NAME (IBMUSER.DFAT.FSCN.AIX.PATH) -                 00240000
+                    PATHENTRY (IBMUSER.DFAT.FSCN.AIX) -                 00250000
+                    UPDATE)                                             00260000
+    BLDINDEX        INDATASET  (IBMUSER.DFAT.FSCN) -                    00270000
+                    OUTDATASET (IBMUSER.DFAT.FSCN.AIX.PATH)             00280000

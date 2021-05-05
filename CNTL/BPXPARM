@@ -1,0 +1,4 @@
+SH echo "Change directory";                                                     
+cd /u/ibmuser/DFAT;                                                             
+echo "Execute makexit2.rexx";                                                   
+./makexit2.rexx avzxzfic.input avzxzfic;                                        
