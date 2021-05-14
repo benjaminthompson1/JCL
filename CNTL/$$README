@@ -68,5 +68,6 @@ SMPREJTA - SMP/E Reject once they have been ACCEPTED
 SMPREJTG - SMP/E Reject all received-only                                       
 SMPRPT   - SMP/E Traget report for SHOPz                                        
 TERSE    - TERSE Pack and Unpack dataset                                        
+UJ04501  - UJ04501 ZSECURE ADMINISTRATION V2.4                                  
 VSAM     - IDCAMS create VSAM file                                              
 VASMAIX  - IDCAMS create alternaive index                                       
