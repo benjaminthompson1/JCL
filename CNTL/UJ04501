@@ -1,32 +1,32 @@
-//IUALLOC JOB (FB3),'COBOL C',CLASS=A,MSGCLASS=H,                               
+//IU04501 JOB (FB3),'UJ04501',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //* UJ04501 ZSECURE ADMINISTRATION V2.4                                         
 //********************************************************************          
 //ALLOCT   EXEC PGM=IEFBR14                                                     
-//SCKACUST DD DSN=ZSA240.SCKACUST,                                              
+//SCKACUST DD DSN=SSA240.SCKACUST,                                              
 // DISP=(NEW,CATLG),                                                            
 // UNIT=SYSALLDA,                                                               
-// VOL=SER=SYSM24,                                                              
+// VOL=SER=USER0B,                                                              
 // SPACE=(32760,(70,50,90)),                                                    
 // DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                           
 // DSNTYPE=LIBRARY                                                              
-//SCKACUSV DD DSN=ZSA240.SCKACUSV,                                              
+//SCKACUSV DD DSN=SSA240.SCKACUSV,                                              
 // DISP=(NEW,CATLG),                                                            
 // UNIT=SYSALLDA,                                                               
-// VOL=SER=SYSM24,                                                              
+// VOL=SER=USER0B,                                                              
 // SPACE=(32760,(70,50,90)),                                                    
 // DCB=(RECFM=VB,LRECL=32752,BLKSIZE=0),                                        
 // DSNTYPE=LIBRARY                                                              
-//ACKACUST DD DSN=ZSA240.ACKACUST,                                              
+//ACKACUST DD DSN=SSA240.ACKACUST,                                              
 // DISP=(NEW,CATLG),                                                            
 // UNIT=SYSALLDA,                                                               
 // VOL=SER=USER0A,                                                              
 // SPACE=(32760,(70,50,90)),                                                    
 // DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                           
 // DSNTYPE=LIBRARY                                                              
-//ACKACUSV DD DSN=ZSA240.ACKACUSV,                                              
+//ACKACUSV DD DSN=SSA240.ACKACUSV,                                              
 // DISP=(NEW,CATLG),                                                            
 // UNIT=SYSALLDA,                                                               
 // VOL=SER=USER0A,                                                              
@@ -34,51 +34,51 @@
 // DCB=(RECFM=VB,LRECL=32752,BLKSIZE=0),                                        
 // DSNTYPE=LIBRARY                                                              
 //DDDEFT   EXEC PGM=GIMSMP,REGION=48M,COND=(4,LT)                               
-//SMPCSI   DD DSN=ZSA240.GLOBAL.CSI,                                            
+//SMPCSI   DD DSN=SSA240.GLOBAL.CSI,                                            
 //            DISP=SHR                                                          
 //SMPCNTL DD *                                                                  
-    SET   BDY(ZSA240T).                                                         
+    SET   BDY(SSA240T).                                                         
     UCLIN.                                                                      
       REP DDDEF (SCKACUST)                                                      
-      DATASET(ZSA240.SCKACUST)                                                  
+      DATASET(SSA240.SCKACUST)                                                  
       UNIT(SYSALLDA)                                                            
       VOLUME(USER0B)                                                            
       WAITFORDSN                                                                
       SHR.                                                                      
                                                                                 
       REP DDDEF (SCKACUSV)                                                      
-      DATASET(ZSA240.SCKACUSV)                                                  
+      DATASET(SSA240.SCKACUSV)                                                  
       UNIT(SYSALLDA)                                                            
       VOLUME(USER0B)                                                            
       WAITFORDSN                                                                
       SHR.                                                                      
                                                                                 
       REP DDDEF (ACKACUST)                                                      
-      DATASET(ZSA240.ACKACUST)                                                  
+      DATASET(SSA240.ACKACUST)                                                  
       UNIT(SYSALLDA)                                                            
       VOLUME(USER0B)                                                            
       WAITFORDSN                                                                
       SHR.                                                                      
                                                                                 
       REP DDDEF (ACKACUSV)                                                      
-      DATASET(ZSA240.ACKACUSV)                                                  
+      DATASET(SSA240.ACKACUSV)                                                  
       UNIT(SYSALLDA)                                                            
       VOLUME(USER0B)                                                            
       WAITFORDSN                                                                
       SHR.                                                                      
     ENDUCL.                                                                     
                                                                                 
-    SET BDY(ZSA240D).                                                           
+    SET BDY(SSA240D).                                                           
     UCLIN.                                                                      
       REP DDDEF (ACKACUST)                                                      
-      DATASET(ZSA240.ACKACUST)                                                  
+      DATASET(SSA240.ACKACUST)                                                  
       UNIT(SYSALLDA)                                                            
       VOLUME(USER0B)                                                            
       WAITFORDSN                                                                
       SHR.                                                                      
                                                                                 
       REP DDDEF (ACKACUSV)                                                      
-      DATASET(ZSA240.ACKACUSV)                                                  
+      DATASET(SSA240.ACKACUSV)                                                  
       UNIT(SYSALLDA)                                                            
       VOLUME(USER0B)                                                            
       WAITFORDSN                                                                
