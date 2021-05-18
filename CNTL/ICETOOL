@@ -1,0 +1,27 @@
+//IUICETL JOB (FB3),'ICETOOL',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: ICETOOL                                                 *          
+//* OPTION ZSORT - NEW FEATURE WITH Z15                              *          
+//*                                                                  *          
+//********************************************************************          
+//STEP0100 EXEC PGM=ICETOOL                                                     
+//TOOLMSG  DD SYSOUT=*                                                          
+//DFSMSG   DD SYSOUT=*                                                          
+//TOOLIN   DD *                                                                 
+  SORT FROM(SMFIN) -                                                            
+  TO(SMFOUT) -                                                                  
+  USING(SMFS)                                                                   
+/*                                                                              
+//SMFIN    DD DISP=SHR,DSN=SYS1.SMF.DATA(0)                                     
+//         DD DISP=SHR,DSN=SYS1.SMF.DATA(-1)                                    
+//         DD DISP=SHR,DSN=SYS1.SMF.DATA(-2)                                    
+//         DD DISP=SHR,DSN=SYS1.SMF.DATA(-3)                                    
+//         DD DISP=SHR,DSN=SYS1.SMF.DATA(-4)                                    
+//SMFOUT   DD DUMMY                                                             
+//SMFSCNTL DD *                                                                 
+  OPTION ZSORT                                                                  
+  SORT FIELDS=(15,4,A,11,4,A,7,4,A),FORMAT=CH                                   
+/*                                                                              
