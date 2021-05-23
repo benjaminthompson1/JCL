@@ -25,4 +25,15 @@
 //SYSIN DD *                                                                    
   REPRO INFILE(INDD) OUTFILE(OUTDD)                                             
 /*                                                                              
-                                                                                
+//                                                                              
+//* A NON-VSAM DATA SET'S ENTRY IS DELETED                                      
+//DD1   DD VOL=SER=C4ZWE1,DISP=OLD,UNIT=SYSDA,                                  
+//      DSNAME=ZWE100.PARMLIB                                                   
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN DD *                                                                    
+  DELETE -                                                                      
+    ZWE100.PARMLIB -                                                            
+    FILE (DD1) -                                                                
+    PURGE -                                                                     
+    CATALOG(USERCAT.Z24C.PRODS)                                                 
+/*                                                                              
