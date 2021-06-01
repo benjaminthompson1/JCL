@@ -1,0 +1,21 @@
+//IUMIAPU JOB (FB3),'IXCMIAPU',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE:  DEFINE LOGSTREAM NAME(IFASMF.SMFALL.S0W1)              *          
+//*                                                                  *          
+//********************************************************************          
+//CREATE   EXEC PGM=IXCMIAPU                                                    
+//SYSPRINT DD   SYSOUT=*                                                        
+//SYSIN    DD   *                                                               
+DATA TYPE(LOGR)                                                                 
+DEFINE LOGSTREAM NAME(IFASMF.SMFALL.S0W1)                                       
+DASDONLY(YES)                                                                   
+STG_SIZE(12800)                                                                 
+LS_SIZE(180000)                                                                 
+AUTODELETE(YES)                                                                 
+RETPD(2)                                                                        
+HIGHOFFLOAD(60)                                                                 
+LOWOFFLOAD(35)                                                                  
+/*                                                                              
