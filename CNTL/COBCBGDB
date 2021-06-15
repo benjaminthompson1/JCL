@@ -12,21 +12,21 @@
 //         GOPGM=COBTESTD                                                       
 //COBOL.STEPLIB DD DISP=SHR,DSN=DSNC10.DBCG.SDSNEXIT                            
 //              DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
-//COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.LEARN.COPYLIB                           
-//COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.LEARN.COBOL(&GOPGM)                     
-//COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                    
-//COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.LEARN.DBRMLIB(&GOPGM)                   
+//COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                           
+//COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.COBOL.SOURCE(&GOPGM)                    
+//COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                    
+//COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.COBOL.DBRMLIB(&GOPGM)                   
 //BIND.SYSLIB   DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
-//              DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD                              
-//BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                    
-//BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD(&GOPGM)                      
+//              DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                              
+//BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                    
+//BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD(&GOPGM)                      
 //DB2BIND  EXEC PGM=IKJEFT01                                                    
 //STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSTSIN  DD  *                                                                
   DSN SYSTEM(DBCG)                                                              
   BIND PACKAGE(BENCOLL) MEMBER(COBTESTD) +                                      
-       LIBRARY('IBMUSER.LEARN.DBRMLIB') +                                       
+       LIBRARY('IBMUSER.COBOL.DBRMLIB') +                                       
        EXPLAIN(YES) +                                                           
        ACTION(REPLACE)                                                          
   BIND PLAN(BENPLAN) PKLIST(BENCOLL.COBTESTD)                                   
@@ -37,7 +37,7 @@
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSTSIN  DD  *                                                                
   DSN SYSTEM(DBCG)                                                              
-  RUN PROGRAM(COBTESTD) PLAN(BENPLAN) LIBRARY('IBMUSER.LEARN.LOAD') +           
+  RUN PROGRAM(COBTESTD) PLAN(BENPLAN) LIBRARY('IBMUSER.COBOL.LOAD') +           
     PARM('/TEST(,,,TCPIP&10.1.1.36%8001:*)')                                    
   END                                                                           
 /*                                                                              

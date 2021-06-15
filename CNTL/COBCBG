@@ -10,13 +10,13 @@
 //             CPARM='TEST',                                                    
 //             GPARM='/TEST(,,,TCPIP&10.1.1.36%8001:*)',                        
 //             GOPGM=HELLOW                                                     
-//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.LEARN.COPYLIB                            
-//COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.LEARN.COBOL(&GOPGM)                      
-//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                     
-//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD                               
-//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                     
-//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD(&GOPGM)                       
-//GO.STEPLIB  DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD                                
+//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                            
+//COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.COBOL.SOURCE(&GOPGM)                     
+//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
+//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                               
+//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
+//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD(&GOPGM)                       
+//GO.STEPLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                                
 //            DD DISP=SHR,DSN=EQAE10.SEQAMOD                                    
-//GO.STDNTCRS DD DISP=SHR,DSN=IBMUSER.LEARN.STUDENT.COURSES                     
+//GO.STDNTCRS DD DISP=SHR,DSN=IBMUSER.COBOL.STUDENT.COURSES                     
 //GO.STCRSRPT DD SYSOUT=*                                                       

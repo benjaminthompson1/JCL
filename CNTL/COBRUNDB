@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
-//* PURPOSE: COBOL EXECUTE PROGRAM                                   *          
+//* PURPOSE: COBOL EXECUTE PROGRAM DB2                               *          
 //*                                                                  *          
 //********************************************************************          
 //STEP1   EXEC PGM=DB2ARCH                                                      
