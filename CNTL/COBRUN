@@ -6,9 +6,9 @@
 //* PURPOSE: COBOL EXECUTE PROGRAM                                   *          
 //*                                                                  *          
 //********************************************************************          
-//STEP1   EXEC PGM=DB2ARCH                                                      
-//STEPLIB   DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                                  
-//SYSPRINT  DD SYSOUT=*                                                         
-//INPARM    DD *                                                                
+//COBOL    EXEC PGM=DB2ARCH                                                     
+//STEPLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                                   
+//SYSPRINT DD SYSOUT=*                                                          
+//IMMUN    DD *                                                                 
 A                                                                               
 /*                                                                              

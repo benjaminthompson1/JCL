@@ -25,11 +25,11 @@
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSTSIN  DD  *                                                                
   DSN SYSTEM(DBCG)                                                              
-  BIND PACKAGE(BENCOLL) MEMBER(COBTESTD) +                                      
+  BIND PACKAGE(BENCOLLECTION) MEMBER(COBTESTD) +                                
        LIBRARY('IBMUSER.COBOL.DBRMLIB') +                                       
        EXPLAIN(YES) +                                                           
        ACTION(REPLACE)                                                          
-  BIND PLAN(BENPLAN) PKLIST(BENCOLL.COBTESTD)                                   
+  BIND PLAN(BENPLAN) PKLIST(BENCOLLECTION.COBTESTD)                             
   END                                                                           
 //DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              
 //STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
