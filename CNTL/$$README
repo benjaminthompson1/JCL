@@ -10,6 +10,7 @@ BPXBATCH - BPXBATCH issue omvs commands
 BPXPARM  - STDPARM DD for BPXBATCHr                                             
 COBC     - COBOL compile                                                        
 COBCB    - COBOL compile and bind                                               
+COBCBDB  - COBOL compile and bind with Db2                                      
 COBCBG   - COBOL compile, bind and go (run)                                     
 COBCBGDB - COBOL compile, bind and go (run) with Db2                            
 COBRUN   - COBOL run program                                                    

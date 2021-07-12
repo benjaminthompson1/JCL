@@ -33,13 +33,3 @@
   BIND PLAN(BENPLAN) PKLIST(BENCOLLECTION.DB2ARCH)                              
   END                                                                           
 /*                                                                              
-//DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              
-//STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
-//         DD  DISP=SHR,DSN=EQAE20.SEQAMOD                                      
-//SYSTSPRT DD  SYSOUT=*                                                         
-//SYSTSIN  DD  *                                                                
-  DSN SYSTEM(DBCG)                                                              
-  RUN PROGRAM(DB2ARCH) PLAN(BENPLAN) LIBRARY('IBMUSER.COBOL.LOAD') +            
-    PARM('/TEST(,,,TCPIP&10.1.1.36%8001:*)')                                    
-  END                                                                           
-/*                                                                              
