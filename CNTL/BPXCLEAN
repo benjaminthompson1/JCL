@@ -1,0 +1,21 @@
+//IUBPXCL JOB (FB3),'BPXCLEAN',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//*                                                                             
+//* PURPOSE: DELETE FILE FROM A ZFS OLDER THEN A SPECIFIED NUMER                
+//*          OF DAYS.                                                           
+//*                                                                             
+//* NOTES  : FAILURE OF A COMMAND WILL **NOT** RESULT IN A NON-ZERO             
+//*          RETURN CODE.                                                       
+//*                                                                             
+//*********************************************************************         
+//CLEARN1  EXEC PGM=IKJEFT1A                                                    
+//SYSEXEC  DD DISP=SHR,DSN=SYS1.SBPXEXEC                                        
+//SYSLBC   DD DISP=SHR,DSN=SYS1.BRODCAST                                        
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  PROFILE NOPREFIX MSGID WTPMSG                                                 
+  OSHELL find /global/wic/S0W1/ +                                               
+         -type f -mtime +31 -exec rm -v {} \;                                   
+/*                                                                              

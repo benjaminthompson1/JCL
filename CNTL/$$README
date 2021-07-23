@@ -7,6 +7,7 @@ AVZGNSTF - DVM Create the sample VSAM file
 AVZIVVS1 - DVM IVP                                                              
 BFGTRCRS - MQ FTE fteCreateTransfer                                             
 BPXBATCH - BPXBATCH issue omvs commands                                         
+BPXCLEAN - Delete a file from ZFS older than x number of days                   
 BPXPARM  - STDPARM DD for BPXBATCHr                                             
 COBC     - COBOL compile                                                        
 COBCB    - COBOL compile and bind                                               
