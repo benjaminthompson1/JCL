@@ -3,6 +3,7 @@ $$README contents of IBMUSER.CNTL
 $SDSF    - Issue SDFS commands                                                  
 $VS      - Issue CONSOLE commands                                               
 ACBJBARD - Generating data set report from DCOLLECT data                        
+AMAPDUPL - IBM Problem Documentation Upload Utility                             
 AVZGNSTF - DVM Create the sample VSAM file                                      
 AVZIVVS1 - DVM IVP                                                              
 BFGTRCRS - MQ FTE fteCreateTransfer                                             

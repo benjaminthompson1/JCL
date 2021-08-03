@@ -1,0 +1,25 @@
+//IUPDUPL JOB (FB3),'AMAPDUPL',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: IBM Problem Documentation Upload Utility                *          
+//*                                                                  *          
+//********************************************************************          
+//FTP EXEC PGM=AMAPDUPL                                                         
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//*DEBUG    DD DSN=IBMUSER.AMAPDUPL.DEBUG,DISP=(,CATLG),                        
+//*            UNIT=SYSALLDA,SPACE=(CYL,(1,1),RLSE)                             
+//SYSUT1 DD DISP=SHR,DSN=IBMUSER.BACKUP.D300721                                 
+//SYSIN DD *                                                                    
+USERID=anonymous                                                                
+PASSWORD=benjamin.thompson1@ibm.com                                             
+TARGET_SYS=testcase.boulder.ibm.com                                             
+TARGET_DSN=wessamp.bigfile                                                      
+WORK_DSN=IBMUSER.FTPOUT                                                         
+CC_FTP=03                                                                       
+WORK_DSN_SIZE=500                                                               
+DIRECTORY=/toibm/mvs/                                                           
+CASE=TS012345678                                                                
+/*                                                                              
