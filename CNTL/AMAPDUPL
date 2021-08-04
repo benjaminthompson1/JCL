@@ -9,17 +9,21 @@
 //FTP EXEC PGM=AMAPDUPL                                                         
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
-//*DEBUG    DD DSN=IBMUSER.AMAPDUPL.DEBUG,DISP=(,CATLG),                        
-//*            UNIT=SYSALLDA,SPACE=(CYL,(1,1),RLSE)                             
-//SYSUT1 DD DISP=SHR,DSN=IBMUSER.BACKUP.D300721                                 
-//SYSIN DD *                                                                    
-USERID=anonymous                                                                
-PASSWORD=benjamin.thompson1@ibm.com                                             
-TARGET_SYS=testcase.boulder.ibm.com                                             
-TARGET_DSN=wessamp.bigfile                                                      
-WORK_DSN=IBMUSER.FTPOUT                                                         
-CC_FTP=03                                                                       
-WORK_DSN_SIZE=500                                                               
-DIRECTORY=/toibm/mvs/                                                           
-CASE=TS012345678                                                                
+//CEEOPTS  DD *                                                                 
+ ENVAR(GSK_V3_CIPHER_SPECS=3D38392F3233,GSK_PROTOCOL_TLSV1_2=1,                 
+       GSK_TRACE=255)                                                           
 /*                                                                              
+//DEBUG    DD DSN=IBMUSER.AMAPDUPL.DEBUG,DISP=(,CATLG),                         
+//           UNIT=SYSALLDA,SPACE=(CYL,(1,1),RLSE)                               
+//SYSUT1   DD DISP=SHR,DSN=IBMUSER.BACKUP.D300721                               
+//SYSIN    DD *                                                                 
+USERID=E-BbppjAxgCE                                                             
+PASSWORD=8A9g-3AJy-Lv4y-dSj4-C2h6                                               
+TARGET_SYS=www.secure.ecurep.ibm.com                                            
+TARGET_DSN=wessamp.bigfile                                                      
+CC_HTTPS=03                                                                     
+WORK_SIZE=100                                                                   
+DIRECTORY=mvs                                                                   
+CASE=TS012345678                                                                
+USE_HTTPS=Y                                                                     
+HTTPS_KEYRING=START1/ECuRepAP                                                   
