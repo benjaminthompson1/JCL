@@ -1,12 +1,13 @@
-//IURFNJB JOB (FB3),'RFNJOBH',CLASS=A,MSGCLASS=H,                       JOB03647
+//IURFNJB JOB (FB3),'RFNJOBH',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: pull service from IBM and RECEIVE to the GLOBAL ZONE    *          
 //*                                                                  *          
-//* NOTES:                                                                      
-//* 1) #globalzone - SMP/E GLOBAL ZONE NAME                                     
+//* NOTES: *                                                                    
+//* 1) #globalzone - SMP/E GLOBAL ZONE NAME *                                   
+//* 2) TRANSFERONLY - DOES NOT RECEIVE                               *          
 //*                                                                  *          
 //********************************************************************          
 //SMPER1  EXEC PGM=GIMSMP,REGION=0M,                                            
@@ -49,13 +50,6 @@
 /*                                                                              
 //*                                                                             
 //CLNTINFO DD *                                                                 
-<!--                                                                 -->        
-<!-- NOTE 6:                                                         -->        
-<!-- Specify a java home directory for the javahome attribute value. -->        
-<!-- Specify the security manager keyring or CERTAUTH virtual        -->        
-<!-- keyring or the keyword javatruststore for the downloadkeyring   -->        
-<!-- attribute value.                                                -->        
-<!--                                                                 -->        
 <CLIENT                                                                         
 javahome="/usr/lpp/java/J8.0_64"                                                
 downloadmethod="https"                                                          
