@@ -9,9 +9,8 @@
 //FTP EXEC PGM=AMAPDUPL                                                         
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
-//CEEOPTS  DD *                                                                 
- ENVAR(GSK_V3_CIPHER_SPECS=3D38392F3233,GSK_PROTOCOL_TLSV1_2=1,                 
-       GSK_TRACE=255)                                                           
+//CEEOPTS DD *                                                                  
+  ENVAR(GSK_V3_CIPHER_SPECS=3D38392F3233,GSK_PROTOCOL_TLSV1_2=1)                
 /*                                                                              
 //DEBUG    DD DSN=IBMUSER.AMAPDUPL.DEBUG,DISP=(,CATLG),                         
 //           UNIT=SYSALLDA,SPACE=(CYL,(1,1),RLSE)                               

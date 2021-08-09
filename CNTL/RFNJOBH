@@ -1,0 +1,64 @@
+//IURFNJB JOB (FB3),'RFNJOBH',CLASS=A,MSGCLASS=H,                       JOB03647
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: pull service from IBM and RECEIVE to the GLOBAL ZONE    *          
+//*                                                                  *          
+//* NOTES:                                                                      
+//* 1) #globalzone - SMP/E GLOBAL ZONE NAME                                     
+//*                                                                  *          
+//********************************************************************          
+//SMPER1  EXEC PGM=GIMSMP,REGION=0M,                                            
+//             PARM='PROCESS=WAIT'                                              
+//SMPCSI   DD  DISP=SHR,DSN=#globalzone                                         
+//SMPNTS   DD  PATHDISP=KEEP,                                                   
+//             PATH='/u/smpe/smpnts/'                                           
+//SMPOUT   DD  SYSOUT=*                                                         
+//SMPRPT   DD  SYSOUT=*                                                         
+//SMPLIST  DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SMPCNTL  DD  *                                                                
+  SET      BOUNDARY (GLOBAL) .                                                  
+  RECEIVE                                                                       
+        FROMNETWORK(                                                            
+          SERVER(SERVINFO)                                                      
+     /*   TRANSFERONLY                   <=== NOTE 5 */                         
+          CLIENT(CLNTINFO)                                                      
+          )                                                                     
+           .                                                                    
+/*                                                                              
+//*                                                                             
+//* The information provided in the SERVINFO DD has                             
+//* been customized for your order.  Please do not                              
+//* alter this information.                                                     
+//*                                                                             
+//SERVINFO DD *                                                                 
+  <SERVER                                                                       
+    host="deliverycb-bld.dhe.ibm.com"                                           
+    user="S608988z"                                                             
+    pw="c282282D315066c"                                                        
+    >                                                                           
+    <PACKAGE                                                                    
+      file="2021080860340/PROD/GIMPAF.XML"                                      
+      hash="6E41C54D873854FCFFF94450C37465FBEE9A8581"                           
+      id="U02294531"                                                            
+      >                                                                         
+    </PACKAGE>                                                                  
+  </SERVER>                                                                     
+/*                                                                              
+//*                                                                             
+//CLNTINFO DD *                                                                 
+<!--                                                                 -->        
+<!-- NOTE 6:                                                         -->        
+<!-- Specify a java home directory for the javahome attribute value. -->        
+<!-- Specify the security manager keyring or CERTAUTH virtual        -->        
+<!-- keyring or the keyword javatruststore for the downloadkeyring   -->        
+<!-- attribute value.                                                -->        
+<!--                                                                 -->        
+<CLIENT                                                                         
+javahome="/usr/lpp/java/J8.0_64"                                                
+downloadmethod="https"                                                          
+downloadkeyring="javatruststore">                                               
+</CLIENT>                                                                       
+/*                                                                              
