@@ -5,8 +5,8 @@
 //*                                                                  *          
 //* PURPOSE: pull service from IBM and RECEIVE to the GLOBAL ZONE    *          
 //*                                                                  *          
-//* NOTES: *                                                                    
-//* 1) #globalzone - SMP/E GLOBAL ZONE NAME *                                   
+//* NOTES:                                                           *          
+//* 1) #globalzone  - SMP/E GLOBAL ZONE NAME                         *          
 //* 2) TRANSFERONLY - DOES NOT RECEIVE                               *          
 //*                                                                  *          
 //********************************************************************          
@@ -24,7 +24,7 @@
   RECEIVE                                                                       
         FROMNETWORK(                                                            
           SERVER(SERVINFO)                                                      
-     /*   TRANSFERONLY                   <=== NOTE 5 */                         
+     /*   TRANSFERONLY                   <=== NOTE 2 */                         
           CLIENT(CLNTINFO)                                                      
           )                                                                     
            .                                                                    
