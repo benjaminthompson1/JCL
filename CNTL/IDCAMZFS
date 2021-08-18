@@ -38,16 +38,6 @@
 //SYSUDUMP DD SYSOUT=*                                                          
 //CEEDUMP  DD SYSOUT=*                                                          
 //*                                                                             
-//CREATDIR EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=99,COND=(0,LT)                  
-//*                                                                             
-//* Create mountpoint directory                                                 
-//*                                                                             
-//SYSTSPRT  DD SYSOUT=*                                                         
-//SYSTSIN   DD *                                                                
-  PROFILE MSGID WTPMSG                                                          
-  MKDIR '@pathprefix@' +                                                        
-        MODE(7,7,5)                                                             
-/*                                                                              
 //*                                                                             
 //* Mount the dataset at the mountpoint directory                               
 //*                                                                             
@@ -59,14 +49,4 @@
     MODE(RDWR) +                                                                
     MOUNTPOINT('@pathprefix@') +                                                
     FILESYSTEM('@zfsdsn@')                                                      
-/*                                                                              
-//*                                                                             
-//* Change permissions                                                          
-//*                                                                             
-//CHMOD    EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=99,COND=(0,LT)                  
-//SYSEXEC   DD DISP=SHR,DSN=SYS1.SBPXEXEC                                       
-//SYSTSPRT  DD SYSOUT=*                                                         
-//SYSTSIN   DD *                                                                
-  OSHELL chmod 775 +                                                            
-    @pathprefix@                                                                
 /*                                                                              

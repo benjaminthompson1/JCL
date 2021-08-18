@@ -17,6 +17,6 @@
 //BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
 //BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD(&GOPGM)                       
 //GO.STEPLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                                
-//            DD DISP=SHR,DSN=EQAE10.SEQAMOD                                    
-//GO.STDNTCRS DD DISP=SHR,DSN=IBMUSER.COBOL.STUDENT.COURSES                     
+//            DD DISP=SHR,DSN=EQAE20.SEQAMOD                                    
+//*O.STDNTCRS DD DISP=SHR,DSN=IBMUSER.COBOL.STUDENT.COURSES                     
 //GO.STCRSRPT DD SYSOUT=*                                                       
