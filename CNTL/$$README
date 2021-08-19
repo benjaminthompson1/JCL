@@ -55,6 +55,7 @@ IZUNASEC - ZERT RACF
 JAVA     - IVP Batch Java                                                       
 JES2CKPT - Create JES2 checkpoint data sets                                     
 JES2VFY  - Verify JES2 parm                                                     
+LIKECOPY - Create a dataset using the attributes for a base dataset             
 LOGREC   - Clear and initialize hardware event recorder dataset                 
 PICSCALC - PL/I bit offsets for DVM DFAT EXIT                                   
 PLIC     - PL/I compile                                                         

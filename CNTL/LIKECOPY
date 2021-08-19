@@ -1,0 +1,11 @@
+//IULIKEC JOB  (FB3),'LIKECOPY',CLASS=A,MSGCLASS=H,                             
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: DATA SET ATTRIBUTES USED FOR IBMUSER.COBOL.LOAD.NEW     *          
+//*          FROM THE CATALOGED MODEL DATA SET IBMUSER.COBOL.LOAD    *          
+//*                                                                  *          
+//********************************************************************          
+//LIKECPY EXEC PGM=IEFBR14                                                      
+//SMSDS1  DD DSNAME=IBMUSER.COBOL.LOAD.NEW,                                     
+//        LIKE=IBMUSER.COBOL.LOAD,DISP=(NEW,KEEP)                               
