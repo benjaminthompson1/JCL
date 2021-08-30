@@ -57,6 +57,7 @@ JES2CKPT - Create JES2 checkpoint data sets
 JES2VFY  - Verify JES2 parm                                                     
 LIKECOPY - Create a dataset using the attributes for a base dataset             
 LOGREC   - Clear and initialize hardware event recorder dataset                 
+MAEKCER2 - Create key ring, CA as default, a personal certificate singed with CA
 PICSCALC - PL/I bit offsets for DVM DFAT EXIT                                   
 PLIC     - PL/I compile                                                         
 RACFSTC  - STC Create USER ID and STARTED profile                               

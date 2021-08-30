@@ -8,21 +8,20 @@
 //* OTHERWISE, CODE THE ACCIN DD. DO NOT CODE BOTH.                  *          
 //* NOTE 2: CODE HIST=N IF GOING AGAINST THE LIVE FILE.              *          
 //* CODE HIST=Y IF GOING AGAINST THE HISTORICAL FILE.                *          
-//* NOTE 3: SETTING DATE AND TIME PARAMETERS IS OPTIONAL.            *          
 //*                                                                  *          
 //********************************************************************          
 //ERIP EXEC PGM=IFCEREP1,PARM='CARD'                                            
 //SERLOG DD DISP=SHR,DSN=SYS1.S0W1.LOGREC <=== SEE NOTE 1                       
 //*ACCIN DD DISP=SHR,DSN=SYS1.LOGREC.HIST <=== SEE NOTE 1                       
-//TOURIST DD SYSOUT=*,DCB=BLKSIZE=133                                           
-//EREPPT DD SYSOUT=*,DCB=BLKSIZE=133                                            
+//TOURIST  DD SYSOUT=*,DCB=BLKSIZE=133                                          
+//EREPPT   DD SYSOUT=*,DCB=BLKSIZE=133                                          
+//SYSABEND DD SYSOUT=A                                                          
 //DIRECTWK DD UNIT=SYSDA,SPACE=(CYL,(50,50))                                    
 //SYSIN DD *                                                                    
-ACC=N                                                                           
-HIST=N OR Y <=== SEE NOTE 2                                                     
-ZERO=N                                                                          
 PRINT=PS                                                                        
-TYPE=SIE                                                                        
-DATE=(YYDDD,YYDDD) <=== SEE NOTE 3                                              
-TIME=(HHMM-HHMM) <=== SEE NOTE 3                                                
+EVENT                                                                           
+HIST=N                                                                          
+ACC=N                                                                           
+TYPE=ACDEHIMOSX                                                                 
+ENDPARM                                                                         
 /*                                                                              
