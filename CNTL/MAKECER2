@@ -5,15 +5,17 @@
 //* WARNING! This job deletes rings and certificates!!!               *         
 //* ----------------------------------------------------------------- *         
 //* Job instructions:                                                 *         
-//* 1. Enter valid jobcard above.                                     *         
-//* 2. Change ++MY_KEYRING++ to your key ring name. Ex: TN3270_ring   *         
-//* 3. Change ++MY_CA_CERT++ to your CA cert name. Ex: S0W1_CA_cert   *         
-//* 4. Change ++MY_CERT++ to your non-CA cer. Ex: S0W1_cert           *         
-//* 5. Change ++USERID++ to your specified user ID. Ex: TCPIP         *         
-//* 6. Change ++HLQ++ to your personal HLQ on system.                 *         
-//* 7. Change ++NOTBEFORE++ to a not-before date YYYY-MM-DD.          *         
-//* 8. Change ++NOTAFTER++ to a not-after date YYYY-MM-DD.            *         
-//* 9. Submit. You should recieve RC=0 for every step.                *         
+//* 1.  Enter valid jobcard above.                                    *         
+//* 2.  Change ++MY_KEYRING++ to your key ring name. Ex: TN3270_ring  *         
+//* 3.  Change ++MY_CA_CERT++ to your CA cert name. Ex: S0W1_CA_cert  *         
+//* 4.  Change ++MY_CERT++ to your non-CA cer. Ex: S0W1_cert          *         
+//* 5   Change ++CN_CA++ to your Common Name. Ex: TN3270 CA           *         
+//* 6   Change ++CN_SERVER++ to your Common Name. Ex: TN3270 Server   *         
+//* 7.  Change ++USERID++ to your specified user ID. Ex: TCPIP        *         
+//* 8.  Change ++HLQ++ to your personal HLQ on system.                *         
+//* 9.  Change ++NOTBEFORE++ to a not-before date YYYY-MM-DD.         *         
+//* 10. Change ++NOTAFTER++ to a not-after date YYYY-MM-DD.           *         
+//* 11. Submit. You should recieve RC=0 for every step.               *         
 //* ----------------------------------------------------------------- *         
 //* At the end of this job you should have the following:             *         
 //* Keyring : ++MY_KEYRING++                                          *         
@@ -40,9 +42,8 @@ SETROPTS RACLIST(FACILITY) REFRESH
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
 RACDCERT CERTAUTH GENCERT -                                                     
-SUBJECTSDN( o('IBM Corporation') -                                              
-ou('zPDT Certificate Authority') -                                              
-C('AU')) -                                                                      
+SUBJECTSDN(CN('++CN_CA++') -                                                    
+O('International Business Machines Corporation') C('AU')) -                     
 NOTBEFORE(DATE(++NOTBEFORE++)) -                                                
 NOTAFTER(DATE(++NOTAFTER++)) -                                                  
 KEYUSAGE(CERTSIGN) -                                                            
@@ -67,7 +68,7 @@ SETROPTS RACLIST(FACILITY) REFRESH
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
 RACDCERT GENCERT ID(++USERID++) +                                               
-SUBJECTSDN(CN('TN3270 Server') +                                                
+SUBJECTSDN(CN('++CN_SERVER++') +                                                
 O('International Business Machines Corporation') C('AU')) +                     
 SIZE(2048) NOTBEFORE(DATE(++NOTBEFORE++) TIME(11:00:00)) +                      
 NOTAFTER(DATE(++NOTAFTER++) TIME(11:00:00)) +                                   
