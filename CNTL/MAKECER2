@@ -1,0 +1,179 @@
+//IUMKCER JOB (FB3),'MAKECER2',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//* WARNING! This job deletes rings and certificates!!!               *         
+//* ----------------------------------------------------------------- *         
+//* Job instructions:                                                 *         
+//* 1. Enter valid jobcard above.                                     *         
+//* 2. Change ++MY_KEYRING++ to your key ring name. Ex: TN3270_ring   *         
+//* 3. Change ++MY_CA_CERT++ to your CA cert name. Ex: S0W1_CA_cert   *         
+//* 4. Change ++MY_CERT++ to your non-CA cer. Ex: S0W1_cert           *         
+//* 5. Change ++USERID++ to your specified user ID. Ex: TCPIP         *         
+//* 6. Change ++HLQ++ to your personal HLQ on system.                 *         
+//* 7. Change ++NOTBEFORE++ to a not-before date YYYY-MM-DD.          *         
+//* 8. Change ++NOTAFTER++ to a not-after date YYYY-MM-DD.            *         
+//* 9. Submit. You should recieve RC=0 for every step.                *         
+//* ----------------------------------------------------------------- *         
+//* At the end of this job you should have the following:             *         
+//* Keyring : ++MY_KEYRING++                                          *         
+//* CA Cert : ++MY_CA_CERT++ (Connected to ring)                      *         
+//* Non-CA Cert: ++MY_CERT++ (Connected to ring)                      *         
+//* Data set : ++HLQ++.CERTB64.CERT                                   *         
+//* ----------------------------------------------------------------- *         
+//* C. Van Wagner 2019-05-03 Initial create.                          *         
+//*********************************************************************         
+//*********************************************************************         
+//* Delete CA Cert if it exists.                                      *         
+//*********************************************************************         
+//STEP010 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT CERTAUTH DELETE(LABEL('++MY_CA_CERT++')) ID(++USERID++)                
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*********************************************************************         
+//* Create CA Cert.                                                   *         
+//*********************************************************************         
+//STEP020 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT CERTAUTH GENCERT -                                                     
+SUBJECTSDN( o('IBM Corporation') -                                              
+ou('zPDT Certificate Authority') -                                              
+C('AU')) -                                                                      
+NOTBEFORE(DATE(++NOTBEFORE++)) -                                                
+NOTAFTER(DATE(++NOTAFTER++)) -                                                  
+KEYUSAGE(CERTSIGN) -                                                            
+WITHLABEL('++MY_CA_CERT++')                                                     
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*********************************************************************         
+//* Delete a non-CA Cert.                                             *         
+//*********************************************************************         
+//STEP030 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT ID(++USERID++) DELETE(LABEL('++MY_CERT++')                             
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*********************************************************************         
+//* Create a non-CA certificate and reference the CA cert above.      *         
+//*********************************************************************         
+//STEP040 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT GENCERT ID(++USERID++) +                                               
+SUBJECTSDN(CN('TN3270 Server') +                                                
+O('International Business Machines Corporation') C('AU')) +                     
+SIZE(2048) NOTBEFORE(DATE(++NOTBEFORE++) TIME(11:00:00)) +                      
+NOTAFTER(DATE(++NOTAFTER++) TIME(11:00:00)) +                                   
+WITHLABEL('++MY_CERT++') +                                                      
+RSA KEYUSAGE(CERTSIGN DATAENCRYPT HANDSHAKE) +                                  
+SIGNWITH(CERTAUTH LABEL('++MY_CA_CERT++'))                                      
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*********************************************************************         
+//* List the CA cert.                                                 *         
+//*********************************************************************         
+//STEP050 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT CERTAUTH LIST(LABEL('++MY_CA_CERT++'))                                 
+/*                                                                              
+//*********************************************************************         
+//* List the non-CA cert.                                             *         
+//*********************************************************************         
+//STEP060 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT LIST(LABEL('++MY_CERT++')) ID(++USERID++)                              
+/*                                                                              
+//*********************************************************************         
+//*********************************************************************         
+//* At this point, you should have two certificates:                  *         
+//* 1. CA cert                                                        *         
+//* 2. Non-CA cert which references the CA cert.                      *         
+//* Next, we will create a key ring and connect those certs.          *         
+//*********************************************************************         
+//*********************************************************************         
+//*********************************************************************         
+//* Delete key ring if it exists.                                     *         
+//*********************************************************************         
+//STEP070 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT ID(++USERID++) DELRING(++MY_KEYRING++)                                 
+/*                                                                              
+//*********************************************************************         
+//* Create a key ring.                                                *         
+//*********************************************************************         
+//STEP080 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT ID(++USERID++) ADDRING(++MY_KEYRING++)                                 
+/*                                                                              
+//*********************************************************************         
+//* List the key ring.                                                *         
+//*********************************************************************         
+//STEP090 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT LISTRING(++MY_KEYRING++) ID(++USERID++)                                
+/*                                                                              
+//*********************************************************************         
+//* CONNECT THE non-CA Cert TO THE RING.                              *         
+//*********************************************************************         
+//STEP100 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=0M                               
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT ID(++USERID++) CONNECT(LABEL('++MY_CERT++') -                          
+RING(++MY_KEYRING++) DEFAULT)                                                   
+/*                                                                              
+//*********************************************************************         
+//* CONNECT THE CA Cert to the ring.                                  *         
+//*********************************************************************         
+//STEP110 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=0M                               
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT ID(++USERID++) CONNECT(CERTAUTH -                                      
+LABEL('++MY_CA_CERT++') -                                                       
+RING(++MY_KEYRING++) -                                                          
+USAGE(CERTAUTH))                                                                
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*********************************************************************         
+//* Display the key ring which should now have 2 certs connected.     *         
+//*********************************************************************         
+//STEP120 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT LISTRING(++MY_KEYRING++) ID(++USERID++)                                
+/*                                                                              
+//*********************************************************************         
+//*********************************************************************         
+//* At this point, you should have your key ring and certs connected. *         
+//* If you don't something went wrong. Start over. Don't proceed.     *         
+//*********************************************************************         
+//*********************************************************************         
+//*********************************************************************         
+//* Export a non-CA cert to a file so it can be sent to your PC/MAC.  *         
+//* After you make TCPIP / TN3270 changes, this is the magic key that *         
+//* will permit you to authenticate with TN3270 (PCOMM).              *         
+//* Make sure you FTP this file to your PC in ASCII mode. You can     *         
+//* also just copy/paste it. It is small.                             *         
+//*********************************************************************         
+//STEP130 EXEC PGM=IKJEFT01,DYNAMNBR=50                                         
+//SYSLBC DD DSN=SYS1.BRODCAST,DISP=SHR                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT CERTAUTH EXPORT(LABEL('++MY_CA_CERT++')) -                             
+FORMAT(CERTB64) DSN('++HLQ++.CACERT.EXPORT') -                                  
+PASSWORD('WELCOME')                                                             
+/*                                                                              
