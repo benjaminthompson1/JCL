@@ -1,9 +1,9 @@
-//IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                     JOB04867
+//IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
-//* PURPOSE: DB2 COBOL COMPILE, BIND AND GO                          *          
+//* PURPOSE: DB2 COBOL COMPILE AND BIND                              *          
 //*                                                                  *          
 //********************************************************************          
 //COMPILE  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                              
