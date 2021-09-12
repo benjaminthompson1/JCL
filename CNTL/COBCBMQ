@@ -1,0 +1,22 @@
+//IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: MQ COBOL COMPILE AND BIND                               *          
+//*                                                                  *          
+//********************************************************************          
+//COBCB1  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                               
+//             CPARM=TEST,                                                      
+//             BPARM='XREF,MAP,DYNAM=DLL',                                      
+//             GOPGM=CSQ4BVK1                                                   
+//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                            
+//             DD DISP=SHR,DSN=CSQ911.SCSQCOBC                                  
+//COBOL.SYSIN  DD DISP=SHR,DSN=CSQ911.SCSQCOBS(CSQ4BVK1)                        
+//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
+//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                               
+//BIND.SYSOBJ  DD DISP=SHR,DSN=CEE.SCEEOBJ                                      
+//             DD DISP=SHR,DSN=CSQ911.SCSQDEFS                                  
+//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
+//             DD DISP=SHR,DSN=CSQ911.SCSQLOAD(CSQBSTUB)                        
+//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD(&GOPGM)                       

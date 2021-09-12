@@ -15,14 +15,15 @@ COBCB    - COBOL compile and bind
 COBCBDB  - COBOL compile and bind with Db2                                      
 COBCBG   - COBOL compile, bind and go (run)                                     
 COBCBGDB - COBOL compile, bind and go (run) with Db2                            
+COBCBMQ  - COBOL compile and bind with MQ                                       
 COBRUN   - COBOL run program                                                    
 COBSORT  - COBOL with DFSORT                                                    
 CONVERTV - SMS CONVERTV                                                         
-CSQ4BCJR - PUT/GET sample programs, CSQ4BCK1/CSQ4BCJ1                           
-CSQ4BCLR - GET SAMPLE PRGRAM, CSQ4BCL1                                          
 CSQLOGP1 - CSQ LOG PRINT                                                        
 CSQLOGP2 - CSQ LOG PRINT commited messages and select specific data             
 CSQUTIL  - MQ CSQ Utility                                                       
+CSQ4BCJR - PUT/GET sample programs, CSQ4BCK1/CSQ4BCJ1                           
+CSQ4BCLR - GET sample program CSQ4BCL1                                          
 DCOLLECT - DCOLLECT collects stored dataset, volume and policy values           
 DFH$ECAT - copy from DFH540.CICS.SDFHINST                                       
 DFH$ECNF - copy from DFH540.CICS.SDFHINST                                       
