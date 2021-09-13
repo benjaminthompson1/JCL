@@ -1,4 +1,6 @@
-//CSQ4BVJR JOB                                                                  
+//IUBVJR JOB (FB3),'CSQ4BVJR',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //******************************************************************            
 //*                                                                *            
 //* <copyright                                                     *            
@@ -61,14 +63,16 @@
 //*  IN THIS JOB.                                                               
 //*                                                                             
 //*********************************************************************         
-//JOBLIB   DD   DSN=++THLQUAL++.SCSQLOAD,DISP=SHR                               
-//         DD   DSN=++THLQUAL++.SCSQANL++LANGLETTER++,DISP=SHR                  
-//         DD   DSN=++THLQUAL++.SCSQAUTH,DISP=SHR                               
+//JOBLIB   DD   DSN=CSQ911.SCSQLOAD,DISP=SHR                                    
+//         DD   DSN=CSQ911.SCSQANLE,DISP=SHR                                    
+//         DD   DSN=CSQ911.SCSQAUTH,DISP=SHR                                    
 //*                                                                             
 //PUTMSGS  EXEC PGM=CSQ4BVK1,REGION=1024K,                                      
-//  PARM=('++QMGR++,++QUEUE++,++MSGS++,++PAD++,++LEN++,++PERS++')               
+//  PARM=('CSQ9,KMQ.ANSIBLE.TEST,99,Z,80,P')                                    
+//*  PARM=('++QMGR++,++QUEUE++,++MSGS++,++PAD++,++LEN++,++PERS++')              
 //*                                                                             
 //*GETMSGS  EXEC PGM=CSQ4BVJ1,REGION=1024K,                                     
+//*  PARM=('CSQ9,KMQ.ANSIBLE.TEST,99,D,S')                                      
 //*  PARM=('++QMGR++,++QUEUE++,++MSGS++,++GET++,++SYNC++')                      
 //*                                                                             
 //SYSDBOUT DD   SYSOUT=*                                                        

@@ -1,0 +1,32 @@
+//IUQPUT JOB (FB3),'CSQ4BVJR',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* IBM MQ for z/OS                                                  *          
+//*                                                                  *          
+//* THIS JOB RUNS THE PUT SAMPLE PROGRAM CSQ4BVK1                    *          
+//*                                                                  *          
+//*  PROGRAM CSQ4BVK1 ISSUES MQPUT ON A QUEUE.                       *          
+//*   - FIRST PARM  (++QMGR++)  QUEUE MANAGER NAME                   *          
+//*   - SECOND PARM (++QUEUE++) QUEUE NAME                           *          
+//*   - THIRD PARM  (++MSGS++)  THE NUMBER OF MESSAGES TO PUT-(9999) *          
+//*   - FOURTH PARM (++PAD++)   THE PADDING CHARACTER                *          
+//*   - FIFTH PARM  (++LEN++)   THE LENGTH OF EACH MESSAGE-(9999)    *          
+//*   - SIXTH PARM  (++PERS++)  (P)ERSISTENT/(N)ON PERSISTENT MESSAGES          
+//*  MESSAGES ARE PRINTED TO DD SYSPRINT                             *          
+//*                                                                  *          
+//********************************************************************          
+//JOBLIB   DD   DSN=IBMUSER.COBOL.LOAD,DISP=SHR                                 
+//         DD   DSN=CSQ911.SCSQANLE,DISP=SHR                                    
+//         DD   DSN=CSQ911.SCSQAUTH,DISP=SHR                                    
+//*                                                                             
+//PUTMSGS  EXEC PGM=CSQ4BVK1,REGION=1024K,                                      
+//  PARM=('CSQ9,KMQ.ANSIBLE.TEST,99,Z,80,P')                                    
+//*  PARM=('++QMGR++,++QUEUE++,++MSGS++,++PAD++,++LEN++,++PERS++')              
+//*                                                                             
+//SYSDBOUT DD   SYSOUT=*                                                        
+//SYSABOUT DD   SYSOUT=*                                                        
+//SYSPRINT DD   SYSOUT=*                                                        
+//SYSOUT   DD   SYSOUT=*                                                        
+//                                                                              
