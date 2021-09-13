@@ -22,8 +22,8 @@ CONVERTV - SMS CONVERTV
 CSQLOGP1 - CSQ LOG PRINT                                                        
 CSQLOGP2 - CSQ LOG PRINT commited messages and select specific data             
 CSQUTIL  - MQ CSQ Utility                                                       
-CSQ4BCJR - PUT/GET sample programs, CSQ4BCK1/CSQ4BCJ1                           
 CSQ4BCLR - GET sample program CSQ4BCL1                                          
+CSQ4BVJR - PUT/GET sample programs, CSQ4BCK1/CSQ4BCJ1                           
 DCOLLECT - DCOLLECT collects stored dataset, volume and policy values           
 DFH$ECAT - copy from DFH540.CICS.SDFHINST                                       
 DFH$ECNF - copy from DFH540.CICS.SDFHINST                                       
