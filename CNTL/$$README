@@ -51,6 +51,7 @@ IDCAMZFS - Define ZFS dataset and mount on specified directory
 IEBCOPY  - copy PDS members                                                     
 IEBDG    - generate test data                                                   
 ISCJCL86 - SCRT Report                                                          
+IFASMFDL - SMF logstream dump program                                           
 IXCMIAPU - Define LOGSTREAM name(IFASMF.SMFALL.S0W1)                            
 IZUNASEC - ZERT RACF                                                            
 JAVA     - IVP Batch Java                                                       

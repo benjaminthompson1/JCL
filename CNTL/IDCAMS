@@ -5,7 +5,7 @@
 //* PURPOSE: IDCAMS                                                  *          
 //*                                                                  *          
 //********************************************************************          
-//CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
+//IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   LISTCAT -                                                                     
@@ -16,6 +16,12 @@
 //* CREATE DATASET ALIAS                                                        
  DEFINE ALIAS (NAME(DSNC10.SDSNEXIT) -                                          
         RELATE(DSNC10.DBCG.SDSNEXIT))                                           
+//                                                                              
+//* CREATE SYMBOLICRELATE ALIAS                                                 
+ DEL IBMUSER.TEST.ALIAS                                                         
+ DEF ALIAS(NAME(IBMUSER.TEST.ALIAS) -                                           
+     SYMBOLICRELATE(IBMUSER.&SYSNAME..TEST))                                    
+ LISTC ENT(IBMUSER.TEST.ALIAS) ALL                                              
 //                                                                              
 //* REPRO DUMP VSAM DATASET                                                     
 //INDD DD DSN=IBMUSER.DFAT.FSCN.AIX,DISP=SHR                                    
