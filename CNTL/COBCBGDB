@@ -1,4 +1,4 @@
-//IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
+//IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                     JOB09516
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
@@ -7,9 +7,9 @@
 //*                                                                  *          
 //********************************************************************          
 //COMPILE  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                              
-//         CPARM='SQL,TEST',                                                    
+//         CPARM='SQL,TEST,NOSQLCCSID,CODEPAGE(1047)',                          
 //         BPARM='DYNAM=NO',                                                    
-//         GOPGM=DB2ARCH                                                        
+//         GOPGM=ERIS                                                           
 //COBOL.STEPLIB DD DISP=SHR,DSN=DSNC10.DBCG.SDSNEXIT                            
 //              DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
 //COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                           
@@ -25,21 +25,25 @@
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSTSIN  DD  *                                                                
   DSN SYSTEM(DBCG)                                                              
-  BIND PACKAGE(BENCOLLECTION) MEMBER(DB2ARCH) +                                 
+  BIND PACKAGE(BENCOLLECTION) MEMBER(ERIS) +                                    
        LIBRARY('IBMUSER.COBOL.DBRMLIB') +                                       
        EXPLAIN(YES) +                                                           
        ARCHIVESENSITIVE(YES) +                                                  
        ACTION(REPLACE)                                                          
-  BIND PLAN(BENPLAN) PKLIST(BENCOLLECTION.DB2ARCH)                              
+  BIND PLAN(BENPLAN) PKLIST(BENCOLLECTION.ERIS)                                 
   END                                                                           
 /*                                                                              
 //DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              
 //STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
 //         DD  DISP=SHR,DSN=EQAE20.SEQAMOD                                      
+//         DD  DISP=SHR,DSN=IBMUSER.COBOL.LOAD                                  
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSTSIN  DD  *                                                                
   DSN SYSTEM(DBCG)                                                              
-  RUN PROGRAM(DB2ARCH) PLAN(BENPLAN) LIBRARY('IBMUSER.COBOL.LOAD') +            
+  RUN PROGRAM(ERIS) PLAN(BENPLAN) LIBRARY('IBMUSER.COBOL.LOAD') +               
     PARM('/TEST(,,,TCPIP&10.1.1.36%8001:*)')                                    
   END                                                                           
 /*                                                                              
+//ERISPER  DD DISP=SHR,DSN=IBMUSER.ERIS.PERSON                                  
+//ERISPRO  DD DISP=SHR,DSN=IBMUSER.ERIS.PROVIDER                                
+//ERISVAC  DD DISP=SHR,DSN=IBMUSER.ERIS.VACCINE                                 

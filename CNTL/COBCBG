@@ -19,4 +19,4 @@
 //GO.STEPLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                                
 //            DD DISP=SHR,DSN=EQAE20.SEQAMOD                                    
 //*O.STDNTCRS DD DISP=SHR,DSN=IBMUSER.COBOL.STUDENT.COURSES                     
-//GO.STCRSRPT DD SYSOUT=*                                                       
+//*O.STCRSRPT DD SYSOUT=*                                                       

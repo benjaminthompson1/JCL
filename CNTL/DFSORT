@@ -1,6 +1,6 @@
 //IUDFSRT JOB (FB3),'DFSORT',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//       TYPRUN=HOLD                                                            
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: DFSORT                                                  *          

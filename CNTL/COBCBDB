@@ -7,7 +7,7 @@
 //*                                                                  *          
 //********************************************************************          
 //COMPILE  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                              
-//         CPARM='SQL,TEST',                                                    
+//         CPARM='SQL,TEST,NOSQLCCSID,CODEPAGE(1047)',                          
 //         BPARM='DYNAM=NO',                                                    
 //         GOPGM=DB2ARCH                                                        
 //COBOL.STEPLIB DD DISP=SHR,DSN=DSNC10.DBCG.SDSNEXIT                            
