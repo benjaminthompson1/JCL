@@ -7,7 +7,7 @@
 //* OPTION ZSORT - NEW FEATURE WITH Z15                              *          
 //*                                                                  *          
 //********************************************************************          
-//STEP0100 EXEC PGM=ICETOOL                                                     
+//ZSORT1   EXEC PGM=ICETOOL                                                     
 //TOOLMSG  DD SYSOUT=*                                                          
 //DFSMSG   DD SYSOUT=*                                                          
 //TOOLIN   DD *                                                                 
