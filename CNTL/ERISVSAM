@@ -1,0 +1,30 @@
+//IUVSAM JOB  (FB3),'ERISVSAM',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*********************************************************************         
+//*********************************************************************         
+//DEFKSDS EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                                
+//SYSPRINT DD SYSOUT=*                                                          
+//AMSDUMP  DD SYSOUT=*                                                          
+//SYSIN DD *                                                                    
+   DELETE IBMUSER.ERIS.VS.PERSON PURGE CLUSTER                                  
+   SET MAXCC=0                                                                  
+   DEFINE CLUSTER (NAME(IBMUSER.ERIS.VS.PERSON)-                                
+          TRK(1 1) -                                                            
+          KEYS(6 0) -                                                           
+          RECORDSIZE(130,130) -                                                 
+          SHAREOPTIONS(2 3) -                                                   
+          INDEXED -                                                             
+          ) -                                                                   
+          DATA (NAME(IBMUSER.ERIS.VS.PERSON.DATA) -                             
+          ) -                                                                   
+          INDEX (NAME(IBMUSER.ERIS.VS.PERSON.INDEX) -                           
+          )                                                                     
+//*                                                                             
+//CPYKSDS  EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                               
+//SYSPRINT DD SYSOUT=*                                                          
+//AMSDUMP  DD SYSOUT=*                                                          
+//INFILE   DD DISP=SHR,DSN=IBMUSER.ERIS.PERSON                                  
+//OUTFILE  DD DSN=IBMUSER.ERIS.VS.PERSON,DISP=SHR                               
+//SYSIN DD *                                                                    
+ REPRO INFILE(INFILE) OUTFILE(OUTFILE)                                          
+//                                                                              

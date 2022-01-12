@@ -18,6 +18,10 @@
           XBT.DCSWEBZ1.**)        -                                             
   CATALOG                                                                       
 /*                                                                              
+// LIST CONTENTS OF DUMP FILE                                                   
+  RESTORE INDDNAME(TAPE) -                                                      
+  DATASET(INCLUDE(**))                                                          
+//                                                                              
 //                                                                              
   RESTORE INDD(TAPE) -                                                          
           OUTDD(OUT1) -                                                         

@@ -21,7 +21,6 @@ COBRUN   - COBOL run program
 COBSORT  - COBOL with DFSORT                                                    
 CONVERTV - SMS CONVERTV                                                         
 CRDB2ARC - COBOL RUN DB2ARCH                                                    
-CRERIS   - COBOL RUN ERIS                                                       
 CSQLOGP1 - CSQ LOG PRINT                                                        
 CSQLOGP2 - CSQ LOG PRINT commited messages and select specific data             
 CSQUTIL  - MQ CSQ Utility                                                       
@@ -41,6 +40,9 @@ DSSMOVE  - Move dataset(s) from volume
 DSSREST  - DSS Backup restore                                                   
 DVMSQL   - Create sample DB and TB for DVM                                      
 EREP     - EREP processes logrec data set into reports                          
+ERISDBIC - Db2 full Image Copy on ERIS TS                                       
+ERISPGM  - COBOL RUN ERIS                                                       
+ERISVSAM - Create and load PERSON VSAM for ERIS project                         
 HBOJBCOL - CDP z Batch SMF processor                                            
 HBOJBDC2 - CDP z Batch DCOLLECT processor                                       
 HLASM    - Compile and link HLASM                                               
@@ -48,6 +50,7 @@ ICEGENER - IEBGENER replacement for VSAM and sequential files
 ICETOOL  - ZSORT new feature in z15 hardware                                    
 ICKDSF01 - 3390 Initialize Volume                                               
 IDCAMCPY - Copy VSAM data                                                       
+IDCAMGDG - Create GDG base                                                      
 IDCAMS   - LISTCAT / DEFINE ALIAS                                               
 IDCAMSMS - Define backup SCDS for SMS                                           
 IDCAMSVS - Define VSAM dataset with alternate index                             

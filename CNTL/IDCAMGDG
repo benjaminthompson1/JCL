@@ -1,0 +1,17 @@
+//IUIDCAM JOB (FB3),'IDCAMS GDG',CLASS=A,MSGCLASS=H,                            
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: IDCAMS CREATE GDG BASE                                  *          
+//*                                                                  *          
+//********************************************************************          
+//IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  DEFINE GDG(NAME(ADBS.DBCG.IC.ERISDB.PERSON) +                                 
+  LIMIT(2) SCRATCH NOEMPTY)                                                     
+/*                                                                              
+//                                                                              
+//* ROLLIN A GDG WHICH IS SMS MANAGED                                           
+  ALTER GDG.NAME.GXXXXVXX ROLLIN                                                

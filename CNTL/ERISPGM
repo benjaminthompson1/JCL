@@ -1,0 +1,27 @@
+//IUCOBOL JOB (FB3),'COBOL RUN',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: COBOL EXECUTE PROGRAM DB2                               *          
+//*                                                                  *          
+//********************************************************************          
+//DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              
+//STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
+//         DD  DISP=SHR,DSN=EQAE20.SEQAMOD                                      
+//         DD  DISP=SHR,DSN=IBMUSER.COBOL.LOAD                                  
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSUDUMP DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBCG)                                                              
+  RUN PROGRAM(ERIS) PLAN(BENPLAN) LIBRARY('IBMUSER.COBOL.LOAD') +               
+    PARM('/TEST')                                                               
+  END                                                                           
+/*                                                                              
+//ERISPRM  DD *                                                                 
+00000500 00001000                                                               
+/*                                                                              
+//ERISPER  DD DISP=SHR,DSN=IBMUSER.ERIS.PERSON                                  
+//ERISPRO  DD DISP=SHR,DSN=IBMUSER.ERIS.PROVIDER                                
+//ERISVAC  DD DISP=SHR,DSN=IBMUSER.ERIS.VACCINE                                 

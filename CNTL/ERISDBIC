@@ -1,0 +1,91 @@
+//IUDBICF JOB (FB3),'DB2 IC FULL',CLASS=A,MSGCLASS=H,                           
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: FULL DB2 IMMAGE COPY OF ALL ERIS TS                     *          
+//*                                                                  *          
+//********************************************************************          
+//**********************************************************************        
+//* STEP COPY1: COPY TABLESPACE ERISDB.PERSON                                   
+//**********************************************************************        
+//COPY1 EXEC DSNUPROC,SYSTEM=DBCG,                                              
+//             LIB='DSNC10.SDSNLOAD',                                           
+//             UID=''                                                           
+//DSNUPROC.SYSCOPY DD DSN=ADBS.DBCG.IC.ERISDB.PERSON(+1),                       
+//             DISP=(NEW,CATLG),                                                
+//             SPACE=(TRK,(45,5),RLSE),                                         
+//             UNIT=SYSDA                                                       
+//DSNUPROC.SYSIN  DD  *                                                         
+COPY TABLESPACE ERISDB.PERSON DSNUM ALL                                         
+  FULL YES                                                                      
+/*                                                                              
+//**********************************************************************        
+//* STEP COPY2: COPY TABLESPACE ERISDB.PROVIDER                                 
+//**********************************************************************        
+//COPY2 EXEC DSNUPROC,SYSTEM=DBCG,                                              
+//             LIB='DSNC10.SDSNLOAD',                                           
+//             UID=''                                                           
+//DSNUPROC.SYSCOPY DD DSN=ADBS.DBCG.IC.ERISDB.PROVIDER(+1),                     
+//             DISP=(NEW,CATLG),                                                
+//             SPACE=(TRK,(15,5),RLSE),                                         
+//             UNIT=SYSDA                                                       
+//DSNUPROC.SYSIN  DD  *                                                         
+COPY TABLESPACE ERISDB.PROVIDER DSNUM ALL                                       
+  FULL YES                                                                      
+/*                                                                              
+//**********************************************************************        
+//* STEP COPY3: COPY TABLESPACE ERISDB.TSPERSO2                                 
+//**********************************************************************        
+//COPY3 EXEC DSNUPROC,SYSTEM=DBCG,                                              
+//             LIB='DSNC10.SDSNLOAD',                                           
+//             UID=''                                                           
+//DSNUPROC.SYSCOPY DD DSN=ADBS.DBCG.IC.ERISDB.TSPERSO2(+1),                     
+//             DISP=(NEW,CATLG),                                                
+//             SPACE=(TRK,(5,5),RLSE),                                          
+//             UNIT=SYSDA                                                       
+//DSNUPROC.SYSIN  DD  *                                                         
+COPY TABLESPACE ERISDB.TSPERSO2 DSNUM ALL                                       
+  FULL YES                                                                      
+/*                                                                              
+//**********************************************************************        
+//* STEP COPY4: COPY TABLESPACE ERISDB.TSPROVI2                                 
+//**********************************************************************        
+//COPY4 EXEC DSNUPROC,SYSTEM=DBCG,                                              
+//             LIB='DSNC10.SDSNLOAD',                                           
+//             UID=''                                                           
+//DSNUPROC.SYSCOPY DD DSN=ADBS.DBCG.IC.ERISDB.TSPROVI2(+1),                     
+//             DISP=(NEW,CATLG),                                                
+//             SPACE=(TRK,(5,5),RLSE),                                          
+//             UNIT=SYSDA                                                       
+//DSNUPROC.SYSIN  DD  *                                                         
+COPY TABLESPACE ERISDB.TSPROVI2 DSNUM ALL                                       
+  FULL YES                                                                      
+/*                                                                              
+//**********************************************************************        
+//* STEP COPY5: COPY TABLESPACE ERISDB.TSVACCI2                                 
+//**********************************************************************        
+//COPY5 EXEC DSNUPROC,SYSTEM=DBCG,                                              
+//             LIB='DSNC10.SDSNLOAD',                                           
+//             UID=''                                                           
+//DSNUPROC.SYSCOPY DD DSN=ADBS.DBCG.IC.ERISDB.TSVACCI2(+1),                     
+//             DISP=(NEW,CATLG),                                                
+//             SPACE=(TRK,(15,5),RLSE),                                         
+//             UNIT=SYSDA                                                       
+//DSNUPROC.SYSIN  DD  *                                                         
+COPY TABLESPACE ERISDB.TSVACCI2 DSNUM ALL                                       
+  FULL YES                                                                      
+/*                                                                              
+//**********************************************************************        
+//* STEP COPY6: COPY TABLESPACE ERISDB.VACCINAT                                 
+//**********************************************************************        
+//COPY6 EXEC DSNUPROC,SYSTEM=DBCG,                                              
+//             LIB='DSNC10.SDSNLOAD',                                           
+//             UID=''                                                           
+//DSNUPROC.SYSCOPY DD DSN=ADBS.DBCG.IC.ERISDB.VACCINAT(+1),                     
+//             DISP=(NEW,CATLG),                                                
+//             SPACE=(TRK,(15,5),RLSE),                                         
+//             UNIT=SYSDA                                                       
+//DSNUPROC.SYSIN  DD  *                                                         
+COPY TABLESPACE ERISDB.VACCINAT DSNUM ALL                                       
+  FULL YES                                                                      
