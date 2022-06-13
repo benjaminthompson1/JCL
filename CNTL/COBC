@@ -9,6 +9,6 @@
 //COBC1  EXEC IGYQC,LNGPRFX=IGY630,LIBPRF1=CEE,                                 
 //            CPARM=TEST,                                                       
 //            GOPGM=HELLOW                                                      
-//SYSLIB DD   DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                                
-//SYSIN  DD   DISP=SHR,DSN=IBMUSER.COBOL.SOURCE(&GOPGM)                         
-//SYSLIN DD   DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                         
+//SYSLIB DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                            
+//SYSIN  DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                     
+//SYSLIN DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                     

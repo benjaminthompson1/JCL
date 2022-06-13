@@ -9,9 +9,9 @@
 //COBCB1  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                               
 //             CPARM=TEST,                                                      
 //             GOPGM=HELLOW                                                     
-//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                            
-//COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.COBOL.SOURCE(&GOPGM)                     
-//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
-//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                               
-//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
-//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD(&GOPGM)                       
+//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
+//COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                 
+//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
+//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
+//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
+//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   

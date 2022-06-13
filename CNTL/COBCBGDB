@@ -12,21 +12,21 @@
 //         GOPGM=ERIS                                                           
 //COBOL.STEPLIB DD DISP=SHR,DSN=DSNC10.DBCG.SDSNEXIT                            
 //              DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
-//COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                           
-//COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.COBOL.SOURCE(&GOPGM)                    
-//COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                    
-//COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.COBOL.DBRMLIB(&GOPGM)                   
+//COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                       
+//COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                
+//COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
+//COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.DBRMLIB(&GOPGM)               
 //BIND.SYSLIB   DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
-//              DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                              
-//BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                    
-//BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD(&GOPGM)                      
+//              DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                          
+//BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
+//BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                  
 //DB2BIND  EXEC PGM=IKJEFT01                                                    
 //STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSTSIN  DD  *                                                                
   DSN SYSTEM(DBCG)                                                              
   BIND PACKAGE(BENCOLLECTION) MEMBER(ERIS) +                                    
-       LIBRARY('IBMUSER.COBOL.DBRMLIB') +                                       
+       LIBRARY('IBMUSER.GIT.COBOL.DBRMLIB') +                                   
        EXPLAIN(YES) +                                                           
        ARCHIVESENSITIVE(YES) +                                                  
        ACTION(REPLACE)                                                          
@@ -36,11 +36,11 @@
 //DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              
 //STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
 //         DD  DISP=SHR,DSN=EQAE20.SEQAMOD                                      
-//         DD  DISP=SHR,DSN=IBMUSER.COBOL.LOAD                                  
+//         DD  DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                              
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSTSIN  DD  *                                                                
   DSN SYSTEM(DBCG)                                                              
-  RUN PROGRAM(ERIS) PLAN(BENPLAN) LIBRARY('IBMUSER.COBOL.LOAD') +               
+  RUN PROGRAM(ERIS) PLAN(BENPLAN) LIBRARY('IBMUSER.GIT.COBOL.LOAD') +           
     PARM('/TEST(,,,TCPIP&10.1.1.36%8001:*)')                                    
   END                                                                           
 /*                                                                              

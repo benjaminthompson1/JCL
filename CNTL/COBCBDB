@@ -12,14 +12,14 @@
 //         GOPGM=ERIS                                                           
 //COBOL.STEPLIB DD DISP=SHR,DSN=DSNC10.DBCG.SDSNEXIT                            
 //              DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
-//COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                           
-//COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.COBOL.SOURCE(&GOPGM)                    
-//COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                    
-//COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.COBOL.DBRMLIB(&GOPGM)                   
+//COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                       
+//COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                
+//COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
+//COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.DBRMLIB(&GOPGM)               
 //BIND.SYSLIB   DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
-//              DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                              
-//BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                    
-//BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD(&GOPGM)                      
+//              DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                          
+//BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
+//BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                  
 //DB2BIND  EXEC PGM=IKJEFT01                                                    
 //STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
 //SYSTSPRT DD  SYSOUT=*                                                         

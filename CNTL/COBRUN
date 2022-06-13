@@ -7,7 +7,7 @@
 //*                                                                  *          
 //********************************************************************          
 //COBOL    EXEC PGM=DB2ARCH                                                     
-//STEPLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                                   
+//STEPLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
 //SYSPRINT DD SYSOUT=*                                                          
 //IMMUN    DD *                                                                 
 A                                                                               

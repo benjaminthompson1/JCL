@@ -10,13 +10,13 @@
 //             CPARM=TEST,                                                      
 //             BPARM='XREF,MAP,DYNAM=DLL',                                      
 //             GOPGM=CSQ4BVK1                                                   
-//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                            
+//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
 //             DD DISP=SHR,DSN=CSQ911.SCSQCOBC                                  
 //COBOL.SYSIN  DD DISP=SHR,DSN=CSQ911.SCSQCOBS(&GOPGM)                          
-//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
-//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                               
+//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
+//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
 //BIND.SYSOBJ  DD DISP=SHR,DSN=CEE.SCEEOBJ                                      
 //             DD DISP=SHR,DSN=CSQ911.SCSQDEFS                                  
-//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
+//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
 //             DD DISP=SHR,DSN=CSQ911.SCSQLOAD(CSQBSTUB)                        
-//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD(&GOPGM)                       
+//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   
