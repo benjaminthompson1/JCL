@@ -51,6 +51,22 @@ PERMIT ACCT# CL(ACCTNUM) ID(ZCXADM1) ACC(READ)
                                                                                 
 SETROPTS RACLIST(ACCTNUM) REFRESH                                               
                                                                                 
+ADDSD    'ZCXPRV1.*' +                                                          
+         GENERIC +                                                              
+         OWNER(IBMUSER) +                                                       
+         UACC(NONE) +                                                           
+         AUDIT(FAILURES(READ))                                                  
+PERMIT   'ZCXPRV1.*' GENERIC +                                                  
+         ID(IBMUSER) ACCESS(ALTER)                                              
+                                                                                
+ADDSD    'ZCXSTC1.*' +                                                          
+         GENERIC +                                                              
+         OWNER(IBMUSER) +                                                       
+         UACC(NONE) +                                                           
+         AUDIT(FAILURES(READ))                                                  
+PERMIT   'ZCXSTC1.*' GENERIC +                                                  
+         ID(IBMUSER) ACCESS(ALTER)                                              
+                                                                                
 ADDSD    'ZCXADM1.*' +                                                          
          GENERIC +                                                              
          OWNER(IBMUSER) +                                                       
