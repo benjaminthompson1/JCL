@@ -24,8 +24,8 @@ ADDUSER ZCXPRV1 PASSWORD(NEW2DAY) +
   NAME('zCX Provision User 1') +                                                
   OWNER(IBMUSER) UACC(ALTER) DFLTGRP(ZCXPRVG) +                                 
   AUTHORITY(JOIN) GRPACC +                                                      
-  TSO(ACCTNUM(ACCT#) PROC(IKJACCNT) SIZE(2096128) MAXSIZE(0) +                  
-  UNIT(SYSALLDA) COMMAND(ISPPDF)) +                                             
+  TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) SIZE(2096128) MAXSIZE(0) +                  
+  UNIT(SYSALLDA) COMMAND(ISPF)) +                                               
   OMVS(AUTOUID HOME(/u/zcxprv1) PROGRAM(/bin/sh))                               
                                                                                 
 ADDUSER ZCXSTC1 +                                                               
@@ -33,22 +33,30 @@ ADDUSER ZCXSTC1 +
   OWNER(IBMUSER) UACC(ALTER) DFLTGRP(ZCXSTCG) +                                 
   AUTHORITY(JOIN) GRPACC +                                                      
   NOPASSWORD NOOIDCARD +                                                        
-  TSO(ACCTNUM(ACCT#) PROC(IKJACCNT) SIZE(2096128) MAXSIZE(0) +                  
-  UNIT(SYSALLDA) COMMAND(ISPPDF)) +                                             
+  TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) SIZE(2096128) MAXSIZE(0) +                  
+  UNIT(SYSALLDA) COMMAND(ISPF)) +                                               
   OMVS(AUTOUID HOME(/u/zcxstc1) PROGRAM(/bin/sh))                               
                                                                                 
 ADDUSER ZCXADM1 PASSWORD(NEW2DAY) +                                             
   NAME('zCX Admin User 1') +                                                    
   OWNER(IBMUSER) UACC(ALTER) DFLTGRP(ZCXADMG) +                                 
   AUTHORITY(JOIN) GRPACC +                                                      
-  TSO(ACCTNUM(ACCT#) PROC(IKJACCNT) SIZE(2096128) MAXSIZE(0) +                  
-  UNIT(SYSALLDA) COMMAND(ISPPDF)) +                                             
+  TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) SIZE(2096128) MAXSIZE(0) +                  
+  UNIT(SYSALLDA) COMMAND(ISPF)) +                                               
   OMVS(AUTOUID HOME(/u/zcxadm1) PROGRAM(/bin/sh))                               
                                                                                 
 PERMIT ACCT# CL(ACCTNUM) ID(ZCXPRV1) ACC(READ)                                  
 PERMIT ACCT# CL(ACCTNUM) ID(ZCXSTC1) ACC(READ)                                  
 PERMIT ACCT# CL(ACCTNUM) ID(ZCXADM1) ACC(READ)                                  
                                                                                 
-PERMIT ISPFPROC(IKJACCNT) CL(TSOPROC) ID(ZCXPRV1) ACC(READ)                     
-PERMIT ISPFPROC(IKJACCNT) CL(TSOPROC) ID(ZCXSTC1) ACC(READ)                     
-PERMIT ISPFPROC(IKJACCNT) CL(TSOPROC) ID(ZCXADM1) ACC(READ)                     
+SETROPTS RACLIST(ACCTNUM) REFRESH                                               
+                                                                                
+ADDSD    'ZCXADM1.*' +                                                          
+         GENERIC +                                                              
+         OWNER(IBMUSER) +                                                       
+         UACC(NONE) +                                                           
+         AUDIT(FAILURES(READ))                                                  
+PERMIT   'ZCXADM1.*' GENERIC +                                                  
+         ID(IBMUSER) ACCESS(ALTER)                                              
+                                                                                
+SETROPTS REFRESH GENERIC(DATASET)                                               

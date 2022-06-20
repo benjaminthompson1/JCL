@@ -8,5 +8,5 @@
 //********************************************************************          
 //IFCDIP00 EXEC PGM=IFCDIP00                                                    
 //SERERDS  DD  DSN=SYS1.S0W1.LOGREC,DISP=OLD,                                   
-//             VOL=SER=C4SYS1,                                                  
+//             VOL=SER=A5SYS1,                                                  
 //             UNIT=SYSDA                                                       
