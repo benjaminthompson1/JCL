@@ -10,5 +10,8 @@
 //DEFRAG  EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                        
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
-   DEFRAG DYNAM(USER0D) CONSOLIDATE WRC                                         
+   DEFRAG DYNAM(USER0A) WRC                                                     
+   DEFRAG DYNAM(USER0B) WRC                                                     
+   DEFRAG DYNAM(USER0C) WRC                                                     
+   DEFRAG DYNAM(USER0D) WRC                                                     
 /*                                                                              
