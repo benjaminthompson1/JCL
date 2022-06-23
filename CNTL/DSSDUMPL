@@ -1,6 +1,6 @@
 //IUDSSBK JOB (FB3),'DSS DUMP',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440,                                    
-//       TYPRUN=HOLD                                                            
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //******************************************************************            
 //*                                                                *            
 //* DSS DUMP DATASETS                                              *            
@@ -9,7 +9,7 @@
 //BACKUP  EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                                  
 //DUMPOUT DD DSN=IBMUSER.BACKUP.D040820,                                        
 //        DISP=(NEW,CATLG,DELETE),UNIT=DASD,                                    
-//        SPACE=(CYL,(500,100))                                                 
+//        SPACE=(CYL,(500,100),RLSE)                                            
 //SYSPRINT  DD SYSOUT=*                                                         
 //SYSIN     DD *                                                                
  DUMP DS(INC(IBMUSER.**)) -                                                     
