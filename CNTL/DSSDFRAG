@@ -7,7 +7,7 @@
 //* NOTES: PARM='TYPRUN=NORUN' <== TEST JOB                          *          
 //*                                                                  *          
 //********************************************************************          
-//DEFRAG  EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                        
+//DEFRAG  EXEC PGM=ADRDSSU,REGION=0M PARM='TYPRUN=NORUN'                        
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
    DEFRAG DYNAM(USER0A) WRC                                                     
