@@ -11,6 +11,7 @@ BPXBATCH - BPXBATCH issue omvs commands
 BPXCLEAN - Delete a file from ZFS older than x number of days                   
 BPXPARM  - STDPARM DD for BPXBATCHr                                             
 CCBERIS  - COBOL compile and bind with Db2 ERIS                                 
+CICSCSD  - Define EGUI CICS CSD entry                                           
 COBC     - COBOL compile                                                        
 COBCB    - COBOL compile and bind                                               
 COBCBDB  - COBOL compile and bind with Db2                                      
