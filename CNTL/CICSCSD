@@ -1,11 +1,15 @@
 //IUCSDUP JOB (FB3),'DFHCSDUP',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: update CICS system definition for ZOFFICE               *          
+//*                                                                  *          
+//********************************************************************          
 //STEP1   EXEC PGM=DFHCSDUP,REGION=0M,                                          
 //             PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                      
 //STEPLIB DD   DSN=DFH560.CICS.SDFHLOAD,DISP=SHR                                
 //DFHCSD   DD  DISP=SHR,DSN=DFH560.CICS.DFHCSD                                  
-//*ECNDCSD DD  DISP=SHR,DSN=DFH560.CICS.SECNDCSD                                
 //OUTDD    DD  SYSOUT=A                                                         
 //SYSPRINT DD  SYSOUT=A                                                         
 //SYSIN    DD  *                                                                
