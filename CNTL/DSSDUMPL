@@ -9,7 +9,7 @@
 //BACKUP  EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                                  
 //DUMPOUT DD DSN=IBMUSER.BACKUP.D040820,                                        
 //        DISP=(NEW,CATLG,DELETE),UNIT=DASD,                                    
-//        SPACE=(CYL,(500,100),RLSE)                                            
+//        SPACE=(CYL,(500,100),RLSE),DATACLAS=DCEXT                             
 //SYSPRINT  DD SYSOUT=*                                                         
 //SYSIN     DD *                                                                
  DUMP DS(INC(IBMUSER.**)) -                                                     
