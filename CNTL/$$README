@@ -44,8 +44,8 @@ EREP     - EREP processes logrec data set into reports
 ERISDBIC - Db2 full Image Copy on ERIS TS                                       
 ERISPGM  - COBOL RUN ERIS                                                       
 ERISVSAM - Create and load PERSON VSAM for ERIS project                         
-HBOJBCOL - CDP z Batch SMF processor                                            
-HBOJBDC2 - CDP z Batch DCOLLECT processor                                       
+HBOJBDCO - CDP z Batch DCOLLECT processor                                       
+HBOJBDC2 - CDP z Batch DCOLLECT processor sending to DATA STREAMER              
 HLASM    - Compile and link HLASM                                               
 ICEGENER - IEBGENER replacement for VSAM and sequential files                   
 ICETOOL  - ZSORT new feature in z15 hardware                                    

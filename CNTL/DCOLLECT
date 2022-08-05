@@ -5,7 +5,11 @@
 //* PURPOSE: DFSMS DATA COLLECTION FACILITY (DCOLLECT)               *          
 //*                                                                  *          
 //********************************************************************          
-//STEP1    EXEC PGM=IDCAMS                                                      
+//STEP1    EXEC PGM=IEFBR14                                                     
+//SYSPRINT DD SYSOUT=*                                                          
+//DELETEDD DD DSN=IBMUSER.DCOLLECT.DATA,                                        
+//            DISP=(OLD,DELETE,DELETE)                                          
+//STEP2    EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //OUTDS    DD DSN=IBMUSER.DCOLLECT.DATA,                                        
 //            DSORG=PS,                                                         
