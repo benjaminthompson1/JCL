@@ -9,10 +9,10 @@
 //*                                                                  *          
 //* @pathprefix@ - Directory path to prefix /usr/lpp/IBM             *          
 //*                                                                  *          
-//* @zfsdsn@ - Name of the 'common' ZFS dataset to be created *                 
+//* @zfsdsn@ - Name of the 'common' ZFS dataset to be created        *          
 //*                and mounted at @pathprefix@                       *          
 //*                                                                  *          
-//* @volume@ - Volume on which tocreate ZFS dataset             *               
+//* @volume@ - Volume on which tocreate ZFS dataset                  *          
 //*                                                                  *          
 //********************************************************************          
 //CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
