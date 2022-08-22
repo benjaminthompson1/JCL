@@ -17,5 +17,5 @@
 //SYSTSIN  DD *                                                                 
   PROFILE NOPREFIX MSGID WTPMSG                                                 
   OSHELL find /global/wic/S0W1/ +                                               
-         -type f -mtime +7 -exec rm -v {} \;                                    
+         -type f -mtime +4 -exec rm -v {} \;                                    
 /*                                                                              
