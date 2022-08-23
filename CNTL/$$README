@@ -10,6 +10,7 @@ BFGTRCRS - MQ FTE fteCreateTransfer
 BPXBATCH - BPXBATCH issue omvs commands                                         
 BPXCLEAN - Delete a file from ZFS older than x number of days                   
 BPXPARM  - STDPARM DD for BPXBATCHr                                             
+BZUDUMP  - VTP Playback Dump Utility                                            
 CCBERIS  - COBOL compile and bind with Db2 ERIS                                 
 CICSCSD  - Define EGUI CICS CSD entry                                           
 COBC     - COBOL compile                                                        
