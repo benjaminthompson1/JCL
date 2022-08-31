@@ -1,18 +1,14 @@
-//IUVTPRE JOB (FB3),'VTP RECORD',CLASS=A,MSGCLASS=H,                            
+//IUVTPPL JOB (FB3),'VTP PLAY',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
-//* PURPOSE: VTP - RECORD COLLECTING BATCH/FILE I/O CALLS            *          
+//* PURPOSE: VTP - PLAY RECORDING FROM BATCH/FILE I/O CALLS          *          
 //********************************************************************          
-//VTPREC   EXEC  PGM=TOURFILE                                                   
+//VTPLAY   EXEC  PGM=BZUPLAY                                                    
 //STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULLEP                                      
 //         DD DISP=SHR,DSN=VTP201.SBZULOAD                                      
 //         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
-//BZUPLAY  DD DISP=(NEW,CATLG),DSN=IBMUSER.VTP.TOURFILE.PLAY,                   
-//            SPACE=(TRK,(1,1)),UNIT=SYSDA,                                     
-//            DCB=(BLKSIZE=32760,LRECL=32756,RECFM=VB)                          
+//BZUPLAY  DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.PLAY                            
 //SYSPRINT DD SYSOUT=*                                                          
 //BZUMSG   DD SYSOUT=*                                                          
-//INFILE   DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.INFILE                          
-//OUTFILE  DD SYSOUT=*                                                          

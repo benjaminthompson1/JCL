@@ -11,6 +11,7 @@ BPXBATCH - BPXBATCH issue omvs commands
 BPXCLEAN - Delete a file from ZFS older than 4 number of days                   
 BPXPARM  - STDPARM DD for BPXBATCHr                                             
 BZUDUMP  - VTP Playback Dump Utility                                            
+BZUPLAY  - VTP Play recording from batch/file I/O calls                         
 BZUREC   - VTP Record collecting batch/file I/O calls                           
 CCBERIS  - COBOL compile and bind with Db2 ERIS                                 
 CICSCSD  - Define EGUI CICS CSD entry                                           

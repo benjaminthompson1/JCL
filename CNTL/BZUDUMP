@@ -6,7 +6,7 @@
 //* PURPOSE: VTP - PLAYBACK DUMP UTILITY ALLOWS A USER TO FORMAT THE *          
 //*          CONTENTS OF THE RECORDED PLAYBACK FILE.                 *          
 //********************************************************************          
-//BZUDUMP EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                    
+//VTPDUMP EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                    
 //STEPLIB DD DISP=SHR,DSN=VTP201.SBZULOAD                                       
 //BZUPLAY DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.TEST1                            
 //BZUMSG  DD SYSOUT=*                                                           
