@@ -1,4 +1,4 @@
-//IUTERSE JOB (FB3),'TERSE',CLASS=A,MSGCLASS=H,                                 
+//IUVTPPL JOB (FB3),'VTP PLAY',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
