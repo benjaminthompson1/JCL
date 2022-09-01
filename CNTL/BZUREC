@@ -4,6 +4,7 @@
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: VTP - RECORD COLLECTING BATCH/FILE I/O CALLS            *          
+//*                                                                  *          
 //********************************************************************          
 //VTPREC   EXEC  PGM=TOURFILE                                                   
 //STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULLEP                                      

@@ -95,3 +95,5 @@ TERSE    - TERSE Pack and Unpack dataset
 UJ04501  - UJ04501 ZSECURE ADMINISTRATION V2.4                                  
 VSAM     - IDCAMS create VSAM file                                              
 VASMAIX  - IDCAMS create alternaive index                                       
+XMITPACK - XMIT and TERSE (pack) a load library                                 
+XMITREST - TERSE (unpack) and XMIT (receive) a load library                     

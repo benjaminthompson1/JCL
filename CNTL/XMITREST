@@ -1,0 +1,22 @@
+//IUXMIT JOB (FB3),'XMIT',CLASS=A,MSGCLASS=H,                                   
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: TERSE (UNPACK) AND XMIT (RECEIVE) A LOAD LIBRARY        *          
+//*                                                                  *          
+//********************************************************************          
+//AMATERSE EXEC PGM=AMATERSE,PARM=UNPACK                                        
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD DISP=SHR,DSN=YOUR.HLQ.LINKLIB.XMIT.TRS                            
+//SYSUT2   DD DISP=SHR,DSN=DSN=YOUR.HLQ.LINKLIB.XMIT                            
+//*                                                                             
+//*  RECEIVE PDSE LINKLIB                                                       
+//*                                                                             
+//RECVPDS  EXEC PGM=IKJEFT01,COND=(0,NE)                                        
+//INPUT    DD DISP=(OLD,CATLG),DSN=YOUR.HLQ.LINKLIB.XMIT                        
+//SYSTSIN  DD *                                                                 
+  RECEIVE INFILE(INPUT) NONAMES                                                 
+     DSNAME('YOUR.HLQ.LINKLIB.PDSE') RELEASE                                    
+//SYSTSPRT DD SYSOUT=*                                                          
+//*                                                                             

@@ -1,15 +1,13 @@
-//IUVTPPL JOB (FB3),'VTP PLAY',CLASS=A,MSGCLASS=H,                              
+//IUVTPDP JOB (FB3),'VTP PLAY',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: VTP - PLAYBACK DUMP UTILITY ALLOWS A USER TO FORMAT THE *          
 //*          CONTENTS OF THE RECORDED PLAYBACK FILE.                 *          
+//*                                                                  *          
 //********************************************************************          
 //VTPDUMP EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                    
 //STEPLIB DD DISP=SHR,DSN=VTP201.SBZULOAD                                       
-//BZUPLAY DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.TEST1                            
+//BZUPLAY DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.PLAY                             
 //BZUMSG  DD SYSOUT=*                                                           
-//*BZUMSG  DD DISP=(NEW,CATLG),DSN=IBMUSER.VTP.TOURFILE.TEST1.DUMP,             
-//*           DCB=(RECFM=VB,LRECL=256,BLKSIZE=260,DSORG=PS),                    
-//*           UNIT=SYSDA,SPACE=(CYL,(1,1),RLSE)                                 

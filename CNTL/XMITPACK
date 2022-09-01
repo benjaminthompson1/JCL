@@ -1,0 +1,30 @@
+//IUXMIT JOB (FB3),'XMIT TERSE',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: XMIT AND TERSE (PACK) A LOAD LIBRARY                    *          
+//*                                                                  *          
+//********************************************************************          
+//DELETE   EXEC  PGM=IEFBR14                                                    
+//FILE     DD DISP=(MOD,DELETE),DSN=IBMUSER.COBOL.LOAD.XMIT,                    
+//            UNIT=SYSDA,SPACE=(TRK,1)                                          
+//*                                                                             
+//XMIT     EXEC PGM=IKJEFT01,REGION=4M,COND=(0,NE)                              
+//FILEIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
+//FILEOUT  DD DSN=IBMUSER.COBOL.LOAD.XMIT,                                      
+//            DISP=(NEW,CATLG),UNIT=SYSDA,                                      
+//            SPACE=(TRK,(1,1),RLSE)                                            
+//SYSTSIN  DD *                                                                 
+  XMIT A.B FILE(FILEIN) OUTFILE(FILEOUT) -                                      
+       SYSOUT(Z) NOEPILOG NOLOG NOPROLOG                                        
+//SYSTSPRT DD SYSOUT=*                                                          
+//*                                                                             
+//*  PACK PDSE LINKLIB                                                          
+//*                                                                             
+//AMATERSE EXEC PGM=AMATERSE,PARM=PACK                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD.XMIT                              
+//SYSUT2   DD DSN=IBMUSER.COBOL.LOAD.XMIT.TRS,                                  
+//            DISP=(NEW,CATLG),UNIT=SYSDA,                                      
+//            SPACE=(TRK,(1,1),RLSE)                                            

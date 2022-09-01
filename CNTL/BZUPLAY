@@ -4,6 +4,7 @@
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: VTP - PLAY RECORDING FROM BATCH/FILE I/O CALLS          *          
+//*                                                                  *          
 //********************************************************************          
 //VTPLAY   EXEC  PGM=BZUPLAY                                                    
 //STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULLEP                                      
