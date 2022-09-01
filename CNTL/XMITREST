@@ -8,15 +8,17 @@
 //********************************************************************          
 //AMATERSE EXEC PGM=AMATERSE,PARM=UNPACK                                        
 //SYSPRINT DD SYSOUT=*                                                          
-//SYSUT1   DD DISP=SHR,DSN=YOUR.HLQ.LINKLIB.XMIT.TRS                            
-//SYSUT2   DD DISP=SHR,DSN=DSN=YOUR.HLQ.LINKLIB.XMIT                            
+//SYSUT1   DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD.XMIT.TRS                          
+//SYSUT2   DD DSN=IBMUSER.COBOL.LOAD.XMIT,                                      
+//            DISP=(NEW,CATLG),UNIT=SYSDA,                                      
+//            SPACE=(TRK,(1,1),RLSE)                                            
 //*                                                                             
 //*  RECEIVE PDSE LINKLIB                                                       
 //*                                                                             
 //RECVPDS  EXEC PGM=IKJEFT01,COND=(0,NE)                                        
-//INPUT    DD DISP=(OLD,CATLG),DSN=YOUR.HLQ.LINKLIB.XMIT                        
+//INPUT    DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD.XMIT                              
 //SYSTSIN  DD *                                                                 
   RECEIVE INFILE(INPUT) NONAMES                                                 
-     DSNAME('YOUR.HLQ.LINKLIB.PDSE') RELEASE                                    
+     DSNAME('IBMUSER.COBOL.LOAD') RELEASE                                       
 //SYSTSPRT DD SYSOUT=*                                                          
 //*                                                                             
