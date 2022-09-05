@@ -22,6 +22,7 @@
 //SMPLOG   DD SYSOUT=*                                                          
 //*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
 //SMPNTS   DD PATH='#smpntsdir',PATHDISP=KEEP                                   
+//*SMPPTFIN DD DISP=SHR,DSN=&HLQ..IBM.HAL6100.AH39768                           
 //*SMPJHOME DD PATH='/usr/lpp/java/xxxx/',PATHDISP=KEEP                         
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
