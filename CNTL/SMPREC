@@ -7,7 +7,7 @@
 //* NOTES:                                                                      
 //* 1) #globalzone - SMP/E GLOBAL ZONE NAME                                     
 //*                                                                             
-//* 2) #smpntsdir  - SMPNTS ZFS DIRECTORY NAME /smpnts                          
+//* 2) #smpptfdsn  - SMPPTF DATASET NAME                                        
 //*                                                                             
 //* 3) #fromnts    - PACKAGE NAME THAT EXISTS IN SMPNTS DIRECTORY               
 //*                                                                             
@@ -17,16 +17,15 @@
 //*                                                                             
 //********************************************************************          
 //RECNTS   EXEC PGM=GIMSMP,REGION=0M,                                           
-//         PARM='CSI=#globalzone'                                               
+//SMPCSI   DD DISP=OLD,DSN=#globalzone                                          
 //SMPOUT   DD SYSOUT=*                                                          
 //SMPLOG   DD SYSOUT=*                                                          
-//*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
-//SMPNTS   DD PATH='#smpntsdir',PATHDISP=KEEP                                   
-//*SMPPTFIN DD DISP=SHR,DSN=&HLQ..IBM.HAL6100.AH39768                           
-//*SMPJHOME DD PATH='/usr/lpp/java/xxxx/',PATHDISP=KEEP                         
+//*SMPLOG   DD DISP=MOD,DSN=#smplogdsn                                          
+//SMPPTFIN DD DISP=SHR,DSN=#smpptfdsn                                           
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
- SET BDY(GLOBAL).                                                               
- RECEIVE FROMNTS(#fromnts)                                                      
- SOURCEID(#sourceid).                                                           
+   SET BOUNDARY(GLOBAL) .                                                       
+   RECEIVE SELECT(                                                              
+     AH39768                                                                    
+   ) SYSMODS LIST .                                                             
 /*                                                                              

@@ -13,10 +13,9 @@
 //*                                                                             
 //********************************************************************          
 //APPLY  EXEC PGM=GIMSMP,REGION=0M,TIME=NOLIMIT                                 
+//SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
 //SMPLOG   DD SYSOUT=*                                                          
 //*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
-//SMPCSI   DD DSN=#globalzone,                                                  
-//            DISP=SHR                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
  SET BDY(#target) .                                                             
