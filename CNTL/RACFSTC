@@ -17,13 +17,13 @@
 //STDENV   DD *                                                                 
 //SYSTSIN  DD *                                                                 
 PROFILE NOPREFIX                                                                
-ADDUSER AVZS NAME('AVZ Server started task') -                                  
- OMVS(HOME('/u/AVZS') PROGRAM('/bin/sh') AUTOUID) -                             
+ADDUSER OMEG NAME('Omegamon started task') -                                    
+ OMVS(AUTOUID HOME(/u/automount/omeg) PROGRAM(/bin/sh)) -                       
    OWNER(IBMUSER) -                                                             
    NOPASSWORD -                                                                 
    DFLTGRP(SYS1)                                                                
                                                                                 
-RDEFINE STARTED AVZS.** LEVEL(0) OWNER(IBMUSER) -                               
-STDATA(USER(AVZS) GROUP(SYS1))                                                  
+RDEFINE STARTED OMEG.** LEVEL(0) OWNER(IBMUSER) -                               
+STDATA(USER(OMEG) GROUP(SYS1))                                                  
 SETROPTS REFRESH RACLIST(STARTED)                                               
 /*                                                                              
