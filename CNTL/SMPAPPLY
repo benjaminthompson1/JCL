@@ -14,6 +14,10 @@
 //********************************************************************          
 //APPLY  EXEC PGM=GIMSMP,REGION=0M,TIME=NOLIMIT                                 
 //SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
+//*SYSUT1   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT2   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT3   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT4   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
 //SMPLOG   DD SYSOUT=*                                                          
 //*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
 //SYSPRINT DD SYSOUT=*                                                          

@@ -75,6 +75,9 @@ KMQPBVK1 - Ansible zForum COBOL PUT
 LIKECOPY - Create a dataset using the attributes for a base dataset             
 LOGREC   - Clear and initialize hardware event recorder dataset                 
 MAEKCER2 - Create key ring, CA as default, a personal certificate singed with CA
+OMEGCRT  - OMEGAMON create - STEP 1                                             
+OMEGDIS  - OMEGAMON discover - STEP 3                                           
+OMEGGEN  - OMEGAMON generate - STEP 4                                           
 PICSCALC - PL/I bit offsets for DVM DFAT EXIT                                   
 PLIC     - PL/I compile                                                         
 RACFSTC  - STC Create USER ID and STARTED profile                               

@@ -1,4 +1,4 @@
-//IUREC JOB (FB3),'SMPE RECEIVE',CLASS=A,MSGCLASS=H,                            
+//IUREP JOB (FB3),'SMPE REPORT',CLASS=A,MSGCLASS=H,                             
 //          NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                       
 //*******************************************************************           
 //*                                                                             

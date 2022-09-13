@@ -1,0 +1,16 @@
+//IUOMEGC JOB (FB3),'OMEG CREATE',CLASS=A,MSGCLASS=H,                           
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: OMEGAMON CREATE - STEP 1                                *          
+//*                                                                  *          
+//********************************************************************          
+//OMEGCRT  EXEC PGM=KCIOMEGA,REGION=0M,DYNAMNBR=256                             
+//STEPLIB  DD DISP=SHR,DSN=ZMS120.TKANMOD                                       
+//KCIFLOW  DD DISP=SHR,DSN=ZMS120.TKANCUS(KFJOMEGA)                             
+//KCIVARS  DD *                                                                 
+ACTION            CREATE                                                        
+RTE_NAME          Z25A                                                          
+RTE_PLIB_HILEV    OMEG                                                          
+/*                                                                              
