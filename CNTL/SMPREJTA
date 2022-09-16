@@ -20,7 +20,7 @@
 //SMPLOG   DD SYSOUT=*                                                          
 //*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
 //*SMPJHOME DD PATH='/usr/lpp/java/xxxx/',PATHDISP=KEEP                         
-//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(100,20))                                   
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
 //SYSUT2   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
 //SYSUT3   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
 //SYSUT4   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
@@ -29,5 +29,5 @@
  SET BDY(GLOBAL).                                                               
  REJECT PURGE(#dlib)                                                            
  PTFS COMPRESS(SMPPTS)                                                          
- CHECK.                                                                         
+ CHECK .                                                                        
 /*                                                                              
