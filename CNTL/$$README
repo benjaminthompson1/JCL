@@ -89,6 +89,7 @@ SMPACCPT - SMP/E Accept
 SMPAPPLY - SMP/E Apply                                                          
 SMPCRZNA - SMP/E Create Global Zone                                             
 SMPCRZNB - SMP/E Allocates DATA SETS and DDDEF's                                
+SMPDDDEF - SMP/E List DDDEF definitions in target zone                          
 SMPHOLD  - SMP/E HOLD listing                                                   
 SMPREC   - SMP/E Receive from Shopz Download Director                           
 SMPREJTA - SMP/E Reject once they have been ACCEPTED                            

@@ -2,9 +2,14 @@
 //          NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                       
 //*******************************************************************           
 //*                                                                             
-//* Create the consolidated inventory of products and service                   
-//* using the GIMXSID program introduced by SMP/E 3.2                           
+//* PURPOSE: Create the consolidated inventory of products and                  
+//*          service using the GIMXSID program introduced SMP/E 3.2             
 //*                                                                             
+//* NOTES:                                                                      
+//*                                                                             
+//* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
+//*                                                                             
+//* 2) #target     - SMP/E TARGET ZONE NAME                                     
 //*******************************************************************           
 //*                                                                             
 //STEP1    EXEC PGM=GIMXSID,PARM='WAIT=10MIN,L=ENU'                             
@@ -14,6 +19,6 @@
 //            DCB=(RECFM=FB,LRECL=12560,BLKSIZE=25120),                         
 //            SPACE=(TRK,(10,10))                                               
 //SYSIN    DD DATA,DLM=$$                                                       
-CSI=ADV910.GLOBAL.CSI                                                           
-TARGET=ADV910T                                                                  
+CSI=#globalzone                                                                 
+TARGET=#target                                                                  
 $$                                                                              

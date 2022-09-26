@@ -1,0 +1,21 @@
+//IUHOLD JOB  (FB3),'SMPE HOLD',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//********************************************************************          
+//*                                                                             
+//* PURPOSE: SMP/E DDDEF LIST                                                   
+//*                                                                             
+//* NOTES:                                                                      
+//* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
+//*                                                                             
+//* 2) #target     - SMP/E TARGET ZONE NAME                                     
+//*                                                                             
+//********************************************************************          
+//REPORT EXEC PGM=GIMSMP,PARM='DATE=U',REGION=0M                                
+//SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
+//SMPOUT   DD SYSOUT=*                                                          
+//SMPRPT   DD SYSOUT=*                                                          
+//SMPHOLD  DD DUMMY                                                             
+//SMPCNTL  DD *                                                                 
+    SET BDY(#target) .                                                          
+    UNLOAD DDDEF .                                                              
+/*                                                                              

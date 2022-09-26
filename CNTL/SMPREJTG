@@ -6,7 +6,7 @@
 //*          REJECT ALL RECEIVED-ONLY                                *          
 //*                                                                  *          
 //* NOTES:                                                           *          
-//* 1) #globalzone - SMP/E GLOBAL ZONE NAME                          *          
+//* 1) #globalzone - SMP/E GLOBAL CSI NAME                           *          
 //*                                                                  *          
 //* 2) #smplogdsn - SMPLOG DATASET NAME                              *          
 //*                                                                  *          

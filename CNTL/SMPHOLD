@@ -22,7 +22,7 @@
 //*                           /* holds                    */.                   
 //*                                                                             
 //* NOTES:                                                                      
-//* 1) #globalzone - SMP/E GLOBAL ZONE NAME                                     
+//* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
 //*                                                                             
 //********************************************************************          
 //REPORT EXEC PGM=GIMSMP,PARM='DATE=U',REGION=0M                                

@@ -5,7 +5,7 @@
 //* PURPOSE: SMP/E ACCEPT                                                       
 //*                                                                             
 //* NOTES:                                                                      
-//* 1) #globalzone - SMP/E GLOBAL ZONE NAME                                     
+//* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
 //*                                                                             
 //* 2) #dlib       - SMP/E DLIB ZONE NAME                                       
 //*                                                                             
