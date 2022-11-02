@@ -1,0 +1,2369 @@
+//IUSTRST JOB (FB3),'ARCSTRST',CLASS=A,MSGCLASS=H,                      JOB01631
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//HSMSTEP1 EXEC PGM=IEBGENER                                            00002000
+//*                                                                     00003000
+//********************************************************************/         
+//**PROPRIETARY V3 STATEMENT                                         */         
+//**LICENSED MATERIALS - PROPERTY OF IBM                             */         
+//**5650-ZOS                                                         */         
+//**COPYRIGHT IBM CORP. 1985, 2017                                   */         
+//**END PROPRIETARY V3 STATEMENT                                     */         
+//********************************************************************/         
+//* THESE SAMPLE DFSMSHSM PROGRAMS CREATE A PDS (HSM.SAMPLE.CNTL)    */ 00011000
+//* THAT CONTAINS THE FOLLOWING MEMBERS:                             */ 00012000
+//*                                                                  */ 00013000
+//* STARTER  - THE DFSMSHSM STARTER SET                              */ 00014000
+//* ARCCMD01 - SAMPLE ARCCMD MEMBER FOR ML2 TAPE PROCESSING          */ 00015000
+//* ARCCMD90 - SAMPLE ADDVOL COMMANDS FOR STARTER SET                */ 00016000
+//* ARCCMD91 - SAMPLE ADDVOL COMMANDS FOR ML2 TAPE PROCESSING        */ 00017000
+//* HSMHELP  - HELP TEXT FOR DFSMSHSM-AUTHORIZED COMMANDS            */ 00018000
+//* HSMLOG   - SAMPLE JOB TO PRINT THE LOG                           */ 00019000
+//* HSMEDIT  - SAMPLE JOB TO PRINT THE EDITLOG                       */ 00020000
+//* ALLOCBK1 - SAMPLE JOB TO ALLOCATE CDS BACKUP VERSION DATA SETS   */ 00021000
+//* ALLOSDSP - SAMPLE JOB TO ALLOCATE AN SDSP DATA SET               */ 00022000
+//* HSMPRESS - SAMPLE JOB TO REORGANIZE THE CONTROL DATA SETS        */ 00023000
+//*                                                             4@01D*/ 00024000
+//*                                                                  */ 00025000
+//* YOU CAN ESTABLISH AN OPERATING DFSMSHSM ON A SINGLE PROCESSOR    */ 00026000
+//* BY EDITING AND EXECUTING THE JOB CONTAINED IN THE MEMBER NAMED   */ 00027000
+//* STARTER. REFER TO THE DFSMSHSM IMPLEMENTATION AND CUSTOMIZATION  */ 00028000
+//* GUIDE - DFSMSHSM FOR INSTRUCTIONS ON USING THE DFSMSHSM STARTER  */ 00029000
+//* SET.                                                             */ 00030000
+//********************************************************************/ 00031000
+//*                                                                     00032000
+//SYSPRINT DD SYSOUT=*                                                  00033000
+//SYSUT2   DD UNIT=SYSDA,                                               00034000
+//            DSN=HSM.SAMPLE.CNTL(STARTER),                             00035000
+//            DISP=(NEW,CATLG),                                         00036000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=3120),                     00037000
+//            SPACE=(CYL,(1,1,10))                                      00038000
+//SYSIN    DD DUMMY                                                     00039000
+//SYSUT1   DD DATA,DLM='$$'                                             00040000
+//HSMALLOC JOB ?JOBPARM                                                 00041000
+//*                                                                     00042000
+//********************************************************************/ 00043000
+//* DFSMSHSM STARTER SET                                             */ 00044000
+//*                                                                  */ 00045000
+//* THIS JCL STREAM ESTABLISHES AN OPERATING DFSMSHSM ENVIRONMENT    */ 00046000
+//* FOR A NEW USER OF DFSMSHSM OPERATING IN AN SMS ENVIRONMENT, OR   */ 00047000
+//* FOR A USER WHO WANTS TO RUN THE FUNCTIONAL VERIFICATION          */ 00048000
+//* PROCEDURE (FVP) IN AN ENVIRONMENT THAT IS SEPARATE FROM THE      */ 00049000
+//* PRODUCTION ENVIRONMENT.  THE FVP IS FOUND IN ARCFVPST.           */ 00050000
+//*                                                                  */ 00051000
+//* EDIT THIS JCL FOR YOUR PROCESSING ENVIRONMENT.                   */ 00052000
+//*                                                                  */ 00053000
+//* YOU CAN DECREASE IMPLEMENTATION TIME BY MAKING GLOBAL CHANGES    */ 00054000
+//* TO THE FOLLOWING PARAMETERS.  YOU MAY HAVE TO MAKE OTHER CHANGES */ 00055000
+//* AS IDENTIFIED IN THE COMMENTS EMBEDDED IN THE JCL.               */ 00056000
+//*                                                                  */ 00057000
+//* IF YOU ALLOCATED SMS-MANAGED DATA SETS ON SPECIFIC VOLUMES,      */ 00058000
+//* ENSURE THAT YOU ASSOCIATE THOSE DATA SETS WITH THE GUARANTEED    */ 00059000
+//* SPACE ATTRIBUTE IN THEIR STORAGE CLASS DEFINITION.               */ 00060000
+//*                                                                  */ 00061000
+//* WE RECOMMEND THAT YOU DEFINE ALL DFSMSHSM DATA SETS WITH THE     */ 00062000
+//* GUARANTEED-SPACE ATTRIBUTE IN THEIR STORAGE CLASS DEFINITIONS.   */ 00063000
+//*                                                                  */ 00064000
+//* WE RECOMMENDED THAT YOU DEFINE ALL DFSMSHSM DATA SETS WITH THE   */ 00065000
+//* NO-MIGRATE AND NO-BACKUP ATTRIBUTES IN THEIR MANAGEMENT CLASS    */ 00066000
+//* DEFINITIONS.  YOU CAN PREVENT DFSMSHSM DATA SETS FROM MIGRATING  */ 00067000
+//* OR BEING BACKED UP BY ASSIGNING THEM TO THE DBSTNDRD MANAGEMENT  */ 00068000
+//* CLASS.                                                           */ 00069000
+//*                                                                  */ 00070000
+//* WE RECOMMEND THAT YOU DEFINE THE LOG AND JOURNAL DATA SETS WITH  */ 00071000
+//* A STORAGE CLASS DEFINITION FOR LOGGING OR FOR AUDIT TRAIL DATA   */ 00072000
+//* SETS BY DEFINING THEM WITH THE STORAGE CLASS DBLOG.              */ 00073000
+//*                                                                  */ 00074000
+//* WE RECOMMEND THAT YOU DEFINE THE DFSMSHSM CONTROL DATA SETS WITH */ 00075000
+//* A STORAGE CLASS DEFINITION THAT PROVIDES FAST RESPONSE BY        */ 00076000
+//* DEFINING THEM WITH THE STORAGE CLASS DBENHANC.                   */ 00077000
+//*                                                                  */ 00078000
+//* THE SMS CONSTRUCTS (STORAGE CLASSES, STORAGE GROUPS, MANAGEMENT  */ 00079000
+//* CLASSES, AND DATA CLASSES) ARE DISCUSSED IN THE STORAGE          */ 00080000
+//* ADMINISTRATION GUIDE FOR DFSMSDFP.                               */ 00081000
+//********************************************************************/ 00082000
+//*                                                                  */ 00083000
+//* CHANGE THE FOLLOWING PARAMETERS FOR YOUR PROCESSING ENVIRONMENT. */ 00084000
+//*                                                                  */ 00085000
+//********************************************************************/ 00086000
+//*  PARAMETER     PARAMETER DEFINITION                                 00087000
+//*                                                                     00088000
+//*  ?MCDSVOL   -  VOLUME SERIAL NUMBER OF THE MCDS VOLUME              00089000
+//*  ?MCDSUNT   -  UNIT TYPE FOR MCDS VOLUME                            00090000
+//*  ?BCDSVOL   -  VOLUME SERIAL NUMBER OF THE BCDS VOLUME              00091000
+//*  ?BCDSUNT   -  UNIT TYPE FOR BCDS VOLUME                            00092000
+//*  ?OCDSVOL   -  VOLUME SERIAL NUMBER OF THE OCDS VOLUME              00093000
+//*  ?OCDSUNT   -  UNIT TYPE FOR OCDS VOLUME                            00094000
+//*  ?CDSSIZE   -  NUMBER OF CYLINDERS TO INITIALLY ALLOCATE FOR ANY    00095000
+//*                CONTROL DATA SET                                     00096000
+//*  ?JRNLVOL   -  VOLUME SERIAL NUMBER OF THE JOURNAL                  00097000
+//*  ?JRNLUNT   -  UNIT TYPE FOR JOURNAL VOLUME                         00098000
+//*  ?LOGVOL    -  VOLUME SERIAL NUMBER OF THE LOG VOLUME               00099000
+//*  ?LOGUNIT   -  UNIT TYPE FOR LOG VOLUME                             00100000
+//*  ?TRACEVOL  -  VOLUME SERIAL NUMBER OF THE PROBLEM DETERMINATION    00101000
+//*                AID VOLUME                                           00102000
+//*  ?TRACEUNIT -  UNIT TYPE FOR THE PROBLEM DETERMINATION AID VOLUME   00103000
+//*  ?UCATNAM   -  NAME OF THE USER CATALOG FOR THE DFSMSHSM DATA SETS. 00104000
+//*  ?UCATVOL   -  VOLUME SERIAL NUMBER OF THE USER CATALOG VOLUME      00105000
+//*  ?UCATUNT   -  UNIT TYPE FOR USER CATALOG VOLUME                    00106000
+//*  ?CTLAUTH   -  THE USER ID THAT CAN ISSUE DFSMSHSM AUTH COMMANDS    00107000
+//*                (YOUR CONTROL-AUTHORIZED USER ID)                    00108000
+//*  ?UID       -  AUTHORIZED USER ID (1 - 7 CHARACTERS) FOR THE        00109000
+//*                DFSMSHSM-STARTED PROCEDURE IN A NON-FACILITY CLASS   00110000
+//*                ENVIRONMENT (SEE NOTE BELOW).  THIS IS THE           00111000
+//*                HIGH-LEVEL QUALIFIER FOR DFSMSHSM DATA SETS.         00112000
+//*  ?JESVER    -  THE JOB ENTRY SUBSYSTEM (JES); EITHER JES2 OR JES3   00113000
+//*  ?JOBPARM   -  JOB CARD PARAMETERS                                  00114000
+//*  ?SCLOGNM   -  STORAGE CLASS FOR DFSMSHSM LOG AND JOURNAL           00115000
+//*  ?SCCDSNM   -  STORAGE CLASS NAME FOR DFSMSHSM CONTROL DATA SETS    00116000
+//*  ?MCDFHSM   -  MANAGEMENT CLASS NAME FOR DFSMSHSM DATA SETS         00117000
+//*  ?HOSTID    -  PROCESSING UNIT ID FOR THE PROBLEM DETERMINATION     00118000
+//*                AID FACILITY AND FOR IDENTIFYING THE HOST TO         00119000
+//*                DFSMSHSM                                             00120000
+//*  ?PRIMARY   -  YES OR NO; DEFINES WHETHER OR NOT THE DFSMSHSM       00121000
+//*                HOST PERFORMS AS A PRIMARY HOST                      00122000
+//*  ?NEW       -  EXTENSION OF CDS NAME FOR IMPORT (HSMPRESS)          00123000
+//* (NOTE: UID AUTHORIZATION IS VALID IN A NON-FACILITY CLASS           00124000
+//* ENVIRONMENT ONLY, OTHERWISE, FACILITY CLASS PROFILES WILL BE        00125000
+//* USED FOR AUTHORIZATION CHECKING.)                                   00126000
+//*******************************************************************/  00127000
+//*                                                                     00128000
+//IDCAMS EXEC PGM=IDCAMS                                                00129000
+//*                                                                     00130000
+//*******************************************************************/  00131000
+//*  ENSURE THAT DFSMSHSM CONTROL DATA SETS, THE JOURNAL, AND ANY   */  00132000
+//*  CONTROL DATA SET BACKUP COPIES ARE ON DIFFERENT VOLUMES FROM   */  00133000
+//*  EACH OTHER.                                                    */  00134000
+//*                                                                 */  00135000
+//*  GIVE USERS WRITE ACCESS TO VSAM DATA SETS BY DEFINING VSAM     */  00136000
+//*  DATA SETS WITH A SHAREOPTION OF (3 3).  IT IS THE USER'S       */  00137000
+//*  RESPONSIBILITY TO PROTECT THE CONTROL DATA SETS AGAINST        */  00138000
+//*  UNAUTHORIZED ACCESS.                                           */  00139000
+//*                                                                 */  00140000
+//*******************************************************************/  00141000
+//*                                                                     00142000
+//HSMMCDS  DD UNIT=?MCDSUNT,VOL=SER=?MCDSVOL,DISP=SHR                   00143000
+//HSMCAT   DD UNIT=?UCATUNT,DISP=SHR,VOL=SER=?UCATVOL                   00144000
+//*                                                                     00145000
+//*******************************************************************/  00146000
+//* REMOVE THE NEXT DD STATEMENT IF YOU DO NOT INTEND TO USE BACKUP */  00147000
+//* AND DUMP.                                                       */  00148000
+//*******************************************************************/  00149000
+//*                                                                     00150000
+//HSMBCDS  DD UNIT=?BCDSUNT,VOL=SER=?BCDSVOL,DISP=SHR                   00151000
+//*                                                                     00152000
+//*******************************************************************/  00153000
+//* REMOVE THE NEXT DD STATEMENT IF YOU DO NOT INTEND TO USE TAPE   */  00154000
+//* VOLUMES FOR DAILY BACKUP VOLUMES, SPILL BACKUP VOLUMES, OR      */  00155000
+//* MIGRATION LEVEL 2 VOLUMES.                                      */  00156000
+//*******************************************************************/  00157000
+//*                                                                     00158000
+//HSMOCDS  DD UNIT=?OCDSUNT,VOL=SER=?OCDSVOL,DISP=SHR                   00159000
+//*                                                                     00160000
+//SYSIN    DD *                                                         00161000
+ /*                                                                 */  00162000
+ /*******************************************************************/  00163000
+ /* THIS JOB ALLOCATES AN INTEGRATED CATALOG FACILITY (ICF) CATALOG */  00164000
+ /* AND ITS ASSOCIATED ALIAS "?UID".                                */  00165000
+ /*                                                                 */  00166000
+ /*  ****** INTEGRATED CATALOG FACILITY CATALOG REQUIRED *******    */  00167000
+ /*                                                                 */  00168000
+ /* THIS JOB ALLOCATES A USER CATALOG FOR THE DFSMSHSM CONTROL DATA */  00169000
+ /* SETS (CDS). SEE THE SECTION "DFSMSHSM DATA SETS" IN THE         */  00170000
+ /* DFSMSHSM IMPLEMENTATION AND CUSTOMIZATION GUIDE.                */  00171000
+ /*******************************************************************/  00172000
+ /*                                                                 */  00173000
+  DEFINE UCAT(NAME(?UCATNAM) -                                          00174000
+         CYLINDERS(1 1) VOLUME(?UCATVOL) -                              00175000
+         FILE(HSMCAT) FREESPACE(10 10) -                                00176000
+         RECORDSIZE(4086 4086) -                                        00177000
+         ICFCATALOG)                                                    00178000
+  IF MAXCC = 0 THEN DO                                                  00179000
+    DEFINE  ALIAS(NAME(?UID) RELATE(?UCATNAM))                          00180000
+  END                                                                   00181000
+ /*                                                              */     00182000
+ /****************************************************************/     00183000
+ /*  THIS PROCEDURE ASSUMES A SINGLE CLUSTER MCDS.  IF MORE THAN */     00184000
+ /*  ONE VOLUME IS DESIRED, FOLLOW THE RULES FOR A MULTICLUSTER  */     00185000
+ /*  CDS.                                                        */     00186000
+ /****************************************************************/     00187000
+ /*                                                              */     00188000
+ IF MAXCC = 0 THEN DO                                                   00189000
+   DEFINE CLUSTER (NAME(?UID.MCDS) VOLUMES(?MCDSVOL) -                  00190000
+        CYLINDERS(?CDSSIZE) FILE(HSMMCDS) -                             00191000
+        STORCLAS(?SCCDSNM) -                                            00192000
+        MGMTCLAS(?MCDFHSM) -                                            00193000
+        RECORDSIZE(435 2040) FREESPACE(0 0) -                           00194000
+        INDEXED KEYS(44 0) SHAREOPTIONS(3 3) -                          00195000
+        SPEED BUFFERSPACE(530432) -                                     00196000
+        UNIQUE NOWRITECHECK) -                                          00197000
+        DATA(NAME(?UID.MCDS.DATA) -                                     00198000
+        CONTROLINTERVALSIZE(12288)) -                                   00199000
+        INDEX(NAME(?UID.MCDS.INDEX) -                                   00200000
+        CONTROLINTERVALSIZE(2048))                                      00201000
+ END                                                                    00202000
+ /*                                                              */     00203000
+ /****************************************************************/     00204000
+ /* REMOVE THE NEXT DEFINE COMMAND IF YOU DO NOT                 */     00205000
+ /* INTEND TO USE BACKUP, DUMP OR AGGREGATE BACKUP AND RECOVERY. */     00206000
+ /*                                                              */     00207000
+ /* THIS PROCEDURE ASSUMES A SINGLE CLUSTER BCDS.  IF MORE THAN  */     00208000
+ /* ONE VOLUME IS DESIRED, FOLLOW THE RULES FOR A MULTICLUSTER   */     00209000
+ /* CDS.                                                         */     00210000
+ /*                                                              */     00211000
+ /* IT'S RECOMMENDED THAT YOU SHOULD SPECIFY RECORDSIZE(334 2093)*/     00212000
+ /* AND CISIZE(12288) WHEN CREATING UP TO 29 BACKUP VERSIONS     */     00213000
+ /* OR RECORDSIZE(334 6544) AND CISIZE(12288) IF UP TO           */     00214000
+ /* 100 BACKUP VERSIONS WILL BE KEPT OR IF FAST REPLICATION IS   */     00215000
+ /* BEING USED (FRBACKUP).                                       */     00216000
+ /*                                                              */     00217000
+ /****************************************************************/     00218000
+ /*                                                              */     00219000
+ IF MAXCC = 0 THEN DO                                                   00220000
+   DEFINE CLUSTER (NAME(?UID.BCDS) VOLUMES(?BCDSVOL) -                  00221000
+        CYLINDERS(?CDSSIZE) FILE(HSMBCDS) -                             00222000
+        STORCLAS(?SCCDSNM) -                                            00223000
+        MGMTCLAS(?MCDFHSM) -                                            00224000
+        RECORDSIZE(334 6544) FREESPACE(0 0) -                           00225000
+        INDEXED KEYS(44 0) SHAREOPTIONS(3 3) -                          00226000
+        SPEED BUFFERSPACE(530432) -                                     00227000
+        UNIQUE NOWRITECHECK) -                                          00228000
+        DATA(NAME(?UID.BCDS.DATA) -                                     00229000
+        CONTROLINTERVALSIZE(12288)) -                                   00230000
+        INDEX(NAME(?UID.BCDS.INDEX) -                                   00231000
+        CONTROLINTERVALSIZE(2048))                                      00232000
+ END                                                                    00233000
+ /*                                                                     00234000
+ /****************************************************************/     00235000
+ /* REMOVE THE NEXT DEFINE COMMAND IF YOU DO NOT                 */     00236000
+ /* INTEND TO USE TAPES FOR DAILY BACKUP, SPILL BACKUP, OR       */     00237000
+ /* MIGRATION LEVEL 2 PROCESSING.                                */     00238000
+ /*                                                              */     00239000
+ /*                                                              */     00240000
+ /* IT IS RECOMMENDED THAT YOU SPECIFY                           */     00241000
+ /*   RECORDSIZE(1800 2040) WHEN NOT USING EXTENDED TTOCS AND    */     00242000
+ /*   RECORDSIZE(1080 6144) WHEN USING EXTENDED TTOCS.           */     00243000
+ /*                                                              */     00244000
+ /* NOTE: YOU CAN ONLY USE EXTENDED TTOCS IF ALL OF YOUR         */     00245000
+ /* DFSMSHSM HOSTS ARE AT Z/OS DFSMSHSM V1R7 OR LATER.           */     00246000
+ /*                                                              */     00247000
+ /* THE OCDS MAY NOT EXCEED 1 VOLUME.                            */     00248000
+ /****************************************************************/     00249000
+ /*                                                                     00250000
+ IF MAXCC = 0 THEN DO                                                   00251000
+   DEFINE CLUSTER (NAME(?UID.OCDS) VOLUMES(?OCDSVOL) -                  00252000
+        CYLINDERS(?CDSSIZE) FILE(HSMOCDS) -                             00253000
+        STORCLAS(?SCCDSNM) -                                            00254000
+        MGMTCLAS(?MCDFHSM) -                                            00255000
+        RECORDSIZE(1800 2040) FREESPACE(0 0) -                          00256000
+        INDEXED KEYS(44 0) SHAREOPTIONS(3 3) -                          00257000
+        SPEED BUFFERSPACE(530432) -                                     00258000
+        UNIQUE NOWRITECHECK) -                                          00259000
+        DATA(NAME(?UID.OCDS.DATA) -                                     00260000
+        CONTROLINTERVALSIZE(12288)) -                                   00261000
+        INDEX(NAME(?UID.OCDS.INDEX) -                                   00262000
+        CONTROLINTERVALSIZE(2048))                                      00263000
+ END                                                                    00264000
+//SYSPRINT DD SYSOUT=*                                                  00265000
+//*                                                                     00266000
+//****************************************************************/     00267000
+//*  ALLOCATE AND CATALOG THE DFSMSHSM LOG, EDIT LOG, AND JOURNAL*/     00268000
+//*  ON AN "SMS" VOLUME.                                         */     00269000
+//*  HSMLOGX, HSMLOGY, EDITLOG MUST NOT HAVE DCB INFORMATION @02A*/     00270000
+//*  SPECIFIED AS HSM WILL ASSIGN THESE WHEN THE DATA SETS   @02A*/     00271000
+//*  ARE OPENED.                                             @02A*/     00272000
+//****************************************************************/     00273000
+//*                                                                     00274000
+//LOGALC   EXEC PGM=IEFBR14                                             00275000
+//HSMLOGX  DD DSN=?UID.HSMLOGX1,DISP=(,CATLG),UNIT=?LOGUNIT,            00276000
+//   VOL=SER=?LOGVOL,SPACE=(CYL,(3)),STORCLAS=?SCLOGNM,                 00277000
+//   MGMTCLAS=?MCDFHSM                                                  00278000
+//HSMLOGY  DD DSN=?UID.HSMLOGY1,DISP=(,CATLG),UNIT=?LOGUNIT,            00279000
+//   VOL=SER=?LOGVOL,SPACE=(CYL,(3)),STORCLAS=?SCLOGNM,                 00280000
+//   MGMTCLAS=?MCDFHSM                                                  00281000
+//EDITLOG  DD DSN=?UID.EDITLOG,DISP=(,CATLG),UNIT=?LOGUNIT,             00282000
+//   VOL=SER=?LOGVOL,SPACE=(CYL,(2)),STORCLAS=?SCLOGNM,                 00283000
+//   MGMTCLAS=?MCDFHSM                                                  00284000
+//*                                                                     00285000
+//****************************************************************/     00286000
+//*  THE JOURNAL MUST NOT EXCEED 1 VOLUME, MAY NOT HAVE          */     00287000
+//*  SECONDARY ALLOCATION, AND MUST BE ALLOCATED CONTIGUOUS.     */     00288000
+//****************************************************************/     00289000
+//*                                                                     00290000
+//JOURNAL DD DSN=?UID.JRNL,DISP=(,CATLG),UNIT=?JRNLUNT,                 00291000
+//   VOL=SER=?JRNLVOL,SPACE=(CYL,(5),,CONTIG),STORCLAS=?SCLOGNM,        00292000
+//   MGMTCLAS=?MCDFHSM                                                  00293000
+//*                                                                     00294000
+//****************************************************************/     00295000
+//*  ALLOCATE THE PROBLEM DETERMINATION AID (PDA) LOG ON "SMS"   */     00296000
+//*  OR ON 'NONSMS' VOLUME.  USE THE JCL BELOW FOR NONSMS        */     00297000
+//*  OR ADJUST THE BELOW TO MATCH THE JCL ABOVE FOR THE LOG      */     00298000
+//*  BY ADDING STORCLAS AND MGMTCLASS.                           */     00299000
+//*  REMOVE THE NEXT TWO DD CARDS IF YOU DO NOT PLAN TO USE PDA. */     00300000
+//****************************************************************/     00301000
+//*                                                                     00302000
+//ARCPDOX  DD DSN=?UID.HSMPDOX,DISP=(,CATLG),VOL=SER=?TRACEVOL,         00303000
+//         UNIT=?TRACEUNIT,SPACE=(CYL,(20,2))                           00304000
+//ARCPDOY  DD DSN=?UID.HSMPDOY,DISP=(,CATLG),VOL=SER=?TRACEVOL,         00305000
+//         UNIT=?TRACEUNIT,SPACE=(CYL,(20,2))                           00306000
+//HSMPROC  EXEC PGM=IEBUPDTE,PARM=NEW                                   00307000
+//SYSPRINT DD SYSOUT=*                                                  00308000
+//SYSUT2   DD DSN=SYS1.PROCLIB,DISP=SHR                                 00309000
+//SYSIN    DD DATA,DLM='$A'                                             00310000
+./ ADD NAME=DFSMSHSM                                                    00311000
+//*                                                                     00312000
+//*******************************************************************/  00313000
+//*                    DFSMSHSM START PROCEDURE                     */  00314000
+//*                                                                 */  00315000
+//* YOU CAN DUPLICATE AND RENAME THE FOLLOWING PROCEDURE FOR OTHER  */  00316000
+//* PROCESSORS IN A MULTIPLE-PROCESSING-UNIT ENVIRONMENT.           */  00317000
+//* ENSURE THAT YOU CHANGE THE CMD= AND HOST= KEYWORDS              */  00318000
+//* ENSURE THAT YOU CHANGE THE HIGH-LEVEL QUALIFIER FOR THE         */  00319000
+//* ARCLOGX AND ARCLOGY DATA SET NAMES.                             */  00320000
+//* KEYWORD DEFINITIONS:                                            */  00321000
+//*    CMD=00                 SPECIFY WHICH PARMLIB COMMAND MEMBER  */  00322000
+//*    STR=XX                 REPLACE XX WITH LAST TWO CHARACTERS   */  00323000
+//*                           OF THE SYS1.PARMLIB(ARCSTRXX)         */  00324000
+//*                           MEMBER THAT YOU CREATE PRIOR TO       */  00325000
+//*                           STARTING DFSMSHSM                     */  00326000
+//*    EMERG=YES|NO           START HSM IN EMERGENCY MODE           */  00327000
+//*    SIZE=0M                REGION SIZE FOR DFSMSHSM              */  00328000
+//*    LOGSW=YES|NO           SWITCH LOGS AT STARTUP                */  00329000
+//*    STARTUP=YES|NO         STARTUP INFO PRINT AT STARTUP         */  00330000
+//*    PDA=YES|NO             BEGIN PDA TRACING AT STARTUP          */  00331000
+//*    HOST=X                 SPECIFY HOSTID                        */  00332000
+//*    PRIMARY=YES|NO         SPECIFY PRIMARY HOST                  */  00333000
+//*    HOSTMODE=MAIN|AUX      INDICATE IF THIS IS A MAIN OR AUX HOST*/  00334000
+//*    DDD=50                 MAX DYNAMICALLY ALLOCATED DATASETS    */  00335000
+//*    RNAMEDSN=YES|NO        USE EXTENDED RESOURCE NAMES           */  00336000
+//*    CDSQ=YES|NO            SERIALIZE CDSS WITH GLOBAL ENQUEUES   */  00337000
+//*    CDSR=YES|NO            SERIALIZE CDSS WITH VOLUME RESERVES   */  00338000
+//*    CDSSHR=YES|NO|RLS      SPECIFY CDS SHARABILITY               */  00339000
+//*    RESTART=(A,B)          RESTART DFSMSHSM AFTER ABEND          */  00340000
+//*    CELLS=(200,100,100,50,20)  SIZES OF CELLPOOLS                */  00341000
+//*    UID=HSM                DFSMSHSM-AUTHORIZED USER ID.  ALSO    */  00342000
+//*                           USED FOR HLQ OF HSM DATASETS BUT NOT  */  00343000
+//*                           REQUIRED.                             */  00344000
+//*******************************************************************/  00345000
+//* IF ALL OF THE DFSMSHSM STARTUP PROCEDURE KEYWORDS ARE NEEDED,   */  00346000
+//* TOTAL LENGTH WILL EXCEED THE 100-BYTE LIMIT, IN WHICH CASE      */  00347000
+//* YOU SHOULD USE THE KEYWORD STR=XX IN PARM= TO IDENTIFY THE      */  00348000
+//* PARMLIB MEMBER CONTAINING THE ADDITIONAL KEYWORDS AND PARMS.    */  00349000
+//*******************************************************************/  00350000
+//DFSMSHSM   PROC CMD=00,     USE PARMLIB MEMBER ARCCMD00 FOR CMDS      00351000
+//           STR=00,          PARMLIB MEMBER FOR STARTUP PARMS          00352000
+//           EMERG=NO,        SETS HSM INTO NON-EMERGENCY MODE          00353000
+//           CDSQ=YES,        CDSS SERIALIZED WITH ENQUEUES             00354000
+//           PDA=YES,         PROBLEM DETERMINATION AID                 00355000
+//           SIZE=0M,         REGION SIZE FOR DFSMSHSM                  00356000
+//           DDD=50,          MAX DYNAMICALLY ALLOCATED DATASETS        00357000
+//           HOST=?HOSTID,    PROC.UNIT ID AND LEVEL FUNCTIONS          00358000
+//           PRIMARY=?PRIMARY LEVEL FUNCTIONS                           00359000
+//*******************************************************************/  00360000
+//DFSMSHSM  EXEC PGM=ARCCTL,DYNAMNBR=&DDD,REGION=&SIZE,TIME=1440,       00361000
+//          PARM=('EMERG=&EMERG','CMD=&CMD','CDSQ=&CDSQ',               00362000
+//          'UID=?UID','PDA=&PDA','HOST=&HOST','STR=&STR',              00363000
+//          'PRIMARY=&PRIMARY')                                         00364000
+//*****************************************************************/    00365000
+//*   HSMPARM DD MUST BE DELETED FROM THE JCL OR MADE INTO A      */    00366000
+//*       A COMMENT TO USE CONCATENATED PARMLIB SUPPORT           */    00367000
+//*****************************************************************/    00368000
+//HSMPARM  DD DSN=SYS1.PARMLIB,DISP=SHR                                 00369000
+//MSYSOUT  DD SYSOUT=A                                                  00370000
+//MSYSIN   DD DUMMY                                                     00371000
+//SYSPRINT DD SYSOUT=A,FREE=CLOSE                                       00372000
+//SYSUDUMP DD SYSOUT=A                                                  00373000
+//*                                                                     00374000
+//*****************************************************************/    00375000
+//* THIS PROCEDURE ASSUMES A SINGLE CLUSTER MCDS.  IF MORE THAN   */    00376000
+//* ONE VOLUME IS DESIRED, FOLLOW THE RULES FOR A MULTICLUSTER    */    00377000
+//* CDS.                                                          */    00378000
+//*****************************************************************/    00379000
+//*                                                                     00380000
+//MIGCAT   DD DSN=?UID.MCDS,DISP=SHR                                    00381000
+//JOURNAL  DD DSN=?UID.JRNL,DISP=SHR                                    00382000
+//ARCLOGX  DD DSN=?UID.HSMLOGX1,DISP=OLD                                00383000
+//ARCLOGY  DD DSN=?UID.HSMLOGY1,DISP=OLD                                00384000
+//ARCPDOX  DD DSN=?UID.HSMPDOX,DISP=OLD                                 00385000
+//ARCPDOY  DD DSN=?UID.HSMPDOY,DISP=OLD                                 00386000
+//*                                                                     00387000
+//*****************************************************************/    00388000
+//* REMOVE THE NEXT DD STATEMENT IF YOU DO NOT INTEND TO USE      */    00389000
+//* BACKUP AND DUMP.                                              */    00390000
+//*                                                               */    00391000
+//* THIS PROCEDURE ASSUMES A SINGLE CLUSTER BCDS.  IF MORE THAN   */    00392000
+//* ONE VOLUME IS DESIRED, FOLLOW THE RULES FOR A MULTICLUSTER    */    00393000
+//* CDS.                                                          */    00394000
+//*****************************************************************/    00395000
+//*                                                                     00396000
+//BAKCAT   DD DSN=?UID.BCDS,DISP=SHR                                    00397000
+//*                                                                     00398000
+//*****************************************************************/    00399000
+//* REMOVE THE NEXT DD STATEMENT IF YOU DO NOT INTEND TO USE TAPES*/    00400000
+//* FOR DAILY BACKUP, SPILL BACKUP OR MIGRATION LEVEL 2           */    00401000
+//* PROCESSING.                                                   */    00402000
+//*                                                               */    00403000
+//* THE OCDS MAY NOT EXCEED 1 VOLUME.                             */    00404000
+//*****************************************************************/    00405000
+//*                                                                     00406000
+//OFFCAT   DD DSN=?UID.OCDS,DISP=SHR                                    00407000
+./ ADD NAME=DFHSMABR                                                    00408000
+//*                                                                     00409000
+//*****************************************************************/    00410000
+//*     ABARS SECONDARY ADDRESS SPACE STARTUP PROCEDURE           */    00411000
+//*****************************************************************/    00412000
+//*                                                                     00413000
+//DFHSMABR PROC                                                         00414000
+//DFHSMABR EXEC PGM=ARCWCTL,REGION=0M                                   00415000
+//SYSUDUMP DD SYSOUT=A                                                  00416000
+//MSYSIN DD DUMMY                                                       00417000
+//MSYSOUT DD SYSOUT=A                                                   00418000
+$A                                                                      00419000
+//HSMPROC  EXEC PGM=IEBUPDTE,PARM=NEW                                   00420000
+//SYSPRINT DD SYSOUT=*                                                  00421000
+//SYSUT2   DD DSN=SYS1.PARMLIB,DISP=SHR                                 00422000
+//SYSIN    DD DATA,DLM='$A'                                             00423000
+./ ADD NAME=ARCCMD00                                                    00424000
+ /*****************************************************************/    00425000
+ /*              DFSMSHSM STARTUP COMMAND MEMBER                  */    00426000
+ /*              WITH ONLY LEVEL 1 MIGRATION                      */    00427000
+ /*****************************************************************/    00428000
+ /*****************************************************************/    00429000
+ /*             DFSMSHSM AUTOMATIC FUNCTIONS                      */    00430000
+ /*                                                               */    00431000
+ /* *********** AUTOBACKUPSTART,  AUTODUMPSTART, ******************/    00432000
+ /* ********** AUTOMATIC PRIMARY SPACE MANAGEMENT, ****************/    00433000
+ /* ********* AUTOMATIC SECONDARY SPACE MANAGEMENT. ***************/    00434000
+ /*                                                               */    00435000
+ /* THE AUTOMATIC DFSMSHSM FUNCTIONS SPECIFIED IN THE FOLLOWING   */    00436000
+ /* SETSYS COMMANDS CONTAIN ZEROS FOR START, LATE START, AND      */    00437000
+ /* TIMES. THUS, NO AUTOMATIC FUNCTIONS ARE ACTIVATED WHEN        */    00438000
+ /* DFSMSHSM IS STARTED ON YOUR SYSTEM. TO ACTIVATE AUTOMATIC     */    00439000
+ /* FUNCTIONS, CHANGES THE TIMES TO VALUES THAT ARE APPROPRIATE   */    00440000
+ /* FOR YOUR SYSTEM.                                              */    00441000
+ /*****************************************************************/    00442000
+ /*****************************************************************/    00443000
+ /*              DFSMSHSM SYSTEM SPECIFICATIONS                   */    00444000
+ /*****************************************************************/    00445000
+ /*                                                               */    00446000
+ AUTH ?CTLAUTH               /* ESTABLISH THE USER ID THAT CAN    */ -  00447000
+  DATABASEAUTHORITY(CONTROL) /* ISSUE AUTH COMMANDS.              */    00448000
+                                                                        00449000
+ /*****************************************************************/    00450000
+ /* NOTE: BY DEFAULT, JES3 SUPPORT IS NOT ENABLED FOR DFSMSHSM    */    00451000
+ /* HOSTS DEFINED USING HOSTMODE=AUX. CONTACT IBM SUPPORT IF YOU  */    00452000
+ /* REQUIRE JES3 SUPPORT FOR AUX DFSMSHSM HOSTS. WHEN JES3 FOR    */    00453000
+ /* DFSMSHSM HOSTS IS ENABLED, YOU SHOULD START THE MAIN DFSMSHSM */    00454000
+ /* HOST BEFORE STARTING ANY AUX HOSTS AND STOP ALL AUX HOSTS     */    00455000
+ /* BEFORE STOPPING THE MAIN HOST.                                */    00456000
+ /*****************************************************************/    00457000
+                                                                        00458000
+ SETSYS ?JESVER              /* JOB ENTRY SUBSYSTEM ID.           */    00459000
+                                                                        00460000
+ SETSYS                      /* DO NOT REBLOCK DATA SETS DURING   */ -  00461000
+   NOCONVERSION              /* RECALL OR RECOVERY.               */    00462000
+                                                                        00463000
+ SETSYS                      /* DO NOT ASK OPERATOR PERMISSION TO */ -  00464000
+   NOREQUEST                 /* START AUTOMATIC FUNCTIONS         */    00465000
+                                                                        00466000
+ SETSYS                      /* DO NOT MOVE OR DELETE DATA WHEN   */ -  00467000
+   NODEBUG                   /* PERFORMING AUTO FUNCTIONS.        */    00468000
+                                                                        00469000
+ SETSYS NOSWAP               /* RUN DFSMSHSM NONSWAPPABLE.        */    00470000
+                                                                        00471000
+ SETSYS                      /* DFSMSHSM USES IT OWN FACILITIES   */ -  00472000
+   DFHSMDATASETSERIALIZATION /* TO SERIALIZE DATA SETS.           */    00473000
+                                                                        00474000
+ SETSYS                      /* DFSMSHSM USES ITS DEFINED OPTIMUM */ -  00475000
+   OPTIMUMDASDBLOCKING       /* BLOCK SIZE WHEN MOVING DATA TO    */    00476000
+                             /* DFSMSHSM-OWNED DASD.              */    00477000
+ SETSYS                      /* DO NOT USE CMS OF ML1,ML2 AND     */ -  00478000
+   USECYLINDERMANAGEDSPACE(N) /* BACKUP EAVS                      */    00479000
+ /*****************************************************************/    00480000
+ /*                   DFSMSHSM EXITS                              */    00481000
+ /*****************************************************************/    00482000
+ /*                   NONE ACTIVATED                              */    00483000
+ /*****************************************************************/    00484000
+ /*  DFSMSHSM LOGGING, JOURNALING, AND REPORTING OPTIONS          */    00485000
+ /*****************************************************************/    00486000
+ /*                                                               */    00487000
+                                                                        00488000
+ SETSYS                      /* WRITE CDS CHANGES TO JOURNAL      */ -  00489000
+   JOURNAL(RECOVERY)         /* IMMEDIATELY.                      */    00490000
+                                                                        00491000
+ SETSYS                      /* WRITE DAILY STATISTICS RECORDS AND*/ -  00492000
+   SMF(240)                  /* VOLUME STATISTIC RECORDS TO SMF   */    00493000
+                             /* RECORD TYPE 240; WRITE FUNCTIONAL */    00494000
+                             /* STATISTIC RECORDS TO TYPE 241.    */    00495000
+                                                                        00496000
+ SETSYS                      /* WRITE ONE COPY OF SYSOUT TO       */ -  00497000
+   SYSOUT(A 1)               /* PRINTER CLASS A                   */    00498000
+                                                                        00499000
+ SETSYS                      /* WRITE DFSMSHSM DUMPS TO SYSTEM    */ -  00500000
+   SYS1DUMP                  /* DUMP DATA SET.                    */    00501000
+                                                                        00502000
+ SETSYS                      /* LOG ALL POSSIBLE DFSMSHSM ACTIVITY*/ -  00503000
+   ACTLOGMSGLVL(FULL)                                                   00504000
+                                                                        00505000
+ SETSYS                      /* WRITE ACTIVITY LOG INFORMATION TO */ -  00506000
+   ACTLOGTYPE(SYSOUT)        /* THE SYSOUT CLASS SPECIFIED BY THE */    00507000
+                             /* SYSOUT PARAMETER.                 */    00508000
+ /*                                                               */    00509000
+ /*****************************************************************/    00510000
+ /*                   DFSMSHSM MONITOR OPTIONS                    */    00511000
+ /*****************************************************************/    00512000
+ /*                                                               */    00513000
+                             /* SPECIFY WHICH INFORMATIONAL       */    00514000
+                             /* MESSAGES TO SEND TO THE OPERATOR  */    00515000
+                             /* CONSOLE.                          */    00516000
+                                                                        00517000
+ SETSYS                      /* LIST STARTUP PARAMETERS. DO NOT   */ -  00518000
+   MONITOR(STARTUP NOVOLUME) /* SEND DATA SET LEVEL MESSAGES TO   */    00519000
+                             /* THE SYSTEM CONSOLE.               */    00520000
+                                                                        00521000
+ SETSYS                      /* DO NOT PRINT SPACE USAGE MSGS.    */ -  00522000
+   MONITOR(NOSPACE           /* WARN WHEN JOURNAL IS 80% FULL     */ -  00523000
+         JOURNAL(80))        /*                                   */    00524000
+                                                                        00525000
+ /*                                                               */    00526000
+ /*****************************************************************/    00527000
+ /*         DFSMSHSM COMMON SERVICE AREA LIMITING OPTIONS         */    00528000
+ /* THE FOLLOWING CSALIMITS PARAMETERS ARE IGNORED IF             */    00529000
+ /* HOSTMODE=AUX HAS BEEN SPECIFIED AND WILL GENERATE AN ARC0103I */    00530000
+ /* MESSAGE IF ISSUED.                                            */    00531000
+ /*****************************************************************/    00532000
+ /*                                                               */    00533000
+                                                                        00534000
+ SETSYS                      /* LIMIT DFSMSHSM'S USAGE OF COMMON  */ -  00535000
+   CSALIMITS(MWE(4))         /* SEVICE AREA STORAGE. KEEP A       */    00536000
+                             /* MAXIMUM OF 4 NOWAIT TYPE MWES PER */    00537000
+                             /* ADDRESS SPACE ON THE CSA QUEUE.   */    00538000
+                                                                        00539000
+ SETSYS                      /* NEVER ALLOCATE MORE THEN 100K OF  */ -  00540000
+   CSALIMITS(MAXIMUM(100)    /* STORAGE FOR MWES. ALLOCATE 90% OF */ -  00541000
+               ACTIVE(90)    /* AVAILABLE STORAGE TO MWES WHEN    */ -  00542000
+               INACTIVE(30)) /* DFSMSHSM IS ACTIVE. ALLOCATE ONLY */    00543000
+                             /* 30% OF AVAILABLE STORAGE WHEN     */    00544000
+                             /* DFSMSHSM IS INACTIVE.             */    00545000
+ /*                                                               */    00546000
+ /*****************************************************************/    00547000
+ /*               DFSMSHSM TAPE HANDLING SPECIFICATIONS           */    00548000
+ /*****************************************************************/    00549000
+ /*                                                               */    00550000
+                                                                        00551000
+ SETSYS                      /* SPECIFY IF EXTENDED TTOCS         */ -  00552000
+   EXTENDEDTTOC(N)           /* ARE IN USE                        */    00553000
+                                                                        00554000
+ SETSYS                      /* USE IMPROVED DATA RECORDING       */ -  00555000
+   TAPEHARDWARECOMPACT       /* CAPABILITY WHEN 3480X OR NEWER    */    00556000
+                             /* THE OUTPUT DEVICE.                */    00557000
+                                                                        00558000
+ SETSYS                      /* REUSE TAPES THAT ARE PARTIALLY    */ -  00559000
+   PARTIALTAPE(              /* FULL. DO NOT MARK THEM AS FULL.   */ -  00560000
+    BACKUP(REUSE) -                                                     00561000
+    MIGRATION(REUSE))                                                   00562000
+                                                                        00563000
+ SETSYS                         /* DO NOT SUSPEND SYSTEM ACTIVITY */ -  00564000
+   INPUTTAPEALLOCATION(NOWAIT)  /* (WAIT) WHILE INPUT, OUTPUT, OR */ -  00565000
+   OUTPUTTAPEALLOCATION(NOWAIT) /* RECYCLE TAPES ARE BEING        */ -  00566000
+   RECYCLETAPEALLOCATION(NOWAIT) /* ALLOCATED.                    */    00567000
+                                                                        00568000
+ SETSYS                      /* SCRATCH TAPE SELECTION AT TAPE END*/ -  00569000
+   SELECTVOLUME(             /* OF VOLUME (EOV) IF FROM THE GLOBAL*/ -  00570000
+   BACKUP(SCRATCH)           /* IS FROM THE GLOBAL SCRATCH POOL.  */ -  00571000
+   MIGRATION(SCRATCH) -                                                 00572000
+   DUMP(SCRATCH))                                                       00573000
+                                                                        00574000
+ SETSYS                      /* INFORM THE STORAGE ADMINISTRATOR  */ -  00575000
+   RECYCLEPERCENT(20)        /* THAT A BACKUP OR MIGRATION TAPE   */    00576000
+                             /* SHOULD BE RECYCLED WHEN THE AMOUNT*/    00577000
+                             /* OF TAPE THAT IS OCCUPIED BY VALID */    00578000
+                             /* DATA IS 20% OR LESS.              */    00579000
+                                                                        00580000
+ /*****************************************************************/    00581000
+ /*  IF USERUNITTABLE IS SPECIFIED, IT SHOULD BE CODED PRIOR TO   */    00582000
+ /*  ASSIGNMENT OF ANY OTHER UNIT STATEMENT.                      */    00583000
+ /*****************************************************************/    00584000
+                                                                        00585000
+ SETSYS                      /* NO ESOTERIC TAPE DEVICE NAMES ARE */ -  00586000
+   NOUSERUNITTABLE           /* DEFINED TO DFSMSHSM.              */    00587000
+                                                                        00588000
+ SETSYS                      /* UTILIZE 97% OF TAPE CARTRIDGE     */ -  00589000
+   TAPEUTILIZATION(                                                  -  00590000
+    UNITTYPE(3590-1) PERCENTFUL(97))                                    00591000
+                                                                        00592000
+ SETSYS                      /* THE AMOUNT OF SPACE THAT MAY NOT  */ -  00593000
+   TAPESPANSIZE(100)         /* BE UTILIZED AT THE LOGICAL END OF */    00594000
+                             /* A TAPE CARTRIDGE.                 */    00595000
+                                                                        00596000
+ SETSYS                      /* RETURN TAPES THAT NO LONGER       */ -  00597000
+   TAPEDELETION(             /* CONTAIN VALID DATA TO THE         */ -  00598000
+    BACKUP(SCRATCHTAPE)      /* GLOBAL SCRATCH POOL.              */ -  00599000
+    MIGRATION(SCRATCHTAPE) -                                            00600000
+    DUMP(SCRATCHTAPE))                                                  00601000
+                                                                        00602000
+ SETSYS                      /* WAIT TEN MINUTES BEFORE REISSUING */ -  00603000
+   MOUNTWAITTIME(10)         /* ADDITIONAL MESSAGES TO TAPE       */    00604000
+                             /* OPERATORS FOR TAPE MOUNTS.        */    00605000
+                                                                        00606000
+ SETSYS                      /* DIREST DFSMSHSM TO INITIALLY      */ -  00607000
+   UNITNAME(3590-1)          /* SPECIFY A 3590-1 DEVICE FOR       */    00608000
+                             /* BACKUP OR DUMP SCRATCH TAPES.     */    00609000
+                                                                        00610000
+ SETSYS                      /* TAPE OPERATOR MESSAGES            */ -  00611000
+   TAPEINPUTPROMPT(MIGRATIONTAPES(YES))                                 00612000
+                                                                        00613000
+ SETSYS                      /* TAPE OPERATOR MESSAGES            */ -  00614000
+   TAPEINPUTPROMPT(BACKUPTAPES(YES))                                    00615000
+                                                                        00616000
+ SETSYS                      /* TAPE OPERATOR MESSAGES            */ -  00617000
+   TAPEINPUTPROMPT(DUMPTAPES(YES))                                      00618000
+                                                                        00619000
+ SETSYS                      /* TURN ON TAPE DUPLEXING FOR BACKUP */ -  00620000
+   DUPLEX(                   /* AND MIGRATION. DURING MIGRATION   */ -  00621000
+    BACKUP(                  /* AND BACKUP DUPLEXING IF ERRORS ARE*/ -  00622000
+     Y ERRORALTERNATE(       /* ENCOUNTERED ON THE ALTERNATE TAPE */ -  00623000
+      CONTINUE(TAPECOPY)))   /* THEN PROCESSING OF THE ORIGINAL   */ -  00624000
+    MIGRATION(               /* WILL CONTINUE. TAPECOPY IS        */ -  00625000
+     Y ERRORALTERNATE(       /* IMMEDIATLY ATTEMPTED.             */ -  00626000
+      CONTINUE(TAPECOPY))))                                             00627000
+                                                                        00628000
+                             /* NUMBER OF ML2 PARTIALS LEFT AFTER */    00629000
+ SETSYS                      /* RECYCLE                           */ -  00630000
+   ML2PARTIALSNOTASSOCIATEDGOAL(10)                                     00631000
+                                                                        00632000
+ /*                                                               */    00633000
+ /*****************************************************************/    00634000
+ /*             DFSMSHSM CONTROL DATA SET BACKUP PARAMETERS       */    00635000
+ /*****************************************************************/    00636000
+ /*                                                               */    00637000
+                                                                        00638000
+ SETSYS                      /* MAINTAIN FOUR BACKUP VERSIONS     */ -  00639000
+   CDSVERSIONBACKUP(         /* OF THE CONTROL DATA SETS. BACK    */ -  00640000
+      BACKUPCOPIES(4)        /* UP THE CONTROL DATA SETS TO       */ -  00641000
+      BACKUPDEVICECATEGORY(  /* 3590-1 DEVICES IN PARALLEL USING  */ -  00642000
+        TAPE(UNITNAME(3590-1) /* USING DSS AS THE DATAMOVER       */ -  00643000
+        PARALLEL))  -                                                   00644000
+      DATAMOVER(DSS))                                                   00645000
+                                                                        00646000
+ /*                                                               */    00647000
+ /*****************************************************************/    00648000
+ /*                DFSMSHSM RACF SPECIFICATIONS                   */    00649000
+ /*****************************************************************/    00650000
+ /*                                                               */    00651000
+                                                                        00652000
+ SETSYS                      /* DO NOT PUT RACF-INDICATION        */ -  00653000
+   NORACFIND                 /* ON BACKUP AND MIGRATION           */    00654000
+                             /* COPIES OF DATA SETS.              */    00655000
+                                                                        00656000
+ SETSYS                      /* USE RACF TO PROVIDE TAPE          */ -  00657000
+   TAPESECURITY(RACF)        /* SECURITY.                         */    00658000
+                                                                        00659000
+ SETSYS                      /* DO NOT ALLOW ERASE-ON-SCRATCH     */ -  00660000
+   NOERASEONSCRATCH          /* ON ANY DFSMSHSM BACKUP            */    00661000
+                             /* VERSIONS AND MIGRATION COPIES     */    00662000
+                                                                        00663000
+ SETSYS                      /* BACKUP DISCRETE RACF PROFILES     */ -  00664000
+   PROFILEBACKUP                                                        00665000
+                                                                        00666000
+ /*                                                               */    00667000
+ /*****************************************************************/    00668000
+ /*                DFSMSHSM COMPACTION OPTIONS                    */    00669000
+ /*****************************************************************/    00670000
+ /*                                                               */    00671000
+                                                                        00672000
+ SETSYS                      /* COMPACT DATA SETS THAT MIGRATE TO */ -  00673000
+   COMPACT(DASDMIGRATE)      /* DASD.                             */    00674000
+                                                                        00675000
+ SETSYS                      /* DO NOT COMPACT DATA UNLESS A      */ -  00676000
+     COMPACTPERCENT(20)      /* SAVINGS OF 20% OR MORE CAN BE     */    00677000
+                             /* GAINED.                           */    00678000
+                                                                        00679000
+ SETSYS -                                                               00680000
+   OBJECTNAMES(OBJ,OBJECT,LOAD,LOADLIB,LOADMODS,LINKLIB) -              00681000
+   SOURCENAMES(ASM,COBOL,FORT,PLI,SOURCE,SRC,SRCLIB,SRCE,CNTL,JCL)      00682000
+                                                                        00683000
+ /*                                                               */    00684000
+ /*****************************************************************/    00685000
+ /*              DFSMSHSM MIGRATION PARAMETERS                    */    00686000
+ /*****************************************************************/    00687000
+ /*                                                               */    00688000
+                                                                        00689000
+ SETSYS                      /* DO NOT ALLOW DFSMSHSM TO MIGRATE  */ -  00690000
+   TAPEMIGRATION(NONE)       /* DATA SETS TO LEVEL 2 TAPE VOLUMES.*/    00691000
+                                                                        00692000
+ SETSYS                      /* SPECIFY PROCESSING WINDOW FOR     */ -  00693000
+   PRIMARYSPMGMTSTART        /* PRIMARY SPACE MANAGEMENT (LEVEL 0 */ -  00694000
+   (0000 0000)               /* TO LEVEL 1 MIGRATION              */    00695000
+                                                                        00696000
+ DEFINE                      /* RUN PRIMARY SPACE MGMT EVERY      */ -  00697000
+   PRIMARYSPMGMTCYCLE        /* DAY, STARTING MARCH 02, 1998      */ -  00698000
+   (YYYYYYY -                                                           00699000
+   CYCLESTARTDATE(1998/03/02))                                          00700000
+                                                                        00701000
+ SETSYS                      /* A DATA SET THAT HAS NOT BEEN      */ -  00702000
+   DAYS(10)                  /* REFERRED TO (OPENED) FOR 10 DAYS  */    00703000
+                             /* IS ELIGIBLE FOR MIGRATION         */    00704000
+                                                                        00705000
+ SETSYS                      /* SPECIFY A HIGH-LEVEL QUALIFIER    */ -  00706000
+   MIGRATEPREFIX(?UID)       /* WITH WHICH DFSMSHSM RENAMES       */    00707000
+                             /* MIGRATED DATA SETS.               */    00708000
+                                                                        00709000
+ SETSYS                      /* DO NOT PERFORM INTERVAL MIGRATION */ -  00710000
+   NOINTERVALMIGRATION       /* THROUGHOUT THE DAY.               */    00711000
+                                                                        00712000
+ SETSYS                      /* PERFORM ON-DEMAND MIGRATION ON    */ -  00713000
+   ONDEMANDMIGRATION(Y)      /* SMS VOLUMES IN STORAGE GROUPS     */    00714000
+                             /* WITH THE ATTRIBUTE AUTOMIGRATE=Y  */    00715000
+                                                                        00716000
+ SETSYS                      /* SPECIFY NOTIFICATION LIMIT FOR    */ -  00717000
+   ODMNOTIFICATIONLIMIT(250) /* ON-DEMAND MIGRATION (250)         */    00718000
+                                                                        00719000
+ SETSYS                       /* SPECIFY PROCESSING WINDOW FOR    */ -  00720000
+   SECONDARYSPMGMTSTART(0000) /* SECONDARY SPACE MANAGEMENT       */    00721000
+                              /* (LEVEL 1 TO LEVEL 2 MIGRATION)   */    00722000
+                                                                        00723000
+ DEFINE                      /* RUN SECONDARY SPACE MANAGEMENT    */ -  00724000
+   SECONDARYSPMGMTCYCLE      /* EVERY DAY,                        */ -  00725000
+   (YYYYYYY                  /* STARTING MARCH 02, 1998.          */ -  00726000
+   CYCLESTARTDATE(1998/03/02))                                          00727000
+                                                                        00728000
+ SETSYS                      /* KEEP MCDS RECORDS FOR RECALLED    */ -  00729000
+   MIGRATIONCLEANUPDAYS(10 30 3)  /* DATA SETS FOR 10 DAYS. KEEP  */    00730000
+                             /* VOLUME OR DAILY STATISTICS RECORDS*/    00731000
+                             /* FOR 30 DAYS. KEEP RECORDS TO      */    00732000
+                             /* RECONNECTABLE DATA SETS 3 DAYS    */    00733000
+                             /* BEYOND EARLIEST ELIGIBILITY.      */    00734000
+                                                                        00735000
+ SETSYS                      /* MIGRATE DATA SETS FROM LEVEL 1    */ -  00736000
+   MIGRATIONLEVEL1DAYS(45)   /* VOLUMES TO LEVEL 2 VOLUMES IF THE */    00737000
+                             /* DATA SETS HAVE NOT BEEN REFERRED  */    00738000
+                             /* TO FOR 45 DAYS.                   */    00739000
+                                                                        00740000
+ SETSYS                      /* DATA SET EXTENT REDUCTION         */ -  00741000
+   MAXEXTENTS(10)            /* OCCURS WHEN EXTENTS REACH 10.     */    00742000
+                                                                        00743000
+ SETSYS                      /* LIMIT THE NUMBER OF CONCURRENT    */ -  00744000
+   MAXRECALLTASKS(8)         /* DFSMSHSM RECALL TASKS TO EIGHT.   */    00745000
+                                                                        00746000
+                                                                        00747000
+ SETSYS                      /* DIRECT DFSMSHSM TO RECALL DATA    */ -  00748000
+   RECALL(PRIVATEVOLUME(LIKE))/* SETS TO ONLINE VOLUMES WITH THE  */    00749000
+                             /* USE ATTRIBUTE OF PUBLIC, STORAGE, */    00750000
+                             /* OR PRIVATE AND WITH LIKE          */    00751000
+                             /* CHARACTERISTICS.                  */    00752000
+                                                                        00753000
+ SETSYS                      /* RETAIN LIST DATA SETS FOR 7 DAYS. */ -  00754000
+   SCRATCHFREQUENCY(7)       /* DO NOT SCRATCH EXPIRED DATA SETS. */ -  00755000
+   EXPIREDDATASETS(NOSCRATCH)                                           00756000
+                                                                        00757000
+ SETSYS                      /* DO NOT MIGRATE SMALL DATA SETS AS */ -  00758000
+   NOSMALLDATASETPACKING     /* RECORDS TO SMALL DATA SET PACKING */    00759000
+                             /* (SDSP) DATA SETS.                 */    00760000
+                                                                        00761000
+ SETSYS                      /* LIMIT THE NUMBER OF CONCURRENT    */ -  00762000
+   MAXMIGRATIONTASKS(3)      /* AUTOMATIC VOLUME MIGRATION TASKS  */    00763000
+                             /* TO THREE.                         */    00764000
+                                                                        00765000
+ SETSYS                      /* LIMIT THE NUMBER OF CONCURRENT    */ -  00766000
+   MAXSSMTASKS               /* AUTOMATIC SECONDARY SPACE         */ -  00767000
+     (CLEANUP(2)             /* MANAGEMENT CLEANUP TASKS TO TWO   */ -  00768000
+      TAPEMOVEMENT(1)        /* AND TAPEMOVEMENT TASKS TO ONE     */ -          
+      EMPTYCONTAINERDELETION(1)) /* NUMBER OF CLOUD STORAGE       */ -          
+                                 /* CONTAINERS PROCESSING TASKS.  */            
+                                                                                
+ SETSYS                      /* ACTIVATE THE NEW PSM EARLIER      */ -          
+   MIGRATEPSMEARLY(YES)      /* CHECKING OPTION.                  */            
+                                                                                
+ SETSYS                      /* CLOUD MIGRATION DURING            */ -          
+   MIGRATIONAUTOCLOUD        /* AUTOMATIC MIGRATION PARAMETERS    */ -          
+   (NOCLOUD                  /* NO CLOUD MIGRATION                */ -          
+    SELECTIONTHRESHOLD(NNN)) /* MAXIMUM PERCENTAGE OF DATA SETS   */ -          
+                             /* ON SOURCE VOLUME ELIGIBLE FOR     */ -          
+                             /* CLOUD MIGRATION WHEN CEC THREAD   */ -          
+                             /* IS RESERVED ON DATA SET LEVEL.    */            
+                                                                                
+ SETSYS                      /* CREATE A SET OF HOSTS THAT HAVE   */ -          
+   STORAGEGROUPAFFINITY      /* AFFINITY TO PROCESS A STORAGE     */ -          
+   (SYSTEM1,SYSTEM2,..)      /* GROUP.                            */            
+                                                                        00770000
+ /*                                                               */    00771000
+ /*****************************************************************/    00772000
+ /*                DFSMSHSM BACKUP PARAMETERS                     */    00773000
+ /*****************************************************************/    00774000
+ /*                                                               */    00775000
+                                                                        00776000
+ ONLYIF                      /* THE FOLLOWING DEFINE COMMAND WILL */ -  00777000
+   HSMHOST(?HOSTID)          /* EXECUTE ONLY IF THE ACTIVE HOST ID*/ -  00778000
+                             /* MATCHES THE HOST SPECIFIED.       */    00779000
+                                                                     -  00780000
+ DEFINE BACKUP(Y 1           /* DIRECT DFSMSHSM TO BACKUP ELIGIBLE*/ -  00781000
+   CYCLESTARTDATE(1998/03/02)) /* DATA SETS DAILY (A 1 DAY CYCLE) */    00782000
+                             /* TO A SINGLE BACKUP VOLUME,STARTING*/    00783000
+                             /* MARCH 02, 1998.                   */    00784000
+                                                                        00785000
+ SETSYS DSBACKUP(DASDSELECTIONSIZE(3000 250)  DASD(TASKS(2))         -  00786000
+   TAPE(TASKS(2) DEMOUNTDELAY(MINUTES(60)  MAXIDLETASKS(0))))           00787000
+                             /* BALANCE THE WORKLOAD BETWEEN TAPE */    00788000
+                             /* AND DASD FOR WAIT TYPE BACKDS     */    00789000
+                             /* COMMANDS. LIMIT THE NUMBER OF DATA*/    00790000
+                             /* SET BACKUP TAPE AND DASD TASKS.   */    00791000
+                             /* LIMIT THE NUMBER AND LENGTH OF    */    00792000
+                             /* TIME A TAPE TASK CAN REMAIN IDLE  */    00793000
+                             /* BEFORE BEING DEMOUNTED.           */    00794000
+                                                                        00795000
+ SETSYS                      /* ACTIVATE THE BACKUP AND DUMP      */ -  00796000
+   BACKUP                    /* FUNCTION OF DFSMSHSM              */    00797000
+                                                                        00798000
+ ONLYIF                      /* THE FOLLOWING SETSYS COMMAND WILL */ -  00799000
+   HSMHOST(?HOSTID)          /* EXECUTE ONLY IF THE ACTIVE HOST ID*/ -  00800000
+                             /* MATCHES THE HOST SPECIFIED.       */    00801000
+                                                                        00802000
+ SETSYS -                                                               00803000
+   AUTOBACKUPSTART(0000 0000 0000)                                      00804000
+                             /* SPECIFY THE TIME FOR AUTOMATIC    */    00805000
+                             /* BACKUP TO BEGIN, THE LATEST START */    00806000
+                             /* TIME THAT AUTOMATIC BACKUP CAN    */    00807000
+                             /* BEGIN, AND THE QUIESCE TIME FOR   */    00808000
+                             /* AUTOMATIC BACKUP. NO AUTOMATIC    */    00809000
+                             /* BACKUP OCCURS UNTIL THESE TIMES   */    00810000
+                             /* ARE SPECIFIED.                    */    00811000
+                                                                        00812000
+ SETSYS                      /* SPECIFY A HIGH-LEVEL QUALIFIER    */ -  00813000
+   BACKUPPREFIX(?UID)        /* WITH WHICH DFSMSHSM RENAMES BACKED*/    00814000
+                             /* UP DATA SETS                      */    00815000
+                                                                        00816000
+ SETSYS                      /* KEEP ONE VERSION OF EACH BACKED UP*/ -  00817000
+   VERSIONS(1)               /* DATA SET.                         */ -  00818000
+   FREQUENCY(0)                                                         00819000
+                                                                        00820000
+ SETSYS                      /* LIMIT THE NUMBER OF CONCURRENT    */ -  00821000
+   MAXBACKUPTASKS(3)         /* BACKUP TASKS TO THREE, BACK UP ALL*/ -  00822000
+   NOSKIPABPRIMARY           /* DFSMSHSM-MANAGED VOLUMES THAT HAVE*/    00823000
+                             /* THE AUTO BACKUP ATTRIBUTE.        */    00824000
+                                                                        00825000
+ SETSYS                      /* LIMIT THE NUMBER OF CONCURRENT    */ -  00826000
+   MAXDSRECOVERTASKS(3)      /* DFSMSHSM DATA SET RECOVER TASKS   */    00827000
+                             /* TO THREE                          */    00828000
+                                                                        00829000
+ SETSYS                      /* DURING DAILY BACKUP, MOVE         */ -  00830000
+   SPILL                     /* DATA SETS FROM FULL DAILY         */    00831000
+                             /* DASD VOLUMES TO SPILL VOLUMES.    */    00832000
+                                                                        00833000
+ SETSYS                      /* MAKE INITIAL BACKUP COPIES OF DATA*/ -  00834000
+   INCREMENTALBACKUP(ORIGINAL) /* SETS DESPITE THE SETTING OF THE */    00835000
+                             /* CHANGE BIT.                       */    00836000
+                                                                        00837000
+ SETSYS                      /* CREATE DEFAULT VSAM COMPONENT     */ -  00838000
+    DSBACKUP                 /* NAMES WHEN PROCESSING AN (H)BACKDS*/ -  00839000
+    (GENVSAMCOMPNAMES(YES))  /* COMMAND AND THE DATA SET BEING    */    00840000
+                             /* BACKED UP IS VSAM AND THE NEWNAME */    00841000
+                             /* DATA SET IS UNCATALOGED OR        */    00842000
+                             /* MIGRATED                          */    00843000
+                                                                        00844000
+ /*                                                               */    00845000
+ /*****************************************************************/    00846000
+ /*            DFSMSHSM FULL VOLUME DUMP PARAMETERS               */    00847000
+ /*****************************************************************/    00848000
+ /*                                                               */    00849000
+                                                                        00850000
+ ONLYIF                      /* THE DEFINE COMMAND WILL EXECUTE IF*/ -  00851000
+   HSMHOST(?HOSTID)          /* THE ACTIVE HOST ID = ?HOSTID      */    00852000
+ DEFINE -                                                               00853000
+   DUMPCYCLE(NNNNNNY         /* 7-DAY DUMP CYCLE WITH DUMP DONE   */ -  00854000
+    CYCLESTARTDATE(1998/03/02)) /* ONLY ON THE SEVENTH DAY,       */    00855000
+                             /* STARTING ON MONDAY MARCH 02, 1998,*/    00856000
+                             /* SO DUMPS OCCUR ON SUNDAY.         */    00857000
+                                                                        00858000
+ DEFINE DUMPCLASS(SUNDAY DAY(7) -                                       00859000
+   RETPD(27) AUTOREUSE NORESET  -                                       00860000
+   DATASETRESTORE VTOCCOPIES(4))                                        00861000
+                             /* DEFINE A DUMP CLASS NAMED SUNDAY  */    00862000
+                             /* THAT IS AUTOMATICALLY DUMPED ON   */    00863000
+                             /* THE SEVENTH DAY OF THE CYCLE.     */    00864000
+                             /* EACH DUMP COPY IS HELD FOR 27 DAYS*/    00865000
+                             /* AND THE TAPE IS REUSED WHEN IT IS */    00866000
+                             /* SCRATCHED. DO NOT RESET DATA SET  */    00867000
+                             /* CHANGE BITS. ALLOW TSO USERS TO   */    00868000
+                             /* RESTORE DATA SETS FROM DUMP TAPE. */    00869000
+                             /* AT MOST, KEEP FOUR VTOC COPY DUMP */    00870000
+                             /* DATA SETS FOR EACH VOLUME.        */    00871000
+                                                                        00872000
+ DEFINE DUMPCLASS(QUARTERS   /* DEFINE A DUMP CLASS NAMED QUARTERS*/ -  00873000
+   FREQUENCY(90) RETPD(356)  /* THAT IS AUTOMATICALLY DUMPED EVERY*/ -  00874000
+   NOAUTOREUSE               /* THREE MONTHS AND IS HELD FOR ONE  */ -  00875000
+   NODATASETRESTORE NORESET  /* WEEK LESS THEN A YEAR. USE IS FOR */ -  00876000
+   DISPOSITION('OFF-SITE')   /* ONLY FULL RESTORES. HOLD THE TAPE */ -  00877000
+   VTOCCOPIES(0))            /* OFF-SITE AND KEEP NO VTOC COPIES  */    00878000
+                             /* FOR THIS CLASS.                   */    00879000
+                                                                        00880000
+ SETSYS -                                                               00881000
+   AUTODUMPSTART(0000 0000 0000)                                        00882000
+                             /* SPECIFY THE TIME FOR AUTOMATIC    */    00883000
+                             /* DUMP TO BEGIN, THE LATEST START   */    00884000
+                             /* THAT AUTOMATIC DUMP CAN BEGIN,    */    00885000
+                             /* AND THE QUIESCE TIME FOR AUTOMATIC*/    00886000
+                             /* DUMP. NO AUTOMATIC DUMP OCCURS    */    00887000
+                             /* UNTIL THESE TIMES ARE SPECIFIED.  */    00888000
+                                                                        00889000
+ SETSYS                      /* BUFFER FIVE TRACKS WHEN PERFORMING*/ -  00890000
+   DUMPIO(3,2)               /* A DUMP. BUFFER TWO TRACKS DURING  */    00891000
+                             /* DATA MOVEMENT.                    */    00892000
+                                                                        00893000
+ SETSYS                      /* LIMIT THE NUMBER OF CONCURRENT    */ -  00894000
+   MAXDUMPTASKS(3)           /* DUMP TASK TO THREE.               */    00895000
+                                                                        00896000
+/*                                                                */    00897000
+/******************************************************************/    00898000
+/*      DFSMSHSM AGGREGATE BACKUP AND RECOVER PARAMETERS          */    00899000
+ /* THE FOLLOWING ABARS PARAMETERS ARE IGNORED IF HOSTMODE=AUX    */    00900000
+ /* HAS BEEN SPECIFIED AND WILL GENERATE AN ARC0103I MESSAGE IF   */    00901000
+ /* ISSUED.                                                       */    00902000
+ /*****************************************************************/    00903000
+/*                                                                */    00904000
+                                                                        00905000
+SETSYS                       /* RECOVER DATA SET AGGREGATES TO    */ -  00906000
+  ARECOVERUNITNAME(3590-1)   /* 3590-1 TAPE DEVICES.              */    00907000
+                                                                        00908000
+SETSYS                       /* START ONLY ONE SECONDARY ADDRESS  */ -  00909000
+  MAXABARSADDRESSSPACE(1)    /* SPACE FOR BACKING UP AND          */    00910000
+                             /* RECOVERING AGGREGATED DATA SETS   */    00911000
+                                                                        00912000
+SETSYS                       /* START THE SECONDARY ADDRESS       */ -  00913000
+  ABARSPROCNAME(DFHSMABR)    /* SPACE WITH THE STARTUP PROCEDURE  */    00914000
+                             /* NAMED DFHSMABR.                   */    00915000
+                                                                        00916000
+SETSYS                       /* WRITE THE ABARS ACTIVITY LOG TO   */ -  00917000
+  ABARSACTLOGTYPE(DASD)      /* DASD                              */    00918000
+                                                                        00919000
+SETSYS                       /* LOG ALL ABARS MESSAGES            */ -  00920000
+  ABARSACTLOGMSGLVL(FULL)                                               00921000
+                                                                        00922000
+SETSYS                       /* RECOVER ML2 DATA SETS TO TAPE.    */ -  00923000
+  ARECOVERML2UNIT(3590-1)                                               00924000
+                                                                        00925000
+SETSYS                       /* USE 90% OF THE AVAILABLE TAPE FOR */ -  00926000
+  ARECOVERPERCENTUTILIZED(090) /* ARECOVERY TAPES.                */    00927000
+                                                                        00928000
+SETSYS                       /* BACKUP AGGREGATES TO 3590-1       */ -  00929000
+  ABARSUNITNAME(3590-1)      /* DEVICES.                                00930000
+                                                                        00931000
+SETSYS                       /* BACKUP ABARS DATA SETS WITH TWO   */ -  00932000
+  ABARSBUFFERS(2)            /* DATA MOVEMENT BUFFERS.            */    00933000
+                                                                        00934000
+SETSYS                       /* SPECIFY ABARS TO STACK THE        */ -  00935000
+  ABARSTAPES(STACK)          /* ABACKUP OUTPUT ONTO A MINIMUM     */    00936000
+                             /* NUMBER OF TAPE VOLUMES            */    00937000
+                                                                        00938000
+SETSYS                       /* ABARS ACTIVITY LOG WILL NOT BE    */ -  00939000
+  ABARSDELETEACTIVITY(N)     /* AUTOMATICALLY DELETED DURING      */    00940000
+                             /* ABARS PROCESSING                  */    00941000
+                                                                        00942000
+SETSYS                       /* SET PERFORMANCE OF BACKING UP     */ -  00943000
+  ABARSOPTIMIZE(3)           /* LEVEL 0 DASD DATASETS             */    00944000
+                                                                        00945000
+SETSYS                       /* TARGET DATASET IS TO BE ASSIGNED  */ -  00946000
+  ARECOVERTGTGDS(SOURCE)     /* SOURCE STATUS                     */    00947000
+                                                                        00948000
+SETSYS                       /* ALLOWS RECOVERY OF A LEVEL 0      */ -  00949000
+  ABARSVOLCOUNT(ANY)         /* DASD DATA SET UP TO 59 VOLUMES    */    00950000
+ /*                                                               */    00951000
+ /*****************************************************************/    00952000
+ /*            DFSMSHSM HSMPLEX/SYSPLEX PARAMETERS                */    00953000
+ /*****************************************************************/    00954000
+ /*                                                               */    00955000
+                                                                        00956000
+SETSYS                       /* SPECIFY THE SUFFIX FOR THE        */ -  00957000
+  PLEXNAME(PLEX0)            /* HSMPLEX IN A MULTI-HSMPLEX        */    00958000
+                             /* ENVIRONMENT   ARC(SUFFIX)         */    00959000
+                                                                        00960000
+SETSYS                       /* SPECIFY HOST NOT TO TAKE OVER     */ -  00961000
+  PROMOTE(PRIMARYHOST(NO)    /* PRIMARY OR SSM RESPONSIBILITIES   */ -  00962000
+  SSM(NO))                                                              00963000
+                                                                        00964000
+ /*                                                               */    00965000
+ /*****************************************************************/    00966000
+ /* SEE MEMBER ARCCMD90 IN HSM.SAMPLE.CNTL FOR AN EXAMPLE OF THE  */    00967000
+ /* ADDVOL COMMAND TO BE USED IN CONJUNCTION WITH THIS COMMAND    */    00968000
+ /* STREAM.                                                       */    00969000
+ /*****************************************************************/    00970000
+$A                                                                      00971000
+//HSMPROC  EXEC PGM=IEBUPDTE,PARM=NEW                                   00972000
+//SYSPRINT DD SYSOUT=*                                                  00973000
+//SYSUT2   DD DSN=SYS1.PARMLIB,DISP=SHR                                 00974000
+//SYSIN    DD DATA,DLM='$A'                                             00975000
+./ ADD NAME=ARCSTR00                                                    00976000
+ /*****************************************************************/    00977000
+ /*              DFSMSHSM ADDITIONAL STARTUP COMMAND MEMBER       */    00978000
+ /*****************************************************************/    00979000
+$A                                                                      00980000
+$$                                                                      00981000
+//HSMSTEP2 EXEC PGM=IEBUPDTE,PARM=NEW                                   00982000
+//SYSPRINT DD SYSOUT=*                                                  00983000
+//SYSUT2   DD DSN=HSM.SAMPLE.CNTL,                                      00984000
+//            DISP=OLD                                                  00985000
+//SYSIN    DD DATA,DLM='$$'                                             00986000
+./ ADD NAME=ARCCMD90                                                    00987000
+ /*                                                               */    00988000
+ /*****************************************************************/    00989000
+ /* THE FOLLOWING COMMANDS ARE AN EXAMPLE OF ADDVOL COMMANDS      */    00990000
+ /* USED IN CONJUNCTION WITH THE ARCCMD00 COMPONENT OF THE        */    00991000
+ /* STARTER SET.  THEY CAN BE COMPLETED BY ADDING VOLUME SERIAL   */    00992000
+ /* NUMBERS AND UNIT TYPES IN THE SPACES PROVIDED.  THIS COMMAND  */    00993000
+ /* STREAM CAN THEN BE APPENDED TO ARCCMD00.                      */    00994000
+ /*                                                               */    00995000
+ /* ADDVOL COMMANDS FOR PRIMARY AND MIGRATION LEVEL 1 VOLUMES     */    00996000
+ /* MUST BE INCLUDED IN THE ARCCMD__ PARMLIB MEMBER FOR YOUR      */    00997000
+ /* SYSTEM.  INDEED, THEY MUST BE IN THE ARCCMD__ WHEN RUNNING    */    00998000
+ /* WITH JES3.                                                    */    00999000
+ /*                                                               */    01000000
+ /*****************************************************************/    01001000
+ /*                                                               */    01002000
+ ADDVOL ______               /* ADD A VOLUME (PROVIDE SERIAL) */ -      01003000
+        UNIT(______)         /* WITH UNIT TYPE (PROVIDE TYPE) */ -      01004000
+        PRIMARY              /* AS A PRIMARY VOLUME THAT IS A */ -      01005000
+        (AUTOMIGRATION       /* CANDIDATE FOR AUTOMIGRATION.  */ -      01006000
+         MIGRATE(7)          /* MIGRATE DATA SETS AFTER 7 DAYS*/ -      01007000
+         AUTOBACKUP          /* CANDIDATE FOR AUTOBACKUP.     */ -      01008000
+         BACKUPDEVICECATEGORY(TAPE) /* BACKED UP TO TAPE.     */ -      01009000
+         AUTORECALL          /* DATA SETS CAN BE RECALLED TO  */ -      01010000
+                             /* THIS VOLUME.                  */ -      01011000
+         AUTODUMP(SUNDAY))   /* DUMP FULL VOLUME AS SPECIFIED */ -      01012000
+                             /* BY THE SUNDAY DUMP CLASS.     */ -      01013000
+        THRESHOLD(100 0)     /* NO INTERVAL MIGRATION         */        01014000
+ ADDVOL ______               /* ADD A VOLUME (PROVIDE SERIAL) */ -      01015000
+        UNIT(______)         /* WITH UNIT TYPE (PROVIDE TYPE) */ -      01016000
+        MIGRATION            /* AS A MIGRATION LEVEL 1 VOLUME */ -      01017000
+        (MIGRATIONLEVEL1     /* WITH NO SMALL DATA SET        */ -      01018000
+         NOSMALLDATASETPACKING) /* PACKING AVAILABLE.         */ -      01019000
+        THRESHOLD(100)       /* NO THRESHOLD PROCESSING.      */        01020000
+/*                                                               */     01021000
+/*****************************************************************/     01022000
+/* YOU MAY REMOVE ADDVOL COMMANDS FOR VOLUMES OTHER THAN PRIMARY */     01023000
+/* AND MIGRATION LEVEL 1 VOLUMES FROM ARCCMD__ IF YOU WANT TO    */     01024000
+/* SAVE TIME DURING DFSMSHSM STARTUP.  THOSE ADDVOL COMMANDS ARE */     01025000
+/* STORED IN THE CONTROL DATA SETS WHEN DFSMSHSM IS STARTED.     */     01026000
+/*****************************************************************/     01027000
+/*                                                               */     01028000
+ADDVOL ______               /* ADD A VOLUME (PROVIDE SERIAL)  */ -      01029000
+       UNIT(______)         /* WITH UNIT TYPE (PROVIDE TYPE)  */ -      01030000
+       BACKUP               /* AS A DAILY BACKUP VOLUME FOR   */ -      01031000
+       (DAILY)              /* AUTOMATIC BACKUP.              */ -      01032000
+       THRESH(97)           /* SPILL CONTENTS UNTIL THIS      */ -      01033000
+                            /* VOLUME IS 97% FULL.            */        01034000
+                                                                        01035000
+ADDVOL ______               /* ADD A VOLUME (PROVIDE SERIAL)  */ -      01036000
+       UNIT(______)         /* WITH UNIT TYPE (PROVIDE TYPE)  */ -      01037000
+       BACKUP               /* AS A SPILL BACKUP VOLUME THAT  */ -      01038000
+       (SPILL)              /* IS CONSIDERED FULL AND         */ -      01039000
+       THRESH(97)           /* UNUSABLE WHEN 97% FULL.        */        01040000
+                                                                        01041000
+ADDVOL ______               /* ADD A VOLUME (PROVIDE SERIAL)  */ -      01042000
+       UNIT(______)         /* THAT IS A TAPE USED AS         */ -      01043000
+       BACKUP(DAILY)        /* A DAILY BACKUP VOLUME.         */        01044000
+                                                                        01045000
+ADDVOL ______               /* ADD A VOLUME (PROVIDE SERIAL)  */ -      01046000
+       DUMP                 /* USED FOR FULL VOLUME           */ -      01047000
+       (DUMPCLASS(SUNDAY))  /* DUMP FOR SUNDAY CLASS.         */ -      01048000
+       UNIT(______)         /* DUMPS MUST GO TO TAPE.         */        01049000
+ /*                                                           */        01050000
+./ ADD NAME=ARCCMD01                                                    01051000
+ /****************************************************************/     01052000
+ /*  DFSMSHSM STARTUP COMMAND MEMBER FOR LEVEL 2 TAPE MIGRATION  */     01053000
+ /*                                                              */     01054000
+ /*  APPEND THIS COMMAND STREAM TO ARCCMD00 TO PROVIDE LEVEL 2   */     01055000
+ /*  TAPE MIGRATION                                              */     01056000
+ /****************************************************************/     01057000
+ /****************************************************************/     01058000
+ /*          DFSMSHSM LEVEL 2 TAPE MIGRATION PARAMETERS          */     01059000
+ /****************************************************************/     01060000
+ /*                                                              */     01061000
+                                                                        01062000
+ SETSYS -                                                               01063000
+   TAPEMIGRATION(ML2TAPE)    /* MIGRATE TO LEVEL 2 TAPE.         */     01064000
+                                                                        01065000
+ SETSYS -                                                               01066000
+   MIGUNITNAME(3590-1)       /* START WITH 3590-1 ML2 TAPE       */     01067000
+                             /* UNIT.                            */     01068000
+ SETSYS -                                                               01069000
+   ML2RECYCLEPERCENT(20)     /* LOG MESSAGE WHEN VALID DATA      */     01070000
+                             /* ON AN ML2 TAPE FALLS BELOW       */     01071000
+                             /* 20%.                             */     01072000
+ SETSYS -                                                               01073000
+   TAPEMAXRECALLTASKS(1)     /* ONE TAPE RECALL TASK AT A TIME   */     01074000
+                                                                        01075000
+ /*                                                              */     01076000
+ /****************************************************************/     01077000
+ /* SEE MEMBER ARCCMD91 IN HSM.SAMPLE.CNTL FOR AN EXAMPLE        */     01078000
+ /* OF ADDVOL COMMANDS TO BE USED IN CONJUNCTION WITH LEVEL      */     01079000
+ /* 2 TAPE MIGRATION.                                            */     01080000
+ /****************************************************************/     01081000
+ /*                                                              */     01082000
+./ ADD NAME=ARCCMD91                                                    01083000
+ /*                                                              */     01084000
+ /****************************************************************/     01085000
+ /* THE FOLLOWING EXAMPLE ADDVOL COMMANDS CAN BE USED WITH THE   */     01086000
+ /* ARCCD00 MEMBER OF THE STARTER SET TO IDENTIFY LEVEL 2 TAPE   */     01087000
+ /* MIGRATION VOLUMES.  AFTER YOU HAVE ADDED A VOLUME SERIAL     */     01088000
+ /* NUMBER AND A UNIT TYPE IN THE SPACE PROVIDED, APPEND THIS    */     01089000
+ /* COMMAND STREAM TO YOUR ARCCMD00 MEMBER.                      */     01090000
+ /*                                                              */     01091000
+ /****************************************************************/     01092000
+ /*                                                              */     01093000
+ ADDVOL ______               /* ADD A VOLUME (PROVIDE SERIAL)    */ -   01094000
+        MIGRATION            /* AS A MIGRATION LEVEL 2 TAPE      */ -   01095000
+         (MIGRATIONLEVEL2)   /* VOLUME.                          */ -   01096000
+        UNIT(______)         /* PROVIDE PROPER UNIT TYPE.        */     01097000
+ /*                                                              */     01098000
+./ ADD NAME=HSMHELP                                                     01099000
+)F FUNCTION:                                                            01100000
+             THE HSENDCMD COMMAND IS USED BY AUTHORIZED TSO USERS       01101000
+             TO COMMUNICATE WITH THE DFSMSHSM FUNCTIONS.                01102000
+)X SYNTAX:                                                              01103000
+             HSENDCMD(WAIT | NOWAIT) COMMAND                            01104000
+                                                                        01105000
+REQUIRED  -  COMMAND - YOU MUST ENTER A COMMAND.                        01106000
+DEFAULTS  -  NONE                                                       01107000
+ALIAS     -  NONE                                                       01108000
+                                                                        01109000
+)O OPERANDS:                                                            01110000
+            'COMMAND' - SPECIFIES THE DFSMSHSM OPERATOR COMMAND.        01111000
+DEFAULTS  -  NONE                                                       01112000
+                                                                        01113000
+THE FOLLOWING IS A LIST OF ALL DFSMSHSM COMMANDS EXCEPT                 01114000
+THE USER COMMANDS:                                                      01115000
+                                                                        01116000
+ABACKUP - BACK UP AGGREGATED DATE SETS                                  01117000
+ADDVOL - ADD OR CHANGE THE VOLUMES TO BE CONTROLLED BY DFSMSHSM         01118000
+ALTERDS - CHANGE THE BACKUP SPECIFICATIONS FOR A DATA SET               01119000
+ARECOVER - RECOVER AGGREGATED DATE SETS                                 01120000
+AUDIT - AUDIT DFSMSHSM                                                  01121000
+AUTH - AUTHORIZE A TSO USER FOR DFSMSHSM COMMANDS                       01122000
+BACKDS - CREATE A BACKUP VERSION OF A DATA SET                          01123000
+BACKVOL - CREATE A BACKUP VERSION OF ALL DATA SETS ON A VOLUME OR       01124000
+          OR ON CDS                                                     01125000
+BDELETE - DELETE A BACKUP VERSION OF A DATA SET                         01126000
+CANCEL - CANCEL A QUEUED DFSMSHSM REQUEST                               01127000
+DEFINE - DEFINE CONTROL STRUCTURES TO DFSMSHSM                          01128000
+DELETE - DELETE A DATA SET THAT HAS BEEN MIGRATED                       01129000
+DELVOL - REMOVE A VOLUME FROM DFSMSHSM CONTROL                          01130000
+DISPLAY - DISPLAY DFSMSHSM STORAGE LOCATIONS                            01131000
+EXPIREBV - DELETE UNWANTED BACKUP VERSIONS OF DATA SETS                 01132000
+FIXCDS - REPAIR A DFSMSHSM CONTROL DATA SET                             01133000
+FRBACKUP - CREATE A FAST REPLICATION BACKUP OF A COPY POOL              01134000
+FRDELETE - DELETE A BACKUP VERSION OF A COPY POOL                       01135000
+FREEVOL - MOVE MIGRATED DATA SETS FROM MIGRATION VOLUMES,               01136000
+          AND BACKUP DATA SETS FROM BACKUP VOLUMES                      01137000
+FRRECOV - RE-CREATE A VOLUME OR COPY POOL FROM A BACKUP VERSION         01138000
+HOLD - SUSPEND A DFSMSHSM FUNCTION                                      01139000
+LIST - LIST INFORMATION FROM THE DFSMSHSM CONTROL DATA SETS             01140000
+LOG - ENTER DATA INTO THE DFSMSHSM LOG                                  01141000
+MIGRATE - SPACE MANAGE A SPECIFIC VOLUME OR MIGRATE A DATA SET          01142000
+PATCH - MODIFY DFSMSHSM STORAGE LOCATIONS                               01143000
+QUERY - LIST THE STATUS OF DFSMSHSM PARAMETERS, STATISTICS, REQUESTS    01144000
+RECALL - RECALL A DATA SET                                              01145000
+RECOVER - RE-CREATE A DATA SET OR A VOLUME FROM A BACKUP VERSION        01146000
+RECYCLE - MOVE VALID BACKUP OR MIGRATION COPIES FROM ONE TAPE           01147000
+          TO ANOTHER                                                    01148000
+RELEASE - RESUME A DFSMSHSM FUNCTION                                    01149000
+REPORT - REQUEST REPORTS BASED ON DFSMSHSM STATISTICS                   01150000
+SETMIG - CHANGE THE ELIGIBILITY FOR MIGRATION OF DATA SETS              01151000
+SETSYS - DEFINE OR CHANGE THE DFSMSHSM INSTALLATION PARAMETERS          01152000
+STOP - STOP THE DFSMSHSM SYSTEM TASK                                    01153000
+SWAPLOG - SWITCH THE DFSMSHSM LOG DATA SETS                             01154000
+TAPECOPY - COPY A DFSMSHSM-OWNED MIGRATION OR BACKUP TAPE VOLUME        01155000
+           TO AN ALTERNATE VOLUME                                       01156000
+TAPEREPL - REPLACE A DFSMSHSM-OWNED MIGRATION OR BACKUP TAPE VOLUME     01157000
+           WITH AN ALTERNATE VOLUME                                     01158000
+TRAP - REQUEST A DUMP WHEN A SPECIFIED ERROR OCCURS                     01159000
+UPDATEC - APPLY THE DFSMSHSM JOURNAL TO RECOVER A CONTROL DATA SET      01160000
+THE FOLLOWING LIST SHOWS SPECIFIC INFORMATION ABOUT EACH COMMAND.       01161000
+YOU COULD REQUEST THE SAME INFORMATION BY TYPING HELP HSMHELP           01162000
+OPERANDS(COMMAND).                                                      01163000
+                                                                        01164000
+))ABACKUP  AGNAME                                                       01165000
+           UNIT(UNITTYPE)                                               01166000
+           EXECUTE | VERIFY                                             01167000
+           MOVE                                                         01168000
+           FILTEROUTPUTDATASET(DSNAME)                                  01169000
+           PROCESSONLY(LEVEL0 | MIGRATIONLEVEL1 | MIGRATIONLEVEL2 |     01170000
+                       USERTAPE)                                        01171000
+           STACK | NOSTACK                                              01172000
+           OPTIMIZE(1|2|3|4)                                            01173000
+           SKIP(PPRC | XRC | NOPPRC | NOXRC)                            01174000
+           LIST(SKIPPED)                                                01175000
+))ADDVOL   VOLSER                                                       01176000
+           BACKUP | DUMP | MIGRATION | PRIMARY                          01177000
+           UNIT(UNITTYPE)                                               01178000
+               (AUTOBACKUP | NOAUTOBACKUP)                              01179000
+               (AUTODUMP(CLASS,(CLASS,CLASS,CLASS,CLASS))|NOAUTODUMP)   01180000
+               (AUTOMIGRATION | NOAUTOMIGRATION)                        01181000
+               (AUTORECALL | NOAUTORECALL)                              01182000
+               (BACKUPDEVICECATEGORY(TAPE | DASD | NONE))               01183000
+               (DAILY(DAY) | SPILL)                                     01184000
+               (DELETEBYAGE(DAYS) | DELETEIFBACKEDUP(DAYS) |            01185000
+               MIGRATE(DAYS))                                           01186000
+               DENSITY(2|3|4)                                           01187000
+               (DRAIN | NODRAIN)                                        01188000
+               (OVERFLOW | NOOVERFLOW)                                  01189000
+                                                                        01190000
+               (DUMPCLASS(CLASS))                                       01191000
+               (MIGRATIONLEVEL1 | MIGRATIONLEVEL2)                      01192000
+               (SMALLDATASETPACKING | NOSMALLDATASETPACKING)            01193000
+               THRESHOLD(THRESH1(THRESH2))                              01194000
+               TRACKMANAGEDTHRESHOLD(THRESH1 THRESH2)                   01195000
+                                                                        01196000
+))ALTERDS  (DSNAME...)                                                  01197000
+                FREQUENCY(DAYS) | SYSFREQUENCY                          01198000
+                VERSIONS(LIMIT) | SYSVERSIONS                           01199000
+                                                                        01200000
+))ARECOVER DATASETNAME(CONTROLFILEDSNAME) |                             01201000
+               STACK | NOSTACK                                          01202000
+               VOLUMES(VOLSER1 ... VOLSERN) | XMIT                      01203000
+                   UNIT(UNITTYPE)                                       01204000
+           AGGREGATE(AGNAME)                                            01205000
+               DATE(YYYY/MM/DD) | VERSION(NNNN)                         01206000
+           EXECUTE | VERIFY | PREPARE                                   01207000
+               ACTVITY                                                  01208000
+               DATASETCONFLICT                                          01209000
+                (RENAMESOURCE(LEVEL) |                                  01210000
+                 RENAMETARGET(LEVEL) |                                  01211000
+                 BYPASS | REPLACE)                                      01212000
+               INSTRUCTION                                              01213000
+               MENTITY(MODELDSN)                                        01214000
+               MIGRATEDDATA(ML1 | ML2 | SOURCELEVEL)                    01215000
+               NOBACKUPMIGRATED                                         01216000
+               ONLYDATASET                                              01217000
+                (NAME(DSNAME) |                                         01218000
+                 LISTOFNAMES(LISTDSNAME))                               01219000
+               PERCENTUTILIZED(PERCENT)                                 01220000
+               RECOVERNEWNAMEALL(LEVEL)|                                01221000
+                RECOVERNEWNAMELEVEL(OLEVEL1,NLEVEL1, ...,)              01222000
+               TARGETUNIT(UNITTYPE)                                     01223000
+               TGTGDS(SOURCE | ACTIVITY | DEFERRED | ROLLEDOFF)         01224000
+               VOLCOUNT(ANY | NONE)                                     01225000
+                                                                        01226000
+))AUDIT -  COMMAND VARIATIONS:                                          01227000
+                                                                        01228000
+  AUDIT    ABARCONTROLS | ABARSCONTROLS(AGNAME)                         01229000
+                                                                        01230000
+  AUDIT    ALL                                                          01231000
+                FIX | NOFIX                                             01232000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS)                      01233000
+                REPORT(ALL | ERRORS)                                    01234000
+                SERIALIZATION(CONTINUOUS)                               01235000
+                                                                        01236000
+  AUDIT    BACKUPTYPE(DAILY(DAY) | SPILL | ALL)                         01237000
+                FIX | NOFIX                                             01238000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS)                      01239000
+                REPORT(ALL | ERRORS)                                    01240000
+                SERIALIZATION(CONTINUOUS)                               01241000
+                                                                        01242000
+  AUDIT    BACKUPCONTROLDATASET | MIGRATIONCONTROLDATASET |             01243000
+            OFFLINECONTROLDATASET(DAILY(DAY) | ML2 | SPILL | ALL)       01244000
+                FIX | NOFIX                                             01245000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01246000
+                REPORT(ALL | ERRORS)                                    01247000
+                SERIALIZATION(CONTINUOUS)                               01248000
+                                                                        01249000
+  AUDIT    BACKUPVOLUMES(VOLSER ...)                                    01250000
+                FIX | NOFIX                                             01251000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01252000
+                REPORT(ALL | ERRORS)                                    01253000
+                SERIALIZATION(CONTINUOUS)                               01254000
+                                                                        01255000
+  AUDIT    COMMONQUEUE(RECALL)                                          01256000
+                FIX | NOFIX                                             01257000
+                                                                        01258000
+  AUDIT    COPYPOOLCONTROLS                                             01259000
+             (CPNAME)                                                   01260000
+                                                                        01261000
+  AUDIT    DATASETCONTROLS(MIGRATION | BACKUP)                          01262000
+                DATASETNAMES(DSNAME ...) | LEVELS(QUALIFIER ...) |      01263000
+                RESUME                                                  01264000
+                FIX | NOFIX                                             01265000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS)                      01266000
+                REPORT(ERRORS)                                          01267000
+                SERIALIZATION(DYNAMIC | CONTINUOUS)                     01268000
+                                                                        01269000
+  AUDIT    DATASETNAMES(DSNAME ...)                                     01270000
+                FIX | NOFIX                                             01271000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01272000
+                REPORT(ALL)                                             01273000
+                SERIALIZATION(CONTINUOUS)                               01274000
+                                                                        01275000
+  AUDIT    DIRECTORYCONTROLS VOLUMES(VOLSER)                            01276000
+                FIX | NOFIX                                             01277000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS)                      01278000
+                REPORT(ERRORS)                                          01279000
+                SERIALIZATION(DYNAMIC | CONTINUOUS)                     01280000
+                                                                        01281000
+  AUDIT    LEVELS(QUALIFIER ...)                                        01282000
+                FIX | NOFIX                                             01283000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01284000
+                REPORT(ALL | ERRORS)                                    01285000
+                SERIALIZATION(CONTINUOUS)                               01286000
+                                                                        01287000
+  AUDIT    MASTERCATALOG | USERCATALOG(CATNAME)                         01288000
+                NOFIX                                                   01289000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01290000
+                REPORT(ALL | ERRORS)                                    01291000
+                SERIALIZATION(CONTINUOUS)                               01292000
+                                                                        01293000
+  AUDIT    MEDIACONTROLS(SMALLDATASETPACKING | CLOUD(CLDNAME))          39961990
+           VOLUMES(VOLSER)                                              01295000
+                FIX | NOFIX                                             01296000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS)                      01297000
+                REPORT(ERRORS)                                          01298000
+                SERIALIZATION(DYNAMIC | CONTINUOUS)                     01299000
+                                                                        01300000
+  AUDIT    VOLUMES(VOLSER ...)                                          01301000
+                FIX | NOFIX                                             01302000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01303000
+                REPORT(ALL | ERRORS)                                    01304000
+                SERIALIZATION(CONTINUOUS)                               01305000
+                                                                        01306000
+  AUDIT    VOLUMECONTROLS(BACKUP)                                       01307000
+                VOLUMES(VOLSER ...) | BACKUPTYPE(DAILY(DAY)) |          01308000
+                SPILL | ALL                                             01309000
+                FIX | NOFIX                                             01310000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS)                      01311000
+                REPORT(ERRORS)                                          01312000
+                SERIALIZATION(DYNAMIC | CONTINUOUS)                     01313000
+                                                                        01314000
+  AUDIT    VOLUMECONTROLS(MIGRATION | RECOVERABLE)                      01315000
+                VOLUMES(VOLSER ...)                                     01316000
+                FIX | NOFIX                                             01317000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS)                      01318000
+                REPORT(ERRORS)                                          01319000
+                SERIALIZATION(DYNAMIC | CONTINUOUS)                     01320000
+                                                                        01321000
+))AUTH     USERID                                                       01322000
+           DATABASEAUTHORITY(USER | CONTROL) | REVOKE                   01323000
+                                                                        01324000
+))BACKDS   DSNAME                                                       01325000
+                NEWNAME(NEWDATASETNAME)                                 01326000
+                  DATE(YYYY/MM/DD)                                      01327000
+                    TIME(HHMMSS)                                        01328000
+                  SPHERE(YES | NO)                                      01329000
+                  GENVSAMCOMPNAMES(YES | NO)                            01330000
+                UNIT(UNITTYPE) VOLUME(VOLSER)                           01331000
+                TARGET(DASD | TAPE)                                     01332000
+                CC(PREFERRED | STANDARD | REQUIRED |                    01333000
+                   VIRTUALPREFERRED | VIRTUALREQUIRED |                 01334000
+                   CACHEPREFERRED | CACHEREQUIRED                       01335000
+                     PHYSICALEND | LOGICALEND)                          01336000
+                RETAINDAYS(DAYS)                                        01337000
+                RECURSE(NOCROSSMOUNTS | CROSSMOUNTS)                            
+                                                                        01338000
+))BACKVOL  PRIMARY | VOLUMES(VOLSER...) | STORAGEGROUP(SGNAME ...) |    01339000
+                CONTROLDATASETS(                                        01340000
+                     DATAMOVER(HSM | DSS)                               01341000
+                     BACKUPDEVICECATEGORY                               01342000
+                          (DASD | TAPE(PARALLEL | NOPARALLEL)) |        01343000
+                     NULLJOURNALONLY)                                   01344000
+                FREQUENCY(DAYS)                                         01345000
+                INCREMENTAL | TOTAL                                     01346000
+                DUMP(DUMPCLASS(CLASS,CLASS,CLASS,CLASS,CLASS)           01347000
+                RETENTIONPERIOD(DAYS | * | NOLIMIT ...)                 01348000
+                STACK(NN | * ...) )                                     01349000
+                TERMINAL                                                01350000
+                UNIT(UNITTYPE)                                          01351000
+                                                                        01352000
+))BDELETE  (DSNAME...)  ALL | VERSIONS(BVN ...) |                       01353000
+                        DATE(YYYY/MM/DD) TIME(HHMMSS)                   01354000
+                FROMVOLUME(VOLSER)                                      01355000
+                                                                        01356000
+))CANCEL        DATASETNAME(DSN) | REQUEST(NUM) | USERID(USERID)        01357000
+                                                                        01358000
+))DEFINE        ARPOOL(AGNAME | ALL                                     01359000
+                              | ML1VOLS(* | VOLSER ... VOLSERN)         01360000
+                              | L0VOLS(* | VOLSER ... VOLSERN))         01361000
+                BACKUP(CYCLE(BVOL) CYCLESTARTDATE(YYYY/MM/DD))          01362000
+                DUMPCLASS((CLASS)                                       01363000
+                AUTOREUSE | NOAUTOREUSE                                 01364000
+                DATASETRESTORE | NODATASETRESTORE                       01365000
+                DAY(DAY)                                                01366000
+                DISABLE                                                 01367000
+                DISPOSITION('DISPOSITION')                              01368000
+                FREQUENCY(DAYS)                                         01369000
+                RESET | NORESET                                         01370000
+                RETENTIONPERIOD(DAYS | NOLIMIT                          01371000
+                STACK(NUMBER)                                           01372000
+                SWITCHTAPES(DSBACKUP(TIME(HHMM) | AUTOBACKUPEND         01373000
+                                     PARTIALTAPE(REUSE |                01374000
+                                                 MARKFULL |             01375000
+                                                 SETSYS)))              01376000
+                                                                        01377000
+                TAPEEXPIRATIONDATE(YYYYDDD)                             01378000
+                UNIT(UNITTYPE)                                          01379000
+                VTOCCOPIES(COPIES)                                      01380000
+                ZCOMPRESS(YES | NO))                                    01381000
+                DUMPCYCLE(CYCLE CYCLESTARTDATE(YYYY/MM/DD))             01382000
+                MIGRATIONCLEANUPCYCLE(CYCLE(CYCLESTARTDATE(YYYY/MM/DD)))01383000
+                MIGRATIONLEVEL2(KEYS(KEY ...) VOLUMES(VOLSER...))       01384000
+                POOL(POOLID VOLUMES(VOLSER))                            01385000
+                PRIMARYSPMGMTCYCLE(CYCLE CYCLESTARTDATE(YYYY/MM/DD))    01386000
+                SECONDARYSPMGMTCYCLE(CYCLE CYCLESTARTDATE(YYYY/MM/DD))  01387000
+                SWITCHTAPES(DSBACKUP(TIME(HHMM) | AUTOBACKUPEND         01388000
+                                     PARTIALTAPE(REUSE |                01389000
+                                                 MARKFULL |             01390000
+                                                 SETSYS)))              01391000
+                VOLUMEPOOL(POOLID VOLUMES(VOLSER))                      01392000
+                                                                        01393000
+))DELETE   DSN                                                          01394000
+                PURGE                                                   01395000
+                                                                        01396000
+))DELVOL   VOLSER                                                       01397000
+           BACKUP | DUMP | MIGRATION | PRIMARY                          01398000
+               (PURGE | REASSIGN | UNASSIGN | MARKFULL                  01399000
+               LASTCOPY                                                 01400000
+               COPYPOOLCOPY)                                            01401000
+                                                                        01402000
+))DISPLAY  (ADDRESS (:ADDRESS)...)                                      01403000
+           LENGTHS(BYTES...)                                            01404000
+           LOGONLY                                                      01405000
+           OUTDATASET(DSNAME)                                           01406000
+           VOLSER(VOLSER)                                               01407000
+                                                                        01408000
+))EXPIREBV DISPLAY | EXECUTE                                            01409000
+                ABARVERSIONS                                            01410000
+                ABARVERSIONS(AGNAME(AGNAME))                            01411000
+                RETAINVERSIONS(N)                                       01412000
+                NONSMSVERSIONS(DELETEIFBACKEDUP(DAYS)                   01413000
+                CATALOGEDDATA(DAYS)                                     01414000
+                UNCATALOGEDDATA(DAYS))                                  01415000
+                STARTKEY(LOWKEY) | RESUME                               01416000
+                ENDKEY(HIGHKEY)                                         01417000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS)                      01418000
+                                                                        01419000
+))FIXCDS   TYPE                                                         01420000
+           KEY                                                          01421000
+            ADDMIGRATEDDATASET(VOLSER) | ASSIGNEDBIT(ON | OFF) |        01422000
+            CREATE(OFFSET DATA) | DELETE | DISPLAY(OFFSET) |            01423000
+            EXPAND(BYTES) | NEWKEY(KEYNAME) |                           01424000
+            VERIFY(OFFSET DATA | BITS(BITS))|                           01425000
+            PATCH(OFFSET DATA | BIT(BITS))                              01426000
+            ENTRY(VOLSER DSNAME)                                        01427000
+            LENGTH(BYTES)                                               01428000
+            LOGONLY                                                     01429000
+            OUTDATASET(DSNAME)                                          01430000
+            REFRESH(ON|OFF)                                             01431000
+                                                                        01432000
+))FREEVOL MIGRATIONVOLUME(VOLSER)                                       01433000
+            AGE(DAYS)                                                   01434000
+            TARGETLEVEL(MIGRATIONLEVEL1 | MIGRATIONLEVEL2(TAPE|DASD))   01435000
+          BACKUPVOLUME(VOLSER)                                          01436000
+            AGE(DAYS)                                                   01437000
+            TARGETLEVEL(SPILL (TAPE | DASD))                            01438000
+            RETAINNEWESTVERSION                                         01439000
+                                                                        01440000
+))FRBACKUP COPYPOOL(CPNAME)                                             01441000
+             EXECUTE                                                    01442000
+               TOKEN(TOKEN)                                             01443000
+               NOVTOCENQ                                                01444000
+               FORCE                                                    01445000
+               DUMP                                                     01446000
+                 RETURNCONTROL(DUMPEND | FASTREPLICATIONEND)            01447000
+                 DUMPCLASS(DCLASS1,...,DCLASS5)                         01448000
+             PREPARE                                                    01449000
+               FORCE                                                    01450000
+             WITHDRAW                                                   01451000
+             DUMPONLY(                                                  01452000
+               TOKEN(TOKEN) | VERSION(VERNUM) | DATE(YYYY/MM/DD) |      01453000
+               GENERATION(GENNUM))                                      01454000
+               DUMPCLASS(DCLASS1,...,DCLASS5)                           01455000
+                                                                        01456000
+))FRDELETE COPYPOOL(CPNAME)                                             01457000
+             VERSIONS(VER,...) | TOKEN(TOKEN) | ALL                     01458000
+             BOTH | DASDONLY | DUMPONLY(DUMPCLASS(DCLASS1,...,DCLASS5)) 01459000
+                                                                        01460000
+))FRRECOV  TOVOLUME(VOLSER)                                             01461000
+             FROMCOPYPOOL(CPNAME)                                       01462000
+             FROMDASD |                                                 01463000
+             FROMDUMP(                                                  01464000
+               DUMPCLASS(DCLASS) | DUMPVOLUME(DVOL)                     01465000
+               APPLYINCREMENTAL)                                        01466000
+           COPYPOOL(CPNAME)                                             01467000
+             VERIFY(Y|N)                                                01468000
+             FROMDASD |                                                 01469000
+             FROMDUMP(                                                  01470000
+               DUMPCLASS(DCLASS)                                        01471000
+               PARTIALOK                                                01472000
+               RESUME(YES | NO))                                        01473000
+           DSNAME(DSNAME) REPLACE                                       01474000
+             FROMDASD |                                                 01475000
+             FROMDUMP(                                                  01476000
+               DUMPCLASS(DCLASS) | DUMPVOLUME(DVOL))                    01477000
+             FASTREPLICATION(PREFERRED | REQUIRED | NONE)               01478000
+             FROMCOPYPOOL(CPNAME)                                       01479000
+             NOCOPYPOOLBACKUP(RC4 | RC8)                                01480000
+           GENERATION(GENNUM) | VERSION(VERNUM) |                       01481000
+           DATE(YYYY/MM/DD) | TOKEN(TOKEN)                              01482000
+                                                                        01483000
+                                                                        01484000
+))HOLD          ABACKUP(AGNAME)                                         01485000
+                ALL                                                     01486000
+                ARECOVER                                                01487000
+                  AGGREGATE(AGNAME) | DATASETNAME(CONTROLFILEDSN)       01488000
+                AUDIT                                                   01489000
+                AUTOMIGRATION                                           01490000
+                BACKUP(AUTO                                             01491000
+                       DSCOMMAND(                                       01492000
+                                 DASD |                                 01493000
+                                 TAPE |                                 01494000
+                                 SWITCHTAPES))                          01495000
+                COMMONQUEUE(                                            01496000
+                  RECALL(                                               01497000
+                         SELECTION | PLACEMENT))                        01498000
+                DUMP(AUTO | FASTREPLICATIONBACKUP)                      01499000
+                ENDOFDATASET | ENDOFVOLUME                              01500000
+                EXPIREBV                                                01501000
+                FRBACKUP                                                01502000
+                FRRECOV(                                                01503000
+                 DATASET | TAPE))                                       01504000
+                LIST                                                    01505000
+                LOG                                                     01506000
+                MIGRATION(AUTO)                                         01507000
+                RECALL(TAPE(TSO))                                       01508000
+                RECOVER(TAPEDATASET)                                    01509000
+                RECYCLE                                                 01510000
+                REPORT                                                  01511000
+                TAPECOPY                                                01512000
+                TAPEREPL                                                01513000
+                                                                        01514000
+))HSENDCMD COMMAND                                                      01515000
+                WAIT | NOWAIT                                           01516000
+                                                                        01517000
+IF YOU ARE WORKING FROM THE DFSMSHSM PANEL AND YOUR COMMAND             01518000
+FITS ON THE COMMAND === LINE OF THE PANEL, THEN SIMPLY TYPE             01519000
+TSO HSENDCMD ---COMMAND---                                              01520000
+IF YOU NEED SPACE FOR A MULTILINE COMMAND, THEN SPLIT THE               01521000
+SCREEN AND SELECT 'OPTION 6'.                                           01522000
+TYPE IN THE MULTILINE COMMAND.                                          01523000
+AFTER THE COMMAND HAS BEEN PROCESSED, RETURN TO THE DFSMSHSM PANEL.     01524000
+                                                                        01525000
+))LIST  -  COMMAND VARIATIONS :                                         01526000
+                                                                        01527000
+  LIST     AGGREGATE(AGNAME)                                            01528000
+           AGGREGATE(*)                                                 01529000
+             DATE(YYY/MM/DD)                                            01530000
+             VERSION(NNNN)                                              01531000
+                                                                        01532000
+  LIST     BACKUPVOLUME(VOLSER)                                         01533000
+           OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL                01534000
+           SELECT(EMPTY)                                                01535000
+                                                                        45696600
+  LIST     CLOUD(CLOUDNAME)                                             45697600
+              CONTAINER(CONTAINER_NAME)                                 45698600
+                 PREFIX(PREFIX_NAME)                                    45699600
+              OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL             45700600
+                                                                        01536000
+  LIST     COPYPOOL                                                     01537000
+             (CPNAME)                                                   01538000
+             FASTREPLICATIONVOLS | NOVOLS | DUMPVOLS |                  01539000
+             ALLOVLS(                                                   01540000
+               GENERATION(GENNUM) | ALLVERS | TOKEN(TOKEN))             01541000
+             SELECT(                                                    01542000
+               FASTREPLICATIONSTATE(RECOVERABLE | DUMPONLY |            01543000
+                                    FAILED | NONE) |                    01544000
+               DUMPSTATE(ALLCOMPLETE | REQUIREDCOMPLETE |               01545000
+                         PARTIAL | NONE))                               01546000
+           COPYPOOLBACKUPSTORAGEGROUP(CPBSGNAME)                        01547000
+                                                                        01548000
+  LIST     DATASETNAME(DSNAME) | LEVEL(QUALIFIER)                       01549000
+                BACKUPCONTROLDATASET| MIGRATIONCONTROLDATASET | BOTH    01550000
+                INCLUDEPRIMARY                                          01551000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01552000
+                SELECT(AGE(MINDAYS) MAXDAYS) | CLOUD |                  45906790
+                MIGRATIONLEVEL1 |                                       45912780
+                MIGRATIONLEVEL2 | VOLUME(VOLSER) |                      01554000
+                RETAINDAYS | ACTIVE |                                   01555000
+                SMALLDATASETPACKING | NOSMALLDATASETPACKING |           01556000
+                VSAM |                                                  01557000
+                EMPTY)       /* LIST EMPTY MIGRATED DATA SETS */        01558000
+                SUMMARY                                                 01559000
+                                                                        01560000
+  LIST     DUMPCLASS(CLASS)                                             01561000
+                BACKUPCONTROLDATASET                                    01562000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01563000
+                                                                        01564000
+  LIST     DUMPVOLUME(VOLSER)                                           01565000
+                BACKUPCONTROLDATASET                                    01566000
+                DUMPCONTENTS(VOLSER)                                    01567000
+                SELECT(AVAILABLE UNAVAILABLE EXPIRED UNEXPIRED          01568000
+                LIB NOLIB NORETENTIONLIMIT DUMPCLASS(CLASS))            01569000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01570000
+                                                                        01571000
+  LIST     HOST(HOSTID)                                                 01572000
+                RESET                                                   01573000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01574000
+                                                                        01575000
+  LIST     MIGRATIONVOLUME |                                            01576000
+           MIGRATIONLEVEL1 SELECT(OVERFLOW | NOOVERFLOW) |              01577000
+           MIGRATIONLEVEL2(DASD | TAPE) | VOLUME(VOLSER)                01578000
+                BACKUPCONTROLDATASET | MIGRATIONCONTROLDATASET | BOTH   01579000
+                ALLDUMPS                                                01580000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01581000
+                SELECT(EMPTY)                                           01582000
+                                                                        01583000
+  LIST     PRIMARYVOLUME(VOLSER)                                        01584000
+                ALLDUMPS | BACKUPCONTENTS(NN)                           01585000
+                BACKUPCONTROLDATASET | MIGRATIONCONTROLDATASET| BOTH    01586000
+                OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL           01587000
+                SELECT(MULTIPLEVOLUME VSAM)                             01588000
+                                                                        01589000
+  LIST    TAPETABLEOFCONTENTS                                           01590000
+                OUTDATASETNAME(DSNAME) | SYSOUT(CLASS) | TERMINAL       01591000
+                BACKUPCONTROLDATASET | MIGRATIONCONTROLDATASET | BOTH   01592000
+                SELECT(                                                 01593000
+                 MIGRATIONLEVEL2 | BACKUP | BOTH                        01594000
+                 NOALTERNATEVOLUME | ALTERNATEVOLUME | FAILEDRECYCLE |  01595000
+                 FAILEDCREATE | EXCESSIVEVOLUMES | RECALLTAKEAWAY |     01596000
+                 DISASTERALTERNATEVOLUMES                               01597000
+                 EMPTY | FULL | NOTFULL | ASSOCIATED | NOTASSOCIATED    01598000
+                 ERRORALTERNATE |                                       01599000
+                 CONNECTED(VOLSER) | NOTCONNECTED                       01600000
+                 LIB(ALTERNATE) | NOLIB(ALTERNATE) )                    01601000
+                                                                        01602000
+  LIST    TAPETABLEOFCONTENTS(VOLSER)                                   01603000
+               OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL            01604000
+               BACKUPCONTROLDATASET | MIGRATIONCONTROLDATASET | BOTH    01605000
+               NODATASETINFORMATION | DATASETINFORMATION                01606000
+                                                                        01607000
+  LIST     USER(USERID)                                                 01608000
+               OUTDATASET(DSNAME) | SYSOUT(CLASS) | TERMINAL            01609000
+                                                                        01610000
+))LOG      DATA                                                         01611000
+                                                                        01612000
+))MIGRATE  DATASETNAME(DSNAME) | MIGRATIONLEVEL1 | PRIMARY |            01613000
+           STORAGEGROUP(SGN1,SGN2,...) |                                01614000
+           VOLUME(VOLSER1 MIGRATE(DAYS)                                 01615000
+           DELETEBYAGE(DAYS) | DELETEIFBACKEDUP(DAYS)| MIGRATE(DAYS))   01616000
+             BOTH                                                       01617000
+             CLOUD(CLOUD_NAME)                                          47885990
+                CONVERT(VOLSER2 UNITTYPE2)                              01618000
+                DAYS(DAYS)                                              01619000
+                MIGRATIONLEVEL1                                         01620000
+                MIGRATIONLEVEL2                                         01621000
+             MIGRATIONONLY                                              01622000
+             MOVE                                                       01623000
+                TERMINAL                                                01624000
+             TRANSITION(MANAGEMENTCLASS(MC1) STORAGECLASS(SC1)          01625000
+                        STORAGEGROUP(SG1,...SG15))                      01626000
+             TRANSITIONONLY(MANAGEMENTCLASS(MC1)                        01627000
+                        STORAGECLASS(SC1) STORAGEGROUP(SG1,...SG15))    01628000
+                UNIT(UNITTYPE)                                          01629000
+                                                                        01630000
+))PATCH    ADDRESS                                                      01631000
+           DATA | BITS(BITS)                                            01632000
+                OUTDATASET(DSNAME)                                      01633000
+                VERIFY(ADDRESS DATA | BITS(BITS))                       01634000
+                VOLSER(VOLSER)                                          01635000
+                                                                        01636000
+))QUERY         ABARS                                                   01637000
+                ACTIVE                                                  01638000
+                ARPOOL(AGNAME)                                          01639000
+                AUTOPROGRESS                                            01640000
+                BACKUP(ALL | DAILY(DAY) | SPILL | UNASSIGNED)           01641000
+                CDSVERSIONBACKUP                                        01642000
+                COMMONQUEUE(RECALL)                                     01643000
+                CONTROLDATASETS                                         01644000
+                COPYPOOL(CPNAME)                                        01645000
+                CSALIMITS                                               01646000
+                DATASETNAME(DSNAME) | REQUEST(REQNUM) | USER(USERID)    01647000
+                MIGRATIONLEVEL2                                         01648000
+                POOL                                                    01649000
+                RETAIN                                                  01650000
+                SECURITY                                                01651000
+                SETSYS                                                  01652000
+                SPACE(VOLSER ...)                                       01653000
+                STARTUP                                                 01654000
+                STATISTICS                                              01655000
+                TRAPS                                                   01656000
+                VOLUMEPOOL                                              01657000
+                WAITING                                                 01658000
+                                                                        01659000
+))RECALL   DSNAME                                                       01660000
+                DAOPTION(SAMETRK | RELTRK | RELBLK)                     01661000
+                DFDSSOPTION(RETRY | VOLCOUNT(N(NN) | ANY) |             01662000
+                    RETRY VOLCOUNT(N(NN) | ANY))                        01663000
+                FORCENONSMS                                             01664000
+                UNIT(UNITTYPE)                                          01665000
+                VOLUME(VOLSER)                                          01666000
+                                                                        01667000
+))RECOVER  DSNAME                                                       01668000
+                DAOPTION(SAMETRK | RELTRK | RELBLK)                     01669000
+                DATE(DATE) | DATE(DATE) TIME(TIME) |                    01670000
+                    GENERATION(GENNUM) | VERSION(VERNUM)                01671000
+                DFDSSOPTION(RETRY | VOLCOUNT(N(NN) | ANY) |             01672000
+                    RETRY VOLCOUNT(N(NN) | ANY))                        01673000
+                FORCENONSMS                                             01674000
+                FROMDUMP(DUMPCLASS(CLASS) | DUMPVOLUME(VOLSER)          01675000
+                         SOURCEVOLUME(VOLSER))                          01676000
+                FROMVOLUME(VOLSER)                                      01677000
+                NEWNAME(NEWDSNAME)                                      01678000
+                REPLACE                                                 01679000
+                TOVOLUME(VOLSER)                                        01680000
+                UNIT(UNITTYPE)                                          01681000
+                RECURSE(NOCROSSMOUNTS | CROSSMOUNTS)                            
+))RECOVER  *                                                            01683000
+                TOVOLUME(VOLSER)                                        01684000
+                UNIT(UNITTYPE)                                          01685000
+                     DATE(DATE)                                         01686000
+                     FROMDUMP(DUMPCLASS(CLASS) | DUMPVOLUME(VOLSER) |   01687000
+                              DUMPGENERATION(DGENNUM) APPLYINCREMENTAL) 01688000
+                     TARGETVOLUME(VOLSER)                               01689000
+                                                                        01690000
+                     TERMINAL                                           01691000
+                                                                        01692000
+))RECYCLE  ALL | BACKUP | DAILY(DAY) | ML2 | SPILL | VOLUME(VOLSER)     01693000
+           CHECKFIRST(Y | N)                                            01694000
+           DISPLAY | EXECUTE | VERIFY                                   01695000
+                OUTDATASET(DSNAME)                                      01696000
+                TAPELIST( PULLSIZE(SIZE) TOTAL(COUNT) PREFIX(PREFIX) |  01697000
+                                                      FULLDSNAME(DSN))  01698000
+                FORCE                                                   01699000
+                PERCENTVALID(PCT)                                       01700000
+                LIMIT(NETFREED)                                         01701000
+                                                                        01702000
+))RELEASE       ABACKUP(AGNAME)                                         01703000
+                ALL                                                     01704000
+                ARECOVER AGGREGATE(AGNAME)|DATASETNAME(CONTROLFILEDSN)  01705000
+                AUDIT                                                   01706000
+                AUTOMIGRATION                                           01707000
+                BACKUP(AUTO                                             01708000
+                       DSCOMMAND(                                       01709000
+                                 DASD |                                 01710000
+                                 TAPE))                                 01711000
+                COMMONQUEUE(                                            01712000
+                  RECALL(                                               01713000
+                         SELECTION | PLACEMENT))                        01714000
+                DUMP(AUTO | FASTREPLICATIONBACKUP)                      01715000
+                EXPIREBV                                                01716000
+                FRBACKUP                                                01717000
+                FRRECOV(                                                01718000
+                 DATASET | TAPE)                                        01719000
+                HARDCOPY                                                01720000
+                LIST                                                    01721000
+                LOG                                                     01722000
+                MIGRATION(AUTO)                                         01723000
+                RECALL(                                                 01724000
+                       DASD |                                           01725000
+                       TAPE                                             01726000
+                           (TSO))                                       01727000
+                RECOVER(TAPEDATASET)                                    01728000
+                RECYCLE                                                 01729000
+                REPORT                                                  01730000
+                TAPECOPY                                                01731000
+                TAPEREPL                                                01732000
+                                                                        01733000
+))REPORT  DAILY                                                         01734000
+          DELETE                                                        01735000
+          FROMDATE(DATE)                                                01736000
+          OUTDATASET(DSNAME) | SYSOUT(CLASS)                            01737000
+          NOFUNCTION | FUNCTION                                         01738000
+          (BACKUP | DELETE | MIGRATION(FROMANY | FROMMIGRATIONLEVEL1 |  01739000
+                                       FROMPRIMARY)                     01740000
+                                      (TOANY | TOMIGRATIONLEVEL1 |      01741000
+                                       TOMIGRATIONLEVEL2) |             01742000
+          RECALL(FROMANY | FROMMIGRATIONLEVEL1 | FROMMIGRATIONLEVEL2)|  01743000
+          RECOVER | RECYCLE(BACKUP | MIGRATION | ALL) | SPILL))         01744000
+          SUMMARY                                                       01745000
+          TODATE(DATE)                                                  01746000
+          VOLUMES(VOLSER ...)                                           01747000
+                                                                        01748000
+))SETMIG   DATASETNAME(DSNAME) | LEVEL(QUALIFIER) | VOLUME(VOLSER)      01749000
+                COMMANDMIGRATION | MIGRATION | NOMIGRATION              01750000
+                                                                        01751000
+))SETSYS        ABARSPROCNAME(ABARSPROCNAME)                            01752000
+                ABARSACTLOGTYPE(SYSOUT(CLASS) | DASD)                   01753000
+                ABARSACTLOGMSGLVL(FULL | REDUCED)                       01754000
+                ABARSBUFFERS(N)                                         01755000
+                ABARSDELETEACTIVITY(Y | N)                              01756000
+                ABARSKIP(PPRC | XRC | NOPPRC | NOXRC)                   01757000
+                ABARSOPTIMIZE(1|2|3|4)                                  01758000
+                ABARSPROCNAME(NAME)                                     01759000
+                ABARSTAPES(STACK | NOSTACK)                             01760000
+                ABARSUNITNAME(UNITTYPE)                                 01761000
+                ABARSVOLCOUNT(NONE | ANY)                               01762000
+                ACCEPTPSCBUSERID | NOACCEPTPSCBUSERID                   01763000
+                ACTLOGMSGLVL(FULL | EXCEPTIONONLY | REDUCED)            01764000
+                ACTLOGTYPE(SYSOUT(CLASS) | DASD)                        01765000
+                ARECOVERPERCENTUTILIZED(PERCENT)                        01766000
+                ARECOVERREPLACE | NOARECOVERREPLACE                     01767000
+                ARECOVERTGTGDS(SOURCE|ACTIVITY|DEFERRED|ROLLEDOFF)      01768000
+                ARECOVERUNITNAME(UNITTYPE)                              01769000
+                ARECOVERML2UNIT(UNITTYPE)                               01770000
+                AUTOBACKUPSTART(HHMM1(HHMM2(HHMM3)))                    01771000
+                AUTODUMPSTART(HHMM1(HHMM2(HHMM3)))                      01772000
+                AUTOMIGRATIONSTART(HHMM1(HHMM2(HHMM3)))                 01773000
+                BACKUP( ANY | DASD | TAPE(UNITTYPE)) | NOBACKUP         01774000
+                BACKUPPREFIX(PREFIX)                                    01775000
+                CDSVERSIONBACKUP                                        01776000
+                     (BACKUPCOPIES(BACKUPCOPIES)                        01777000
+                     DATAMOVER(HSM | DSS)                               01778000
+                     BACKUPDEVICECATEGORY(DASD |                        01779000
+                              TAPE                                      01780000
+                              (PARALLEL | NOPARALLEL                    01781000
+                              DENSITY(DENSITY)                          01782000
+                              EXPIRATIONDATE(EXPIRATIONDATE) |          01783000
+                              RETENTIONPERIOD(RETENTIONPERIOD))         01784000
+                              UNITNAME(UNITTYPE)))                      01785000
+                     BCDSBACKUPDSN(DSNAME)                              01786000
+                     JRNLBACKUPDSN(DSNAME)                              01787000
+                     MCDSBACKUPDSN(DSNAME)                              01788000
+                     OCDSBACKUPDSN(DSNAME))                             01789000
+                COMMONQUEUE(RECALL                                      01790000
+                     (CONNECT(BASE_NAME) | DISCONNECT)                  01791000
+                COMPACT((ALL | NONE) | (DASDBACKUP | NODASDBACKUP)      01792000
+                        (DASDMIGRATE | NODASDMIGRATE)                   01793000
+                        (TAPEBACKUP | NOTAPEBACKUP)                     01794000
+                        (TAPEMIGRATE | NOTAPEMIGRATE))                  01795000
+                                                                        01796000
+                COMPACTPERCENT(PCT)                                     01797000
+                                                                        01798000
+                CONVERSION((REBLOCKBASE | REBLOCKTOANY |                01799000
+                           REBLOCKTOUNLIKE) | NOCONVERSION)             01800000
+                                                                        01801000
+                CLASSTRANSITIONS(EVENTDRIVENMIGRATION(Y | N)            01802000
+                                 SERIALIZATIONEXIT(Y | N))              01803000
+                                                                        01804000
+                CSALIMITS(ACTIVE(PERCENT 1)                             01805000
+                          INACTIVE(PERCENT 2)                           01806000
+                          MAXIMUM(KBYTES)                               01807000
+                          MWE(#MWES)) | NOCSALIMITS                     01808000
+                                                                        01809000
+                DAYS(DAYS)                                              01810000
+                DEBUG | NODEBUG                                         01811000
+                DEFERMOUNT|NODEFERMOUNT                                 01812000
+                DENSITY(2 | 3 | 4)                                      01813000
+                DFHSMDATASETSERIALIZATION | USERDATASETSERIALIZATION    01814000
+                DISASTERMODE(Y|N)                                       01815000
+                                                                        01816000
+                DSBACKUP(DASDSELECTIONSIZE(MAXIMUM STANDARD)            01817000
+                         DASD(TASKS(NN))                                01818000
+                         TAPE(TASKS(NN)                                 01819000
+                              DEMOUNTDELAY(MINUTES(MINUTES)             01820000
+                                           MAXIDLETASKS(DRIVES))))      01821000
+                                                                        01822000
+                DSSXMMODE(Y | N) |                                      01823000
+                  (BACKUP(Y | N)  CDSBACKUP(Y | N)  DUMP(Y | N)         01824000
+                   MIGRATION(Y | N)  RECOVERY(Y | N))                   01825000
+                DUMPIO(1 | 2 | 3 | 4, 1 | 2 | 3 | 4)                    01826000
+                DUPLEX(                                                 01827000
+                 BACKUP(Y ERRORALTERNATE(CONTINUE(TAPECOPY | RECYCLE))| 01828000
+                        N) |                                            01829000
+                 MIGRATION(Y ERRORALTERNATE(CONTINUE(TAPECOPY |         01830000
+                             RECYCLE) | MARKFULL)| N) |                 01831000
+                 BACKUP(Y ERRORALTERNATE(CONTINUE(TAPECOPY | RECYCLE))| 01832000
+                        N)                                              01833000
+                 MIGRATION(Y ERRORALTERNATE(CONTINUE(TAPECOPY |         01834000
+                             RECYCLE) | MARKFULL)| N))                  01835000
+                EMERGENCY | NOEMERGENCY                                 01836000
+                ERASEONSCRATCH | NOERASEONSCRATCH                       01837000
+                EXITOFF(MODNAME, MODNAME, ...)                          01838000
+                EXITON(MODNAME, MODNAME, ...)                           01839000
+                EXITS(ABCDEFGHI)                                        01840000
+                EXPIREDDATASETS(SCRATCH | NOSCRATCH)                    01841000
+                EXPORTESDS(CIMODE | RECORDMODE)                         01842000
+                EXTENDEDTTOC(Y | N)                                     01843000
+                FASTREPLICATION(DATASETRECOVERY(PREFERRED |             01844000
+                                REQUIRED | NONE)                        01845000
+                                FCRELATION(EXTENT | FULL)               01846000
+                                VOLUMEPAIRMESSAGES(YES | NO)            01847000
+                                MESSAGEDATASET(YES | NO HLQ(HLQ))       01848000
+                FREQUENCY(DAYS)                                         01849000
+                INCREMENTALBACKUP(CHANGEDONLY | ORIGINAL)               01850000
+                INPUTTAPEALLOCATION(WAIT | NOWAIT)                      01851000
+                INTERVALMIGRATION | NOINTERVALMIGRATION                 01852000
+                JES2 | JES3                                             01853000
+                JOURNAL(RECOVERY | SPEED) | NOJOURNAL                   01854000
+                MAXABARSADDRESSSPACE(NUMBER)                            01855000
+                MAXBACKUPTASKS(TASKS)                                   01856000
+                MAXCOPYPOOLTASKS(                                       01857000
+                   FRBACKUP(NN) FRRECOV(NN) DSS(NN))                    01858000
+                MAXDSRECOVERTASKS(TASKS)                                01859000
+                MAXDSTAPERECOVERTASKS(TASKS)                            01860000
+                MAXDUMPTASKS(TASKS)                                     01861000
+                MAXDUMPRECOVERTASKS(TASKS)                              01862000
+                MAXEXTENTS(EXTENTS)                                     01863000
+                MAXINTERVALTASKS(NN)                                    01864000
+                MAXMIGRATIONTASKS(NN)                                   01865000
+                MAXRECALLTASKS(TASKS)                                   01866000
+                MAXSSMTASKS(CLEANUP(NN) TAPEMOVEMENT(MM))               01867000
+                MIGDENSITY(2 | 3 | 4)                                   01868000
+                MIGRATEPREFIX(PREFIX)                                   01869000
+                MIGRATIONCLEANUPDAYS(RECALLDAYS STATDAYS RECONNECTDAYS) 01870000
+                MIGRATIONLEVEL1DAYS(DAYS)                               01871000
+                MIGUNITNAME(UNITTYPE)                                   01872000
+                ML1OVERFLOW(DATASETSIZE(DSSIZE) THRESHOLD(THRESHOLD))   01873000
+                ML2PARTIALSNOTASSOCIATEDGOAL(NNN | NOLIMIT)             01874000
+                ML2RECYCLEPERCENT(PCT)                                  01875000
+                MONITOR(BACKUPCONTROLDATASET(THRESH)                    01876000
+                        JOURNAL(THRESH)                                 01877000
+                        MIGRATIONCONTROLDATASET(THRESH)                 01878000
+                        OFFLINECONTROLDATASET(THRESH)                   01879000
+                        SPACE | NOSPACE                                 01880000
+                        STARTUP | NOSTARTUP                             01881000
+                        VOLUME | NOVOLUME)                              01882000
+                MOUNTWAITTIME(MINUTES)                                  01883000
+                OBJECTNAMES(NAME1,NAME2,...)                            01884000
+                ODMNOTIFICATIONLIMIT(LIMIT)                             01885000
+                ONDEMANDMIGRATION(Y | N)                                01886000
+                OPTIMUMDASDBLOCKING | NOOPTIMUMDASDBLOCKING             01887000
+                OUTPUTTAPEALLOCATION(WAIT | NOWAIT)                     01888000
+                PARTIALTAPE(MARKFULL | REUSE |                          01889000
+                     MIGRATION(MARKFULL | REUSE)                        01890000
+                     BACKUP(MARKFULL | REUSE))                          01891000
+                PDA(NONE | ON | OFF)                                    01892000
+                PLEXNAME(PLEXNAME)                                      01893000
+                PRIMARYSPMGMTSTART(HHMM1 (HHMM2))                       01894000
+                PROFILEBACKUP | NOPROFILEBACKUP                         01895000
+                PROMOTE(PRIMARYHOST(YES | NO) SSM(YES | NO))            01896000
+                RACFIND | NORACFIND                                     01897000
+                RECALL(ANYSTORAGEVOLUME(LIKE | UNLIKE) |                01898000
+                       PRIVATEVOLUME(LIKE | UNLIKE))                    01899000
+                RECYCLEOUTPUT(BACKUP(UNITTYPE) MIGRATION(UNITTYPE))     01900000
+                RECYCLEPERCENT(PCT)                                     01901000
+                RECYCLETAKEAWAYRETRY(YES MAXRETRYATTEMPTS(NN)           01902000
+                                         DELAY(MMMM) | NO )             01903000
+                RECYCLETAPEALLOCATION(WAIT | NOWAIT)                    01904000
+                REMOVECOMPACTNAMES(NAME1,NAME2,...)                     01905000
+                REQUEST | NOREQUEST                                     01906000
+                SCRATCHFREQUENCY(DAYS)                                  01907000
+                SECONDARYSPMGMTSTART(HHMM1 (HHMM2))                     01908000
+                SELECTVOLUME(SCRATCH | SPECIFIC |                       01909000
+                   MIGRATION(SCRATCH | SPECIFIC) |                      01910000
+                   BACKUP(SCRATCH | SPECIFIC) |                         01911000
+                   DUMP(SCRATCH | SPECIFIC) )                           01912000
+                SKIPABPRIMARY | NOSKIPABPRIMARY                         01913000
+                SMALLDATASETPACKING(TRACKS | KB(KILOBYTES)) |           01914000
+                NOSMALLDATASETPACKING                                   01915000
+                SMF(SMFID) | NOSMF                                      01916000
+                SOURCENAMES(NAME1,NAME2,...)                            01917000
+                SPILL(ANY | DASD | TAPE(UNITTYPE)) | NOSPILL            01918000
+                SWAP | NOSWAP                                           01919000
+                SYSOUT(CLASS(COPIES FORMS))                             01920000
+                SYS1DUMP | NOSYS1DUMP                                   01921000
+                TAPEDELETION(SCRATCHTAPE | HSMTAPE |                    01922000
+                     MIGRATION(SCRATCHTAPE | HSMTAPE)                   01923000
+                     BACKUP(SCRATCHTAPE | HSMTAPE)                      01924000
+                     DUMP(SCRATCHTAPE | HSMTAPE))                       01925000
+                TAPEFORMAT(SINGLEFILE)                                  01926000
+                TAPEHARDWARECOMPACT | NOTAPEHARDWARECOMPACT             01927000
+                TAPEINPUTPROMPT(MIGRATIONTAPES(YES | NO)                01928000
+                               BACKUPTAPES(YES | NO)                    01929000
+                               DUMPTAPES(YES | NO))                     01930000
+                TAPEMAXRECALLTASKS(TASKS)                               01931000
+                TAPEMIGRATION(DIRECT(TAPE(ANY | UNITTYPE)) |            01932000
+                               ML2TAPE(TAPE(ANY | UNITTYPE)) |          01933000
+                               NONE(ROUTETOTAPE(ANY | UNITTYPE))        01934000
+                               RECONNECT(NONE |                         01935000
+                                         ALL |                          01936000
+                                         ML2DIRECTEDONLY))              01937000
+                                                                        01938000
+                TAPEOUTPUTPROMPT(TAPECOPY(YES|NO))                      01939000
+                TAPESECURITY((EXPIRATION | EXPIRATIONINCLUDE)           01940000
+                               PASSWORD (RACF | RACFINCLUDE))           01941000
+                TAPESPANSIZE(NNN)                                       01942000
+                TAPEUTILIZATION                                         01943000
+                  (UNITTYPE(UNITTYPE) PERCENTFULL(PCT | NOLIMIT) |      01944000
+                  (LIBRARYBACKUP PERCENTFULL(PCT | NOLIMIT) )    |      01945000
+                  (LIBRARYMIGRATION PERCENTFULL(PCT | NOLIMIT) )        01946000
+                                                                        01947000
+                UNITNAME(UNITTYPE)                                      01948000
+                UNLOAD | NOUNLOAD                                       01949000
+                USERUNITTABLE(ES1,ES1OUT : ES2IN,ES3 : ES3) |           01950000
+                NOUSERUNITTABLE                                         01951000
+                VERSIONS(LIMIT)                                         01952000
+                VOLCOUNT(NONE | ANY)                                    01953000
+                VOLUMEDUMP(NOCC | STANDARD |                            01954000
+                           CC | PREFERRED |REQUIRED |                   01955000
+                           VIRTUALPREFERRED | VIRTUALREQUIRED |         01956000
+                           CACHEPREFERRED | CACHEREQUIRED)              01957000
+                USECYLINDERMANAGEDSPACE(Y|N)                            01958000
+                ZCOMPRESS(ALL | NONE |                                  01959000
+                          DASDBACKUP(YES | NO)                          01960000
+                          TAPEBACKUP(YES | NO)                          01961000
+                          DASDMIGRATE(YES | NO)                         01962000
+                          TAPEMIGRATE(YES | NO))                        01963000
+                                                                        01964000
+))STOP          DUMP PROMOTE                                            01965000
+                                                                        01966000
+))SWAPLOG                                                               01967000
+                                                                        01968000
+))TAPECOPY ALL | MIGRATIONLEVEL2 | BACKUP |                             01969000
+           ORIGINALVOLUMES(OVOL1,OVOL2,...OVOLN) | INDATASET(DSNAME)    01970000
+                ALTERNATEVOLUMES(AVOL1,AVOL2...AVOLN)                   01971000
+                EXPDT((CC)YYDDD) | RETPD(NNNN)                          01972000
+                ALTERNATEUNITNAME(UNITTYPE1,UNITTYPE2) |                01973000
+                ALTERNATE3590UNITNAME(UNITTYPE1,UNITTYPE2) |            01974000
+                ALTERNATEUNITNAME(UNITTYPE1,UNITTYPE2)                  01975000
+                     ALTERNATE3590UNITNAME(UNITTYPE1,UNITTYPE2)         01976000
+                                                                        01977000
+ ))TAPEREPL ALL | BACKUP |                                              01978000
+            INDATASET(VOLREPL.LIST.DSNAME) |                            01979000
+            MIGRATION |                                                 01980000
+            ONLYDISASTERALTERNATES(                                     01981000
+                                   RESET) |                             01982000
+            ORIGINALVOLUMES(OVOL1,OVOL2,...OVOLN)                       01983000
+                 ALTERNATEUNITNAME(UNITTYPE)                            01984000
+                 ALTERNATEVOLUMES(AVOL1,AVOL2...AVOLN)                  01985000
+                 DISASTERALTERNATEVOLUMES                               01986000
+                                                                        01987000
+))TRAP     ALL | MODULE                                                 01988000
+                ERROR CODE                                              01989000
+                ABEND(ALWAYS | NEVER | ONCE) |                          01990000
+                LOG | OFF |                                             01991000
+                SNAP(ALWAYS | NEVER | ONCE)                             01992000
+                                                                        01993000
+))UPDATEC  ALL | BACKUPCONTROLDATASET | MIGRATIONCONTROLDATASET |       01994000
+           OFFLINECONTROLDATASET                                        01995000
+                JOURNAL(DSNAME)                                         01996000
+./ ADD NAME=HSMLOG                                                      01997000
+//HSMLOG   JOB ?JOBPARM                                                 01998000
+//*                                                                     01999000
+//****************************************************************/     02000000
+//*         THIS SAMPLE JOB PRINTS THE DFSMSHSM LOG              */     02001000
+//*                                                              */     02002000
+//* REPLACE THE ?UID VARIABLE IN THE FOLLOWING SAMPLE JOB WITH   */     02003000
+//* THE NAME OF THE DFSMSHSM -AUTHORIZED USERID (1 TO 7 CHARS).  */     02004000
+//*                                                              */     02005000
+//* (NOTE: UID AUTHORIZATION IS VALID IN A NON-FACILITY CLASS    */     02006000
+//* ENVIRONMENT ONLY, OTHERWISE, FACILITY CLASS PROFILES         */     02007000
+//* WILL BE USED FOR AUTHORIZATION CHECKING.)                    */     02008000
+//****************************************************************/     02009000
+//*                                                                     02010000
+//PRINTLOG EXEC PGM=ARCPRLOG                                            02011000
+//ARCPRINT DD SYSOUT=*                                                  02012000
+//ARCLOG DD DSN=?UID.HSMLOGY1,DISP=OLD                                  02013000
+//ARCEDIT DD DSN=?UID.EDITLOG,DISP=OLD                                  02014000
+//*                                                                     02015000
+//EMPTYLOG EXEC PGM=IEBGENER                                            02016000
+//SYSPRINT DD SYSOUT=*                                                  02017000
+//SYSIN DD DUMMY                                                        02018000
+//SYSUT2 DD DSN=?UID.HSMLOGY1,DISP=OLD                                  02019000
+//SYSUT1 DD DUMMY,DCB=(?UID.HSMLOGY1)                                   02020000
+/*                                                                      02021000
+./ ADD NAME=HSMEDIT                                                     02022000
+//EDITLOG  JOB ?JOBPARM                                                 02023000
+//*                                                                     02024000
+//****************************************************************/     02025000
+//*           THIS JOB PRINTS THE EDIT-LOG DATA SET              */     02026000
+//*                                                              */     02027000
+//* REPLACE THE FOLLOWING ?UID VARIABLE WITH THE NAME OF THE     */     02028000
+//* DFSMSHSM-AUTHORIZED USER (1 TO 7 CHARS).                     */     02029000
+//* (NOTE: UID AUTHORIZATION IS VALID IN A NON-FACILITY CLASS    */     02030000
+//* ENVIRONMENT ONLY, OTHERWISE, FACILITY CLASS PROFILES WILL BE */     02031000
+//* USED FOR AUTHORIZATION CHECKING.)                            */     02032000
+//****************************************************************/     02033000
+//*                                                                     02034000
+//EDITLOG EXEC PGM=ARCPEDIT                                             02035000
+//ARCPRINT DD SYSOUT=*                                                  02036000
+//ARCLOG DD DSN=?UID.EDITLOG,DISP=SHR                                   02037000
+/*                                                                      02038000
+./ ADD NAME=ALLOCBK1                                                    02039000
+//ALLOCBK1 JOB ?JOBPARM                                                 02040000
+//ALLOCBK EXEC PGM=IEFBR14                                              02041000
+//*                                                                     02042000
+//*****************************************************************/    02043000
+//*    THIS SAMPLE JOB ALLOCATES AND CATALOGS THE CONTROL DATA SET*/    02044000
+//*    BACKUP VERSION DATA SETS ON DASD VOLUMES.                  */    02045000
+//*                                                               */    02046000
+//*    ENSURE THAT BACKUP VERSION DATA SETS ARE PLACED ON VOLUMES */    02047000
+//*    THAT ARE DIFFERENT FROM THE VOLUMES THAT THE CONTROL DATA  */    02048000
+//*    SETS ARE ON.                                               */    02049000
+//*                                                               */    02050000
+//*    THIS SAMPLE JOB ALLOCATES FOUR BACKUP COPIES (THE DEFAULT) */    02051000
+//*    FOR EACH CONTROL DATA SET.  IF YOU SPECIFY A DIFFERENT     */    02052000
+//*    NUMBER OF BACKUP VERSIONS, ENSURE THAT YOU ALLOCATE A      */    02053000
+//*    BACKUP COPY FOR EACH OF THE BACKUP VERSIONS YOU SPECIFY.   */    02054000
+//*****************************************************************/    02055000
+//*                                                               */    02056000
+//*    EDIT THIS JCL TO REPLACE THE PARAMETERS DESCRIBED BELOW.   */    02057000
+//*                                                               */    02058000
+//*****************************************************************/    02059000
+//*  PARAMETER PARAMETER DEFINITION                                     02060000
+//*                                                                     02061000
+//*  ?BKUNIT1   -  UNIT TYPE OF VOLUME TO CONTAIN THE FIRST CDS         02062000
+//*                BACKUP VERSION.                                      02063000
+//*  ?BKUNIT2   -  UNIT TYPE OF VOLUME TO CONTAIN THE SECOND CDS        02064000
+//*                BACKUP VERSION.                                      02065000
+//*  ?BKUNIT3   -  UNIT TYPE OF VOLUME TO CONTAIN THE THIRD CDS         02066000
+//*                BACKUP VERSION.                                      02067000
+//*  ?BKUNIT4   -  UNIT TYPE OF VOLUME TO CONTAIN THE FOURTH CDS        02068000
+//*                BACKUP VERSION.                                      02069000
+//*  ?BKVOL1    -  VOLUME SERIAL OF VOLUME TO CONTAIN THE FIRST CDS     02070000
+//*                BACKUP VERSION.                                      02071000
+//*  ?BKVOL2    -  VOLUME SERIAL OF VOLUME TO CONTAIN THE SECOND CDS    02072000
+//*                BACKUP VERSION.                                      02073000
+//*  ?BKVOL3    -  VOLUME SERIAL OF VOLUME TO CONTAIN THE THIRD CDS     02074000
+//*                BACKUP VERSION.                                      02075000
+//*  ?BKVOL4    -  VOLUME SERIAL OF VOLUME TO CONTAIN THE FOURTH CDS    02076000
+//*                BACKUP VERSION.                                      02077000
+//*  ?SCBVOL1   -  STORAGE CLASS NAME FOR BACKUP VERSIONS               02078000
+//*  ?MCDFHSM   -  MANAGEMENT CLASS NAME OF THE HSM CONSTRUCT           02079000
+//*                                                                     02080000
+//*  ?CDSSIZE   -  NUMBER OF CYLINDERS ALLOCATED TO CDS BACKUP          02081000
+//*                VERSIONS.                                            02082000
+//*  ?JNLSIZE   -  NUMBER OF CYLINDERS ALLOCATED TO JOURNAL DATA        02083000
+//*                SETS.                                                02084000
+//*  ?UID       -  AUTHORIZED USER ID (1 TO 7 CHARS) FOR THE HSM-       02085000
+//*                STARTED PROCEDURE. THIS WILL BE USED AS THE          02086000
+//*                HIGH-LEVEL QUALIFIER OF HSM DATA SETS.               02087000
+//* (NOTE: UID AUTHORIZATION IS VALID IN A NON-FACILITY CLASS    */     02088000
+//* ENVIRONMENT ONLY, OTHERWISE, FACILITY CLASS PROFILES WILL BE */     02089000
+//* USED FOR AUTHORIZATION CHECKING.)                            */     02090000
+//*****************************************************************/    02091000
+//*                                                                     02092000
+//******************************************************************/   02093000
+//* THIS PROCEDURE ASSUMES A SINGLE CLUSTER MCDS.  IF MORE THAN    */   02094000
+//* ONE VOLUME IS DESIRED, FOLLOW THE RULES FOR A MULTICLUSTER     */   02095000
+//* CDS.                                                           */   02096000
+//******************************************************************/   02097000
+//*                                                                     02098000
+//MCDSV1 DD DSN=?UID.MCDS.BACKUP.V0000001,DISP=(,CATLG),UNIT=?BKUNIT1,  02099000
+//   VOL=SER=?BKVOL1,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02100000
+//   MGMTCLAS=?MCDFHSM                                                  02101000
+//MCDSV2 DD DSN=?UID.MCDS.BACKUP.V0000002,DISP=(,CATLG),UNIT=?BKUNIT2,  02102000
+//   VOL=SER=?BKVOL2,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02103000
+//   MGMTCLAS=?MCDFHSM                                                  02104000
+//MCDSV3 DD DSN=?UID.MCDS.BACKUP.V0000003,DISP=(,CATLG),UNIT=?BKUNIT3,  02105000
+//   VOL=SER=?BKVOL3,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02106000
+//   MGMTCLAS=?MCDFHSM                                                  02107000
+//MCDSV4 DD DSN=?UID.MCDS.BACKUP.V0000004,DISP=(,CATLG),UNIT=?BKUNIT4,  02108000
+//   VOL=SER=?BKVOL4,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02109000
+//   MGMTCLAS=?MCDFHSM                                                  02110000
+//*                                                                     02111000
+//******************************************************************/   02112000
+//* REMOVE THE NEXT FOUR DD STATEMENTS IF YOU DO NOT INTEND TO USE */   02113000
+//* BACKUP AND DUMP                                                */   02114000
+//*                                                                */   02115000
+//* THIS PROCEDURE ASSUMES A SINGLE CLUSTER BCDS.  IF MORE THAN    */   02116000
+//* ONE VOLUME IS DESIRED, FOLLOW THE RULES FOR A MULTICLUSTER     */   02117000
+//* CDS.                                                           */   02118000
+//******************************************************************/   02119000
+//*                                                                     02120000
+//BCDSV1 DD DSN=?UID.BCDS.BACKUP.V0000001,DISP=(,CATLG),UNIT=?BKUNIT1,  02121000
+//   VOL=SER=?BKVOL1,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02122000
+//   MGMTCLAS=?MCDFHSM                                                  02123000
+//BCDSV2 DD DSN=?UID.BCDS.BACKUP.V0000002,DISP=(,CATLG),UNIT=?BKUNIT2,  02124000
+//   VOL=SER=?BKVOL2,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02125000
+//   MGMTCLAS=?MCDFHSM                                                  02126000
+//BCDSV3 DD DSN=?UID.BCDS.BACKUP.V0000003,DISP=(,CATLG),UNIT=?BKUNIT3,  02127000
+//   VOL=SER=?BKVOL3,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02128000
+//   MGMTCLAS=?MCDFHSM                                                  02129000
+//BCDSV4 DD DSN=?UID.BCDS.BACKUP.V0000004,DISP=(,CATLG),UNIT=?BKUNIT4,  02130000
+//   VOL=SER=?BKVOL4,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02131000
+//   MGMTCLAS=?MCDFHSM                                                  02132000
+//*                                                                     02133000
+//******************************************************************/   02134000
+//* REMOVE THE NEXT FOUR DD STATEMENTS IF YOU DO NOT INTEND TO USE */   02135000
+//* TAPE VOLUMES FOR DAILY BACKUP VOLUMES, SPILL BACKUP VOLUMES,   */   02136000
+//* OR MIGRATION LEVEL 2 VOLUMES.                                  */   02137000
+//*                                                                */   02138000
+//* THE OCDS MAY NOT EXCEED 1 VOLUME.                              */   02139000
+//******************************************************************/   02140000
+//*                                                                     02141000
+//OCDSV1 DD DSN=?UID.OCDS.BACKUP.V0000001,DISP=(,CATLG),UNIT=?BKUNIT1,  02142000
+//   VOL=SER=?BKVOL1,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02143000
+//   MGMTCLAS=?MCDFHSM                                                  02144000
+//OCDSV2 DD DSN=?UID.OCDS.BACKUP.V0000002,DISP=(,CATLG),UNIT=?BKUNIT2,  02145000
+//   VOL=SER=?BKVOL2,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02146000
+//   MGMTCLAS=?MCDFHSM                                                  02147000
+//OCDSV3 DD DSN=?UID.OCDS.BACKUP.V0000003,DISP=(,CATLG),UNIT=?BKUNIT3,  02148000
+//   VOL=SER=?BKVOL3,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02149000
+//   MGMTCLAS=?MCDFHSM                                                  02150000
+//OCDSV4 DD DSN=?UID.OCDS.BACKUP.V0000004,DISP=(,CATLG),UNIT=?BKUNIT4,  02151000
+//   VOL=SER=?BKVOL4,SPACE=(CYL,(?CDSSIZE,5)),STORCLAS=?SCBVOL1,        02152000
+//   MGMTCLAS=?MCDFHSM                                                  02153000
+//*                                                                     02154000
+//JRNLV1 DD DSN=?UID.JRNL.BACKUP.V0000001,DISP=(,CATLG),UNIT=?BKUNIT1,  02155000
+//   VOL=SER=?BKVOL1,SPACE=(CYL,(?JNLSIZE,5)),STORCLAS=?SCBVOL1,        02156000
+//   MGMTCLAS=?MCDFHSM                                                  02157000
+//JRNLV2 DD DSN=?UID.JRNL.BACKUP.V0000002,DISP=(,CATLG),UNIT=?BKUNIT2,  02158000
+//   VOL=SER=?BKVOL2,SPACE=(CYL,(?JNLSIZE,5)),STORCLAS=?SCBVOL1,        02159000
+//   MGMTCLAS=?MCDFHSM                                                  02160000
+//JRNLV3 DD DSN=?UID.JRNL.BACKUP.V0000003,DISP=(,CATLG),UNIT=?BKUNIT3,  02161000
+//   VOL=SER=?BKVOL3,SPACE=(CYL,(?JNLSIZE,5)),STORCLAS=?SCBVOL1,        02162000
+//   MGMTCLAS=?MCDFHSM                                                  02163000
+//JRNLV4 DD DSN=?UID.JRNL.BACKUP.V0000004,DISP=(,CATLG),UNIT=?BKUNIT4,  02164000
+//   VOL=SER=?BKVOL4,SPACE=(CYL,(?JNLSIZE,5)),STORCLAS=?SCBVOL1,        02165000
+//   MGMTCLAS=?MCDFHSM                                                  02166000
+./ ADD NAME=ALLOSDSP                                                    02167000
+//ALLOSDSP JOB ?JOBPARM                                                 02168000
+//*                                                                     02169000
+//*****************************************************************/    02170000
+//*   THIS SAMPLE JOB DEFINES AND INITIALIZES A SMALL-DATA-SET-   */    02171000
+//*   PACKING DATA SET ON A MIGRATION LEVEL 1 VOLUME.             */    02172000
+//*                                                               */    02173000
+//*   THE DATA SET NAME IS REQUIRED TO BE ?UID.SMALLDS.V?SDSPVOL  */    02174000
+//*   WHERE ?UID IS THE AUTHORIZED DFSMSHSM USER ID AND WHERE     */    02175000
+//*   ?SDSPVOL IS THE VOLUME SERIAL NUMBER OF A MIGRATION LEVEL 1 */    02176000
+//*   VOLUME.                                                     */    02177000
+//*                                                               */    02178000
+//* (NOTE: UID AUTHORIZATION IS VALID IN A NON-FACILITY CLASS    *//    02179000
+//* ENVIRONMENT ONLY, OTHERWISE, FACILITY CLASS PROFILES WILL BE *//    02180000
+//* USED FOR AUTHORIZATION CHECKING.)                            *//    02181000
+//*                                                               */    02182000
+//*                                                               */    02183000
+//*   AFTER YOU ALLOCATE THE SMALL-DATA-SET-PACKING DATA SET ON A */    02184000
+//*   MIGRATION LEVEL 1 VOLUME, YOU MUST SPECIFY THE              */    02185000
+//*   SMALLDATASETPACKING PARAMETER ON THE SETSYS COMMAND IN THE  */    02186000
+//*   ARCCMD__ PARMLIB MEMBER AND ON THE ADDVOL COMMAND FOR THE   */    02187000
+//*   VOLUME THAT CONTAINS THE SMALL-DATA-SET-PACKING DATA SET.   */    02188000
+//*                                                               */    02189000
+//*   CHANGE THE PARAMETERS LISTED BELOW TO VALID VALUES FOR YOUR */    02190000
+//*   SYSTEM.                                                     */    02191000
+//*****************************************************************/    02192000
+//*  PARAMETER  -  PARAMETER DESCRIPTION                                02193000
+//*                                                                     02194000
+//*  ?SDSPCIS   -  CONTROL INTERVAL SIZE VALUE FOR THE DATA COMPONENT   02195000
+//*                OF THE SDSP DATA SET. IF THE SDSP UNIT TYPE IS       02196000
+//*                3350, REPLACE ?SDSPCIS WITH 16384.  IF THE SDSP      02197000
+//*                UNIT TYPE IS 3380, REPLACE WITH 20480.               02198000
+//*                IF THE SDSP UNIT TYPE IS 3390, REPLACE WITH 26624.   02199000
+//*  ?SDSPUNT   -  UNIT TYPE FOR MIGRATION LEVEL 1 VOLUME TO            02200000
+//*                CONTAIN SMALL-DATA-SET-PACKING DATA SET.             02201000
+//*  ?SDSPVOL   -  VOLUME SERIAL OF THE MIGRATION LEVEL 1 VOLUME        02202000
+//*                TO CONTAIN SMALL-DATA-SET-PACKING DATA SET.          02203000
+//*  ?UID       -  AUTHORIZED USER ID (1 TO 7 CHARS) FOR THE DFSMSHSM   02204000
+//*                START PROCEDURE, IN A NON FACILITY CLASS ENVIRONMENT.02205000
+//*                USED AS THE HIGH-LEVEL QUALIFIER OF DFSMSHSM         02206000
+//*                DATA SETS.                                           02207000
+//*                                                                     02208000
+//* NOTE:         ENSURE THAT THE SMALL-DATA-SET-PACKING DATA SET       02209000
+//*               IS NOT ALLOCATED ON AN SMS VOLUME. THE DATA SET       02210000
+//*               SHOULD BE DEFINED IN A STORAGE CLASS FILTER TO        02211000
+//*               EXCLUDE IT FROM AN SMS VOLUME AS THE OTHER DFSMSHSM   02212000
+//*               DATA SETS ARE.                                        02213000
+//*****************************************************************/    02214000
+//*****************************************************************/    02215000
+//* CREATE A ONE-RECORD, SEQUENTIAL DATA SET TO BE USED LATER TO  */    02216000
+//* PRIME VSAM CLUSTERS DEFINED FOR DFSMSHSM.                     */    02217000
+//*****************************************************************/    02218000
+//*                                                                     02219000
+//IEBDG    EXEC PGM=IEBDG                                               02220000
+//SYSPRINT DD SYSOUT=*                                                  02221000
+//PRIMER   DD DSN=?UID.SDSP.PRIMER,DISP=(NEW,CATLG),UNIT=SYSDA,         02222000
+// DCB=(RECFM=F,LRECL=200,BLKSIZE=200),SPACE=(TRK,(1))                  02223000
+//SYSIN    DD *                                                         02224000
+ DSD OUTPUT=(PRIMER)                                                    02225000
+ FD NAME=A,LENGTH=44,STARTLOC=1,PICTURE=44,                            X02226000
+   'Z9999999999999999999999999999999999999999999'                       02227000
+ CREATE NAME=A                                                          02228000
+ END                                                                    02229000
+//STEP1 EXEC PGM=IDCAMS,REGION=512K                                     02230000
+//SYSPRINT DD SYSOUT=*                                                  02231000
+//INPRIMER DD DSN=?UID.SDSP.PRIMER,DISP=(OLD,DELETE)                    02232000
+//SDSP1 DD UNIT=?SDSPUNT,VOL=SER=?SDSPVOL,DISP=SHR                      02233000
+//SYSIN DD *                                                            02234000
+ DEFINE CLUSTER (NAME(?UID.SMALLDS.V?SDSPVOL) VOLUMES(?SDSPVOL) -       02235000
+        CYLINDERS(5 0) FILE(SDSP1) -                                    02236000
+        RECORDSIZE(2093 2093) FREESPACE(0 0) -                          02237000
+        INDEXED KEYS(45 0) -                                            02238000
+        SPEED BUFFERSPACE(530432) -                                     02239000
+        UNIQUE NOWRITECHECK) -                                          02240000
+        DATA -                                                          02241000
+        (CONTROLINTERVALSIZE(?SDSPCIS)) -                               02242000
+        INDEX -                                                         02243000
+        (CONTROLINTERVALSIZE(1024))                                     02244000
+ REPRO ODS('?UID.SMALLDS.V?SDSPVOL') INFILE(INPRIMER)                   02245000
+./ ADD NAME=HSMPRESS                                                    02246000
+//COMPRESS JOB ?JOBPARM                                                 02247000
+//*                                                                     02248000
+//****************************************************************/     02249000
+//*  THIS SAMPLE JOB IS TO COMPRESS THE CONTROL DATA SETS.       */     02250000
+//*                                                              */     02251000
+//*  NOTE:  BEFORE RUNNING THIS JOB, YOU MUST SHUT DOWN ALL      */     02252000
+//*         INSTANCES OF DFSMSHSM THAT SHARE THE CDS'S.          */     02253000
+//*                                                              */     02254000
+//* REPLACE THE ?UID VARIABLE WITH THE NAME OF THE DFSMSHSM-     */     02255000
+//* AUTHORIZED USER ID (1 TO 7 CHARACTERS).                      */     02256000
+//*                                                              */     02257000
+//* (NOTE: UID AUTHORIZATION IS VALID IN A NON-FACILITY CLASS    */     02258000
+//* ENVIRONMENT ONLY, OTHERWISE, FACILITY CLASS PROFILES WILL BE */     02259000
+//* USED FOR AUTHORIZATION CHECKING.)                            */     02260000
+//*                                                              */     02261000
+//* REPLACE THE ?NEW VARIABLE WITH AN EXTENSION NAME FOR THE     */     02262000
+//* NEW CDS BEING CREATED FROM THE IMPORT.  BECAUSE OF THE NAME  */     02263000
+//* CHANGE MADE TO THE CDS, MAKE SURE TO UPDATE THE ASSOCIATED   */     02264000
+//* PROCLIB MEMBER WITH THE NEW CDS NAME(S).                     */     02265000
+//*                                                              */     02266000
+//* IF YOU WISH TO ENLARGE THE CDS, PREALLOCATE A LARGER DATA    */     02267000
+//* SET WITH THE NEW SIZE (EITHER A NEW DATA SET, OR DELETE THE  */     02268000
+//* OLD DATA SET AND REALLOCATE WITH SAME NAME) THEN IMPORT.     */     02269000
+//* AGAIN, IF A NEW NAME IS USED, BE SURE TO UPDATE THE          */     02270000
+//* ASSOCIATED PROCLIB MEMBER WITH THE NEW CDS NAME(S).          */     02271000
+//*                                                              */     02272000
+//* THIS PROCEDURE ASSUMES THAT THE MCDS AND BCDS ARE SINGLE     */     02273000
+//* CLUSTER CDS'S.                                               */     02274000
+//*                                                              */     02275000
+//* NOTE: XCDS'S DD STMTS WITH DISP=OLD WILL KEEP OTHER JOBS     */     02276000
+//*  FROM ACCESSING THE CDS'S DURING THE EXPORT/IMPORT PROCESS.  */     02277000
+//****************************************************************/     02278000
+//*                                                                     02279000
+//ALLOCATE EXEC PGM=IEFBR14                                             02280000
+//EXPMCDS DD DSN=?UID.EXPORT.MCDS,DISP=(,CATLG),                        02281000
+// UNIT=SYSDA,SPACE=(CYL,(20,2))                                        02282000
+//EXPBCDS DD DSN=?UID.EXPORT.BCDS,DISP=(,CATLG),                        02283000
+// UNIT=SYSDA,SPACE=(CYL,(20,2))                                        02284000
+//EXPOCDS DD DSN=?UID.EXPORT.OCDS,DISP=(,CATLG),                        02285000
+// UNIT=SYSDA,SPACE=(CYL,(20,2))                                        02286000
+//*                                                                     02287000
+//IDCAMS EXEC PGM=IDCAMS,REGION=512K                                    02288000
+//MCDS DD DSN=?UID.MCDS,DISP=OLD                                        02289000
+//BCDS DD DSN=?UID.BCDS,DISP=OLD                                        02290000
+//OCDS DD DSN=?UID.OCDS,DISP=OLD                                        02291000
+//SYSPRINT DD SYSOUT=*                                                  02292000
+//SYSIN DD *                                                            02293000
+ LISTCAT ENT(?UID.MCDS ?UID.BCDS ?UID.OCDS) ALL                         02294000
+ EXAMINE NAME(?UID.MCDS) INDEXTEST                                      02295000
+ IF LASTCC = 0 THEN -                                                   02296000
+        EXPORT ?UID.MCDS ODS(?UID.EXPORT.MCDS) TEMPORARY                02297000
+ IF LASTCC = 0 THEN -                                                   02298000
+        IMPORT IDS(?UID.EXPORT.MCDS) ODS(?UID.MCDS.?NEW) -              02299000
+        OBJECTS -                                                       02300000
+         ((?UID.MCDS -                                                  02301000
+         NEWNAME(?UID.MCDS.?NEW)) -                                     02302000
+          (?UID.MCDS.DATA -                                             02303000
+           NEWNAME(?UID.MCDS.?NEW.DATA)) -                              02304000
+          (?UID.MCDS.INDEX -                                            02305000
+           NEWNAME(?UID.MCDS.?NEW.INDEX))) -                            02306000
+        CATALOG(?UCATNAM)                                               02307000
+ IF MAXCC = 0 THEN -                                                    02308000
+        DELETE ?UID.EXPORT.MCDS NONVSAM                                 02309000
+ EXAMINE NAME(?UID.BCDS) INDEXTEST                                      02310000
+ IF LASTCC = 0 THEN -                                                   02311000
+        EXPORT ?UID.BCDS ODS(?UID.EXPORT.BCDS) TEMPORARY                02312000
+ IF LASTCC = 0 THEN -                                                   02313000
+        IMPORT IDS(?UID.EXPORT.BCDS) ODS(?UID.BCDS.?NEW) -              02314000
+        OBJECTS -                                                       02315000
+         ((?UID.BCDS -                                                  02316000
+         NEWNAME(?UID.BCDS.?NEW)) -                                     02317000
+          (?UID.BCDS.DATA -                                             02318000
+           NEWNAME(?UID.BCDS.?NEW.DATA)) -                              02319000
+          (?UID.BCDS.INDEX -                                            02320000
+           NEWNAME(?UID.BCDS.?NEW.INDEX))) -                            02321000
+        CATALOG(?UCATNAM)                                               02322000
+ IF MAXCC = 0 THEN -                                                    02323000
+        DELETE ?UID.EXPORT.BCDS NONVSAM                                 02324000
+ EXAMINE NAME(?UID.OCDS) INDEXTEST                                      02325000
+ IF LASTCC = 0 THEN -                                                   02326000
+        EXPORT ?UID.OCDS ODS(?UID.EXPORT.OCDS) TEMPORARY                02327000
+ IF LASTCC = 0 THEN -                                                   02328000
+        IMPORT IDS(?UID.EXPORT.OCDS) ODS(?UID.OCDS.?NEW) -              02329000
+        OBJECTS -                                                       02330000
+         ((?UID.OCDS -                                                  02331000
+         NEWNAME(?UID.OCDS.?NEW)) -                                     02332000
+          (?UID.OCDS.DATA -                                             02333000
+           NEWNAME(?UID.OCDS.?NEW.DATA)) -                              02334000
+          (?UID.OCDS.INDEX -                                            02335000
+           NEWNAME(?UID.OCDS.?NEW.INDEX))) -                            02336000
+        CATALOG(?UCATNAM)                                               02337000
+ IF MAXCC = 0 THEN -                                                    02338000
+        DELETE ?UID.EXPORT.OCDS NONVSAM                                 02339000
+ LISTCAT ENT(?UID.MCDS.NEW ?UID.BCDS.NEW ?UID.OCDS.NEW) ALL             02340000
+/*                                                                      02341000
+$$                                                                      02342000
