@@ -5,12 +5,18 @@
 //* PURPOSE: EXTRACT SMF 119 FOR ZERT REPORTING                      *          
 //*                                                                  *          
 //********************************************************************          
-//DUMP    EXEC PGM=IFASMFDP,REGION=4096K                                        
-//SYSPRINT  DD SYSOUT=*                                                         
-//OUTD1     DD DSN=IBMUSER.SMF.TYPE119,                                         
+//DELETE   EXEC PGM=IDCAMS                                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  DELETE 'SMF.ZERT.TYPE119'                                                     
+  SET MAXCC=0                                                                   
+/*                                                                              
+//DUMP     EXEC PGM=IFASMFDP,REGION=4096K                                       
+//SYSPRINT DD SYSOUT=*                                                          
+//OUTD1    DD DSN=SMF.ZERT.TYPE119,                                             
 //          SPACE=(CYL,(1,1)),DISP=(NEW,CATLG)                                  
-//INDD1     DD DSN=SYS1.SMF.DATA(0),DISP=SHR                                    
-//SYSIN     DD *                                                                
+//INDD1    DD DSN=SMF.S0W1.DATA(0),DISP=SHR                                     
+//SYSIN    DD *                                                                 
   INDD(INDD1,OPTIONS(DUMP))                                                     
   OUTDD(OUTD1,TYPE(119(12)))                                                    
 /*                                                                              
