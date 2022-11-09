@@ -15,7 +15,9 @@
 //* 8.  Change ++HLQ++ to your personal HLQ on system.                *         
 //* 9.  Change ++NOTBEFORE++ to a not-before date YYYY-MM-DD.         *         
 //* 10. Change ++NOTAFTER++ to a not-after date YYYY-MM-DD.           *         
-//* 11. Submit. You should recieve RC=0 for every step.               *         
+//* 11. Change ++MY_IP++ IP Address of z/OS LPAR.                     *         
+//* 12. Change ++MY_DOMAIN++ Domain name of z/OS LPAR.                *         
+//* 13. Submit. You should recieve RC=0 for every step.               *         
 //* ----------------------------------------------------------------- *         
 //* At the end of this job you should have the following:             *         
 //* Keyring : ++MY_KEYRING++                                          *         
@@ -74,7 +76,8 @@ SIZE(2048) NOTBEFORE(DATE(++NOTBEFORE++) TIME(11:00:00)) +
 NOTAFTER(DATE(++NOTAFTER++) TIME(11:00:00)) +                                   
 WITHLABEL('++MY_CERT++') +                                                      
 RSA KEYUSAGE(CERTSIGN DATAENCRYPT HANDSHAKE) +                                  
-SIGNWITH(CERTAUTH LABEL('++MY_CA_CERT++'))                                      
+SIGNWITH(CERTAUTH LABEL('++MY_CA_CERT++')) +                                    
+ALTNAME(IP(++MY_IP++) DOMAIN('++MY_DOMAIN++'))                                  
 SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
 SETROPTS RACLIST(FACILITY) REFRESH                                              
 /*                                                                              
