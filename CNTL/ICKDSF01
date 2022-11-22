@@ -23,8 +23,8 @@
       NOCHECK -                                                                 
       CONTINUE -                                                                
       NOVERIFY           /*  DO NOT CHECK VOLID    */ -                         
-      VTOC(9,0,900)      /*  900 TRK VTOC          */ -                         
-      INDEX(0,1,134)     /*  134 TRK INDEX         */ -                         
+      VTOC(9,0,200)      /*  200 TRK VTOC          */ -                         
+      INDEX(0,1,44)      /*  45 TRK INDEX         */ -                          
       OWNERID('IBMUSER') -                                                      
       VOLID(NEWNNN)      /*  NEW VOLID             */                           
 //*                                                                             
