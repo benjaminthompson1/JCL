@@ -63,6 +63,7 @@ IDCAMSVS - Define VSAM dataset with alternate index
 IDCAMZFS - Define ZFS dataset and mount on specified directory                  
 IEBCOPY  - copy PDS members                                                     
 IEBDG    - generate test data                                                   
+IEFBR14  - IEFBR14 testing allocations                                          
 ISCJCL86 - SCRT Report                                                          
 IFASMFDL - SMF logstream dump program                                           
 IXCMIAPU - Define LOGSTREAM name(IFASMF.SMFALL.S0W1)                            
