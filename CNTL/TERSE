@@ -6,11 +6,11 @@
 //* PURPOSE: TRSMAIN TO PACK / UNPACK DATASETS                       *          
 //*                                                                  *          
 //********************************************************************          
-//TRSMAIN1 EXEC PGM=TRSMAIN,PARM=UNPACK                                         
+//TRSMAIN1 EXEC PGM=TRSMAIN,PARM=PACK                                           
 //SYSPRINT DD SYSOUT=*                                                          
-//INFILE   DD DSN=IBMUSER.DFAT.TRS,                                             
+//INFILE   DD DSN=IBMUSER.SYSU.D200322,                                         
 //            DISP=SHR                                                          
-//OUTFILE  DD DSN=IBMUSER.DFAT.XMIT,                                            
+//OUTFILE  DD DSN=IBMUSER.SYSU.D200322.TRS,                                     
 //            DISP=(NEW,CATLG,DELETE),                                          
 //            UNIT=SYSDA,                                                       
 //            SPACE=(CYL,(10,10),RLSE)                                          
