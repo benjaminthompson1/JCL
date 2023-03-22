@@ -7,7 +7,7 @@
 //*          rules in RACF                                           *          
 //*                                                                  *          
 //********************************************************************          
-//RACFSTC  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
 //STDERR   DD SYSOUT=*                                                          
