@@ -83,6 +83,7 @@ OMEGDIS  - OMEGAMON discover - STEP 3
 OMEGGEN  - OMEGAMON generate - STEP 4                                           
 PICSCALC - PL/I bit offsets for DVM DFAT EXIT                                   
 PLIC     - PL/I compile                                                         
+RACFCERT - Create signed personal cert that is attached to a keyring            
 RACFSTC  - STC Create USER ID and STARTED profile                               
 RACFZCX  - RACF used to implment zCX                                            
 REXX     - Submit REXX in batch                                                 

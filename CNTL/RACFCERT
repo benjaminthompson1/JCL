@@ -1,0 +1,34 @@
+//IURACFZ JOB  (FB3),'RACF CERT',CLASS=A,MSGCLASS=H,                            
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*                                                                             
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: Create signed personal cert attached to a keyring       *          
+//*                                                                  *          
+//********************************************************************          
+//RACFSTC  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+  RACDCERT ID(IZUSVR) GENCERT +                                                 
+  SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                    
+  O('IBM') L('Canberra') C('AU')) SIZE(2048) +                                  
+  WITHLABEL('z25czOSMFCert.IZUDFLT') +                                          
+  SIGNWITH(CERTAUTH LABEL('zOSMFCA')) +                                         
+  NOTAFTER(DATE(2040-12-31)) +                                                  
+  ALTNAME(EMAIL('benjamin.thompson1@ibm.com'))                                  
+                                                                                
+  RACDCERT ID(IZUSVR) +                                                         
+  CONNECT(ID(IZUSVR) +                                                          
+  LABEL('Z25CzOSMFCert.IZUDFLT') +                                              
+  RING(IZUKeyring.IZUDFLT) +                                                    
+  USAGE(PERSONAL) DEFAULT)                                                      
+                                                                                
+  SETROPTS RACLIST(DIGTCERT) REFRESH                                            
+  SETROPTS RACLIST(DIGTRING) REFRESH                                            
