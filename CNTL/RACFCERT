@@ -17,12 +17,14 @@
 //SYSTSIN  DD *                                                                 
 PROFILE NOPREFIX                                                                
   RACDCERT ID(IZUSVR) GENCERT +                                                 
-  SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                    
+  SUBJECTSDN(CN('s0w1.dal-ebis.ihost.com') +                                    
   O('IBM') L('Canberra') C('AU')) SIZE(2048) +                                  
   WITHLABEL('Z25CzOSMFCert.IZUDFLT') +                                          
   SIGNWITH(CERTAUTH LABEL('zOSMFCA')) +                                         
   NOTAFTER(DATE(2040-12-31)) +                                                  
-  ALTNAME(IP(192.168.1.171))                                                    
+  ALTNAME(IP(192.168.1.171) +                                                   
+          DOMAIN('s0w1.dal-ebis.ihost.com') +                                   
+          URI('s0w1.dal-ebis.ihost.com'))                                       
                                                                                 
   RACDCERT ID(IZUSVR) +                                                         
   CONNECT(ID(IZUSVR) +                                                          
