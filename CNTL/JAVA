@@ -5,7 +5,7 @@
 //* PURPOSE: VERIFY JAVA                                             *          
 //*                                                                  *          
 //********************************************************************          
-//MOUNTZFS EXEC PGM=IKJEFT01,REGION=0M                                          
+//JAVA EXEC PGM=IKJEFT01,REGION=0M                                              
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSTSPRT DD SYSOUT=*                                                          
@@ -13,4 +13,6 @@
 //STDERR DD SYSOUT=*                                                            
 //SYSTSIN DD *                                                                  
   BPXBATCH SH +                                                                 
-  /usr/lpp/java/J8.0_64/bin/java -version                                       
+  export PATH=/usr/lpp/java/J8.0_64/bin:$PATH ; +                               
+  export JAVA_HOME=/usr/lpp/java/J8.0_64 ;                                      
+  java -version ;                                                               

@@ -1,0 +1,20 @@
+//IUBPXCL JOB (FB3),'PYTHON',CLASS=A,MSGCLASS=H,                                
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//*                                                                             
+//* PURPOSE: DEMONSTRATE A PYTHON PROGRMA RUNNING AS BATCH                      
+//*                                                                             
+//*********************************************************************         
+//PYTHON EXEC PGM=IKJEFT01                                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDOUT DD SYSOUT=*                                                            
+//STDERR DD SYSOUT=*                                                            
+//SYSTSIN DD *                                                                  
+BPXBATCH SH +                                                                   
+export PATH=/usr/lpp/IBM/cyp/v3r10/pyz/bin:$PATH ; +                            
+export PYTHONPATH=/usr/lpp/IBM/cyp/v3r10/pyz ; +                                
+python -c "print('Hello, World!')" ;                                            
+/*                                                                              
