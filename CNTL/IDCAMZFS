@@ -7,12 +7,12 @@
 //* NOTES: Modify the JOB statement as appropriate and change        *          
 //*        the following to suit your installation requirements      *          
 //*                                                                  *          
-//* /global/awi - Directory path to prefix /usr/lpp/IBM              *          
+//* @pathprefix@ - Directory path to prefix /usr/lpp/IBM             *          
 //*                                                                  *          
-//* AWI110.GLOBAL.ZFS - Name of the 'common' ZFS dataset to be created *        
-//*                and mounted at /global/awi                        *          
+//* @zfsdsn@ - Name of the 'common' ZFS dataset to be created        *          
+//*                and mounted at @pathprefix@                       *          
 //*                                                                  *          
-//* USER0A - Volume on which tocreate ZFS dataset                    *          
+//* @volume@ - Volume on which tocreate ZFS dataset                  *          
 //*                                                                  *          
 //********************************************************************          
 //CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
@@ -21,15 +21,15 @@
   DEFINE -                                                                      
        CLUSTER -                                                                
          ( -                                                                    
-             NAME(AWI110.GLOBAL.ZFS) -                                          
+             NAME(@zfsdsn@) -                                                   
              LINEAR -                                                           
-             TRACKS(800 200) VOLUME(USER0A) -                                   
+             TRACKS(800 200) VOLUME(@volume@) -                                 
              DATACLASS(DCEXT) -                                                 
              SHAREOPTIONS(3) -                                                  
          )                                                                      
 /*                                                                              
 //*                                                                             
-// SET ZFSDSN='AWI110.GLOBAL.ZFS'                                               
+// SET ZFSDSN='@zfsdsn@'                                                        
 //FORMAT   EXEC PGM=IOEAGFMT,REGION=0M,COND=(0,LT),                             
 // PARM='-aggregate &ZFSDSN -compat'                                            
 //SYSPRINT DD SYSOUT=*                                                          
@@ -47,6 +47,6 @@
   PROFILE MSGID WTPMSG                                                          
   MOUNT TYPE(ZFS) +                                                             
     MODE(RDWR) +                                                                
-    MOUNTPOINT('/global/awi') +                                                 
-    FILESYSTEM('AWI110.GLOBAL.ZFS')                                             
+    MOUNTPOINT('@pathprefix@') +                                                
+    FILESYSTEM('@zfsdsn@')                                                      
 /*                                                                              

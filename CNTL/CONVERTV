@@ -5,10 +5,10 @@
 //* PURPOSE: CONVERT EXISTING VOLUMES TO SMS                         *          
 //*                                                                  *          
 //********************************************************************          
-//STEP1  EXEC  PGM=ADRDSSU,REGION=0M                                            
-//SYSPRINT  DD  SYSOUT=*                                                        
-//INVOL1   DD    VOL=SER=USER0A,UNIT=3390,DISP=SHR                              
-//SYSIN    DD    *                                                              
+//STEP1  EXEC PGM=ADRDSSU,REGION=0M                                             
+//SYSPRINT DD SYSOUT=*                                                          
+//INVOL1   DD VOL=SER=USER0A,UNIT=3390,DISP=SHR                                 
+//SYSIN    DD *                                                                 
   CONVERTV -                                                                    
   DDNAME(INVOL1) -                                                              
   SMS                                                                           
