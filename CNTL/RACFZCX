@@ -22,7 +22,7 @@ ADDGROUP zcxadmg OMVS(AUTOGID) DATA('zCX Admin Group')
                                                                                 
 ADDUSER ZCXPRV1 PASSWORD(NEW2DAY) +                                             
   NAME('zCX Provision User 1') +                                                
-  OWNER(IBMUSER) UACC(ALTER) DFLTGRP(ZCXPRVG) +                                 
+  OWNER(SYS1) UACC(ALTER) DFLTGRP(ZCXPRVG) +                                    
   AUTHORITY(JOIN) GRPACC +                                                      
   TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) SIZE(2096128) MAXSIZE(0) +                  
   UNIT(SYSALLDA) COMMAND(ISPF)) +                                               
@@ -30,7 +30,7 @@ ADDUSER ZCXPRV1 PASSWORD(NEW2DAY) +
                                                                                 
 ADDUSER ZCXSTC1 +                                                               
   NAME('zCX STC User 1') +                                                      
-  OWNER(IBMUSER) UACC(ALTER) DFLTGRP(ZCXSTCG) +                                 
+  OWNER(SYS1) UACC(ALTER) DFLTGRP(ZCXSTCG) +                                    
   AUTHORITY(JOIN) GRPACC +                                                      
   NOPASSWORD NOOIDCARD +                                                        
   TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) SIZE(2096128) MAXSIZE(0) +                  
@@ -39,7 +39,7 @@ ADDUSER ZCXSTC1 +
                                                                                 
 ADDUSER ZCXADM1 PASSWORD(NEW2DAY) +                                             
   NAME('zCX Admin User 1') +                                                    
-  OWNER(IBMUSER) UACC(ALTER) DFLTGRP(ZCXADMG) +                                 
+  OWNER(SYS1) UACC(ALTER) DFLTGRP(ZCXADMG) +                                    
   AUTHORITY(JOIN) GRPACC +                                                      
   TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) SIZE(2096128) MAXSIZE(0) +                  
   UNIT(SYSALLDA) COMMAND(ISPF)) +                                               
