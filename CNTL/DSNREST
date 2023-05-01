@@ -1,0 +1,88 @@
+//IUREST JOB (FB3),'DSNREST',CLASS=A,MSGCLASS=H,                       JOB08034 
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: Creating and enabling Db2 native REST services for ZCEE *          
+//*                                                                  *          
+//********************************************************************          
+//FREE1 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+//STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+DSN SYSTEM(DBDG)                                                                
+FREE SERVICE("zCEEService"."employeeList")                                      
+//BIND1 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+//STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//DSNSTMT  DD *                                                                 
+  SELECT EMPNO AS "employeeNumber", FIRSTNME AS "firstName",                    
+         LASTNAME AS "lastName", WORKDEPT AS "department"                       
+  FROM IBMUSER.EMP ORDER BY LASTNAME                                            
+//SYSTSIN  DD *                                                                 
+DSN SYSTEM(DBDG)                                                                
+BIND SERVICE("zCEEService") -                                                   
+NAME("employeeList") -                                                          
+SQLENCODING(1047) -                                                             
+DESCRIPTION('Returns a list of employees')                                      
+/*                                                                              
+//FREE2 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+//STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+DSN SYSTEM(DBDG)                                                                
+FREE SERVICE("zCEEService"."employeeDetails")                                   
+//BIND2 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+//STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//DSNSTMT  DD *                                                                 
+  SELECT EMPNO AS "employeeNumber", FIRSTNME AS "firstName",                    
+         LASTNAME AS "lastName", WORKDEPT AS "department",                      
+         PHONENO AS "phoneNumber", HIREDATE AS "hireDate"                       
+  FROM IBMUSER.EMP WHERE EMPNO = :employeeNumber                                
+//SYSTSIN  DD *                                                                 
+DSN SYSTEM(DBDG)                                                                
+BIND SERVICE("zCEEService") -                                                   
+NAME("employeeDetails") -                                                       
+SQLENCODING(1047) -                                                             
+DESCRIPTION('Returns the details of an individual employee')                    
+/*                                                                              
+//FREE2 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+//STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+DSN SYSTEM(DBDG)                                                                
+FREE SERVICE("zCEEService"."employeeUpdate")                                    
+//BIND2 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+//STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//DSNSTMT  DD *                                                                 
+  UPDATE IBMUSER.EMP SET                                                        
+         FIRSTNME = :firstName, LASTNAME = :lastName,                           
+         WORKDEPT = :department, PHONENO = :phoneNumber,                        
+         HIREDATE = :hireDate WHERE EMPNO = :employeeNumber                     
+//SYSTSIN  DD *                                                                 
+DSN SYSTEM(DBDG)                                                                
+BIND SERVICE("zCEEService") -                                                   
+NAME("employeeUpdate") -                                                        
+SQLENCODING(1047) -                                                             
+DESCRIPTION('Updates the details of an individual employee')                    
+/*                                                                              

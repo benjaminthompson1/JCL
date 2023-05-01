@@ -36,6 +36,8 @@ DCOLLECT - DCOLLECT collects stored dataset, volume and policy values
 DFH$ECAT - copy from DFH540.CICS.SDFHINST                                       
 DFH$ECNF - copy from DFH540.CICS.SDFHINST                                       
 DFSORT   - DFSORT Utility                                                       
+DSNREST  - Creating and enabling Db2 native REST services for ZCEE              
+DSNTIJAI - SQLDI Pseudo Catalog                                                 
 DSNTIJRS - Enabling Db2 REST services                                           
 DSSCOPY  - Copy dataset(s)                                                      
 DSSDFRAG - Defrag a volume                                                      

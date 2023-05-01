@@ -1,0 +1,1187 @@
+//IUTIJAI JOB (FB3),'DSNTIJAI',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//* JOB NAME = DSNTIJAI                                                         
+//*                                                                             
+//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                                  
+//*                                                                             
+//*    Licensed Materials - Property of IBM                                     
+//*    5698-DB2                                                                 
+//*    COPYRIGHT IBM Corp 2022                                                  
+//*                                                                             
+//*    STATUS = Version 13                                                      
+//*                                                                             
+//* FUNCTION = CREATE AI-POWERED SQL PSEUDOCATALOG AND PROCEDURES               
+//*                                                                             
+//* PSEUDOCODE =                                                                
+//*   DSNTICU  STEP     Optional: DROP all objects created in this job          
+//*   DSNTIAI1 STEP     Create the SQL Data Insights pseudo-catalog             
+//*   DSNTIAI2 STEP     Create the database for model tables                    
+//*   DSNTIAI3 STEP     Create procedures used by SQL Data Insights             
+//*   DSNTIAI4 STEP     Grant authorities to users of SQL Data Insights         
+//*                                                                             
+//* DEPENDENCIES = None                                                         
+//*                                                                             
+//* NOTES =                                                                     
+//*    PRIOR TO RUNNING THIS JOB, customize it for your system:                 
+//*    (1) Review the bufferpool and storage group settings for the             
+//*        SQL Data Insights pseudo-catalog in step DSNTIAI1.                   
+//*        (A) Review the buffer pool settings in the CREATE TABLESPACE         
+//*            and CREATE INDEX statements in step DSNTIAI1.                    
+//*            Update the values as necessary.                                  
+//*        (B) Review the storage group settings in the CREATE                  
+//*            TABLESPACE and CREATE INDEX statements in step DSNTIAI1.         
+//*            Update the values as necessary.                                  
+//*    (2) Determine the storage and buffer pool assignment for                 
+//*        the model database in step DSNTIAI2.                                 
+//*        (A) Change 'DSND10' to the integrated catalog facility               
+//*            catalog name for the model database storage group.               
+//*            Further customize the CREATE STOGROUP statement as               
+//*            necessary.  Consider volume requirements for the                 
+//*            DSNAIDSG STOGROUP, which can become large if it                  
+//*            supports many models.                                            
+//*        (B) Change two instances of 'BP0' to the intended buffer             
+//*            pool and index buffer pool of the model database.                
+//*    (3) Add a valid job card.                                                
+//*    (4) Change all occurrences of the following strings:                     
+//*        (A) Change the subsystem name 'DBDG' to the SSID of your             
+//*            DB2.                                                             
+//*        (B) Change 'DSND10' to the prefix of the target library              
+//*            for DB2.                                                         
+//*        (C) Change 'DSNTIA13' to the plan name for DSNTIAD on your           
+//*            DB2.                                                             
+//*    (5) Customize DSNTIAI4 to grant necessary permissions for use            
+//*        of SQL Data Insights.                                                
+//*        Change 'AIDBADM' to the intended user id.                            
+//*        This step may be repeated for each intended user of                  
+//*        SQL Data Insights.                                                   
+//*                                                                             
+//* CHANGE LOG =                                                                
+//*   10/22  Fix -104/-206/-404 issues with Japanese Katakana  PH49781          
+//*          CCSID or DECP DECIMAL=COMMA                                        
+//*          Remove blanks in the vector table name                             
+//*          Fix AI object in inconsistent state issue caused by                
+//*          auth failure on Drop                                               
+//*                                                                             
+//********************************************************************          
+//JOBLIB  DD  DISP=SHR,                                                         
+//            DSN=DSND10.SDSNLOAD                                               
+//DSNTICU EXEC PGM=IKJEFT01,DYNAMNBR=20                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSUDUMP DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) PARM('RC0') -                            
+       LIBRARY('DSND10.DBDG.RUNLIB.LOAD')                                       
+  END                                                                           
+//SYSIN    DD  *                                                                
+   SET CURRENT SQLID = 'SYSADM';                                                
+   DROP PROCEDURE DSNAIDB.GET_TABLE_SCHEMAS;                                    
+   DROP PROCEDURE DSNAIDB.GET_TABLES;                                           
+   DROP PROCEDURE DSNAIDB.INSERT_AI_OBJECT;                                     
+   DROP PROCEDURE DSNAIDB.GET_COLUMNS;                                          
+   DROP PROCEDURE DSNAIDB.CREATE_CONFIGURATION;                                 
+   DROP PROCEDURE DSNAIDB.REGISTER_MODEL_COLUMN;                                
+   DROP PROCEDURE DSNAIDB.INITIATE_MODEL_TRAINING;                              
+   DROP PROCEDURE DSNAIDB.UPDATE_TRAINING_STATUS;                               
+   DROP PROCEDURE DSNAIDB.GET_MODEL_TABLES;                                     
+   DROP PROCEDURE DSNAIDB.DROP_MODEL_TABLES;                                    
+   DROP PROCEDURE DSNAIDB.INSERT_COLUMN_CENTER;                                 
+   DROP PROCEDURE DSNAIDB.GET_MODEL_COLUMNS;                                    
+   DROP PROCEDURE DSNAIDB.GET_MODEL_TABLE_METADATA;                             
+   DROP PROCEDURE DSNAIDB.GET_TRAINING_JOB;                                     
+   DROP PROCEDURE DSNAIDB.GET_TRAINING_JOBS;                                    
+   DROP PROCEDURE DSNAIDB.GET_CLUSTER_CENTERS;                                  
+   DROP PROCEDURE DSNAIDB.UPDATE_MODEL_COLUMN_METRICS;                          
+   DROP PROCEDURE DSNAIDB.GET_MODEL_METRICS;                                    
+   DROP PROCEDURE DSNAIDB.UPDATE_MODEL_STATUS;                                  
+   DROP PROCEDURE DSNAIDB.REMOVE_AI_OBJECT;                                     
+   DROP PROCEDURE DSNAIDB.GET_MODEL_TABLE;                                      
+   DROP PROCEDURE DSNAIDB.GET_CONFIGURATION;                                    
+                                                                                
+   DROP DATABASE DSNAIDB1;                                                      
+   DROP DATABASE DSNAIDB2;                                                      
+   DROP STOGROUP DSNAIDSG;                                                      
+                                                                                
+//DSNTIAI1 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSUDUMP DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) -                                        
+       LIBRARY('DSND10.DBDG.RUNLIB.LOAD')                                       
+  END                                                                           
+//SYSIN    DD  *                                                                
+   SET CURRENT SQLID = 'IBMUSER';                                               
+                                                                                
+   CREATE DATABASE DSNAIDB1 CCSID UNICODE                                       
+     STOGROUP SYSDEFLT                                                          
+     BUFFERPOOL BP0;                                                            
+                                                                                
+   CREATE TABLESPACE SYSTSAIO IN DSNAIDB1                                       
+     BUFFERPOOL BP0                                                             
+     MAXPARTITIONS 1                                                            
+     USING STOGROUP SYSDEFLT                                                    
+     LOCKSIZE ROW                                                               
+     LOCKMAX SYSTEM                                                             
+     CLOSE NO                                                                   
+     CCSID UNICODE                                                              
+     COMPRESS YES;                                                              
+                                                                                
+   CREATE TABLESPACE SYSTSAIC IN DSNAIDB1                                       
+     BUFFERPOOL BP0                                                             
+     MAXPARTITIONS 1                                                            
+     USING STOGROUP SYSDEFLT                                                    
+     LOCKSIZE ROW                                                               
+     LOCKMAX SYSTEM                                                             
+     CLOSE NO                                                                   
+     CCSID UNICODE                                                              
+     COMPRESS YES;                                                              
+                                                                                
+   CREATE TABLESPACE SYSTSAID IN DSNAIDB1                                       
+     BUFFERPOOL BP0                                                             
+     MAXPARTITIONS 1                                                            
+     USING STOGROUP SYSDEFLT                                                    
+     LOCKSIZE ROW                                                               
+     LOCKMAX SYSTEM                                                             
+     CLOSE NO                                                                   
+     CCSID UNICODE                                                              
+     COMPRESS YES;                                                              
+                                                                                
+   CREATE TABLESPACE SYSTSAIM IN DSNAIDB1                                       
+     BUFFERPOOL BP0                                                             
+     MAXPARTITIONS 1                                                            
+     USING STOGROUP SYSDEFLT                                                    
+     LOCKSIZE ROW                                                               
+     LOCKMAX SYSTEM                                                             
+     CLOSE NO                                                                   
+     CCSID UNICODE                                                              
+     COMPRESS YES;                                                              
+                                                                                
+   CREATE LOB TABLESPACE SYSTSAML                                               
+     IN DSNAIDB1;                                                               
+                                                                                
+   CREATE LOB TABLESPACE SYSTSAMI                                               
+     IN DSNAIDB1                                                                
+     DEFINE NO;                                                                 
+                                                                                
+   CREATE TABLESPACE SYSTSAIE IN DSNAIDB1                                       
+     BUFFERPOOL BP0                                                             
+     MAXPARTITIONS 1                                                            
+     USING STOGROUP SYSDEFLT                                                    
+     LOCKSIZE ROW                                                               
+     LOCKMAX SYSTEM                                                             
+     CLOSE NO                                                                   
+     CCSID UNICODE                                                              
+     COMPRESS YES;                                                              
+                                                                                
+   CREATE TABLESPACE SYSTSAIT IN DSNAIDB1                                       
+     BUFFERPOOL BP0                                                             
+     MAXPARTITIONS 1                                                            
+     USING STOGROUP SYSDEFLT                                                    
+     LOCKSIZE ROW                                                               
+     LOCKMAX SYSTEM                                                             
+     CLOSE NO                                                                   
+     CCSID UNICODE                                                              
+     COMPRESS YES;                                                              
+                                                                                
+   CREATE LOB TABLESPACE SYSTSATL IN DSNAIDB1;                                  
+                                                                                
+   CREATE TABLE SYSAIDB.SYSAIOBJECTS                                            
+    (OBJECT_ID         BIGINT      NOT NULL                                     
+                                   GENERATED ALWAYS AS IDENTITY,                
+     OBJECT_NAME       VARCHAR(32),                                             
+     OBJECT_TYPE       CHAR(1),                                                 
+     SCHEMA            VARCHAR(128) NOT NULL,                                   
+     NAME              VARCHAR(128) NOT NULL,                                   
+     STATUS            VARCHAR(16) NOT NULL,                                    
+     CONFIGURATION_ID  BIGINT,                                                  
+     MODEL_ID          BIGINT,                                                  
+     CREATED_BY        VARCHAR(32) NOT NULL DEFAULT SESSION_USER,               
+     CREATED_DATE      TIMESTAMP   NOT NULL DEFAULT,                            
+     LAST_UPDATED_BY   VARCHAR(32) NOT NULL DEFAULT SESSION_USER,               
+     LAST_UPDATED_DATE TIMESTAMP   NOT NULL GENERATED FOR EACH ROW ON           
+                                   UPDATE AS ROW CHANGE TIMESTAMP,              
+     DESCRIPTION           VARCHAR(256),                                        
+     CONSTRAINT AIOBJECT_STATUS CHECK                                           
+     (STATUS IN ('Created', 'Disabled', 'Enabled',                              
+                 'Enabling', 'Failed', 'Training',                              
+                 'CREATED', 'DISABLED', 'ENABLED',                              
+                 'ENABLING', 'FAILED', 'TRAINING'))                             
+    )IN DSNAIDB1.SYSTSAIO                                                       
+    CCSID UNICODE;                                                              
+                                                                                
+   CREATE UNIQUE INDEX SYSAIDB.SYSAIOBJECTSIX1 ON SYSAIDB.SYSAIOBJECTS          
+     (OBJECT_ID);                                                               
+                                                                                
+   CREATE UNIQUE INDEX SYSAIDB.SYSAIOBJECTSIX2 ON SYSAIDB.SYSAIOBJECTS          
+     (SCHEMA, NAME)                                                             
+     INCLUDE(OBJECT_ID, CONFIGURATION_ID, MODEL_ID);                            
+                                                                                
+   COMMIT;                                                                      
+                                                                                
+   CREATE TABLE SYSAIDB.SYSAICONFIGURATIONS                                     
+     (CONFIGURATION_ID  BIGINT       NOT NULL                                   
+                                     GENERATED ALWAYS AS IDENTITY,              
+      NAME              VARCHAR(32),                                            
+      OBJECT_ID         BIGINT       NOT NULL,                                  
+      RETRAIN_INTERVAL  INT,                                                    
+      KEEP_ROWIDENTIFIER_KEY  CHAR(1)     NOT NULL,                             
+      NEGLECT_VALUES    VARCHAR(1024),                                          
+      CREATED_BY        VARCHAR(32) NOT NULL DEFAULT SESSION_USER,              
+      CREATED_DATE      TIMESTAMP   NOT NULL DEFAULT,                           
+      LAST_UPDATED_BY   VARCHAR(32) NOT NULL DEFAULT SESSION_USER,              
+      LAST_UPDATED_DATE TIMESTAMP   NOT NULL GENERATED                          
+                        FOR EACH ROW ON UPDATE AS ROW CHANGE TIMESTAMP,         
+      CONSTRAINT KEEP_ROWIDENTIFIER_KEY CHECK                                   
+      (KEEP_ROWIDENTIFIER_KEY IN ('N','Y')))                                    
+    IN DSNAIDB1.SYSTSAIC                                                        
+       CCSID UNICODE;                                                           
+                                                                                
+   CREATE UNIQUE INDEX SYSAIDB.SYSAICONFIGURATIONSIX1                           
+     ON SYSAIDB.SYSAICONFIGURATIONS                                             
+     (CONFIGURATION_ID);                                                        
+                                                                                
+   COMMIT;                                                                      
+                                                                                
+   CREATE TABLE SYSAIDB.SYSAICOLUMNCONFIG                                       
+     (CONFIGURATION_ID     BIGINT        NOT NULL                               
+     ,COLUMN_NAME          VARCHAR(128)  NOT NULL                               
+     ,COLUMN_AISQL_TYPE    CHAR(1)       NOT NULL                               
+     ,COLUMN_PRIORITY      CHAR(1)                                              
+     ,NEGLECT_VALUES       VARCHAR(1024)                                        
+     ,CONSTRAINT COLUMN_AISQL_TYPE CHECK                                        
+     (COLUMN_AISQL_TYPE IN ('K','C','N','I','U'))                               
+     ,CONSTRAINT COLUMN_PRIORITY CHECK                                          
+     (COLUMN_PRIORITY IN ('H','M','L')))                                        
+    IN DSNAIDB1.SYSTSAID                                                        
+    CCSID UNICODE;                                                              
+                                                                                
+   COMMIT;                                                                      
+                                                                                
+   CREATE UNIQUE INDEX SYSAIDB.SYSAICOLUMNCONFIGIX1                             
+     ON SYSAIDB.SYSAICOLUMNCONFIG                                               
+     (CONFIGURATION_ID,COLUMN_NAME,COLUMN_AISQL_TYPE);                          
+                                                                                
+   CREATE TABLE SYSAIDB.SYSAIMODELS                                             
+    (MODEL_ID               BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY        
+     ,NAME                   VARCHAR(32)                                        
+     ,OBJECT_ID              BIGINT NOT NULL                                    
+     ,CONFIGURATION_ID       BIGINT NOT NULL                                    
+     ,VECTOR_TABLE_CREATOR   VARCHAR(128) NOT NULL                              
+     ,VECTOR_TABLE_NAME      VARCHAR(128) NOT NULL                              
+     ,VECTOR_TABLE_STATUS    CHAR(2) NOT NULL                                   
+     ,VECTOR_TABLE_DBID      SMALLINT NOT NULL                                  
+     ,VECTOR_TABLE_OBID      SMALLINT NOT NULL                                  
+     ,VECTOR_TABLE_IXDBID    SMALLINT NOT NULL                                  
+     ,VECTOR_TABLE_IXOBID    SMALLINT NOT NULL                                  
+     ,VECTOR_TABLE_VERSION   SMALLINT NOT NULL                                  
+     ,METRICS                CLOB(8K) NOT NULL                                  
+     ,INTERPRETABILITY_STRUCT BLOB(2G)                                          
+     ,CREATED_BY             VARCHAR(32) NOT NULL DEFAULT SESSION_USER          
+     ,CREATED_DATE           TIMESTAMP NOT NULL DEFAULT                         
+     ,LAST_UPDATED_BY        VARCHAR(32) NOT NULL DEFAULT SESSION_USER          
+     ,LAST_UPDATED_DATE      TIMESTAMP NOT NULL GENERATED                       
+     FOR EACH ROW ON UPDATE AS ROW CHANGE TIMESTAMP                             
+     ,MODEL_ROWID            ROWID NOT NULL GENERATED ALWAYS                    
+     ,CONSTRAINT VECTOR_TABLE_STATUS CHECK                                      
+     (VECTOR_TABLE_STATUS IN ('I','L','A','E')))                                
+    IN DSNAIDB1.SYSTSAIM                                                        
+    CCSID UNICODE;                                                              
+                                                                                
+   CREATE AUX TABLE SYSAIDB.SYSAIMODELS_METRICS_AUX                             
+     IN DSNAIDB1.SYSTSAML                                                       
+     STORES SYSAIDB.SYSAIMODELS COLUMN METRICS PART 1;                          
+                                                                                
+   CREATE AUX TABLE SYSAIDB.SYSAIMODELS_INTERPRETABILITY_AUX                    
+     IN DSNAIDB1.SYSTSAMI                                                       
+     STORES SYSAIDB.SYSAIMODELS COLUMN INTERPRETABILITY_STRUCT PART 1;          
+                                                                                
+   CREATE UNIQUE INDEX SYSAIDB.SYSAIMODELSIX1                                   
+     ON SYSAIDB.SYSAIMODELS (MODEL_ID)                                          
+     INCLUDE                                                                    
+     (VECTOR_TABLE_DBID, VECTOR_TABLE_OBID, VECTOR_TABLE_IXOBID,                
+      VECTOR_TABLE_VERSION);                                                    
+                                                                                
+   CREATE INDEX SYSAIDB.SYSAIMODELS_AUX_IX                                      
+     ON SYSAIDB.SYSAIMODELS_METRICS_AUX;                                        
+                                                                                
+   CREATE INDEX SYSAIDB.SYSAIMODELS_AUX_IX2                                     
+     ON SYSAIDB.SYSAIMODELS_INTERPRETABILITY_AUX;                               
+                                                                                
+   COMMIT;                                                                      
+                                                                                
+                                                                                
+   CREATE TABLE SYSAIDB.SYSAICOLUMNCENTERS                                      
+     (MODEL_ID               BIGINT NOT NULL                                    
+     ,COLUMN_NAME            VARCHAR(128) NOT NULL                              
+     ,CLUSTER_MIN            DOUBLE NOT NULL                                    
+     ,LABEL                  VARCHAR(5) NOT NULL)                               
+    IN DSNAIDB1.SYSTSAIE                                                        
+    CCSID UNICODE;                                                              
+                                                                                
+   CREATE UNIQUE INDEX SYSAIDB.SYSAICOLUMNCENTERSIX2                            
+     ON SYSAIDB.SYSAICOLUMNCENTERS                                              
+     (MODEL_ID, COLUMN_NAME, CLUSTER_MIN) INCLUDE (LABEL);                      
+                                                                                
+   COMMIT;                                                                      
+                                                                                
+   CREATE TABLE SYSAIDB.SYSAITRAININGJOBS(                                      
+     TRAINING_JOB_ID      BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY          
+    ,OBJECT_ID            BIGINT       NOT NULL                                 
+    ,CONFIGURATION_ID     BIGINT       NOT NULL                                 
+    ,MODEL_ID             BIGINT       NOT NULL                                 
+    ,STATUS               CHAR(2)      NOT NULL                                 
+    ,PROGRESS             SMALLINT     NOT NULL                                 
+    ,RESOURCE             VARCHAR(512) NOT NULL                                 
+    ,MESSAGES             CLOB(8K)                                              
+    ,START_TIME           TIMESTAMP    NOT NULL                                 
+    ,END_TIME             TIMESTAMP                                             
+    ,CREATED_BY           VARCHAR(32)  NOT NULL DEFAULT SESSION_USER            
+    ,CREATED_DATE         TIMESTAMP    NOT NULL DEFAULT                         
+    ,LAST_UPDATED_BY      VARCHAR(32)  NOT NULL DEFAULT SESSION_USER            
+    ,LAST_UPDATED_DATE    TIMESTAMP    NOT NULL GENERATED                       
+    FOR EACH ROW ON UPDATE AS ROW CHANGE TIMESTAMP                              
+    ,CONSTRAINT TRAININGJOBS_STATUS CHECK                                       
+    (STATUS IN ('I','L','P','T','C','F')))                                      
+    IN DSNAIDB1.SYSTSAIT;                                                       
+                                                                                
+   CREATE AUX TABLE SYSAIDB.SYSAITRAININGJOBS_MESSAGES_AUX                      
+     IN DSNAIDB1.SYSTSATL                                                       
+     STORES SYSAIDB.SYSAITRAININGJOBS COLUMN MESSAGES PART 1;                   
+                                                                                
+   CREATE UNIQUE INDEX SYSAIDB.SYSAITRAININGJOBSIX1                             
+     ON SYSAIDB.SYSAITRAININGJOBS                                               
+     (TRAINING_JOB_ID);                                                         
+                                                                                
+   CREATE UNIQUE INDEX SYSAIDB.SYSAITRAININGJOBSIX2                             
+     ON SYSAIDB.SYSAITRAININGJOBS                                               
+     (OBJECT_ID, CONFIGURATION_ID, MODEL_ID);                                   
+                                                                                
+   CREATE INDEX SYSAIDB.SYSAITRAININGJOBS_AUX_IX                                
+     ON SYSAIDB.SYSAITRAININGJOBS_MESSAGES_AUX;                                 
+                                                                                
+//DSNTIAI2 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSUDUMP DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) -                                        
+       LIBRARY('DSND10.DBDG.RUNLIB.LOAD') -                                     
+       PARMS('SQLTERM(#)')                                                      
+  END                                                                           
+//SYSIN    DD  *                                                                
+                                                                                
+   SET CURRENT SQLID = 'IBMUSER'#                                               
+                                                                                
+   CREATE STOGROUP DSNAIDSG                                                     
+         VOLUMES (DSNV01)                                                       
+         VCAT DSND10#                                                           
+                                                                                
+   CREATE DATABASE DSNAIDB2 CCSID UNICODE                                       
+     STOGROUP DSNAIDSG                                                          
+     BUFFERPOOL BP16K0                                                          
+     INDEXBP BP0 #                                                              
+                                                                                
+                                                                                
+//DSNTIAI3 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSUDUMP DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) -                                        
+       LIBRARY('DSND10.DBDG.RUNLIB.LOAD') -                                     
+       PARMS('SQLTERM(#)')                                                      
+  END                                                                           
+//SYSIN    DD  *                                                                
+                                                                                
+SET CURRENT SQLID = 'IBMUSER'#                                                  
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_TABLE_SCHEMAS()                                    
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+   DECLARE c1 CURSOR WITH RETURN FOR                                            
+     SELECT CREATOR                                                             
+     FROM SYSIBM.SYSTABLES                                                      
+     WHERE TYPE IN ('T','V')                                                    
+     GROUP BY CREATOR                                                           
+     ORDER BY 1;                                                                
+                                                                                
+   OPEN c1;                                                                     
+                                                                                
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_TABLES(IN SCHEMA VARCHAR(128))                     
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+   DECLARE c1 CURSOR WITH RETURN FOR                                            
+     SELECT NAME,CARDF                                                          
+     FROM SYSIBM.SYSTABLES                                                      
+     WHERE CREATOR = SCHEMA                                                     
+     ORDER BY 1;                                                                
+                                                                                
+   OPEN c1;                                                                     
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.INSERT_AI_OBJECT                                       
+                 (IN SCHEMA VARCHAR(128),                                       
+                  IN NAME   VARCHAR(128))                                       
+LANGUAGE SQL                                                                    
+DYNAMIC RESULT SETS 1                                                           
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+  DECLARE obj_schema VARCHAR(128);                                              
+  DECLARE obj_name   VARCHAR(128);                                              
+  DECLARE P3         VARCHAR(300);                                              
+                                                                                
+  DECLARE c1 CURSOR WITH RETURN FOR                                             
+    SELECT OBJECT_ID                                                            
+    FROM SYSAIDB.SYSAIOBJECTS                                                   
+    WHERE SCHEMA = obj_schema AND                                               
+          NAME   = obj_name;                                                    
+                                                                                
+  SET obj_schema = SCHEMA;                                                      
+  SET obj_name   = NAME;                                                        
+                                                                                
+  IF NOT EXISTS (SELECT NAME                                                    
+                 FROM SYSIBM.SYSTABLES                                          
+                 WHERE CREATOR = obj_schema AND                                 
+                       NAME = obj_name AND                                      
+                       TYPE IN ('T','V')) THEN                                  
+     SET P3 = 'TABLE OR VIEW ' || obj_schema || '.'                             
+                               || obj_name || ' DOES NOT EXIST';                
+     SIGNAL SQLSTATE '42704' SET MESSAGE_TEXT = P3;                             
+  END IF;                                                                       
+                                                                                
+  IF NOT EXISTS (SELECT OBJECT_ID                                               
+                 FROM SYSAIDB.SYSAIOBJECTS                                      
+                 WHERE SCHEMA = obj_schema AND                                  
+                       NAME   = obj_name) THEN                                  
+    INSERT INTO SYSAIDB.SYSAIOBJECTS                                            
+                (OBJECT_TYPE, SCHEMA, NAME, STATUS)                             
+         VALUES((SELECT TYPE FROM SYSIBM.SYSTABLES                              
+                             WHERE CREATOR = obj_schema AND                     
+                                   NAME = obj_name),                            
+                obj_schema,                                                     
+                obj_name,                                                       
+                'CREATED');                                                     
+  END IF;                                                                       
+                                                                                
+  OPEN c1;                                                                      
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_COLUMNS                                            
+                 (IN TABLE_CREATOR VARCHAR(128),                                
+                  IN TABLE_NAME    VARCHAR(128))                                
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+   DECLARE c1 CURSOR WITH RETURN FOR                                            
+     SELECT NAME,COLNO,COLTYPE,LENGTH,SCALE,NULLS,                              
+            COLCARDF, HIGH2KEY, LOW2KEY, STATSTIME                              
+     FROM SYSIBM.SYSCOLUMNS                                                     
+     WHERE TBCREATOR=TABLE_CREATOR AND                                          
+           TBNAME=TABLE_NAME                                                    
+     ORDER BY COLNO;                                                            
+                                                                                
+   OPEN c1;                                                                     
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.CREATE_CONFIGURATION                                   
+                 (IN OBJECT_ID BIGINT,                                          
+                  IN KEEP_ROWIDENTIFIER_KEY CHAR(1),                            
+                  IN NEGLECT_VALUES VARCHAR(1024))                              
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+   DECLARE objectid BIGINT;                                                     
+   DECLARE keepIdentifierKey CHAR(1);                                           
+   DECLARE neglectValues VARCHAR(1024);                                         
+   DECLARE P3 VARCHAR(1000);                                                    
+                                                                                
+   DECLARE c1 CURSOR WITH RETURN FOR                                            
+     SELECT CONFIGURATION_ID                                                    
+     FROM FINAL TABLE                                                           
+          (INSERT INTO SYSAIDB.SYSAICONFIGURATIONS                              
+                 (OBJECT_ID, KEEP_ROWIDENTIFIER_KEY, NEGLECT_VALUES)            
+                 VALUES(objectid, keepIdentifierKey, neglectValues));           
+                                                                                
+   SET objectid = OBJECT_ID;                                                    
+   SET keepIdentifierKey = KEEP_ROWIDENTIFIER_KEY;                              
+   SET neglectValues = NEGLECT_VALUES;                                          
+                                                                                
+   IF NOT EXISTS (SELECT CONFIGURATION_ID                                       
+                  FROM SYSAIDB.SYSAICONFIGURATIONS                              
+                  WHERE OBJECT_ID = objectid) THEN                              
+      OPEN c1;                                                                  
+                                                                                
+   ELSE                                                                         
+                                                                                
+      SET P3 = 'CONFIGURATION EXISTS WITH THIS OBJECT';                         
+      SIGNAL SQLSTATE '99999' SET MESSAGE_TEXT = P3;                            
+                                                                                
+   END IF;                                                                      
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.REGISTER_MODEL_COLUMN                                  
+                 (IN CONFIGURATION_ID     BIGINT,                               
+                  IN COLUMN_NAME          VARCHAR(128),                         
+                  IN COLUMN_AISQL_TYPE    CHAR(1),                              
+                  IN COLUMN_PRIORITY      CHAR(1),                              
+                  IN NEGLECT_VALUES       VARCHAR(1024))                        
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+  INSERT INTO SYSAIDB.SYSAICOLUMNCONFIG VALUES (                                
+   CONFIGURATION_ID,                                                            
+   COLUMN_NAME,                                                                 
+   COLUMN_AISQL_TYPE,                                                           
+   COLUMN_PRIORITY,                                                             
+   NEGLECT_VALUES                                                               
+  );                                                                            
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.INITIATE_MODEL_TRAINING                                
+                 (IN OBJECT_ID BIGINT,                                          
+                  IN RESOURCE  VARCHAR(512))                                    
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+    DECLARE vector_schema        VARCHAR(128) CONSTANT 'DSNAIDB';               
+    DECLARE vector_name          VARCHAR(128);                                  
+    DECLARE index_name           VARCHAR(128);                                  
+    DECLARE source_tbl_creator   VARCHAR(128);                                  
+    DECLARE source_tbl_name      VARCHAR(128);                                  
+    DECLARE objectid             BIGINT;                                        
+    DECLARE modelid              BIGINT;                                        
+    DECLARE trainingjobid        BIGINT;                                        
+    DECLARE counter              INT DEFAULT 0;                                 
+    DECLARE tmpname              VARCHAR(128);                                  
+    DECLARE sqlstmt              VARCHAR(32672);                                
+    DECLARE seqnum               INT DEFAULT 0;                                 
+    DECLARE vector_table_status  CHAR(2);                                       
+    DECLARE vector_table_version SMALLINT;                                      
+    DECLARE metrics              CLOB(8K);                                      
+    DECLARE progress             SMALLINT;                                      
+    DECLARE lresource            VARCHAR(512);                                  
+    DECLARE P1                   INT;                                           
+    DECLARE P3                   VARCHAR(1000);                                 
+    DECLARE len                  INT;                                           
+    DECLARE loc                  INT;                                           
+    DECLARE temp_str             VARCHAR(128);                                  
+                                                                                
+    DECLARE C1 CURSOR WITH RETURN FOR                                           
+       SELECT A.TRAINING_JOB_ID,                                                
+              B.MODEL_ID,                                                       
+              B.VECTOR_TABLE_CREATOR,                                           
+              B.VECTOR_TABLE_NAME                                               
+       FROM SYSAIDB.SYSAITRAININGJOBS A,                                        
+            SYSAIDB.SYSAIMODELS B                                               
+       WHERE A.TRAINING_JOB_ID = trainingjobid AND                              
+             B.OBJECT_ID = objectid;                                            
+                                                                                
+    DECLARE EXIT HANDLER FOR NOT FOUND,                                         
+                             SQLEXCEPTION,                                      
+                             SQLWARNING                                         
+       BEGIN                                                                    
+         GET DIAGNOSTICS CONDITION 1                                            
+           P1 = DB2_RETURNED_SQLCODE,                                           
+           P3 = MESSAGE_TEXT;                                                   
+         SET P3 = VARCHAR(P1) || ' ' || P3;                                     
+         ROLLBACK;                                                              
+         SIGNAL SQLSTATE '99999' SET MESSAGE_TEXT = P3;                         
+       END;                                                                     
+                                                                                
+    SET metrics = '';                                                           
+    SET vector_table_status = 'I';                                              
+    SET progress = 0;                                                           
+    SET vector_table_version = 1;                                               
+    SET objectid = OBJECT_ID;                                                   
+    SET lresource = RESOURCE;                                                   
+                                                                                
+    SELECT SCHEMA, NAME INTO source_tbl_creator, source_tbl_name                
+    FROM SYSAIDB.SYSAIOBJECTS                                                   
+    WHERE OBJECT_ID = objectid;                                                 
+                                                                                
+    IF LENGTH(source_tbl_creator) < 30 THEN                                     
+      SET vector_name = CONCAT('AIDB_',source_tbl_creator);                     
+    ELSE                                                                        
+      SET vector_name =                                                         
+          CONCAT('AIDB_',SUBSTR(source_tbl_creator, 1, 30));                    
+    END IF;                                                                     
+    SET vector_name = CONCAT(vector_name,'_');                                  
+    IF LENGTH(source_tbl_name) < 30 THEN                                        
+      SET vector_name = CONCAT(vector_name, source_tbl_name);                   
+    ELSE                                                                        
+      SET vector_name =                                                         
+                CONCAT(vector_name,SUBSTR(source_tbl_name, 1, 30));             
+    END IF;                                                                     
+                                                                                
+    SET len = LENGTH(vector_name);                                              
+    SET temp_str = vector_name;                                                 
+    SET loc = POSITION(' ',temp_str,OCTETS);                                    
+    WHILE loc > 0 DO                                                            
+       SET temp_str =                                                           
+         CONCAT(SUBSTR(temp_str, 1, loc-1),SUBSTR(temp_str,loc+1, len));        
+       SET len = len - 1;                                                       
+       SET loc = POSITION(' ',SUBSTR(temp_str, 1, len),OCTETS);                 
+    END WHILE;                                                                  
+                                                                                
+    SET vector_name = SUBSTR(temp_str, 1, len);                                 
+                                                                                
+    SELECT COUNT(*) INTO counter                                                
+    FROM SYSIBM.SYSTABLES                                                       
+    WHERE CREATOR = vector_schema AND                                           
+          NAME = vector_name;                                                   
+                                                                                
+    SET tmpname = vector_name;                                                  
+                                                                                
+    WHILE counter > 0 DO                                                        
+      SET seqnum = seqnum + 1;                                                  
+      SET tmpname = vector_name;                                                
+      SET tmpname = CONCAT(vector_name,                                         
+              RIGHT(CONCAT('000',CAST(seqnum AS VARCHAR(3))), 3));              
+                                                                                
+      SELECT COUNT(*) INTO counter                                              
+        FROM SYSIBM.SYSTABLES                                                   
+        WHERE CREATOR = vector_schema AND                                       
+              NAME = tmpname;                                                   
+    END WHILE;                                                                  
+                                                                                
+    SET vector_name = tmpname;                                                  
+    SET CURRENT SCHEMA='DSNAIDB';                                               
+                                                                                
+    SET sqlstmt = 'CREATE TABLE "' || vector_name ||                            
+               '" (COLUMN_NAME VARCHAR(128)    NOT NULL, ' ||                   
+               'VALUE       VARCHAR(1868)   NOT NULL, ' ||                      
+               'VECTOR      VARBINARY(1280) NOT NULL) ' ||                      
+               'CCSID UNICODE '                         ||                      
+               'PARTITION BY SIZE IN DATABASE DSNAIDB2';                        
+    EXECUTE IMMEDIATE sqlstmt;                                                  
+                                                                                
+    SET index_name = vector_name || 'IX1';                                      
+                                                                                
+    SET sqlstmt = 'CREATE UNIQUE INDEX "' ||                                    
+                   index_name || '" ON ' ||                                     
+                   vector_schema || '."' || vector_name ||                      
+                  '" (COLUMN_NAME, VALUE)';                                     
+    EXECUTE IMMEDIATE sqlstmt;                                                  
+                                                                                
+    SELECT MODEL_ID INTO modelid                                                
+    FROM FINAL TABLE (INSERT INTO SYSAIDB.SYSAIMODELS                           
+                      (OBJECT_ID,                                               
+                       CONFIGURATION_ID,                                        
+                       VECTOR_TABLE_CREATOR,                                    
+                       VECTOR_TABLE_NAME,                                       
+                       VECTOR_TABLE_STATUS,                                     
+                       VECTOR_TABLE_DBID,                                       
+                       VECTOR_TABLE_OBID,                                       
+                       VECTOR_TABLE_IXDBID,                                     
+                       VECTOR_TABLE_IXOBID,                                     
+                       VECTOR_TABLE_VERSION,                                    
+                       METRICS)                                                 
+               VALUES (objectid,                                                
+                       (SELECT CONFIGURATION_ID                                 
+                        FROM SYSAIDB.SYSAICONFIGURATIONS                        
+                        WHERE OBJECT_ID = objectid),                            
+                        vector_schema,                                          
+                        vector_name,                                            
+                        vector_table_status,                                    
+                        (SELECT DBID FROM SYSIBM.SYSTABLES                      
+                         WHERE CREATOR = vector_schema AND                      
+                               NAME = vector_name),                             
+                        (SELECT OBID FROM SYSIBM.SYSTABLES                      
+                         WHERE CREATOR = vector_schema AND                      
+                               NAME = vector_name),                             
+                        (SELECT DBID FROM SYSIBM.SYSINDEXES                     
+                         WHERE CREATOR = vector_schema AND                      
+                               NAME = vector_name||'IX1'),                      
+                        (SELECT OBID FROM SYSIBM.SYSINDEXES                     
+                         WHERE CREATOR = vector_schema AND                      
+                               NAME = vector_name||'IX1'),                      
+                        vector_table_version,                                   
+                        metrics));                                              
+                                                                                
+    UPDATE SYSAIDB.SYSAIOBJECTS                                                 
+      SET MODEL_ID = modelid,                                                   
+          CONFIGURATION_ID = (SELECT CONFIGURATION_ID                           
+                              FROM SYSAIDB.SYSAICONFIGURATIONS                  
+                              WHERE OBJECT_ID = objectid)                       
+      WHERE OBJECT_ID = objectid;                                               
+                                                                                
+    SELECT TRAINING_JOB_ID INTO trainingjobid                                   
+    FROM FINAL TABLE (INSERT INTO SYSAIDB.SYSAITRAININGJOBS                     
+                                  (OBJECT_ID,                                   
+                                   CONFIGURATION_ID,                            
+                                   MODEL_ID,                                    
+                                   STATUS,                                      
+                                   PROGRESS,                                    
+                                   RESOURCE,                                    
+                                   START_TIME)                                  
+                           VALUES (objectid,                                    
+                                   (SELECT CONFIGURATION_ID                     
+                                    FROM SYSAIDB.SYSAICONFIGURATIONS            
+                                    WHERE OBJECT_ID = objectid),                
+                                    modelid,                                    
+                                    vector_table_status,                        
+                                    progress,                                   
+                                    lresource,                                  
+                                    (CURRENT TIMESTAMP)));                      
+    OPEN C1;                                                                    
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.UPDATE_TRAINING_STATUS                                 
+                 (IN TRAINING_JOB_ID      BIGINT,                               
+                  IN PROGRESS             SMALLINT,                             
+                  IN STATUS               CHAR(2),                              
+                  IN OBJECT_STATUS        VARCHAR(16),                          
+                  IN MESSAGES             CLOB(8K))                             
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+  DECLARE jobid      BIGINT;                                                    
+  DECLARE l_progress SMALLINT;                                                  
+  DECLARE l_status   CHAR(2);                                                   
+  DECLARE l_message  CLOB(8K);                                                  
+  DECLARE P1 INT;                                                               
+  DECLARE P3 VARCHAR(1000);                                                     
+                                                                                
+  DECLARE EXIT HANDLER FOR NOT FOUND,                                           
+                           SQLEXCEPTION,                                        
+                           SQLWARNING                                           
+    BEGIN                                                                       
+      GET DIAGNOSTICS CONDITION 1                                               
+        P1 = DB2_RETURNED_SQLCODE,                                              
+        P3 = MESSAGE_TEXT;                                                      
+      SET P3 = VARCHAR(P1) || ' ' || P3;                                        
+      ROLLBACK;                                                                 
+      SIGNAL SQLSTATE '99999' SET MESSAGE_TEXT = P3;                            
+    END;                                                                        
+                                                                                
+  SET jobid      = TRAINING_JOB_ID;                                             
+  SET l_progress = PROGRESS;                                                    
+  SET l_status   = STATUS;                                                      
+  SET l_message  = MESSAGES;                                                    
+                                                                                
+                                                                                
+  UPDATE SYSAIDB.SYSAITRAININGJOBS                                              
+   SET PROGRESS = l_progress,                                                   
+       STATUS   = l_status,                                                     
+       MESSAGES = l_message                                                     
+   WHERE TRAINING_JOB_ID = jobid;                                               
+                                                                                
+  IF l_status = 'C' OR l_status = 'F' THEN                                      
+    UPDATE SYSAIDB.SYSAITRAININGJOBS                                            
+       SET END_TIME = (CURRENT TIMESTAMP)                                       
+       WHERE TRAINING_JOB_ID = jobid;                                           
+  END IF;                                                                       
+                                                                                
+  UPDATE SYSAIDB.SYSAIOBJECTS                                                   
+   SET STATUS = UPPER(OBJECT_STATUS)                                            
+   WHERE OBJECT_ID = (SELECT OBJECT_ID                                          
+                      FROM SYSAIDB.SYSAITRAININGJOBS                            
+                      WHERE TRAINING_JOB_ID = jobid);                           
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_MODEL_TABLES()                                     
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+   DECLARE c1 CURSOR WITH RETURN FOR                                            
+     SELECT O.OBJECT_ID, O.NAME, O.SCHEMA, O.OBJECT_TYPE, O.STATUS,             
+            O.CREATED_DATE, O.LAST_UPDATED_DATE, O.DESCRIPTION,                 
+            O.MODEL_ID, M.VECTOR_TABLE_STATUS, M.LAST_UPDATED_DATE,             
+            T.TRAINING_JOB_ID, T.STATUS, T.PROGRESS, T.MESSAGES,                
+            T.END_TIME                                                          
+     FROM SYSAIDB.SYSAIOBJECTS O                                                
+          LEFT JOIN SYSAIDB.SYSAIMODELS M ON O.MODEL_ID = M.MODEL_ID            
+          LEFT JOIN SYSAIDB.SYSAITRAININGJOBS T ON O.MODEL_ID =                 
+                                                   T.MODEL_ID                   
+     ORDER BY 1,2;                                                              
+                                                                                
+   OPEN c1;                                                                     
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.DROP_MODEL_TABLES                                      
+                 (IN OBJECT_ID BIGINT)                                          
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+  DECLARE objectid  BIGINT;                                                     
+  DECLARE vector_schema VARCHAR(128);                                           
+  DECLARE vector_name   VARCHAR(128) DEFAULT '';                                
+  DECLARE sqlstmt  VARCHAR(32672);                                              
+                                                                                
+  SET objectid = OBJECT_ID;                                                     
+                                                                                
+  SELECT VECTOR_TABLE_CREATOR, VECTOR_TABLE_NAME                                
+         INTO vector_schema, vector_name                                        
+  FROM SYSAIDB.SYSAIMODELS                                                      
+  WHERE OBJECT_ID = objectid;                                                   
+                                                                                
+  IF vector_name <> '' THEN                                                     
+    IF EXISTS (SELECT NAME FROM SYSIBM.SYSTABLES                                
+               WHERE CREATOR = vector_schema AND                                
+                     NAME = vector_name ) THEN                                  
+      SET sqlstmt = 'DROP TABLE "' || vector_schema ||'"."'||                   
+                    vector_name ||'"';                                          
+      EXECUTE IMMEDIATE sqlstmt;                                                
+    END IF;                                                                     
+  END IF;                                                                       
+                                                                                
+  UPDATE SYSAIDB.SYSAIOBJECTS                                                   
+    SET STATUS = 'DISABLED'                                                     
+    WHERE OBJECT_ID = objectid;                                                 
+                                                                                
+  DELETE FROM SYSAIDB.SYSAICOLUMNCONFIG                                         
+         WHERE CONFIGURATION_ID IN (SELECT CONFIGURATION_ID                     
+                                    FROM SYSAIDB.SYSAICONFIGURATIONS            
+                                    WHERE OBJECT_ID = objectid);                
+                                                                                
+  DELETE FROM SYSAIDB.SYSAICONFIGURATIONS                                       
+   WHERE OBJECT_ID = objectid;                                                  
+                                                                                
+  DELETE FROM SYSAIDB.SYSAICOLUMNCENTERS                                        
+    WHERE MODEL_ID IN (SELECT MODEL_ID                                          
+                       FROM SYSAIDB.SYSAIOBJECTS                                
+                       WHERE OBJECT_ID = objectid);                             
+                                                                                
+  DELETE FROM SYSAIDB.SYSAIMODELS                                               
+   WHERE OBJECT_ID = objectid;                                                  
+                                                                                
+  UPDATE SYSAIDB.SYSAIOBJECTS                                                   
+    SET CONFIGURATION_ID = NULL,                                                
+        MODEL_ID = NULL                                                         
+    WHERE OBJECT_ID = objectid;                                                 
+END #                                                                           
+                                                                                
+CREATE PROCEDURE DSNAIDB.INSERT_COLUMN_CENTER                                   
+                 (IN MODEL_ID    BIGINT,                                        
+                  IN COLUMN_NAME VARCHAR(128),                                  
+                  IN CLUSTER_MIN DOUBLE,                                        
+                  IN LABEL       VARCHAR(5))                                    
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+  DECLARE modelid   BIGINT;                                                     
+  DECLARE colname   VARCHAR(128);                                               
+  DECLARE value     DOUBLE;                                                     
+  DECLARE collabel  VARCHAR(5);                                                 
+                                                                                
+  SET modelid = MODEL_ID;                                                       
+  SET colname = COLUMN_NAME;                                                    
+  SET value   = CLUSTER_MIN;                                                    
+  SET collabel= LABEL;                                                          
+                                                                                
+  INSERT INTO SYSAIDB.SYSAICOLUMNCENTERS                                        
+              (MODEL_ID, COLUMN_NAME, CLUSTER_MIN, LABEL)                       
+         VALUES (modelid, colname, value, collabel);                            
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_MODEL_COLUMNS (IN configurationId BIGINT)          
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+P1: BEGIN                                                                       
+ DECLARE cursor1 CURSOR WITH RETURN FOR                                         
+       SELECT CONFIGURATION_ID,                                                 
+              COLUMN_NAME,                                                      
+              COLUMN_AISQL_TYPE,                                                
+              COLUMN_PRIORITY,                                                  
+              NEGLECT_VALUES                                                    
+       FROM SYSAIDB.SYSAICOLUMNCONFIG                                           
+       WHERE CONFIGURATION_ID = configurationId;                                
+                                                                                
+ OPEN cursor1;                                                                  
+END P1#                                                                         
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_MODEL_TABLE_METADATA (IN objectId BIGINT)          
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+P1: BEGIN                                                                       
+ DECLARE cursor1 CURSOR WITH RETURN FOR                                         
+          SELECT O.MODEL_ID, O.OBJECT_ID, T.TRAINING_JOB_ID,                    
+                 O.CONFIGURATION_ID, M.VECTOR_TABLE_CREATOR,                    
+                 M.VECTOR_TABLE_NAME, O.SCHEMA, O.NAME, M.METRICS               
+          FROM SYSAIDB.SYSAIOBJECTS O                                           
+               LEFT JOIN SYSAIDB.SYSAITRAININGJOBS T                            
+                         ON O.MODEL_ID = T.MODEL_ID                             
+               LEFT JOIN SYSAIDB.SYSAIMODELS M                                  
+                         ON O.MODEL_ID = M.MODEL_ID                             
+          WHERE O.OBJECT_ID = objectId;                                         
+                                                                                
+ OPEN cursor1;                                                                  
+END P1#                                                                         
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_TRAINING_JOB ( IN trainingJobId BIGINT )           
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+P1: BEGIN                                                                       
+ DECLARE cursor1 CURSOR WITH RETURN FOR                                         
+          SELECT T.TRAINING_JOB_ID AS id, O.OBJECT_ID, O.OBJECT_NAME,           
+                 O.SCHEMA, O.NAME, O.STATUS AS objectStatus,                    
+                 T.CONFIGURATION_ID, T.MODEL_ID,                                
+                 T.STATUS AS trainingJobStatus, T.PROGRESS, T.RESOURCE,         
+                 T.MESSAGES, T.START_TIME, T.END_TIME, T.CREATED_BY,            
+                 T.CREATED_DATE                                                 
+          FROM SYSAIDB.SYSAITRAININGJOBS T, SYSAIDB.SYSAIOBJECTS O              
+          WHERE T.OBJECT_ID = O.OBJECT_ID AND                                   
+                T.TRAINING_JOB_ID = trainingJobId;                              
+                                                                                
+ OPEN cursor1;                                                                  
+END P1#                                                                         
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_TRAINING_JOBS ( IN objectId BIGINT )               
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+P1: BEGIN                                                                       
+ DECLARE cursor1 CURSOR WITH RETURN FOR                                         
+          SELECT T.TRAINING_JOB_ID AS id, O.OBJECT_ID, O.OBJECT_NAME,           
+                 O.SCHEMA, O.NAME, O.STATUS AS objectStatus,                    
+                 T.CONFIGURATION_ID, T.MODEL_ID,                                
+                 T.STATUS AS trainingJobStatus, T.PROGRESS,                     
+                 T.RESOURCE, T.MESSAGES, T.START_TIME, T.END_TIME,              
+                 T.CREATED_BY, T.CREATED_DATE                                   
+          FROM SYSAIDB.SYSAITRAININGJOBS T, SYSAIDB.SYSAIOBJECTS O              
+          WHERE T.OBJECT_ID = O.OBJECT_ID AND T.OBJECT_ID = objectId            
+          ORDER BY T.START_TIME DESC;                                           
+                                                                                
+ OPEN cursor1;                                                                  
+END P1#                                                                         
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_CLUSTER_CENTERS ( IN modelId BIGINT )              
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+P1: BEGIN                                                                       
+ DECLARE cursor1 CURSOR WITH RETURN FOR                                         
+          SELECT MODEL_ID, COLUMN_NAME, CLUSTER_MIN, LABEL                      
+          FROM SYSAIDB.SYSAICOLUMNCENTERS                                       
+          WHERE MODEL_ID = modelId;                                             
+                                                                                
+ OPEN cursor1;                                                                  
+END P1#                                                                         
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.UPDATE_MODEL_COLUMN_METRICS                            
+                 ( IN modelId BIGINT, IN metrics_in CLOB(8K) )                  
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+P1: BEGIN                                                                       
+        UPDATE SYSAIDB.SYSAIMODELS                                              
+          SET METRICS = metrics_in                                              
+          WHERE MODEL_ID = modelId;                                             
+END P1#                                                                         
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_MODEL_METRICS ( IN modelId BIGINT )                
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+P1: BEGIN                                                                       
+ DECLARE cursor1 CURSOR WITH RETURN FOR                                         
+          SELECT METRICS                                                        
+          FROM SYSAIDB.SYSAIMODELS                                              
+          WHERE MODEL_ID = modelId;                                             
+                                                                                
+ OPEN cursor1;                                                                  
+END P1#                                                                         
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.UPDATE_MODEL_STATUS                                    
+                 ( IN modelId BIGINT, IN status CHAR(2) )                       
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+P1: BEGIN                                                                       
+        UPDATE SYSAIDB.SYSAIMODELS                                              
+          SET VECTOR_TABLE_STATUS = status                                      
+          WHERE MODEL_ID = modelId;                                             
+END P1#                                                                         
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.REMOVE_AI_OBJECT                                       
+                 (IN objectId BIGINT)                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+  DELETE FROM SYSAIDB.SYSAITRAININGJOBS                                         
+   WHERE OBJECT_ID = objectId;                                                  
+                                                                                
+  DELETE FROM SYSAIDB.SYSAIOBJECTS                                              
+   WHERE OBJECT_ID = objectId;                                                  
+END#                                                                            
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_MODEL_TABLE                                        
+                 (IN OBJECTID BIGINT)                                           
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+   DECLARE c1 CURSOR WITH RETURN FOR                                            
+     SELECT O.OBJECT_ID, O.NAME, O.SCHEMA, O.OBJECT_TYPE, O.STATUS,             
+            O.CREATED_DATE, O.LAST_UPDATED_DATE, O.DESCRIPTION,                 
+            O.MODEL_ID, M.VECTOR_TABLE_STATUS, M.LAST_UPDATED_DATE,             
+            T.TRAINING_JOB_ID, T.STATUS, T.PROGRESS, T.MESSAGES,                
+            T.END_TIME                                                          
+     FROM SYSAIDB.SYSAIOBJECTS O                                                
+          LEFT JOIN SYSAIDB.SYSAIMODELS M ON O.MODEL_ID = M.MODEL_ID            
+          LEFT JOIN SYSAIDB.SYSAITRAININGJOBS T ON O.MODEL_ID =                 
+                                                   T.MODEL_ID                   
+     WHERE O.OBJECT_ID = OBJECTID;                                              
+                                                                                
+   OPEN c1;                                                                     
+END #                                                                           
+                                                                                
+                                                                                
+CREATE PROCEDURE DSNAIDB.GET_CONFIGURATION                                      
+                 (IN configurationId BIGINT)                                    
+DYNAMIC RESULT SETS 1                                                           
+LANGUAGE SQL                                                                    
+DISABLE DEBUG MODE                                                              
+VALIDATE BIND                                                                   
+BEGIN                                                                           
+                                                                                
+   DECLARE c1 CURSOR WITH RETURN FOR                                            
+     SELECT CONFIGURATION_ID, NAME, OBJECT_ID, RETRAIN_INTERVAL,                
+            KEEP_ROWIDENTIFIER_KEY, NEGLECT_VALUES, CREATED_BY,                 
+            CREATED_DATE, LAST_UPDATED_BY, LAST_UPDATED_DATE                    
+     FROM SYSAIDB.SYSAICONFIGURATIONS                                           
+     WHERE CONFIGURATION_ID = configurationId;                                  
+                                                                                
+   OPEN c1;                                                                     
+                                                                                
+END #                                                                           
+                                                                                
+                                                                                
+//*********************************************************************         
+//* GRANT ACCESS NEEDED FOR USE OF SQL DATA INSIGHTS                            
+//*********************************************************************         
+//DSNTIAI4 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSUDUMP DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) -                                        
+       LIBRARY('DSND10.DBDG.RUNLIB.LOAD')                                       
+  END                                                                           
+//SYSIN    DD  *                                                                
+SET CURRENT SQLID = 'IBMUSER';                                                  
+                                                                                
+GRANT USE OF STOGROUP DSNAIDSG TO AIDBADM;                                      
+GRANT USE OF BUFFERPOOL BP0 TO AIDBADM;                                         
+GRANT USE OF BUFFERPOOL BP16K0 TO AIDBADM;                                      
+GRANT CREATETAB ON DATABASE DSNAIDB2 TO AIDBADM;                                
+GRANT CREATETS ON DATABASE DSNAIDB2 TO AIDBADM;                                 
+GRANT CREATEIN ON SCHEMA DSNAIDB TO AIDBADM;                                    
+GRANT LOAD ON DATABASE DSNAIDB2 TO AIDBADM;                                     
+                                                                                
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_TABLE_SCHEMAS TO AIDBADM;                                           
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_TABLES TO AIDBADM;                                                  
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.INSERT_AI_OBJECT TO AIDBADM;                                            
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_COLUMNS TO AIDBADM;                                                 
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.CREATE_CONFIGURATION TO AIDBADM;                                        
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.REGISTER_MODEL_COLUMN TO AIDBADM;                                       
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.INITIATE_MODEL_TRAINING TO AIDBADM;                                     
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.UPDATE_TRAINING_STATUS TO AIDBADM;                                      
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_MODEL_TABLES TO AIDBADM;                                            
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.DROP_MODEL_TABLES TO AIDBADM;                                           
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.INSERT_COLUMN_CENTER TO AIDBADM;                                        
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_MODEL_COLUMNS TO AIDBADM;                                           
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_MODEL_TABLE_METADATA TO AIDBADM;                                    
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_TRAINING_JOB TO AIDBADM;                                            
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_TRAINING_JOBS TO AIDBADM;                                           
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_CLUSTER_CENTERS TO AIDBADM;                                         
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.UPDATE_MODEL_COLUMN_METRICS TO AIDBADM;                                 
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_MODEL_METRICS TO AIDBADM;                                           
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.UPDATE_MODEL_STATUS TO AIDBADM;                                         
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.REMOVE_AI_OBJECT TO AIDBADM;                                            
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_MODEL_TABLE TO AIDBADM;                                             
+GRANT EXECUTE ON PROCEDURE                                                      
+DSNAIDB.GET_CONFIGURATION TO AIDBADM;                                           
+//*                                                                             

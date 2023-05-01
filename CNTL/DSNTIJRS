@@ -30,11 +30,11 @@
 //*        necessary.                                                           
 //*    (2) Add a valid job card.                                                
 //*    (3) Change all occurrences of the following strings:                     
-//*        (A) Change the subsystem name 'DBCG' to the SSID of your             
+//*        (A) Change the subsystem name 'DBDG' to the SSID of your             
 //*            DB2.                                                             
-//*        (B) Change 'DSN!!0' to the prefix of the target library              
+//*        (B) Change 'DSND10' to the prefix of the target library              
 //*            for DB2.                                                         
-//*        (C) Change 'DSNTIA12' to the plan name for DSNTIAD on your           
+//*        (C) Change 'DSNTIA13' to the plan name for DSNTIAD on your           
 //*            DB2.                                                             
 //*    (4) This job must run successfully before REST service                   
 //*        versioning support can be enabled.  REST service versioning          
@@ -47,7 +47,7 @@
 //*                                                                             
 //*********************************************************************         
 //JOBLIB  DD  DISP=SHR,                                                         
-//            DSN=DSNC10.SDSNLOAD                                               
+//            DSN=DSND10.SDSNLOAD                                               
 //*                                                                             
 //*  //****************************************************************         
 //*  //* Optional: Drop the RESTful services databases                          
@@ -57,9 +57,9 @@
 //*  //SYSPRINT DD  SYSOUT=*                                                    
 //*  //SYSUDUMP DD  SYSOUT=*                                                    
 //*  //SYSTSIN  DD  *                                                           
-//*    DSN SYSTEM(DBCG)                                                         
-//*    RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA12) PARM('RC0') -                       
-//*         LIBRARY('DSNC10.DBCG.RUNLIB.LOAD')                                  
+//*    DSN SYSTEM(DBDG)                                                         
+//*    RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) PARM('RC0') -                       
+//*         LIBRARY('DSND10.DBDG.RUNLIB.LOAD')                                  
 //*    END                                                                      
 //*  //SYSIN    DD  *                                                           
 //*    DROP DATABASE DSNSVCDB;                                                  
@@ -73,9 +73,9 @@
 //SYSPRINT DD  SYSOUT=*                                                         
 //SYSUDUMP DD  SYSOUT=*                                                         
 //SYSTSIN  DD  *                                                                
-  DSN SYSTEM(DBCG)                                                              
-  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA12) -                                        
-       LIBRARY('DSNC10.DBCG.RUNLIB.LOAD')                                       
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) -                                        
+       LIBRARY('DSND10.DBDG.RUNLIB.LOAD')                                       
   END                                                                           
 //SYSIN    DD  *                                                                
   CREATE DATABASE DSNSVCDB                                                      
