@@ -9,10 +9,10 @@
 //STEP1    EXEC PGM=IFASMFDL,REGION=0M                                          
 //OUTDD1   DD DSN=SMF.S0W1.DATA(+1),                                            
 //            DISP=(NEW,CATLG,DELETE),UNIT=DASD,                                
-//            SPACE=(CYL,(500,100),RLSE),DATACLAS=DCEXT                         
+//            SPACE=(CYL,(200,100),RLSE),DATACLAS=DCEXT                         
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
- LSNAME(IFASMF.SMFALL.S0W1,OPTIONS(ARCHIVE))                                    
+ LSNAME(IFASMF.SMFALL.S0W1,OPTIONS(DUMP))                                       
  OUTDD(OUTDD1,TYPE(0:255))                                                      
  RELATIVEDATE(BYDAY,1,1)                                                        
  /*                                                                             

@@ -1,0 +1,40 @@
+//IURMFPP JOB (FB3),'RMF POST',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=4M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//******************************************************************            
+//*                                                                             
+//* PURPOSE: SORTS SMF DATA THEN USING RMF POSTPROCESSOR                        
+//*          ERBRMFPP TO GENERATE CPU UTILIZATION REPORTS                       
+//*                                                                             
+//******************************************************************            
+//*                                                                             
+//******************************************************************            
+//*                                                                             
+//*        RMF SORT PROCESSING                                                  
+//*                                                                             
+//******************************************************************            
+//RMFSORT  EXEC PGM=SORT                                                        
+//SORTIN   DD DISP=SHR,DSN=SMF.S0W1.DATA(0)                                     
+//SORTOUT  DD DISP=(NEW,PASS),UNIT=SYSDA,SPACE=(CYL,(50,50))                    
+//SORTWK01 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(50,50))                  
+//SORTWK02 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(50,50))                  
+//SORTWK03 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(50,50))                  
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSOUT   DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  SORT FIELDS=(11,4,CH,A,7,4,CH,A),EQUALS                                       
+/*                                                                              
+//******************************************************************            
+//*                                                                             
+//*        RMF POSTPROCESSING                                                   
+//*                                                                             
+//******************************************************************            
+//RMFPP    EXEC PGM=ERBRMFPP                                                    
+//MFPINPUT DD DISP=(OLD,DELETE),DSN=*.RMFSORT.SORTOUT                           
+//MFPMSGDS DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+SYSID(S0W1)                                                                     
+REPORTS(CPU)                                                                    
+  SYSOUT(X)                                                                     
+/*                                                                              
+                                                                                

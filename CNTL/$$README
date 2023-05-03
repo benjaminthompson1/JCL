@@ -91,6 +91,7 @@ RACFSTC  - STC Create USER ID and STARTED profile
 RACFZCX  - RACF used to implment zCX                                            
 REXX     - Submit REXX in batch                                                 
 RFNJOBH  - Pull service from IBM and RECEIVE to the GLOBAL ZONE                 
+RMFCPU   - RMF post processor CPU utilisation                                   
 SMFZERT  - SMF dump TYPE 119 for zERT reporting                                 
 SMPACCPT - SMP/E Accept                                                         
 SMPAPPLY - SMP/E Apply                                                          
