@@ -35,6 +35,12 @@
 //SYSIN    DD *                                                                 
 SYSID(S0W1)                                                                     
 REPORTS(CPU)                                                                    
+  RTOD(0000,2400)                                                               
+  STOD(0000,2400)                                                               
+  SYSRPTS(WLMGL(RCPER,SCPER,POLICY))                                            
+  REPORTS (CPU)                                                                 
   SYSOUT(X)                                                                     
+  DINTV(0002)                                                                   
+  SYSID(S0W1)                                                                   
 /*                                                                              
                                                                                 

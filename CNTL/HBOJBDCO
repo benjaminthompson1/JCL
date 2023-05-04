@@ -1,59 +1,61 @@
-//IUJBDCO JOB (FB3),'HBOJBDCO',CLASS=A,MSGCLASS=H,                      JOB07434
+//IUJBDCO JOB (FB3),'HBOJBDCO',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //*                                                                             
-//***************************************************************               
-//*                                                             *               
-//*  Licensed Materials - Property of IBM                       *               
-//*                                                             *               
-//*  5698-ABN (C) Copyright IBM Corporation 2019, 2020          *               
-//*  All Rights Reserved.                                       *               
-//*                                                             *               
-//***************************************************************               
-//*                                                             *               
-//*  NAME: HBOJBDCO                                             *               
-//*                                                             *               
-//*  STATUS: IBM Z Common Data Provider 2.1.0                   *               
-//*                                                             *               
-//*  FUNCTION: Sample JCL for batch job to collect DCOLLECT     *               
-//*            data from a file.                                *               
-//*                                                             *               
-//* Run IBM Z Common Data Provider 2.1.0                        *               
-//*                                                             *               
-//* CHANGE ACTIVITY:                                            *               
-//* CHANGE FLAG TYPE   DATE                DESCRIPTION          *               
-//* ----------------------------------------------------------- *               
-//* $00=R071147,CDP210,2019-12-23,CSL(FL): New for CDP 2.1.0    *               
-//*                                                             *               
-//***************************************************************               
-//*                                                             *               
-//* Customization:                                              *               
-//*  a.  If affinity with a specific TCP/IP stack is needed     *               
-//*      add the name of the stack to the end of the HBOTCAFF   *               
-//*      job step, for example:                                 *               
-//*      //HBOTCAFF EXEC PGM=BPXTCAFF,PARM=TPNAME               *               
-//*  b.  Change HBOvrm to the high-level qualifier for your     *               
-//*      zCDP SMP/E-installed target libraries.                 *               
-//*  c.  The output DD statements related to 18 type records    *               
-//*      are specified.If you add a new DCOLLECT record type    *               
-//*      in the future,you must add DD statements related to    *               
-//*      the new type record. Refer to the SET IBM_FILE         *               
-//*      statements in HBOUDCOL for details.                    *               
-//*  d.  Specify DCOLLECT log file name in <some DCOLLECT log>  *               
-//***************************************************************               
+//*********************************************************************         
+//*                                                                   *         
+//* Licensed Materials - Property of IBM                              *         
+//*                                                                   *         
+//* 5698-LDA (C) Copyright IBM Corp. 2019, 2022                       *         
+//*                                                                   *         
+//* All Rights Reserved.                                              *         
+//*                                                                   *         
+//* US Government Users Restricted Rights - Use, duplication or       *         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                   *         
+//* NAME: HBOJBDCO                                                    *         
+//*                                                                   *         
+//* STATUS: IBM Z Common Data Provider                                *         
+//*                                                                   *         
+//* FUNCTION: Sample JCL for batch job to collect DCOLLECT            *         
+//*           data from a file.                                       *         
+//*                                                                   *         
+//* CHANGE ACTIVITY:                                                  *         
+//* CHANGE FLAG TYPE   DATE                DESCRIPTION                *         
+//* ----------------------------------------------------------------- *         
+//* $00=R071147,CDP210,2019-12-23,CSL(FL): New for CDP 2.1.0          *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                   *         
+//* Customization:                                                    *         
+//*  a.  If affinity with a specific TCP/IP stack is needed           *         
+//*      add the name of the stack to the end of the HBOTCAFF         *         
+//*      job step, for example:                                       *         
+//*      //HBOTCAFF EXEC PGM=BPXTCAFF,PARM=TPNAME                     *         
+//*  b.  Change LDA510.HBO to the high-level qualifier for your       *         
+//*      zCDP SMP/E-installed target libraries.                       *         
+//*  c.  The output DD statements related to 18 type records          *         
+//*      are specified.If you add a new DCOLLECT record type          *         
+//*      in the future,you must add DD statements related to          *         
+//*      the new type record. Refer to the SET IBM_FILE               *         
+//*      statements in HBOUDCOL for details.                          *         
+//*  d.  Specify DCOLLECT log file name in <some DCOLLECT log>        *         
+//*********************************************************************         
 //*                                                                             
 //HBOTCAFF EXEC PGM=BPXTCAFF,PARM=                                              
 //*                                                                             
 //HBODCOCB EXEC PGM=HBOPDE,REGION=0M,                                           
-//         PARM='SHOWINPUT=NO,ZIIPOFFLOAD=NO'                                   
-//STEPLIB  DD DISP=SHR,DSN=CDP210.SHBOLOAD                                      
+//         PARM='SHOWINPUT=NO,ZIIPOFFLOAD=YES'                                  
+//STEPLIB  DD DISP=SHR,DSN=LDA510.HBO.SHBOLOAD                                  
 //*                                                                             
 //* CONTROL STATEMENTS                                                          
 //*                                                                             
-//HBOIN    DD DISP=SHR,DSN=CDP210.SHBODEFS(HBOCCSV)                             
-//         DD DISP=SHR,DSN=CDP210.SHBODEFS(HBOLDCOL)                            
-//         DD DISP=SHR,DSN=CDP210.SHBODEFS(HBORDCOL)                            
-//         DD DISP=SHR,DSN=CDP210.SHBODEFS(HBOUDCOL)                            
+//HBOIN    DD DISP=SHR,DSN=LDA510.HBO.SHBODEFS(HBOCCSV)                         
+//         DD DISP=SHR,DSN=LDA510.HBO.SHBODEFS(HBOLDCOL)                        
+//         DD DISP=SHR,DSN=LDA510.HBO.SHBODEFS(HBORDCOL)                        
+//         DD DISP=SHR,DSN=LDA510.HBO.SHBODEFS(HBOUDCOL)                        
 //*                                                                             
 //* Sample COLLECT statement for processing log data                            
 //*                                                                             
@@ -61,7 +63,7 @@
 COLLECT DCOLLECT                                                                
   COMMIT AFTER END OF FILE;                                                     
 /*                                                                              
-//HBOLOG   DD DISP=SHR,DSN=IBMUSER.DCOLLECT.DATA                                
+//HBOLOG   DD DISP=SHR,DSN=IBMUSER.DCOLLECT.DATA(0)                             
 //HBOOUT   DD SYSOUT=*                                                          
 //HBODUMP  DD SYSOUT=*                                                          
 //HBODEBUG DD SYSOUT=*                                                          
