@@ -121,7 +121,7 @@ Here is a brief description of each JCL job in this repository:
 - `SMPREJTG`: SMP/E Reject all received-only
 - `SMPRPT`: SMP/E Target report for SHOPz
 - `TERSE`: TERSE Pack and Unpack dataset
-- `UJ04501`: UJ04501 ZSECURE ADMINISTRATION V2.4
+- `UJ04501`: UJ04501 zSecure Admin V2.4
 - `VSAM`: IDCAMS create VSAM file
 - `VASMAIX`: IDCAMS create alternative index
 - `XMITPACK`: XMIT and TERSE (pack) a load library
