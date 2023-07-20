@@ -1,0 +1,20 @@
+//IUSYSLG JOB (FB3),'SYSLOG EXTRACT',CLASS=A,MSGCLASS=H,                        
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* DUMP THE SYSTEM LOG (SYSLOG) TO THE SPECIFIED DATASET            *          
+//*                                                                  *          
+//********************************************************************          
+//LOG EXEC PGM=ISFAFD,DYNAMNBR=150,PARM='++122,1000'                            
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSOUT DD SYSOUT=*                                                            
+//ISFOUT DD DSN=IBMUSER.SYSLOG.TEMP,                                            
+//          DISP=(NEW,CATLG,DELETE),                                            
+//          UNIT=DISK,SPACE=(CYL,(100,100),RLSE)                                
+//ISFIN DD *                                                                    
+LOG S                                                                           
+PT ODSN 'IBMUSER.SYSLOG.TEMP' * SHR                                             
+PT 00.01.00 05/20/2023 05.28.00 07/20/2023                                      
+CLOSE                                                                           
+/*                                                                              

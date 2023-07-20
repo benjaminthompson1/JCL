@@ -103,8 +103,9 @@ SMPREC   - SMP/E Receive from Shopz Download Director
 SMPREJTA - SMP/E Reject once they have been ACCEPTED                            
 SMPREJTG - SMP/E Reject all received-only                                       
 SMPRPT   - SMP/E Traget report for SHOPz                                        
+SYSLOG   - Dump the system log (SYSLOG) to the specified dataset                
 TERSE    - TERSE Pack and Unpack dataset                                        
-UJ04501  - UJ04501 ZSECURE ADMINISTRATION V2.4                                  
+UJ04501  - UJ04501 zSecure Admin V2.4                                           
 VSAM     - IDCAMS create VSAM file                                              
 VASMAIX  - IDCAMS create alternaive index                                       
 XMITPACK - XMIT and TERSE (pack) a load library                                 
