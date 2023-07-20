@@ -1,5 +1,5 @@
 $$README contents of IBMUSER.GIT.JCL.CNTL                                       
-=====++                                                                         
+=======================================================================         
 $SDSF    - Issue SDFS commands                                                  
 $VS      - Issue CONSOLE commands                                               
 ACBJBARD - Generating data set report from DCOLLECT data                        
