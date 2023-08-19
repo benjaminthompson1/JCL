@@ -1,0 +1,57 @@
+//IUBIND JOB (FB3),'DB2 BIND',CLASS=A,MSGCLASS=H,                     JOB09516  
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: DB2 BIND PLAN AND PACKAGE                               *          
+//*                                                                  *          
+//********************************************************************          
+//*                                                                             
+//BINDPKG  EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
+//* BIND PACKAGE                                                                
+//STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  BIND PACKAGE(BENCOLL) -                                                       
+    MEMBER(EPSCMORT) -                                                          
+    ACTION(REPLACE) -                                                           
+    LIB('IBMUSER.DBB.DBRM') -                                                   
+    OWNER(IBMUSER) -                                                            
+    QUALIFIER(IBMUSER) -                                                        
+    ISOLATION(CS) -                                                             
+    RELEASE(COMMIT) -                                                           
+    EXPLAIN(NO) -                                                               
+    FLAG(I) -                                                                   
+    VALIDATE(BIND)                                                              
+  END                                                                           
+/*                                                                              
+//BINDPLAN EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
+//* BIND PLAN                                                                   
+//STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  BIND PLAN(BENPLAN) -                                                          
+    PKLIST(BENCOLL.EPSCMORT) -                                                  
+    ACTION(REPLACE) -                                                           
+    OWNER(IBMUSER) -                                                            
+    ISOLATION(CS) -                                                             
+    RELEASE(COMMIT) -                                                           
+    VALIDATE(BIND)                                                              
+  END                                                                           
+/*                                                                              
+//GRANTPKG EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
+//* GRANT EXECUTE PERMISSIONS                                                   
+//STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  GRANT EXECUTE ON PACKAGE BENCOLL.EPSCMORT TO PUBLIC;                          
+/*                                                                              
