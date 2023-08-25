@@ -16,7 +16,8 @@ BZUDUMP  - VTP Playback Dump Utility
 BZUPLAY  - VTP Play recording from batch/file I/O calls                         
 BZUREC   - VTP Record collecting batch/file I/O calls                           
 CCBERIS  - COBOL compile and bind with Db2 ERIS                                 
-CICSCSD  - Define EGUI CICS CSD entry                                           
+CICSCSD  - Define base application - EGUI CICS CSD entry                        
+CICSCSDM - Define MortgageApplication CICS CSD entry                            
 COBC     - COBOL compile                                                        
 COBCB    - COBOL compile and bind                                               
 COBCBDB  - COBOL compile and bind with Db2                                      
@@ -36,6 +37,7 @@ DCOLLECT - DCOLLECT collects stored dataset, volume and policy values
 DFH$ECAT - copy from DFH540.CICS.SDFHINST                                       
 DFH$ECNF - copy from DFH540.CICS.SDFHINST                                       
 DFSORT   - DFSORT Utility                                                       
+DSNBIND  - Db2 BIND                                                             
 DSNREST  - Creating and enabling Db2 native REST services for ZCEE              
 DSNTIJAI - SQLDI Pseudo Catalog                                                 
 DSNTIJRS - Enabling Db2 REST services                                           
@@ -80,6 +82,8 @@ KMQPBVK1 - Ansible zForum COBOL PUT
 LIKECOPY - Create a dataset using the attributes for a base dataset             
 LOGREC   - Clear and initialize hardware event recorder dataset                 
 MAEKCER2 - Create key ring, CA as default, a personal certificate singed with CA
+MORTBIND - MortgageApplication Db2 BIND                                         
+MORTCICS - MortgageApplication CICS CSD                                         
 OMEGCRT  - OMEGAMON create - STEP 1                                             
 OMEGDIS  - OMEGAMON discover - STEP 3                                           
 OMEGGEN  - OMEGAMON generate - STEP 4                                           

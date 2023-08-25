@@ -23,6 +23,9 @@
      SYMBOLICRELATE(IBMUSER.&SYSNAME..TEST))                                    
  LISTC ENT(IBMUSER.TEST.ALIAS) ALL                                              
 //                                                                              
+//* VERIFY IS USED TO CHECK AND FIX VSAM FILES                                  
+   VERIFY DATASET(MVS.GLOBAL.CSI)                                               
+//                                                                              
 //* REPRO DUMP VSAM DATASET                                                     
 //INDD DD DSN=IBMUSER.DFAT.FSCN.AIX,DISP=SHR                                    
 //OUTDD DD DSN=IBMUSER.DFAT.REPRO,DISP=(NEW,CATLG,DELETE),                      
