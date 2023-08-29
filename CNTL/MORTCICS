@@ -1,4 +1,4 @@
-//IUCSDUP JOB (FB3),'DFHCSDUP',CLASS=A,MSGCLASS=H,                              
+//IUCICS JOB (FB3),'DFHCSDUP',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
@@ -6,9 +6,9 @@
 //* PURPOSE: MortgageApplication CICS CSD                            *          
 //*                                                                  *          
 //********************************************************************          
-//STEP1   EXEC PGM=DFHCSDUP,REGION=0M,                                          
+//CICSCSD EXEC PGM=DFHCSDUP,REGION=0M,                                          
 //             PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                      
-//STEPLIB DD   DSN=DFH610.CICS.SDFHLOAD,DISP=SHR                                
+//STEPLIB  DD   DSN=DFH610.CICS.SDFHLOAD,DISP=SHR                               
 //DFHCSD   DD  DISP=SHR,DSN=DFH610.CICS.DFHCSD                                  
 //OUTDD    DD  SYSOUT=A                                                         
 //SYSPRINT DD  SYSOUT=A                                                         
@@ -17,6 +17,26 @@
   DEFINE MAPSET(EPSMORT) GROUP(ZOFFICE)                                         
          RESIDENT(NO) USAGE(NORMAL) USELPACOPY(NO) STATUS(ENABLED)              
   DEFINE PROGRAM(EPSCMORT) GROUP(ZOFFICE)                                       
+         LANGUAGE(COBOL) RELOAD(NO) RESIDENT(NO) USAGE(NORMAL)                  
+         USELPACOPY(NO) STATUS(ENABLED) CEDF(YES) DATALOCATION(ANY)             
+         EXECKEY(USER) CONCURRENCY(QUASIRENT) API(CICSAPI) DYNAMIC(NO)          
+         EXECUTIONSET(FULLAPI) JVM(NO)                                          
+  DEFINE PROGRAM(EPSMLIST) GROUP(ZOFFICE)                                       
+         LANGUAGE(COBOL) RELOAD(NO) RESIDENT(NO) USAGE(NORMAL)                  
+         USELPACOPY(NO) STATUS(ENABLED) CEDF(YES) DATALOCATION(ANY)             
+         EXECKEY(USER) CONCURRENCY(QUASIRENT) API(CICSAPI) DYNAMIC(NO)          
+         EXECUTIONSET(FULLAPI) JVM(NO)                                          
+  DEFINE PROGRAM(EPSMORT) GROUP(ZOFFICE)                                        
+         LANGUAGE(COBOL) RELOAD(NO) RESIDENT(NO) USAGE(NORMAL)                  
+         USELPACOPY(NO) STATUS(ENABLED) CEDF(YES) DATALOCATION(ANY)             
+         EXECKEY(USER) CONCURRENCY(QUASIRENT) API(CICSAPI) DYNAMIC(NO)          
+         EXECUTIONSET(FULLAPI) JVM(NO)                                          
+  DEFINE PROGRAM(EPSMLIS) GROUP(ZOFFICE)                                        
+         LANGUAGE(COBOL) RELOAD(NO) RESIDENT(NO) USAGE(NORMAL)                  
+         USELPACOPY(NO) STATUS(ENABLED) CEDF(YES) DATALOCATION(ANY)             
+         EXECKEY(USER) CONCURRENCY(QUASIRENT) API(CICSAPI) DYNAMIC(NO)          
+         EXECUTIONSET(FULLAPI) JVM(NO)                                          
+  DEFINE PROGRAM(EPSCSMRD) GROUP(ZOFFICE)                                       
          LANGUAGE(COBOL) RELOAD(NO) RESIDENT(NO) USAGE(NORMAL)                  
          USELPACOPY(NO) STATUS(ENABLED) CEDF(YES) DATALOCATION(ANY)             
          EXECKEY(USER) CONCURRENCY(QUASIRENT) API(CICSAPI) DYNAMIC(NO)          
