@@ -15,6 +15,10 @@
 //SMPCSI   DD  DISP=SHR,DSN=#globalzone                                         
 //SMPNTS   DD  PATHDISP=KEEP,                                                   
 //             PATH='/u/smpe/smpnts/'                                           
+//*SYSUT1   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT2   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT3   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT4   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
 //SMPOUT   DD  SYSOUT=*                                                         
 //SMPRPT   DD  SYSOUT=*                                                         
 //SMPLIST  DD  SYSOUT=*                                                         
