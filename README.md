@@ -97,6 +97,8 @@ Here is a brief description of each JCL job in this repository:
 - `LIKECOPY`: Create a dataset using the attributes for a base dataset
 - `LOGREC`: Clear and initialize hardware event recorder dataset
 - `MAEKCER2`: Create key ring, CA as default, a personal certificate singed with CA
+- `MORTBIND` : MortgageApplication Db2 BIND
+- `MORTCICS` : MortgageApplication CICS CSD
 - `OMEGCRT`: OMEGAMON create - STEP 1
 - `OMEGDIS`: OMEGAMON discover - STEP 3
 - `OMEGGEN`: OMEGAMON generate - STEP 4
