@@ -24,7 +24,7 @@
              NAME(@zfsdsn@) -                                                   
              LINEAR -                                                           
              TRACKS(800 200) VOLUME(@volume@) -                                 
-             DATACLASS(DCEXT) -                                                 
+             DATACLASS(DCEXTEAV) -                                              
              SHAREOPTIONS(3) -                                                  
          )                                                                      
 /*                                                                              
