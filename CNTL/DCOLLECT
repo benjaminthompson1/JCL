@@ -7,7 +7,7 @@
 //********************************************************************          
 //DCOLLECT EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
-//OUTDS    DD DSN=IBMUSER.DCOLLECT.DATA(+1),DSORG=PS,                           
+//OUTDS    DD DSN=IBMUSER.Z31A.DCOLLECT(+1),DSORG=PS,                           
 //            DCB=(RECFM=VB,LRECL=644,BLKSIZE=0),                               
 //            SPACE=(CYL,(1,1),RLSE),                                           
 //            DISP=(NEW,CATLG,DELETE)                                           
