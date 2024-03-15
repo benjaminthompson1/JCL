@@ -90,6 +90,7 @@ PICSCALC - PL/I bit offsets for DVM DFAT EXIT
 PLIC     - PL/I compile                                                         
 PYTHON   - IVP Batch python                                                     
 RACFCERT - Create signed personal cert that is attached to a keyring            
+RACFJCLX - RACF used to implement JCL Expert                                    
 RACFSTC  - STC Create USER ID and STARTED profile                               
 RACFZCX  - RACF used to implment zCX                                            
 REXX     - Submit REXX in batch                                                 

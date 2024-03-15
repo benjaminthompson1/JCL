@@ -17,20 +17,54 @@
 //SYSTSIN  DD *                                                                 
 PROFILE NOPREFIX                                                                
   RACDCERT ID(IZUSVR) GENCERT +                                                 
-  SUBJECTSDN(CN('s0w1.dal-ebis.ihost.com') +                                    
-  O('IBM') L('Canberra') C('AU')) SIZE(2048) +                                  
-  WITHLABEL('Z25CzOSMFCert.IZUDFLT') +                                          
-  SIGNWITH(CERTAUTH LABEL('zOSMFCA')) +                                         
-  NOTAFTER(DATE(2040-12-31)) +                                                  
-  ALTNAME(IP(192.168.1.171) +                                                   
-          DOMAIN('s0w1.dal-ebis.ihost.com') +                                   
-          URI('s0w1.dal-ebis.ihost.com'))                                       
+    SUBJECTSDN(CN('s0w1.dal-ebis.ihost.com') +                                  
+    OU('DTSC') +                                                                
+    O('IBM')) +                                                                 
+    SIZE(2048) +                                                                
+    WITHLABEL('DefaultzOSMFCert.IZUDFLT') +                                     
+    SIGNWITH(CERTAUTH LABEL('BaseCA')) +                                        
+    NOTAFTER(DATE(2040-12-31)) +                                                
+    ALTNAME(IP(192.168.1.171) +                                                 
+            DOMAIN('s0w1.dal-ebis.ihost.com') +                                 
+            URI('s0w1.dal-ebis.ihost.com'))                                     
                                                                                 
   RACDCERT ID(IZUSVR) +                                                         
   CONNECT(ID(IZUSVR) +                                                          
-  LABEL('Z25CzOSMFCert.IZUDFLT') +                                              
+  LABEL('DefaultzOSMFCert.IZUDFLT') +                                           
   RING(IZUKeyring.IZUDFLT) +                                                    
   USAGE(PERSONAL) DEFAULT)                                                      
                                                                                 
-  SETROPTS RACLIST(DIGTCERT) REFRESH                                            
-  SETROPTS RACLIST(DIGTRING) REFRESH                                            
+  SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                  
+/*                                                                              
+  RACDCERT CERTAUTH GENCERT +                                                   
+    SUBJECTSDN(CN('RMF z31a Root CA') +                                         
+    OU('DTSC') +                                                                
+    O('IBM')) +                                                                 
+    SIZE(2048) +                                                                
+    WITHLABEL('RMFRootCert') +                                                  
+    TRUST NOTAFTER(DATE(2050/01/02))                                            
+                                                                                
+  RACDCERT ID(START1) GENCERT +                                                 
+    SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                  
+    OU('DTSC') +                                                                
+    O('IBM')) +                                                                 
+    SIZE(2048) +                                                                
+    WITHLABEL('RMFDDS') +                                                       
+    SIGNWITH(CERTAUTH LABEL('RMFRootCert')) +                                   
+    NOTAFTER(DATE(2050/01/02)) +                                                
+    ALTNAME(IP(192.168.1.171) +                                                 
+            DOMAIN('s0w1.dal-ebis.ihost.com') +                                 
+            URI('s0w1.dal-ebis.ihost.com'))                                     
+                                                                                
+  RACDCERT ID(START1) ADDRING(DDSServerKeyring)                                 
+                                                                                
+  RACDCERT ID(START1) CONNECT(CERTAUTH LABEL('RMFRootCert') +                   
+    RING(DDSServerKeyring) USAGE(CERTAUTH))                                     
+                                                                                
+  RACDCERT ID(START1) CONNECT(ID(START1) LABEL('RMFDDS') +                      
+    RING(DDSServerKeyring) USAGE(PERSONAL) DEFAULT)                             
+                                                                                
+  SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                  
+                                                                                
+  RACDCERT CERTAUTH EXPORT(LABEL('RMFRootCert')) +                              
+    DSN('IBMUSER.RMF.CERT')                                                     

@@ -17,8 +17,8 @@
 //SYSTSIN  DD *                                                                 
 PROFILE NOPREFIX                                                                
                                                                                 
-ADDUSER CXPSRV DFLTGRP(SYS1) NOPASSWORD OMVS(PROGRAM(/bin/sh) +                 
-  HOME(/global/jclexpert))                                                      
+ADDUSER CXPSRV DFLTGRP(SYS1) NOPASSWORD OMVS(AUTOUID +                          
+PROGRAM(/bin/sh) HOME(/global/jclexpert))                                       
 CONNECT CXPSRV GROUP(CXPUSER) OWNER(CXPSRV)                                     
 RDEFINE STARTED CXPSRV.** STDATA(USER(CXPSRV) GROUP(SYS1) TRUSTED(YES))         
 SETROPTS RACLIST(STARTED) REFRESH                                               
@@ -47,6 +47,7 @@ RACDCERT CERTAUTH GENCERT +
   SUBJECTSDN(CN('JCL Expert z31a Root CA') +                                    
   OU('DTSC') +                                                                  
   O('IBM')) +                                                                   
+  SIZE(2048) +                                                                  
   WITHLABEL('CXPRootCert') +                                                    
   TRUST NOTAFTER(DATE(2050/01/02))                                              
                                                                                 
@@ -54,9 +55,13 @@ RACDCERT ID(CXPSRV) GENCERT +
   SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                    
   OU('DTSC') +                                                                  
   O('IBM')) +                                                                   
+  SIZE(2048) +                                                                  
   WITHLABEL('CXPServerCert') +                                                  
   SIGNWITH(CERTAUTH LABEL('CXPRootCert')) +                                     
-  NOTAFTER(DATE(2050/01/02))                                                    
+  NOTAFTER(DATE(2050/01/02)) +                                                  
+  ALTNAME(IP(192.168.1.171) +                                                   
+          DOMAIN('s0w1.dal-ebis.ihost.com') +                                   
+          URI('s0w1.dal-ebis.ihost.com'))                                       
                                                                                 
 RACDCERT ALTER(LABEL('CXPServerCert')) ID(CXPSRV) TRUST                         
                                                                                 
@@ -70,9 +75,44 @@ RACDCERT ID(CXPSRV) CONNECT (LABEL('CXPServerCert') +
                                                                                 
 SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                    
                                                                                 
+RACDCERT ID(CXPCLNT) GENCERT +                                                  
+  SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                    
+  OU('DTSC') +                                                                  
+  O('IBM')) +                                                                   
+  WITHLABEL('CXPClientCert') +                                                  
+  SIGNWITH(CERTAUTH LABEL('CXPRootCert')) +                                     
+  NOTAFTER(DATE(2050/01/02)) +                                                  
+  ALTNAME(IP(192.168.1.171) +                                                   
+          DOMAIN('s0w1.dal-ebis.ihost.com') +                                   
+          URI('s0w1.dal-ebis.ihost.com'))                                       
+                                                                                
+RACDCERT ADDRING(CXPClientRing) ID(CXPCLNT)                                     
+                                                                                
+RACDCERT ID(CXPCLNT) CONNECT (LABEL('CXPRootCert') +                            
+  RING(CXPClientRing) CERTAUTH)                                                 
+                                                                                
+RACDCERT ID(CXPCLNT) CONNECT (LABEL('CXPClientCert') +                          
+  RING(CXPClientRing) DEFAULT)                                                  
+                                                                                
+SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                    
+                                                                                
+RDEFINE RDATALIB CXPCLNT.CXPClientRing.LST UACC(NONE)                           
+                                                                                
+PERMIT CXPCLNT.CXPClientRing.LST CLASS(RDATALIB) ID(CXPCLNT) ACCESS(READ)       
+                                                                                
+PERMIT CXPCLNT.CXPClientRing.LST CLASS(RDATALIB) ID(CXPUSER) ACCESS(UPDATE)     
+                                                                                
+SETROPTS CLASSACT(RDATALIB) RACLIST(RDATALIB)                                   
+                                                                                
+SETROPTS RACLIST(RDATALIB) REFRESH                                              
+                                                                                
 RDEFINE FACILITY IRR.DIGTCERT.LIST UACC(NONE)                                   
 RDEFINE FACILITY IRR.DIGTCERT.LISTRING UACC(NONE)                               
                                                                                 
 PERMIT IRR.DIGTCERT.LIST CLASS(FACILITY) ID(CXPSRV) ACCESS(READ)                
 PERMIT IRR.DIGTCERT.LISTRING CLASS(FACILITY) ID(CXPSRV) ACCESS(READ)            
+                                                                                
 SETROPTS RACLIST(FACILITY) REFRESH                                              
+                                                                                
+RACDCERT CERTAUTH EXPORT(LABEL('CXPRootCert')) +                                
+  DSN('IBMUSER.JCLX.CERT')                                                      
