@@ -44,7 +44,7 @@ PROFILE NOPREFIX
     WITHLABEL('RMFRootCert') +                                                  
     TRUST NOTAFTER(DATE(2050/01/02))                                            
                                                                                 
-  RACDCERT ID(START1) GENCERT +                                                 
+  RACDCERT ID(GPMSERVE) GENCERT +                                               
     SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                  
     OU('DTSC') +                                                                
     O('IBM')) +                                                                 
@@ -56,15 +56,12 @@ PROFILE NOPREFIX
             DOMAIN('s0w1.dal-ebis.ihost.com') +                                 
             URI('s0w1.dal-ebis.ihost.com'))                                     
                                                                                 
-  RACDCERT ID(START1) ADDRING(DDSServerKeyring)                                 
+  RACDCERT ID(GPMSERVE) ADDRING(DDSServerKeyring)                               
                                                                                 
-  RACDCERT ID(START1) CONNECT(CERTAUTH LABEL('RMFRootCert') +                   
+  RACDCERT ID(GPMSERVE) CONNECT(CERTAUTH LABEL('RMFRootCert') +                 
     RING(DDSServerKeyring) USAGE(CERTAUTH))                                     
                                                                                 
-  RACDCERT ID(START1) CONNECT(ID(START1) LABEL('RMFDDS') +                      
+  RACDCERT ID(GPMSERVE) CONNECT(ID(GPMSERVE) LABEL('RMFDDS') +                  
     RING(DDSServerKeyring) USAGE(PERSONAL) DEFAULT)                             
                                                                                 
   SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                  
-                                                                                
-  RACDCERT CERTAUTH EXPORT(LABEL('RMFRootCert')) +                              
-    DSN('IBMUSER.RMF.CERT')                                                     
