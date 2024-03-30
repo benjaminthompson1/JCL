@@ -17,19 +17,35 @@
 //SYSTSIN  DD *                                                                 
 PROFILE NOPREFIX                                                                
                                                                                 
+ADDGROUP CXPADM DATA('JCL Expert admin group') SUPGROUP(SYS1) +                 
+  OWNER(SYS1)                                                                   
+                                                                                
+ADDGROUP CXPUSER DATA('JCL Expert users') SUPGROUP(CXPADM) +                    
+  OWNER(CXPADM) OMVS(AUTOGID)                                                   
+                                                                                
+CONNECT (IBMUSER) GROUP(CXPUSER) OWNER(CXPUSER)                                 
+                                                                                
 ADDUSER CXPSRV DFLTGRP(SYS1) NOPASSWORD OMVS(AUTOUID +                          
 PROGRAM(/bin/sh) HOME(/global/jclexpert))                                       
+                                                                                
 CONNECT CXPSRV GROUP(CXPUSER) OWNER(CXPSRV)                                     
-RDEFINE STARTED CXPSRV.** STDATA(USER(CXPSRV) GROUP(SYS1) TRUSTED(YES))         
+                                                                                
+RDEFINE STARTED CXPSRV.** STDATA(USER(CXPSRV) GROUP(SYS1) +                     
+  TRUSTED(YES))                                                                 
+                                                                                
 SETROPTS RACLIST(STARTED) REFRESH                                               
                                                                                 
 SETROPTS WHEN(PROGRAM)                                                          
-RDEFINE PROGRAM CXPSRV ADDMEM('JCL120.CXP.SCXPLOAD'//NOPADCHK) UACC(READ)       
+                                                                                
+RDEFINE PROGRAM CXPSRV ADDMEM('JCL120.CXP.SCXPLOAD'//NOPADCHK) +                
+  UACC(READ)                                                                    
+                                                                                
 SETROPTS WHEN(PROGRAM) REFRESH                                                  
                                                                                 
 RDEFINE FACILITY BPX.SERVER UACC(NONE)                                          
                                                                                 
 PERMIT BPX.SERVER CLASS(FACILITY) ID(CXPSRV) ACCESS(READ)                       
+                                                                                
 SETROPTS RACLIST(FACILITY) REFRESH                                              
                                                                                 
 PERMIT BPX.SRV.** CLASS(SURROGAT) ACC(READ) ID(CXPSRV)                          
@@ -37,10 +53,10 @@ SETROPTS RACLIST(SURROGAT) REFRESH
                                                                                 
 RDEFINE FACILITY CXP.JCLCKUSR.** UACC(NONE) OWNER(CXPADM)                       
                                                                                 
-ADDUSER CXPCLNT DFLTGRP(CXPUSER) +                                              
-  OMVS(AUTOUID PROGRAM(/bin/sh) HOME(/u/automount/cxpclnt))                     
+PERMIT CXP.JCLCKUSR.** CLASS(FACILITY) ACC(READ) ID(IBMUSER)                    
                                                                                 
-PERMIT CXP.JCLCKUSR.** CLASS(FACILITY) ACC(READ) ID(CXPCLNT)                    
+PERMIT CXP.JCLCKUSR.** CLASS(FACILITY) ACC(READ) ID(CXPUSER)                    
+                                                                                
 SETROPTS REFRESH RACLIST(FACILITY)                                              
                                                                                 
 RACDCERT CERTAUTH GENCERT +                                                     
@@ -75,7 +91,7 @@ RACDCERT ID(CXPSRV) CONNECT (LABEL('CXPServerCert') +
                                                                                 
 SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                    
                                                                                 
-RACDCERT ID(CXPCLNT) GENCERT +                                                  
+RACDCERT ID(IBMUSER) GENCERT +                                                  
   SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                    
   OU('DTSC') +                                                                  
   O('IBM')) +                                                                   
@@ -86,19 +102,17 @@ RACDCERT ID(CXPCLNT) GENCERT +
           DOMAIN('s0w1.dal-ebis.ihost.com') +                                   
           URI('s0w1.dal-ebis.ihost.com'))                                       
                                                                                 
-RACDCERT ADDRING(CXPClientRing) ID(CXPCLNT)                                     
+RACDCERT ADDRING(CXPClientRing) ID(IBMUSER)                                     
                                                                                 
-RACDCERT ID(CXPCLNT) CONNECT (LABEL('CXPRootCert') +                            
+RACDCERT ID(IBMUSER) CONNECT (LABEL('CXPRootCert') +                            
   RING(CXPClientRing) CERTAUTH)                                                 
                                                                                 
-RACDCERT ID(CXPCLNT) CONNECT (LABEL('CXPClientCert') +                          
+RACDCERT ID(IBMUSER) CONNECT (LABEL('CXPClientCert') +                          
   RING(CXPClientRing) DEFAULT)                                                  
                                                                                 
 SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                    
                                                                                 
 RDEFINE RDATALIB CXPCLNT.CXPClientRing.LST UACC(NONE)                           
-                                                                                
-PERMIT CXPCLNT.CXPClientRing.LST CLASS(RDATALIB) ID(CXPCLNT) ACCESS(READ)       
                                                                                 
 PERMIT CXPCLNT.CXPClientRing.LST CLASS(RDATALIB) ID(CXPUSER) ACCESS(UPDATE)     
                                                                                 
@@ -113,6 +127,3 @@ PERMIT IRR.DIGTCERT.LIST CLASS(FACILITY) ID(CXPSRV) ACCESS(READ)
 PERMIT IRR.DIGTCERT.LISTRING CLASS(FACILITY) ID(CXPSRV) ACCESS(READ)            
                                                                                 
 SETROPTS RACLIST(FACILITY) REFRESH                                              
-                                                                                
-RACDCERT CERTAUTH EXPORT(LABEL('CXPRootCert')) +                                
-  DSN('IBMUSER.JCLX.CERT')                                                      
