@@ -1,0 +1,38 @@
+//IURACFS JOB  (FB3),'RACF STC',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*                                                                             
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: Define USERID STC and PERMIT required resources         *          
+//*          rules in RACF                                           *          
+//*                                                                  *          
+//********************************************************************          
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+                                                                                
+AU JCL120 NAME('HLQ-JCL EXPERT') OWNER(SYS1) DFLTGRP(???)                       
+                                                                                
+CO JCL120 GROUP(???) OWNER(SYS1)                                                
+                                                                                
+ALU JCL120 DATA('JCL EXPERT')                                                   
+                                                                                
+ALU JCL120 NOTSO                                                                
+                                                                                
+AD 'JCL120.*.**' OWNER(JCL120) UACC(N)                                          
+                                                                                
+AD 'JCL120.CXP.**' OWNER(JCL120) UACC(N) DATA('JCL Expert data sets')           
+                                                                                
+PE 'JCL120.CXP.**' ID(SYS1) ACC(A)                                              
+                                                                                
+SETR GENERIC(DATASET) REFRESH                                                   
+                                                                                
+                                                                                
+DEF ALIAS(NAME('JCL120') RELATE('Usercatalog))                                  
