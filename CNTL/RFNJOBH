@@ -55,7 +55,7 @@
 //*                                                                             
 //CLNTINFO DD *                                                                 
 <CLIENT                                                                         
-javahome="/usr/lpp/java/J8.0_64"                                                
+javahome="/usr/lpp/java/J11.0_64"                                               
 downloadmethod="https"                                                          
 downloadkeyring="javatruststore">                                               
 </CLIENT>                                                                       

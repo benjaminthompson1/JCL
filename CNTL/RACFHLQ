@@ -18,21 +18,10 @@
 //SYSTSIN  DD *                                                                 
 PROFILE NOPREFIX                                                                
                                                                                 
-AU JCL120 NAME('HLQ-JCL EXPERT') OWNER(SYS1) DFLTGRP(???)                       
+ADDGROUP LDA510 OWNER(SYS1) SUPGROUP(SYS1)                                      
                                                                                 
-CO JCL120 GROUP(???) OWNER(SYS1)                                                
+ADDSD 'LDA510.*' OWNER(LDA510) UACC(NONE) -                                     
+    AUDIT(FAILURES(READ) SUCCESS(UPDATE))                                       
                                                                                 
-ALU JCL120 DATA('JCL EXPERT')                                                   
-                                                                                
-ALU JCL120 NOTSO                                                                
-                                                                                
-AD 'JCL120.*.**' OWNER(JCL120) UACC(N)                                          
-                                                                                
-AD 'JCL120.CXP.**' OWNER(JCL120) UACC(N) DATA('JCL Expert data sets')           
-                                                                                
-PE 'JCL120.CXP.**' ID(SYS1) ACC(A)                                              
-                                                                                
-SETR GENERIC(DATASET) REFRESH                                                   
-                                                                                
-                                                                                
-DEF ALIAS(NAME('JCL120') RELATE('Usercatalog))                                  
+PERMIT 'LDA510.*' ID(IBMUSER) ACCESS(ALTER)                                     
+/*                                                                              
