@@ -81,6 +81,8 @@ KMQPBVK1 - Ansible zForum COBOL PUT
 LIKECOPY - Create a dataset using the attributes for a base dataset             
 LOGREC   - Clear and initialize hardware event recorder dataset                 
 MAEKCER2 - Create key ring, CA as default, a personal certificate singed with CA
+MFARACF  - Create MFA RACF definitions                                          
+MFAUSER  - Create TSO MFA users for IBM MFA                                     
 MORTBIND - MortgageApplication Db2 BIND                                         
 MORTCICS - MortgageApplication CICS CSD                                         
 OMEGCRT  - OMEGAMON create - STEP 1                                             
@@ -109,7 +111,8 @@ SMPREJTA - SMP/E Reject once they have been ACCEPTED
 SMPREJTG - SMP/E Reject all received-only                                       
 SMPRPT   - SMP/E Traget report for SHOPz                                        
 SYSLOG   - Dump the system log (SYSLOG) to the specified dataset                
-TERSE    - TERSE Pack and Unpack dataset                                        
+TERSE    - AMATERSE Pack and Unpack dataset                                     
+TERSEPDS - AMATERSE TO PACK PDSE DATASETS                                       
 UJ04501  - UJ04501 zSecure Admin V2.4                                           
 VSAM     - IDCAMS create VSAM file                                              
 VASMAIX  - IDCAMS create alternaive index                                       

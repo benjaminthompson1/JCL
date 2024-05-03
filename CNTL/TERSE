@@ -3,10 +3,10 @@
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
-//* PURPOSE: TRSMAIN TO PACK / UNPACK DATASETS                       *          
+//* PURPOSE: AMATERSE TO PACK / UNPACK DATASETS                      *          
 //*                                                                  *          
 //********************************************************************          
-//TRSMAIN1 EXEC PGM=TRSMAIN,PARM=PACK                                           
+//TRSMAIN1 EXEC PGM=AMATERSE,PARM=PACK                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //INFILE   DD DSN=IBMUSER.SYSU.D200322,                                         
 //            DISP=SHR                                                          

@@ -1,0 +1,118 @@
+//IUMFARA JOB  (FB3),'MFA RACF',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*                                                                             
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: CREATE MFA RACF DEFINITIONS                             *          
+//*                                                                  *          
+//********************************************************************          
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+ADDGROUP MFA    SUPGROUP(SYS1) OWNER(SYS1)                                      
+ADDGROUP MFAADM SUPGROUP(MFA)  OWNER(MFA)                                       
+                                                                                
+ADDUSER (AZFSTC)                                                    +           
+   DFLTGRP(MFA)                                                     +           
+   NAME('MFA STARTED TASK USER ID')                                 +           
+   NOPASSWORD                                                       +           
+   OMVS(AUTOUID)                                                                
+ADDUSER (AZFWEB)                                                    +           
+   DFLTGRP(MFA)                                                     +           
+   NAME('MFA WEB SERVICES USER ID')                                 +           
+   NOPASSWORD                                                       +           
+   OMVS(AUTOUID)                                                                
+RDEFINE STARTED AZFSTC00.**   STDATA(USER(AZFSTC)   GROUP(MFA)      +           
+   TRUSTED(NO))                                                                 
+RDEFINE STARTED AZFWEB00.**   STDATA(USER(AZFWEB)   GROUP(MFA)      +           
+   TRUSTED(NO))                                                                 
+SETROPTS RACLIST(STARTED) REFRESH                                               
+                                                                                
+SETROPTS CLASSACT(MFADEF) GENERIC(MFADEF) GENCMD(MFADEF)            +           
+   RACLIST(MFADEF)                                                              
+RDEFINE MFADEF FACTOR.AZFSTC   OWNER(MFA)                                       
+RDEFINE MFADEF FACTOR.AZFTOTP1 OWNER(MFA)                                       
+RDEFINE MFADEF FACTOR.AZFPASS1 OWNER(MFA)                                       
+RDEFINE MFADEF FACTOR.AZFMETAS OWNER(MFA)                                       
+RDEFINE MFADEF POLICY.TOTPPOLICY MFPOLICY(FACTOR(AZFTOTP1,AZFPASS1) +           
+   TOKENTIMEOUT(600) REUSE(Y))                                                  
+SETROPTS RACLIST(MFADEF) REFRESH                                                
+                                                                                
+RDEFINE FACILITY IRR.RFACTOR.MFADEF.AZFSTC   UACC(NONE) OWNER(IBMUSER)          
+RDEFINE FACILITY IRR.RFACTOR.MFADEF.AZFTOTP1 UACC(NONE) OWNER(IBMUSER)          
+RDEFINE FACILITY IRR.RFACTOR.MFADEF.AZFPASS1 UACC(NONE) OWNER(IBMUSER)          
+RDEFINE FACILITY IRR.RFACTOR.MFADEF.AZFMETAS UACC(NONE) OWNER(IBMUSER)          
+RDEFINE FACILITY IRR.RFACTOR.POLICY.**       UACC(NONE) OWNER(IBMUSER)          
+RDEFINE FACILITY IRR.RFACTOR.USER            UACC(NONE) OWNER(IBMUSER)          
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+                                                                                
+PERMIT IRR.RFACTOR.MFADEF.AZFSTC   ID(AZFSTC) ACCESS(READ) +                    
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.MFADEF.AZFTOTP1 ID(AZFSTC) ACCESS(READ) +                    
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.MFADEF.AZFPASS1 ID(AZFSTC) ACCESS(READ) +                    
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.MFADEF.AZFMETAS ID(AZFSTC) ACCESS(READ) +                    
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.POLICY.**       ID(AZFSTC) ACCESS(READ) +                    
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.USER            ID(AZFSTC) ACCESS(READ) +                    
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.MFADEF.AZFSTC   ID(IBMUSER) ACCESS(ALTER) +                  
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.MFADEF.AZFTOTP1 ID(IBMUSER) ACCESS(ALTER) +                  
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.MFADEF.AZFPASS1 ID(IBMUSER) ACCESS(ALTER) +                  
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.MFADEF.AZFMETAS ID(IBMUSER) ACCESS(ALTER) +                  
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.POLICY.**       ID(IBMUSER) ACCESS(ALTER) +                  
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.USER            ID(IBMUSER) ACCESS(ALTER) +                  
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.MFADEF.AZFSTC   ID(AZFWEB) ACCESS(READ) +                    
+   CLASS(FACILITY)                                                              
+PERMIT IRR.RFACTOR.MFADEF.AZFTOTP1 ID(AZFWEB) ACCESS(READ) +                    
+   CLASS(FACILITY)                                                              
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+                                                                                
+SETROPTS PASSWORD(MIXEDCASE)                                                    
+                                                                                
+RACDCERT ID(AZFWEB) GENCERT +                                                   
+  SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                    
+  OU('DTSC') +                                                                  
+  O('IBM')) +                                                                   
+  SIZE(2048) +                                                                  
+  WITHLABEL('AZFWEB-SERV-CERT') +                                               
+  SIGNWITH(CERTAUTH LABEL('ZOSMFCA')) +                                         
+  NOTAFTER(DATE(2050/01/02)) +                                                  
+  ALTNAME(IP(192.168.1.171) +                                                   
+          DOMAIN('S0W1.DAL-EBIS.IHOST.COM') +                                   
+          URI('S0W1.DAL-EBIS.IHOST.COM'))                                       
+                                                                                
+RACDCERT ID(AZFWEB) ADDRING(AZFWEBKEYRING)                                      
+RACDCERT ID(AZFWEB) CONNECT(CERTAUTH LABEL('ZOSMFCA') +                         
+  RING(AZFWEBKEYRING) USAGE(CERTAUTH))                                          
+RACDCERT ID(AZFWEB) CONNECT(ID(AZFWEB) LABEL('AZFWEB-SERV-CERT') +              
+  RING(AZFWEBKEYRING) USAGE(PERSONAL) DEFAULT)                                  
+SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                    
+                                                                                
+PERMIT IRR.RFACTOR.USER       ID(AZFWEB) ACCESS(UPDATE) +                       
+   CLASS(FACILITY)                                                              
+PERMIT IRR.DIGTCERT.LISTRING  ID(AZFWEB) ACCESS(READ) +                         
+   CLASS(FACILITY)                                                              
+                                                                                
+RDEFINE CRYPTOZ SO.MFA.SERVER.PKCS UACC(NONE)                                   
+PERMIT SO.MFA.SERVER.PKCS CLASS(CRYPTOZ) ID(AZFSTC) ACCESS(CONTROL)             
+RDEFINE CRYPTOZ USER.MFA.SERVER.PKCS UACC(NONE)                                 
+PERMIT USER.MFA.SERVER.PKCS CLASS(CRYPTOZ) ID(AZFSTC) ACCESS(CONTROL)           
+PERMIT SO.MFA.SERVER.PKCS CLASS(CRYPTOZ) ID(AZFWEB) ACCESS(UPDATE)              
+SETROPTS RACLIST(FACILITY, CRYPTOZ) REFRESH                                     
+                                                                                
+RACDCERT ADDTOKEN(MFA.SERVER.PKCS)                                              

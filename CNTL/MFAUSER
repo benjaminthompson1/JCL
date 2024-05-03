@@ -1,0 +1,77 @@
+//IUMFAUS JOB  (FB3),'MFA USER',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*                                                                             
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: CREATE TSO MFA USERS FOR IBM MFA                        *          
+//*                                                                  *          
+//********************************************************************          
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+DELUSER MFAUSR1                                                                 
+DELUSER MFAUSR2                                                                 
+DELUSER MFAUSR3                                                                 
+                                                                                
+ADDUSER MFAUSR1 NOPASSWORD PHRASE('MFA DEMO USER') +                            
+   NAME('MFA DEMO USER 1     ') +                                               
+   OWNER(MFA) +                                                                 
+   TSO( ACCTNUM(IZUACCT) +                                                      
+     PROC(DB13PROC) +                                                           
+     SIZE(0) +                                                                  
+     MAXSIZE(2096128) +                                                         
+     COMMAND('ISPF') +                                                          
+   ) +                                                                          
+   DFLTGRP(MFA)                                                                 
+                                                                                
+CONNECT MFAUSR1 GROUP(MFA) OWNER(MFA) AUTH(USE) UACC(NONE)                      
+ALTUSER MFAUSR1 PHRASE('MFA DEMO USER') NOEXP                                   
+                                                                                
+ADDUSER MFAUSR2 NOPASSWORD PHRASE('MFA DEMO USER') +                            
+   NAME('MFA DEMO USER 2     ') +                                               
+   OWNER(MFA) +                                                                 
+   TSO( ACCTNUM(IZUACCT) +                                                      
+     PROC(DB13PROC) +                                                           
+     SIZE(0) +                                                                  
+     MAXSIZE(2096128) +                                                         
+     COMMAND('ISPF') +                                                          
+   ) +                                                                          
+   DFLTGRP(MFA)                                                                 
+                                                                                
+CONNECT MFAUSR2 GROUP(MFA) OWNER(MFA) AUTH(USE) UACC(NONE)                      
+ALTUSER MFAUSR2 PHRASE('MFA DEMO USER') NOEXP                                   
+                                                                                
+ALTUSER MFAUSR2 MFA(FACTOR(AZFTOTP1) TAGS(REGSTATE:OPEN) NOPWFALLBACK +         
+    ACTIVE)                                                                     
+ALTUSER MFAUSR2 MFA(FACTOR(AZFPASS1) NOPWFALLBACK ACTIVE)                       
+ALTUSER MFAUSR2 MFA(ADDPOLICY(TOTPPOLICY))                                      
+                                                                                
+ADDUSER MFAUSR3 NOPASSWORD PHRASE('MFA DEMO USER') +                            
+   NAME('MFA DEMO USER 3     ') +                                               
+   OWNER(MFA) +                                                                 
+   TSO( ACCTNUM(IZUACCT) +                                                      
+     PROC(DB13PROC) +                                                           
+     SIZE(0) +                                                                  
+     MAXSIZE(2096128) +                                                         
+     COMMAND('ISPF') +                                                          
+   ) +                                                                          
+   DFLTGRP(MFA)                                                                 
+                                                                                
+CONNECT MFAUSR3 GROUP(MFA) OWNER(MFA) AUTH(USE) UACC(NONE)                      
+ALTUSER MFAUSR3 PHRASE('MFA DEMO USER') NOEXP                                   
+                                                                                
+ALTUSER MFAUSR3 MFA(FACTOR(AZFTOTP1) TAGS(REGSTATE:OPEN) PWFALLBACK +           
+   ACTIVE)                                                                      
+ALTUSER MFAUSR3 MFA(FACTOR(AZFPASS1) PWFALLBACK ACTIVE)                         
+ALTUSER MFAUSR3 MFA(ADDPOLICY(TOTPPOLICY))                                      
+                                                                                
+LISTUSER MFAUSR1 MFA                                                            
+LISTUSER MFAUSR2 MFA                                                            
+LISTUSER MFAUSR3 MFA                                                            

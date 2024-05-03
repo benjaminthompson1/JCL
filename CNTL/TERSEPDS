@@ -1,0 +1,31 @@
+//IUTERSE JOB (FB3),'TERSE',CLASS=A,MSGCLASS=H,                                 
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: AMATERSE TO PACK PDSE DATASETS                          *          
+//*                                                                  *          
+//********************************************************************          
+//SETUP    EXEC  PGM=IEFBR14                                                    
+//FILE1    DD DISP=(MOD,DELETE),DSN=IBMUSER.Z31A.PARMLIB.XMIT,                  
+//            UNIT=SYSDA,SPACE=(TRK,1)                                          
+//FILE2    DD DISP=(MOD,DELETE),DSN=IBMUSER.Z31A.PARMLIB.XMIT.TRS,              
+//            UNIT=SYSDA,SPACE=(TRK,1)                                          
+//*                                                                             
+//XMIT     EXEC PGM=IKJEFT01,REGION=4M,COND=(0,NE)                              
+//FILEIN   DD DISP=SHR,DSN=USER.Z31A.PARMLIB                                    
+//FILEOUT  DD DISP=(,CATLG),DSN=IBMUSER.Z31A.PARMLIB.XMIT,                      
+//            UNIT=SYSDA,SPACE=(CYL,(1,1),RLSE)                                 
+//SYSTSIN  DD *                                                                 
+  XMIT A.B FILE(FILEIN) OUTFILE(FILEOUT) -                                      
+       SYSOUT(Z) NOEPILOG NOLOG NOPROLOG                                        
+//SYSTSPRT DD SYSOUT=*                                                          
+//*                                                                             
+//*  PACK PDSE LINKLIB                                                          
+//*                                                                             
+//AMATERSE EXEC PGM=AMATERSE,PARM=PACK,REGION=5000K                             
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD DISP=SHR,DSN=IBMUSER.Z31A.PARMLIB.XMIT                            
+//SYSUT2   DD DSN=IBMUSER.Z31A.PARMLIB.XMIT.TRS,                                
+//            DISP=(NEW,CATLG),UNIT=SYSDA,                                      
+//            SPACE=(CYL,(1,1),RLSE)                                            

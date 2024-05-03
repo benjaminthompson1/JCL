@@ -114,7 +114,8 @@ SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH
                                                                                 
 RDEFINE RDATALIB CXPCLNT.CXPClientRing.LST UACC(NONE)                           
                                                                                 
-PERMIT CXPCLNT.CXPClientRing.LST CLASS(RDATALIB) ID(CXPUSER) ACCESS(UPDATE)     
+PERMIT CXPCLNT.CXPClientRing.LST CLASS(RDATALIB) ID(CXPUSER) +                  
+  ACCESS(UPDATE)                                                                
                                                                                 
 SETROPTS CLASSACT(RDATALIB) RACLIST(RDATALIB)                                   
                                                                                 
