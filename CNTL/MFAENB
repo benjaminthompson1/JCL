@@ -1,0 +1,30 @@
+//IUMFAEN JOB  (FB3),'MFA ENABLE',CLASS=A,MSGCLASS=H,                           
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*                                                                             
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: ENABLE MFA USERS                                        *          
+//*                                                                  *          
+//********************************************************************          
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+ALTUSER MFAUSR2 MFA(FACTOR(AZFTOTP1) TAGS(REGSTATE:OPEN) NOPWFALLBACK +         
+   ACTIVE)                                                                      
+ALTUSER MFAUSR2 MFA(FACTOR(AZFTOTP1) NOPWFALLBACK ACTIVE)                       
+                                                                                
+ALTUSER MFAUSR3 MFA(FACTOR(AZFTOTP1) TAGS(REGSTATE:OPEN) PWFALLBACK +           
+   ACTIVE)                                                                      
+ALTUSER MFAUSR3 MFA(FACTOR(AZFTOTP1) PWFALLBACK ACTIVE)                         
+ALTUSER MFAUSR3 MFA(ADDPOLICY(TOTPPOLICY))                                      
+                                                                                
+LISTUSER MFAUSR1 MFA                                                            
+LISTUSER MFAUSR2 MFA                                                            
+LISTUSER MFAUSR3 MFA                                                            
