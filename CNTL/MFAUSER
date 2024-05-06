@@ -24,7 +24,7 @@ ADDUSER MFAUSR1 NOPASSWORD PHRASE('MFA DEMO USER') +
    NAME('MFA1') +                                                               
    OWNER(MFA) +                                                                 
    TSO( ACCTNUM(IZUACCT) +                                                      
-     PROC(DB13PROC) +                                                           
+     PROC(ISPFPROC) +                                                           
      SIZE(0) +                                                                  
      MAXSIZE(2096128) +                                                         
      COMMAND('ISPF') +                                                          
@@ -38,7 +38,7 @@ ADDUSER MFAUSR2 NOPASSWORD PHRASE('MFA DEMO USER') +
    NAME('MFA2') +                                                               
    OWNER(MFA) +                                                                 
    TSO( ACCTNUM(IZUACCT) +                                                      
-     PROC(DB13PROC) +                                                           
+     PROC(ISPFPROC) +                                                           
      SIZE(0) +                                                                  
      MAXSIZE(2096128) +                                                         
      COMMAND('ISPF') +                                                          
@@ -57,7 +57,7 @@ ADDUSER MFAUSR3 NOPASSWORD PHRASE('MFA DEMO USER') +
    NAME('MFA') +                                                                
    OWNER(MFA) +                                                                 
    TSO( ACCTNUM(IZUACCT) +                                                      
-     PROC(DB13PROC) +                                                           
+     PROC(ISPFPROC) +                                                           
      SIZE(0) +                                                                  
      MAXSIZE(2096128) +                                                         
      COMMAND('ISPF') +                                                          
