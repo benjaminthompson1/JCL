@@ -21,7 +21,7 @@ DELUSER MFAUSR2
 DELUSER MFAUSR3                                                                 
                                                                                 
 ADDUSER MFAUSR1 NOPASSWORD PHRASE('MFA DEMO USER') +                            
-   NAME('MFA DEMO USER 1     ') +                                               
+   NAME('MFA1') +                                                               
    OWNER(MFA) +                                                                 
    TSO( ACCTNUM(IZUACCT) +                                                      
      PROC(DB13PROC) +                                                           
@@ -35,7 +35,7 @@ CONNECT MFAUSR1 GROUP(MFA) OWNER(MFA) AUTH(USE) UACC(NONE)
 ALTUSER MFAUSR1 PHRASE('MFA DEMO USER') NOEXP                                   
                                                                                 
 ADDUSER MFAUSR2 NOPASSWORD PHRASE('MFA DEMO USER') +                            
-   NAME('MFA DEMO USER 2     ') +                                               
+   NAME('MFA2') +                                                               
    OWNER(MFA) +                                                                 
    TSO( ACCTNUM(IZUACCT) +                                                      
      PROC(DB13PROC) +                                                           
@@ -54,7 +54,7 @@ ALTUSER MFAUSR2 MFA(FACTOR(AZFPASS1) NOPWFALLBACK ACTIVE)
 ALTUSER MFAUSR2 MFA(ADDPOLICY(TOTPPOLICY))                                      
                                                                                 
 ADDUSER MFAUSR3 NOPASSWORD PHRASE('MFA DEMO USER') +                            
-   NAME('MFA DEMO USER 3     ') +                                               
+   NAME('MFA') +                                                                
    OWNER(MFA) +                                                                 
    TSO( ACCTNUM(IZUACCT) +                                                      
      PROC(DB13PROC) +                                                           
@@ -71,6 +71,9 @@ ALTUSER MFAUSR3 MFA(FACTOR(AZFTOTP1) TAGS(REGSTATE:OPEN) PWFALLBACK +
    ACTIVE)                                                                      
 ALTUSER MFAUSR3 MFA(FACTOR(AZFPASS1) PWFALLBACK ACTIVE)                         
 ALTUSER MFAUSR3 MFA(ADDPOLICY(TOTPPOLICY))                                      
+                                                                                
+PERMIT IZUACCT ID(MFA) ACCESS(READ) CLASS(ACCTNUM)                              
+SETROPTS RACLIST(ACCTNUM) REFRESH                                               
                                                                                 
 LISTUSER MFAUSR1 MFA                                                            
 LISTUSER MFAUSR2 MFA                                                            
