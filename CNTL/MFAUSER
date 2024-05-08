@@ -78,3 +78,31 @@ SETROPTS RACLIST(ACCTNUM) REFRESH
 LISTUSER MFAUSR1 MFA                                                            
 LISTUSER MFAUSR2 MFA                                                            
 LISTUSER MFAUSR3 MFA                                                            
+/*                                                                              
+//DELETE EXEC PGM=IDCAMS                                                        
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  DELETE MFAUSR1.S0W1.ISPF.ISPPROF PURGE                                        
+  DELETE MFAUSR2.S0W1.ISPF.ISPPROF PURGE                                        
+  DELETE MFAUSR3.S0W1.ISPF.ISPPROF PURGE                                        
+  SET MAXCC=0                                                                   
+/*                                                                              
+//DEFINE   EXEC PGM=IEFBR14                                                     
+//MFAUSR1  DD DSN=MFAUSR1.S0W1.ISPF.ISPFPROF,                                   
+//            DISP=(NEW,CATLG),                                                 
+//            UNIT=SYSDA,                                                       
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
+//            DSNTYPE=LIBRARY,                                                  
+//            SPACE=(TRK,(1,1,1))                                               
+//MFAUSR2  DD DSN=MFAUSR2.S0W1.ISPF.ISPFPROF,                                   
+//            DISP=(NEW,CATLG),                                                 
+//            UNIT=SYSDA,                                                       
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
+//            DSNTYPE=LIBRARY,                                                  
+//            SPACE=(TRK,(1,1,1))                                               
+//MFAUSR3  DD DSN=MFAUSR3.S0W1.ISPF.ISPFPROF,                                   
+//            DISP=(NEW,CATLG),                                                 
+//            UNIT=SYSDA,                                                       
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
+//            DSNTYPE=LIBRARY,                                                  
+//            SPACE=(TRK,(1,1,1))                                               
