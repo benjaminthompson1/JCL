@@ -6,7 +6,7 @@
 //* PURPOSE: DB2 COBOL COMPILE AND BIND                              *          
 //*                                                                  *          
 //********************************************************************          
-//COMPILE  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                              
+//COMPILE  EXEC IGYQCB,LNGPRFX=IGY640,LIBPRF1=CEE,                              
 //         CPARM='SQL,TEST',                                                    
 //         BPARM='DYNAM=NO',                                                    
 //         GOPGM=ERIS                                                           

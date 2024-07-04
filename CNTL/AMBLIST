@@ -1,0 +1,14 @@
+//IUAMBLT JOB (FB3),'AMBLIST',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: AMBLIST - Information on load, oblject modules          *          
+//*                                                                  *          
+//********************************************************************          
+//STEP1   EXEC PGM=AMBLIST                                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSLIB   DD DSN=IBMUSER.GIT.COBOL.LOAD,DISP=SHR                               
+//SYSIN    DD *                                                                 
+  LISTLOAD MEMBER=HELLOW                                                        
+/*                                                                              

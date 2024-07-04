@@ -6,7 +6,7 @@
 //* PURPOSE: COBOL COMPILE AND BIND                                  *          
 //*                                                                  *          
 //********************************************************************          
-//COBCB1  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                               
+//COBCB1  EXEC IGYQCB,LNGPRFX=IGY640,LIBPRF1=CEE,                               
 //             CPARM=TEST,                                                      
 //             GOPGM=HELLOW                                                     
 //COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        

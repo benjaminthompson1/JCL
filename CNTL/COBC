@@ -6,7 +6,7 @@
 //* PURPOSE: COBOL COMPILE                                           *          
 //*                                                                  *          
 //********************************************************************          
-//COBC1  EXEC IGYQC,LNGPRFX=IGY630,LIBPRF1=CEE,                                 
+//COBC1  EXEC IGYQC,LNGPRFX=IGY640,LIBPRF1=CEE,                                 
 //            CPARM=TEST,                                                       
 //            GOPGM=HELLOW                                                      
 //SYSLIB DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                            
