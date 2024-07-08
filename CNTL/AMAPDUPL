@@ -16,8 +16,8 @@
 //           UNIT=SYSALLDA,SPACE=(CYL,(1,1),RLSE)                               
 //SYSUT1   DD DISP=SHR,DSN=IBMUSER.BACKUP.D300721                               
 //SYSIN    DD *                                                                 
-USERID=E-BbppjAxgCE                                                             
-PASSWORD=8A9g-3AJy-Lv4y-dSj4-C2h6                                               
+USERID=anonymous                                                                
+PASSWORD=benjamin.thompson1@ibm.com                                             
 TARGET_SYS=www.secure.ecurep.ibm.com                                            
 TARGET_DSN=wessamp.bigfile                                                      
 CC_HTTPS=03                                                                     
@@ -25,4 +25,14 @@ WORK_SIZE=100
 DIRECTORY=mvs                                                                   
 CASE=TS012345678                                                                
 USE_HTTPS=Y                                                                     
-HTTPS_KEYRING=START1/ECuRepAP                                                   
+HTTPS_KEYRING=TCPIP/ECuRepAP                                                    
+/*                                                                              
+//SYSIN    DD *                                                                 
+TARGET_DSN=WESSAMP.BIGFILE                                                      
+WORK_DSN=WES.FTPOUT                                                             
+WORK_DSN_SIZE=500                                                               
+DIRECTORY=/u/ibmuser/pduu/                                                      
+CASE=TS012345678                                                                
+ENCRYPT                                                                         
+CIPHER_KEY(llama)                                                               
+/*                                                                              

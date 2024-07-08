@@ -17,30 +17,32 @@ BZUDUMP  - VTP Playback Dump Utility
 BZUPLAY  - VTP Play recording from batch/file I/O calls                         
 BZUREC   - VTP Record collecting batch/file I/O calls                           
 CCBERIS  - COBOL compile and bind with Db2 ERIS                                 
-CICSCSD  - Define base application - EGUI CICS CSD entry    
-CICSCSDM - Define ZOFFICE MortgageApplication               
+CICSCSD  - Define base application - EGUI CICS CSD entry                        
+CICSCSDM - Define ZOFFICE MortgageApplication                                   
 COBC     - COBOL compile                                                        
 COBCB    - COBOL compile and bind                                               
 COBCBDB  - COBOL compile and bind with Db2                                      
 COBCBG   - COBOL compile, bind and go (run)                                     
 COBCBGDB - COBOL compile, bind and go (run) with Db2                            
 COBCBMQ  - COBOL compile and bind with MQ                                       
-COBRUN   - COBOL run program   
-COBRUNDB - COBOL run program with Db2                                                 
+COBRUN   - COBOL run program                                                    
+COBRUNDB - COBOL run program with Db2                                           
+                                                                                
 COBSORT  - COBOL with DFSORT                                                    
 CONVERTV - SMS CONVERTV                                                         
 CRDB2ARC - COBOL RUN DB2ARCH                                                    
 CSQLOGP1 - CSQ LOG PRINT                                                        
 CSQLOGP2 - CSQ LOG PRINT commited messages and select specific data             
-CSQUTIL  - MQ CSQ Utility                                                                                
+CSQUTIL  - MQ CSQ Utility                                                       
+                                                                                
 DCOLLECT - DCOLLECT collects stored dataset, volume and policy values           
 DFH$ECAT - copy from DFH540.CICS.SDFHINST                                       
 DFH$ECNF - copy from DFH540.CICS.SDFHINST                                       
 DFSORT   - DFSORT Utility                                                       
 DSNBIND  - Db2 BIND                                                             
 DSNREST  - Creating and enabling Db2 native REST services for ZCEE              
-DSNTIJAI - SQLDI Pseudo Catalog     
-DSNTIJAV - SQLDI IVP                                            
+DSNTIJAI - SQLDI Pseudo Catalog                                                 
+DSNTIJAV - SQLDI IVP                                                            
 DSNTIJRS - Enabling Db2 REST services                                           
 DSSCOPY  - Copy dataset(s)                                                      
 DSSDFRAG - Defrag a volume                                                      
@@ -54,9 +56,9 @@ EREP     - EREP processes logrec data set into reports
 ERISDBIC - Db2 full Image Copy on ERIS TS                                       
 ERISPGM  - COBOL RUN ERIS                                                       
 ERISVSAM - Create and load PERSON VSAM for ERIS project                         
-HBOJBCOL - CDP z Batch collect SMF data                                       
-HBOJBDC2 - CDP z Batch DCOLLECT processor sending to DATA STREAMER    
-HBOJBDCO - CDP z Batch DCOLLECT processor           
+HBOJBCOL - CDP z Batch collect SMF data                                         
+HBOJBDC2 - CDP z Batch DCOLLECT processor sending to DATA STREAMER              
+HBOJBDCO - CDP z Batch DCOLLECT processor                                       
 HLASM    - Compile and link HLASM                                               
 ICEGENER - IEBGENER replacement for VSAM and sequential files                   
 ICETOOL  - ZSORT new feature in z15 hardware                                    
@@ -69,9 +71,10 @@ IDCAMSVS - Define VSAM dataset with alternate index
 IDCAMZFS - Define ZFS dataset and mount on specified directory                  
 IEBCOPY  - copy PDS members                                                     
 IEBDG    - generate test data                                                   
-IEFBR14  - IEFBR14 testing allocations       
-IFASMFDL - SMF logstream dump program                            
-ISCJCL86 - SCRT Report                                                                                                  
+IEFBR14  - IEFBR14 testing allocations                                          
+IFASMFDL - SMF logstream dump program                                           
+ISCJCL86 - SCRT Report                                                          
+                                                                                
 IXCMIAPU - Define LOGSTREAM name(IFASMF.SMFALL.S0W1)                            
 IZUNASEC - ZERT RACF                                                            
 JAVA     - IVP Batch Java                                                       

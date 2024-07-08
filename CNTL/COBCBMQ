@@ -7,7 +7,6 @@
 //*                                                                  *          
 //********************************************************************          
 //COBCB1  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                               
-//             CPARM=TEST,                                                      
 //             BPARM='XREF,MAP,DYNAM=DLL',                                      
 //             GOPGM=CSQ4BVK1                                                   
 //COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        

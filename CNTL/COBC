@@ -7,7 +7,6 @@
 //*                                                                  *          
 //********************************************************************          
 //COBC1  EXEC IGYQC,LNGPRFX=IGY640,LIBPRF1=CEE,                                 
-//            CPARM=TEST,                                                       
 //            GOPGM=HELLOW                                                      
 //SYSLIB DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                            
 //SYSIN  DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                     
