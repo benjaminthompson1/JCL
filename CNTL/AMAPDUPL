@@ -26,6 +26,7 @@ DIRECTORY=mvs
 CASE=TS012345678                                                                
 USE_HTTPS=Y                                                                     
 HTTPS_KEYRING=TCPIP/ECuRepAP                                                    
+CIPHER_KEY=llama                                                                
 /*                                                                              
 //SYSIN    DD *                                                                 
 TARGET_DSN=WESSAMP.BIGFILE                                                      
@@ -33,6 +34,5 @@ WORK_DSN=WES.FTPOUT
 WORK_DSN_SIZE=500                                                               
 DIRECTORY=/u/ibmuser/pduu/                                                      
 CASE=TS012345678                                                                
-ENCRYPT                                                                         
-CIPHER_KEY(llama)                                                               
+CIPHER_KEY=llama                                                                
 /*                                                                              
