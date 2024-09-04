@@ -1,0 +1,126 @@
+//IUTIJR2 JOB (FB3),'DSNTIJR2',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//* JOB NAME = DSNTIJR2                                                         
+//*                                                                             
+//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                                  
+//*                                                                             
+//*    Licensed Materials - Property of IBM                                     
+//*    5650-DB2                                                                 
+//*    (C) COPYRIGHT 2016 IBM Corp.  All Rights Reserved.                       
+//*                                                                             
+//*    STATUS = Version 12                                                      
+//*                                                                             
+//* FUNCTION = ALTER RESTful SERVICES DATABASE OBJECTS TO ENABLE                
+//*            RESTful SERVICE VERSIONING SUPPORT.  THIS INCLUDES               
+//*            ADDING NEW VERSIONID AND ISDEFAULT COLUMNS TO THE                
+//*            RESTful SERVICES TABLE, AND ADDING NEW VERSIONID                 
+//*            COLUMN TO THE RESTful SERVICES INDEX.                            
+//*                                                                             
+//* PSEUDOCODE =                                                                
+//*   DSNTIAC  STEP     Alter the RESTful services table to add                 
+//*                     columns VERSIONID and ISDEFAULT. Alter the              
+//*                     RESTful services table index to add column              
+//*                     VERSIONID.                                              
+//*   DSNTICU  STEP     Alter the RESTful services table index to               
+//*                     add index include columns CONTOKEN, ENABLED,            
+//*                     and ISDEFAULT.                                          
+//*                     NOTE THAT THIS STEP IS OPTIONAL AND WILL                
+//*                     RESULT IN AN OUTAGE REQUIRING A REBUILD INDEX.          
+//*                                                                             
+//* DEPENDENCIES =         ** IMPORTANT **                                      
+//*                RUN THIS JOB *ONLY AFTER* APAR PI98649,                      
+//*                WHICH PROVIDES REST SERVICES VERSIONING SUPPORT,             
+//*                HAS BEEN APPLIED TO THE TARGET DB2 SUBSYSTEM(S).             
+//*                                                                             
+//*                FOR DB2 DATA SHARING CONFIGURATIONS,                         
+//*                RUN THIS JOB *ONLY AFTER* APAR PI98649,                      
+//*                WHICH PROVIDES REST SERVICES VERSIONING SUPPORT,             
+//*                HAS BEEN APPLIED TO *ALL* DB2 MEMBERS OF THE GROUP.          
+//*                IF THIS JOB IS RUN AND THERE ARE ANY MEMBERS                 
+//*                THAT DO NOT HAVE THE REQUIRED APAR PI98649 ACTIVE,           
+//*                THEN THE RESTful SERVICES DATABASE OBJECTS                   
+//*                AND ALL RESTful SERVICES FUNCTIONALITY                       
+//*                WILL BE UNUSABLE BY THOSE DB2 MEMBERS                        
+//*                UNTIL THE REQUIRED APAR PI98649 IS INSTALLED.                
+//*                                                                             
+//* NOTES =                                                                     
+//*    PRIOR TO RUNNING THIS JOB, customize it for your system:                 
+//*    (1) Add a valid job card.                                                
+//*    (2) Change all occurrences of the following strings:                     
+//*        (A) Change the subsystem name '!DSN!' to the SSID of your            
+//*            DB2.                                                             
+//*        (B) Change 'DSN!!0' to the prefix of the target library              
+//*            for DB2.                                                         
+//*        (C) Change 'DSNTIA!!' to the plan name for DSNTIAD on your           
+//*            DB2.                                                             
+//*    (3) RUN THIS JOB ONLY AFTER SUCCESSFUL EXECUTION OF JOB                  
+//*        DSNTIJRS, WHICH CREATES THE REQUIRED RESTful SERVICES                
+//*        DATABASE OBJECTS, INCLUING THE SYSIBM.DSNSERVICE TABLE.              
+//*    (4) ** IMPORTANT ** RUN THIS JOB *ONLY AFTER*                            
+//*        REST APAR PI98649, WHICH PROVIDES REST SERVICES VERSIONING           
+//*        SUPPORT, HAS BEEN APPLIED AND IS ACTIVE ON THE TARGET                
+//*        DB2 SUBSYSTEM(S), INCLUDING *ALL* DB2 MEMBERS OF THE GROUP.          
+//*                                                                             
+//* CHANGE LOG =                                                                
+//*   05/01/18 New part to alter an existing REST services table to             
+//*            supporting versioning.                                           
+//*                                                                             
+//*********************************************************************         
+//JOBLIB  DD  DISP=SHR,                                                         
+//            DSN=DSND10.SDSNLOAD                                               
+//*                                                                             
+//*********************************************************************         
+//* Alter the RESTful services database and index to add new                    
+//* VERSIONID column                                                            
+//*********************************************************************         
+//DSNTIAC EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                             
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSUDUMP DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) -                                        
+       LIBRARY('DSND10.DBDG.RUNLIB.LOAD')                                       
+  END                                                                           
+//SYSIN    DD  *                                                                
+  ALTER TABLE "SYSIBM"."DSNSERVICE"                                             
+        ADD COLUMN VERSIONID VARCHAR(64) NOT NULL WITH DEFAULT ''               
+        ADD COLUMN ISDEFAULT CHAR(1) NOT NULL WITH DEFAULT 'Y';                 
+                                                                                
+  ALTER INDEX SYSIBM.DSNSVC01                                                   
+        ADD COLUMN (VERSIONID ASC);                                             
+                                                                                
+/*                                                                              
+//*  //****************************************************************         
+//*  //* Optional: Alter the index to add existing columns CONTOKEN,            
+//*  //*           ENABLED, and ISDEFAULT. Performing these ALTERs              
+//*  //*           may improve access performance to the REST                   
+//*  //*           services database.                                           
+//*  //* WARNING:  PERFORMING THE FOLLOWING ALTER STEPS WILL RESULT             
+//*  //*           IN THE INDEX BEING PLACED INTO REBUILD-PENDING               
+//*  //*           (PSRBD) STATE. THIS WILL INCUR AN OUTAGE FOR REST            
+//*  //*           SERVICES UNTIL THE INDEX IS REBUILT USING THE                
+//*  //*           REBUILD INDEX UTILITY.                                       
+//*  //****************************************************************         
+//*  //DSNTICU EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                        
+//*  //SYSTSPRT DD  SYSOUT=*                                                    
+//*  //SYSPRINT DD  SYSOUT=*                                                    
+//*  //SYSUDUMP DD  SYSOUT=*                                                    
+//*  //SYSTSIN  DD  *                                                           
+//*    DSN SYSTEM(!DSN!)                                                        
+//*    RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA!!) -                                   
+//*         LIBRARY('DSN!!0.RUNLIB.LOAD')                                       
+//*    END                                                                      
+//*  //SYSIN    DD  *                                                           
+//*    ALTER INDEX SYSIBM.DSNSVC01                                              
+//*          ADD INCLUDE COLUMN (CONTOKEN);                                     
+//*                                                                             
+//*    ALTER INDEX SYSIBM.DSNSVC01                                              
+//*          ADD INCLUDE COLUMN (ENABLED);                                      
+//*                                                                             
+//*    ALTER INDEX SYSIBM.DSNSVC01                                              
+//*          ADD INCLUDE COLUMN (ISDEFAULT);                                    
+//*                                                                             
+//*  /*                                                                         

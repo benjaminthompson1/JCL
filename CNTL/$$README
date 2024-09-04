@@ -44,6 +44,7 @@ DSNREST  - Creating and enabling Db2 native REST services for ZCEE
 DSNTIJAI - SQLDI Pseudo Catalog                                                 
 DSNTIJAV - SQLDI IVP                                                            
 DSNTIJRS - Enabling Db2 REST services                                           
+DSNTIJR2 - Enabling Db2 REST service versioning support                         
 DSSCOPY  - Copy dataset(s)                                                      
 DSSDFRAG - Defrag a volume                                                      
 DSSDIAG  - Check VVR's and Catalog entries for datsets on a volume              

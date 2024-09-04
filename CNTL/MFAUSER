@@ -54,7 +54,7 @@ ALTUSER MFAUSR2 MFA(FACTOR(AZFPASS1) NOPWFALLBACK ACTIVE)
 ALTUSER MFAUSR2 MFA(ADDPOLICY(TOTPPOLICY))                                      
                                                                                 
 ADDUSER MFAUSR3 NOPASSWORD PHRASE('MFA DEMO USER') +                            
-   NAME('MFA') +                                                                
+   NAME('MFA3') +                                                               
    OWNER(MFA) +                                                                 
    TSO( ACCTNUM(IZUACCT) +                                                      
      PROC(ISPFPROC) +                                                           
