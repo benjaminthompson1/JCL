@@ -13,7 +13,7 @@
 DSN SYSTEM(DBCG)                                                                
    RUN -                                                                        
      PROGRAM(DSNTEP2) -                                                         
-     PLAN(DSNTEP12)                                                             
+     PLAN(DSNTEP13)                                                             
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
