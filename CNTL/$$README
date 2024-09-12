@@ -26,15 +26,13 @@ COBCBG   - COBOL compile, bind and go (run)
 COBCBGDB - COBOL compile, bind and go (run) with Db2                            
 COBCBMQ  - COBOL compile and bind with MQ                                       
 COBRUN   - COBOL run program                                                    
-COBRUNDB - COBOL run program with Db2                                           
-                                                                                
+COBRUNDB - COBOL run program with Db2                                                                                                                          
 COBSORT  - COBOL with DFSORT                                                    
 CONVERTV - SMS CONVERTV                                                         
 CRDB2ARC - COBOL RUN DB2ARCH                                                    
 CSQLOGP1 - CSQ LOG PRINT                                                        
 CSQLOGP2 - CSQ LOG PRINT commited messages and select specific data             
-CSQUTIL  - MQ CSQ Utility                                                       
-                                                                                
+CSQUTIL  - MQ CSQ Utility                                                                                                                                       
 DCOLLECT - DCOLLECT collects stored dataset, volume and policy values           
 DFH$ECAT - copy from DFH540.CICS.SDFHINST                                       
 DFH$ECNF - copy from DFH540.CICS.SDFHINST                                       
@@ -74,8 +72,7 @@ IEBCOPY  - copy PDS members
 IEBDG    - generate test data                                                   
 IEFBR14  - IEFBR14 testing allocations                                          
 IFASMFDL - SMF logstream dump program                                           
-ISCJCL86 - SCRT Report                                                          
-                                                                                
+ISCJCL86 - SCRT Report                                                                                                                                          
 IXCMIAPU - Define LOGSTREAM name(IFASMF.SMFALL.S0W1)                            
 IZUNASEC - ZERT RACF                                                            
 JAVA     - IVP Batch Java                                                       
