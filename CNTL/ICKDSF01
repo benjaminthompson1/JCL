@@ -27,4 +27,4 @@
       INDEX(0,1,44)      /*  45 TRK INDEX         */ -                          
       OWNERID('IBMUSER') -                                                      
       VOLID(NEWNNN)      /*  NEW VOLID             */                           
-//*                                                                             
+/*                                                                              
