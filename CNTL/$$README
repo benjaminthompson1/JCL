@@ -4,7 +4,7 @@ $SDSF    - Issue SDFS commands
 $VS      - Issue CONSOLE commands                                               
 ACBJBARD - Generating data set report from DCOLLECT data                        
 AMAPDUPL - IBM Problem Documentation Upload Utility                             
-AMBLIST  - Information on load, oblject modules                                 
+AMBLIST  - Information on load, object modules                                 
 ARCSTRST - DFSMShsm starter set - job #1                                        
 ARCTOOLS - DFSMShsm starter set - job #2                                        
 AVZGNSTF - DVM Create the sample VSAM file                                      
@@ -26,15 +26,13 @@ COBCBG   - COBOL compile, bind and go (run)
 COBCBGDB - COBOL compile, bind and go (run) with Db2                            
 COBCBMQ  - COBOL compile and bind with MQ                                       
 COBRUN   - COBOL run program                                                    
-COBRUNDB - COBOL run program with Db2                                           
-                                                                                
+COBRUNDB - COBOL run program with Db2                                                                                                                          
 COBSORT  - COBOL with DFSORT                                                    
 CONVERTV - SMS CONVERTV                                                         
 CRDB2ARC - COBOL RUN DB2ARCH                                                    
 CSQLOGP1 - CSQ LOG PRINT                                                        
-CSQLOGP2 - CSQ LOG PRINT commited messages and select specific data             
-CSQUTIL  - MQ CSQ Utility                                                       
-                                                                                
+CSQLOGP2 - CSQ LOG PRINT committed messages and select specific data             
+CSQUTIL  - MQ CSQ Utility                                                                                                                                       
 DCOLLECT - DCOLLECT collects stored dataset, volume and policy values           
 DFH$ECAT - copy from DFH540.CICS.SDFHINST                                       
 DFH$ECNF - copy from DFH540.CICS.SDFHINST                                       
@@ -47,7 +45,7 @@ DSNTIJRS - Enabling Db2 REST services
 DSNTIJR2 - Enabling Db2 REST service versioning support                         
 DSSCOPY  - Copy dataset(s)                                                      
 DSSDFRAG - Defrag a volume                                                      
-DSSDIAG  - Check VVR's and Catalog entries for datsets on a volume              
+DSSDIAG  - Check VVR's and Catalog entries for datasets on a volume              
 DSSDUMPF - DSS Backup at volume level                                           
 DSSDUMPL - DSS Backup at logical dataset name                                   
 DSSMOVE  - Move dataset(s) from volume                                          
@@ -69,13 +67,12 @@ IDCAMGDG - Create GDG base
 IDCAMS   - LISTCAT / DEFINE ALIAS                                               
 IDCAMSMS - Define backup SCDS for SMS                                           
 IDCAMSVS - Define VSAM dataset with alternate index                             
-IDCAMZFS - Define ZFS dataset and mount on specified directory                  
+IDCAMZFS - Define ZFS dataset and mount on the specified directory                  
 IEBCOPY  - copy PDS members                                                     
 IEBDG    - generate test data                                                   
 IEFBR14  - IEFBR14 testing allocations                                          
 IFASMFDL - SMF logstream dump program                                           
-ISCJCL86 - SCRT Report                                                          
-                                                                                
+ISCJCL86 - SCRT Report                                                                                                                                          
 IXCMIAPU - Define LOGSTREAM name(IFASMF.SMFALL.S0W1)                            
 IZUNASEC - ZERT RACF                                                            
 JAVA     - IVP Batch Java                                                       
@@ -87,7 +84,7 @@ KMQGBVJ1 - Ansible zForum COBOL GET
 KMQPBVK1 - Ansible zForum COBOL PUT                                             
 LIKECOPY - Create a dataset using the attributes for a base dataset             
 LOGREC   - Clear and initialize hardware event recorder dataset                 
-MAEKCER2 - Create key ring, CA as default, a personal certificate singed with CA
+MAEKCER2 - Create key ring, CA as default, a personal certificate signed with CA
 MFAENB   - Enable MFA users                                                     
 MFARACF  - Create MFA RACF definitions                                          
 MFAUSER  - Create TSO MFA users for IBM MFA                                     
@@ -99,7 +96,7 @@ OMEGGEN  - OMEGAMON generate - STEP 4
 PICSCALC - PL/I bit offsets for DVM DFAT EXIT                                   
 PLIC     - PL/I compile                                                         
 PYTHON   - IVP Batch python                                                     
-RACFCERT - Create signed personal cert that is attached to a keyring            
+RACFCERT - Create a signed personal cert that is attached to a keyring            
 RACFHLQ  - RACF used to implement HLQ dataset profiles                          
 RACFJCLX - RACF used to implement JCL Expert                                    
 RACFSTC  - STC Create USER ID and STARTED profile                               
@@ -111,18 +108,18 @@ SMFZERT  - SMF dump TYPE 119 for zERT reporting
 SMPACCPT - SMP/E Accept                                                         
 SMPAPPLY - SMP/E Apply                                                          
 SMPCRZNA - SMP/E Create Global Zone                                             
-SMPCRZNB - SMP/E Allocates DATA SETS and DDDEF's                                
-SMPDDDEF - SMP/E List DDDEF definitions in target zone                          
+SMPCRZNB - SMP/E Allocates datasets and DDDEF's                                
+SMPDDDEF - SMP/E List DDDEF definitions in a target zone                          
 SMPHOLD  - SMP/E HOLD listing                                                   
 SMPREC   - SMP/E Receive from Shopz Download Director                           
 SMPREJTA - SMP/E Reject once they have been ACCEPTED                            
 SMPREJTG - SMP/E Reject all received-only                                       
-SMPRPT   - SMP/E Traget report for SHOPz                                        
+SMPRPT   - SMP/E Target report for SHOPz                                        
 SYSLOG   - Dump the system log (SYSLOG) to the specified dataset                
 TERSE    - AMATERSE Pack and Unpack dataset                                     
 TERSEPDS - AMATERSE TO PACK PDSE DATASETS                                       
 UJ04501  - UJ04501 zSecure Admin V2.4                                           
-VSAM     - IDCAMS create VSAM file                                              
-VASMAIX  - IDCAMS create alternaive index                                       
+VSAM     - IDCAMS create a VSAM file                                              
+VASMAIX  - IDCAMS create alternative index                                       
 XMITPACK - XMIT and TERSE (pack) a load library                                 
 XMITREST - TERSE (unpack) and XMIT (receive) a load library                     
