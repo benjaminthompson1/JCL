@@ -1,8 +1,8 @@
-//IUHOLD JOB  (FB3),'SMPE HOLD',CLASS=A,MSGCLASS=H,                             
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//IUDDDEF JOB  (FB3),'SMPE DDDEF',CLASS=A,MSGCLASS=H,                   JOB04156
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
 //********************************************************************          
 //*                                                                             
-//* PURPOSE: SMP/E DDDEF LIST                                                   
+//* PURPOSE: SMP/E LIST DDDEF                                                   
 //*                                                                             
 //* NOTES:                                                                      
 //* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
@@ -10,12 +10,13 @@
 //* 2) #target     - SMP/E TARGET ZONE NAME                                     
 //*                                                                             
 //********************************************************************          
-//REPORT EXEC PGM=GIMSMP,PARM='DATE=U',REGION=0M                                
+//APPLY  EXEC PGM=GIMSMP,REGION=0M,TIME=NOLIMIT                                 
 //SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
 //SMPOUT   DD SYSOUT=*                                                          
 //SMPRPT   DD SYSOUT=*                                                          
-//SMPHOLD  DD DUMMY                                                             
+//SMPLIST  DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
-    SET BDY(#target) .                                                          
-    UNLOAD DDDEF .                                                              
+  SET BOUNDARY(#target).                                                        
+  LIST DDDEF.                                                                   
 /*                                                                              
