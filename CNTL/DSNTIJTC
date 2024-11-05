@@ -41,7 +41,7 @@
 //* UPDATE CATALOG FOR NEW RELEASE OR FUNCTION LEVEL                            
 //*********************************************************************         
 //DSNTITC  EXEC PGM=DSNUTILB,REGION=0M,                                         
-//          PARM='DSN,RELODCAT'                                                 
+//          PARM='DBDG,RELODCAT'                                                
 //SYSPRINT DD   SYSOUT=*                                                        
 //UTPRINT  DD   SYSOUT=*                                                        
 //SYSUDUMP DD   SYSOUT=*                                                        

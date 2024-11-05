@@ -7,10 +7,10 @@
 //*                                                                  *          
 //********************************************************************          
 //OMEGCRT  EXEC PGM=KCIOMEGA,REGION=0M,DYNAMNBR=256                             
-//STEPLIB  DD DISP=SHR,DSN=ZMS130.TKANMOD                                       
-//KCIFLOW  DD DISP=SHR,DSN=ZMS130.TKANCUS(KFJOMEGA)                             
+//STEPLIB  DD DISP=SHR,DSN=ZMS210.TKANMOD                                       
+//KCIFLOW  DD DISP=SHR,DSN=ZMS210.TKANCUS(KFJOMEGA)                             
 //KCIVARS  DD *                                                                 
 ACTION            GENERATE                                                      
-RTE_NAME          Z25C                                                          
+RTE_NAME          Z31A                                                          
 RTE_PLIB_HILEV    OMEG                                                          
 /*                                                                              

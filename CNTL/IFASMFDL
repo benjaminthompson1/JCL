@@ -14,5 +14,6 @@
 //SYSIN    DD *                                                                 
  LSNAME(IFASMF.SMFALL.S0W1,OPTIONS(DUMP))                                       
  OUTDD(OUTDD1,TYPE(0:255))                                                      
+ NOSIGSTRIP                                                                     
  RELATIVEDATE(BYDAY,1,1)                                                        
 /*                                                                              
