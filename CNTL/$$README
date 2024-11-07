@@ -27,15 +27,12 @@ COBCBGDB - COBOL compile, bind and go (run) with Db2
 COBCBMQ  - COBOL compile and bind with MQ                                       
 COBRUN   - COBOL run program                                                    
 COBRUNDB - COBOL run program with Db2                                           
-                                                                                
 COBSORT  - COBOL with DFSORT                                                    
 CONVERTV - SMS CONVERTV                                                         
 CRDB2ARC - COBOL RUN DB2ARCH                                                    
 CSQLOGP1 - CSQ LOG PRINT                                                        
 CSQLOGP2 - CSQ LOG PRINT committed messages and select specific data            
-                                                                                
 CSQUTIL  - MQ CSQ Utility                                                       
-                                                                                
 DCOLLECT - DCOLLECT collects stored dataset, volume and policy values           
 DFH$ECAT - copy from DFH540.CICS.SDFHINST                                       
 DFH$ECNF - copy from DFH540.CICS.SDFHINST                                       
@@ -50,7 +47,6 @@ DSNTIJTC - activate a function level that requires a new catalog level
 DSSCOPY  - Copy dataset(s)                                                      
 DSSDFRAG - Defrag a volume                                                      
 DSSDIAG  - Check VVR's and Catalog entries for datasets on a volume             
-                                                                                
 DSSDUMPF - DSS Backup at volume level                                           
 DSSDUMPL - DSS Backup at logical dataset name                                   
 DSSMOVE  - Move dataset(s) from volume                                          
@@ -73,13 +69,12 @@ IDCAMS   - LISTCAT / DEFINE ALIAS
 IDCAMSMS - Define backup SCDS for SMS                                           
 IDCAMSVS - Define VSAM dataset with alternate index                             
 IDCAMZFS - Define ZFS dataset and mount on the specified directory              
-                                                                                
 IEBCOPY  - copy PDS members                                                     
 IEBDG    - generate test data                                                   
 IEFBR14  - IEFBR14 testing allocations                                          
 IFASMFDL - SMF logstream dump program                                           
+IFASMFDP - SMF validate signature records                                       
 ISCJCL86 - SCRT Report                                                          
-                                                                                
 IXCMIAPU - Define LOGSTREAM name(IFASMF.SMFALL.S0W1)                            
 IZUNASEC - ZERT RACF                                                            
 JAVA     - IVP Batch Java                                                       
@@ -104,7 +99,6 @@ PICSCALC - PL/I bit offsets for DVM DFAT EXIT
 PLIC     - PL/I compile                                                         
 PYTHON   - IVP Batch python                                                     
 RACFCERT - Create a signed personal cert that is attached to a keyring          
-                                                                                
 RACFHLQ  - RACF used to implement HLQ dataset profiles                          
 RACFJCLX - RACF used to implement JCL Expert                                    
 RACFSTC  - STC Create USER ID and STARTED profile                               
@@ -118,7 +112,6 @@ SMPAPPLY - SMP/E Apply
 SMPCRZNA - SMP/E Create Global Zone                                             
 SMPCRZNB - SMP/E Allocates datasets and DDDEF's                                 
 SMPDDDEF - SMP/E List DDDEF definitions in a target zone                        
-                                                                                
 SMPHOLD  - SMP/E HOLD listing                                                   
 SMPREC   - SMP/E Receive from Shopz Download Director                           
 SMPREJTA - SMP/E Reject once they have been ACCEPTED                            
@@ -129,8 +122,6 @@ TERSE    - AMATERSE Pack and Unpack dataset
 TERSEPDS - AMATERSE TO PACK PDSE DATASETS                                       
 UJ04501  - UJ04501 zSecure Admin V2.4                                           
 VSAM     - IDCAMS create a VSAM file                                            
-                                                                                
 VASMAIX  - IDCAMS create alternative index                                      
-                                                                                
 XMITPACK - XMIT and TERSE (pack) a load library                                 
 XMITREST - TERSE (unpack) and XMIT (receive) a load library                     

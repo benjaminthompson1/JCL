@@ -3,15 +3,12 @@
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
-//* PURPOSE: SMF logstream dump program                              *          
+//* PURPOSE: SMF validate signature records                          *          
 //*                                                                  *          
 //********************************************************************          
 //IFASMSDP EXEC PGM=IFASMFDP,REGION=0M                                          
 //DUMPIN   DD DSN=SMF.S0W1.DATA(0),DISP=SHR                                     
-//DDSMF1   DD DSN=&&TEMP,                                                       
-// DISP=(NEW,CATLG,DELETE),                                                     
-// SPACE=(CYL,(100,100),RLSE),                                                  
-// DCB=(RECFM=VBS,BLKSIZE=32748,LRECL=32756)                                    
+//DDSMF1   DD DUMMY                                                             
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
  SID(S0W1)                                                                      
