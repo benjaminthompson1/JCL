@@ -3,17 +3,18 @@
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
-//* PURPOSE: AMATERSE TO PACK / UNPACK DATASETS                      *          
+//* PURPOSE: TRSMAIN TO PACK / UNPACK DATASETS                       *          
 //*                                                                  *          
 //********************************************************************          
-//TRSMAIN1 EXEC PGM=AMATERSE,PARM=PACK                                          
+//TRSMAIN  EXEC PGM=TRSMAIN,PARM=PACK                                           
 //SYSPRINT DD SYSOUT=*                                                          
-//INFILE   DD DSN=IBMUSER.SYSU.D200322,                                         
+//INFILE   DD DSN=SMF.S0W1.DATA.G0051V00,                                       
 //            DISP=SHR                                                          
-//OUTFILE  DD DSN=IBMUSER.SYSU.D200322.TRS,                                     
+//OUTFILE  DD DSN=SMF.S0W1.DATA.TRS,                                            
 //            DISP=(NEW,CATLG,DELETE),                                          
 //            UNIT=SYSDA,                                                       
-//            SPACE=(CYL,(10,10),RLSE)                                          
+//            SPACE=(CYL,(50,50),RLSE),                                         
+//            DCB=(RECFM=FB,LRECL=1024,BLKSIZE=0)                               
 //SYSIN    DD DUMMY                                                             
 //                                                                              
 //OUTFILE  DD DSN=CUST.AGL.SMF,                                                 

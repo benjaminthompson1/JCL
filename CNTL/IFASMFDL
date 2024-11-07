@@ -1,4 +1,4 @@
-//IUSMFDL JOB (FB3),'IFASMDDL',CLASS=A,MSGCLASS=H,                              
+//IUSMFDL JOB (FB3),'IFASMFDL',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
@@ -6,7 +6,7 @@
 //* PURPOSE: SMF logstream dump program                              *          
 //*                                                                  *          
 //********************************************************************          
-//STEP1    EXEC PGM=IFASMFDL,REGION=0M                                          
+//IFASMFDL EXEC PGM=IFASMFDL,REGION=0M                                          
 //OUTDD1   DD DSN=SMF.S0W1.DATA(+1),                                            
 //            DISP=(NEW,CATLG,DELETE),UNIT=DASD,                                
 //            SPACE=(CYL,(200,100),RLSE),DATACLAS=DCEXTEAV                      
