@@ -119,7 +119,6 @@ SMPREJTG - SMP/E Reject all received-only
 SMPRPT   - SMP/E Target report for SHOPz                                        
 SYSLOG   - Dump the system log (SYSLOG) to the specified dataset                
 TERSE    - AMATERSE Pack and Unpack dataset                                     
-TERSEPDS - AMATERSE TO PACK PDSE DATASETS                                       
 UJ04501  - UJ04501 zSecure Admin V2.4                                           
 VSAM     - IDCAMS create a VSAM file                                            
 VASMAIX  - IDCAMS create alternative index                                      
