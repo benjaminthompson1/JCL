@@ -1,0 +1,27 @@
+//IUSMPLI JOB (FB3),'SMPE LIST',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*******************************************************************           
+//*                                                                             
+//* PURPOSE: List all DDDEF entries and SOURCEIDs in the Global Zone            
+//*                                                                             
+//* NOTES:                                                                      
+//*                                                                             
+//* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
+//*                                                                             
+//*******************************************************************           
+//*                                                                             
+//LISTSMPE EXEC PGM=GIMSMP                                                      
+//SMPCSI   DD DSN=#globalzone,DISP=SHR                                          
+//SMPLOG   DD SYSOUT=*                                                          
+//SMPHOLD  DD DUMMY                                                             
+//SMPOUT   DD SYSOUT=*                                                          
+//SMPRPT   DD SYSOUT=*                                                          
+//SMPLIST  DD SYSOUT=*                                                          
+//SMPSNAP  DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPCNTL  DD *                                                                 
+  SET BDY(GLOBAL).                                                              
+  LIST DDDEF.                                                                   
+  LIST SOURCEID(*).                                                             
+/*                                                                              

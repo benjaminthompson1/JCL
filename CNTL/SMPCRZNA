@@ -1,5 +1,6 @@
-//IUCZONEA JOB  (FB3),'CREATE ZONE',CLASS=A,MSGCLASS=H,                         
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//IUSMPCA JOB (FB3),'CREATE ZONE',CLASS=A,MSGCLASS=H,                           
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: SMP/E CREATE GLOBAL ZONE                                *          

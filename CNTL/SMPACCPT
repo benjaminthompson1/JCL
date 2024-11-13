@@ -1,14 +1,13 @@
-//IUACCEPT JOB  (FB3),'SMPE ACCEPT',CLASS=A,MSGCLASS=H,                         
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//IUSMPAC JOB (FB3),'SMPE ACCEPT',CLASS=A,MSGCLASS=H,                           
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                             
 //* PURPOSE: SMP/E ACCEPT                                                       
 //*                                                                             
 //* NOTES:                                                                      
 //* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
-//*                                                                             
 //* 2) #dlib       - SMP/E DLIB ZONE NAME                                       
-//*                                                                             
 //* 3) #smplogdsn  - SMPLOG DATASET NAME - OPTIONAL                             
 //*                                                                             
 //********************************************************************          

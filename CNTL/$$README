@@ -77,6 +77,7 @@ IFASMFDP - SMF validate signature records
 ISCJCL86 - SCRT Report                                                          
 IXCMIAPU - Define LOGSTREAM name(IFASMF.SMFALL.S0W1)                            
 IZUNASEC - ZERT RACF                                                            
+IZUDUUID - z/OS UUID part of zOSMF                                              
 JAVA     - IVP Batch Java                                                       
 JES2CKPT - Create JES2 checkpoint data sets                                     
 JES2VFY  - Verify JES2 parm                                                     
@@ -111,8 +112,8 @@ SMPACCPT - SMP/E Accept
 SMPAPPLY - SMP/E Apply                                                          
 SMPCRZNA - SMP/E Create Global Zone                                             
 SMPCRZNB - SMP/E Allocates datasets and DDDEF's                                 
-SMPDDDEF - SMP/E List DDDEF definitions in a target zone                        
 SMPHOLD  - SMP/E HOLD listing                                                   
+SMPLIST  - SMP/E List DDDEF definitions and maintaince                          
 SMPREC   - SMP/E Receive from Shopz Download Director                           
 SMPREJTA - SMP/E Reject once they have been ACCEPTED                            
 SMPREJTG - SMP/E Reject all received-only                                       

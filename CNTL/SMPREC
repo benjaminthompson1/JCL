@@ -1,18 +1,15 @@
-//IUREC JOB (FB3),'SMPE RECEIVE',CLASS=A,MSGCLASS=H,                            
-//          NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                       
+//IUSMPRE JOB (FB3),'SMPE RECEIVE',CLASS=A,MSGCLASS=H,                          
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                             
 //* PURPOSE: SMP/E RECEIVE SERVICE                                              
 //*                                                                             
 //* NOTES:                                                                      
 //* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
-//*                                                                             
 //* 2) #smpptfdsn  - SMPPTF DATASET NAME                                        
-//*                                                                             
 //* 3) #fromnts    - PACKAGE NAME THAT EXISTS IN SMPNTS DIRECTORY               
-//*                                                                             
 //* 4) #sourceid   - ASSOCIATE A NAME(SOURCEID) WITH RECEIVE SYSMODS            
-//*                                                                             
 //* 5) #smplogdsn  - SMPLOG DATASET NAME - OPTIONAL                             
 //*                                                                             
 //********************************************************************          

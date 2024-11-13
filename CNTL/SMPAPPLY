@@ -1,14 +1,13 @@
-//IUAPPLY JOB  (FB3),'SMPE APPLY',CLASS=A,MSGCLASS=H,                           
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//IUSMPAP JOB (FB3),'SMPE APPLY',CLASS=A,MSGCLASS=H,                            
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                             
 //* PURPOSE: SMP/E APPLY                                                        
 //*                                                                             
 //* NOTES:                                                                      
 //* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
-//*                                                                             
 //* 2) #target     - SMP/E TARGET ZONE NAME                                     
-//*                                                                             
 //* 3) #smplogdsn  - SMPLOG DATASET NAME - OPTIONAL                             
 //*                                                                             
 //********************************************************************          

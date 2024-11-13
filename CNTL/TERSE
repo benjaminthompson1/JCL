@@ -3,10 +3,10 @@
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
-//* PURPOSE: AMATERSE TO PACK / UNPACK DATASETS                      *          
+//* PURPOSE: AMATERSE TO PACK / SPACK / UNPACK DATASETS              *          
 //*                                                                  *          
 //********************************************************************          
-//AMATERSE EXEC PGM=AMATERSE,PARM=PACK                                          
+//AMATERSE EXEC PGM=AMATERSE,PARM=SPACK                                         
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD DSN=SMF.S0W1.DATA.G0051V00,                                       
 //            DISP=SHR                                                          

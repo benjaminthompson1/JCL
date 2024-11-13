@@ -1,14 +1,13 @@
-//IUREP JOB (FB3),'SMPE REPORT',CLASS=A,MSGCLASS=H,                             
-//          NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                       
+//IUSMPRE JOB (FB3),'SMPE REPORT',CLASS=A,MSGCLASS=H,                           
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //*******************************************************************           
 //*                                                                             
-//* PURPOSE: Create the consolidated inventory of products and                  
-//*          service using the GIMXSID program introduced SMP/E 3.2             
+//* PURPOSE: Create inventory of products and service                           
 //*                                                                             
 //* NOTES:                                                                      
 //*                                                                             
 //* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
-//*                                                                             
 //* 2) #target     - SMP/E TARGET ZONE NAME                                     
 //*******************************************************************           
 //*                                                                             

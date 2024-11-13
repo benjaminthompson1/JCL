@@ -1,5 +1,6 @@
-//IUCZONEB JOB  (FB3),'SMPE DATASETS',CLASS=A,MSGCLASS=H,               JOB00634
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//IUSMPCB JOB (FB3),'CREATE ZONE',CLASS=A,MSGCLASS=H,                           
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: SMP/E CREATE DATASET AND DDDEFS FOR GLOBAL ZONE         *          

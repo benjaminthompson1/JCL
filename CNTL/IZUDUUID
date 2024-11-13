@@ -1,0 +1,50 @@
+//IZUWFJB JOB (ACCTINFO),CLASS=A,MSGCLASS=0,                            JOB08085
+//             MSGLEVEL=(1,1),REGION=0M,NOTIFY=IBMUSER                          
+/*JOBPARM SYSAFF=S0W1                                                           
+//*                                                                             
+//* RECEIVE AND APPLY THE USERMOD WHICH CREATES MODULE IZUSIUI                  
+//* CONTAINING THE UUID FOR THE Z/OS SOFTWARE INSTANCE.                         
+//*                                                                             
+//RECAPP   EXEC PGM=GIMSMP                                                      
+//SMPCSI   DD DISP=SHR,                                                         
+//            DSN=MVS.GLOBAL.CSI                                                
+//SMPPTFIN DD DATA,DLM=$$                                                       
+++FUNCTION(UUIDUMD)                                                             
+  DESCRIPTION(CREATE MODULE IZUSIUI CONTAINING THE SWI UUID)                    
+  REWORK(24111301).                                                             
+++VER(Z038).                                                                    
+++JCLIN.                                                                        
+//LINK     EXEC PGM=IEWL,PARM='RMODE=ANY,AMODE=31,RENT'                         
+//SYSLMOD  DD DSN=LPALIB                                                        
+//SYSLIN   DD *                                                                 
+  INCLUDE SYSPUNCH(IZUSIUI)                                                     
+  NAME IZUSIUI  RC=0                                                            
+/*                                                                              
+++SRC(IZUSIUI ) DISTLIB(ASAMPLIB).                                              
+IZUSIUI  CSECT                                                                  
+IZUSIUI  AMODE 31                                                               
+IZUSIUI  RMODE 31                                                               
+         IHASIUI DSECT=NO                                                       
+         ORG   SIUI_EYECATCHER                                                  
+         DC    CL8'IZUSIUI'                                                     
+         ORG   SIUI_ASSEMBLYDATE                                                
+         DC    CL8'&SYSDATC'                                                    
+         ORG   SIUI_ASSEMBLYPARM                                                
+         DC    CL8' UUIDUMD'                                                    
+         ORG   SIUI_VERSION                                                     
+         DC    AL2(SIUI_KVERSION_0)                                             
+         ORG   SIUI_UUID_OFFSET                                                 
+         DC    AL2(UUID-SIUI)                                                   
+         ORG   SIUI_UUID_LEN                                                    
+         DC    AL2(L'UUID)                                                      
+         ORG   SIUI+SIUI_KVERSION_0_LEN                                         
+UUID     DC    CL36'123E4567-E89B-12D3-A456-426614174000'                       
+         END                                                                    
+$$                                                                              
+//SMPCNTL  DD *                                                                 
+  SET BDY(GLOBAL).                                                              
+    RECEIVE SYSMODS.                                                            
+  SET BDY(MVST).                                                                
+    APPLY S(UUIDUMD) REDO CHECK.                                                
+    APPLY S(UUIDUMD) REDO.                                                      
+/*                                                                              
