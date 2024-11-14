@@ -96,6 +96,7 @@ MORTCICS - MortgageApplication CICS CSD
 OMEGCRT  - OMEGAMON create - STEP 1                                             
 OMEGDIS  - OMEGAMON discover - STEP 3                                           
 OMEGGEN  - OMEGAMON generate - STEP 4                                           
+OMEGUSR  - Define OMEGAMON user for VTAM logon                                  
 PICSCALC - PL/I bit offsets for DVM DFAT EXIT                                   
 PLIC     - PL/I compile                                                         
 PYTHON   - IVP Batch python                                                     

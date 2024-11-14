@@ -38,7 +38,7 @@ IZUSIUI  RMODE 31
          ORG   SIUI_UUID_LEN                                                    
          DC    AL2(L'UUID)                                                      
          ORG   SIUI+SIUI_KVERSION_0_LEN                                         
-UUID     DC    CL36'123E4567-E89B-12D3-A456-426614174000'                       
+UUID     DC    CL36'7E8F5144-74E0-4BAF-9671-9E17029358AB'                       
          END                                                                    
 $$                                                                              
 //SMPCNTL  DD *                                                                 
