@@ -123,6 +123,7 @@ SYSLOG   - Dump the system log (SYSLOG) to the specified dataset
 TERSE    - AMATERSE Pack and Unpack dataset                                     
 UJ04501  - UJ04501 zSecure Admin V2.4                                           
 VSAM     - IDCAMS create a VSAM file                                            
-VASMAIX  - IDCAMS create alternative index                                      
+VSAMAIX  - IDCAMS create alternative index                                      
+VTAMUSSN - Assemble and link USSN table                                         
 XMITPACK - XMIT and TERSE (pack) a load library                                 
 XMITREST - TERSE (unpack) and XMIT (receive) a load library                     
