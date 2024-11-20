@@ -1,0 +1,19 @@
+//IUIDCAMS JOB (FB3),'DIAGNOSE',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: IDCAMS DIAGNOSE VTOC and CATALOG                        *          
+//*                                                                  *          
+//* @volser@  - Volume to chatch VTOC agaist catalog                 *          
+//* @catalog@ - User catalog name                                    *          
+//*                                                                  *          
+//********************************************************************          
+//DIAGNOSE EXEC PGM=IDCAMS                                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//VVDS01   DD DISP=SHR,DSN=SYS1.VVDS.V@volser@,UNIT=SYSDA,                      
+//         VOL=SER=@volser@,AMP=AMORG                                           
+//CATL01   DD DISP=SHR,DSN=USERCAT.Z31A.@catalog@                               
+//SYSIN    DD *                                                                 
+  DIAGNOSE VVDS INFILE(VVDS01) COMPAREDD(CATL01)                                
+/*                                                                              
