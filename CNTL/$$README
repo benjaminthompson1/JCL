@@ -5,8 +5,6 @@ $VS      - Issue CONSOLE commands
 ACBJBARD - Generating data set report from DCOLLECT data                        
 AMAPDUPL - IBM Problem Documentation Upload Utility                             
 AMBLIST  - Information on load, object modules                                  
-ARCSTRST - DFSMShsm starter set - job #1                                        
-ARCTOOLS - DFSMShsm starter set - job #2                                        
 AVZGNSTF - DVM Create the sample VSAM file                                      
 AVZIVVS1 - DVM IVP                                                              
 BFGTRCRS - MQ FTE fteCreateTransfer                                             

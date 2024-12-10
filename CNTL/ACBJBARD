@@ -2,44 +2,31 @@
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //MYLIB JCLLIB ORDER=SYS1.SACBCNTL                                              
-//********************************************************************/         
-//*$MAC(ACBJBARD) COMP(DF123):BATCH- GENERATES REPORT DCOLLECT D @B1C*/         
-//*                                                                  */         
-//* PROPRIETARY V3 STATEMENT                                         */         
-//* LICENSED MATERIALS - PROPERTY OF IBM                             */         
-//* 5650-ZOS                                                    2@G1C*/         
-//* COPYRIGHT IBM CORP. 1996, 2017                                   */         
-//* END PROPRIETARY V3 STATEMENT                                     */         
-//*                                                                  */         
-//*  CHANGE ACTIVITY:                                                */         
-//*                                                                  */         
-//* $K0=NAVIQUEST,HACS110,95/08/04,SNJADR: INITIAL VERSION       @K0A*/         
-//* $K1=KNQ0003,HACS110,95/08/14,SNJADR: COMMENT CORRECTION      @K1C*/         
-//* 02/29/96  TCS - HACS110:  REMOVED SEQUENCE NUMBERS       @WA18945*/         
-//* $L0=NAVIQUEST,HACS120,96/06/18,SNJTCS: RELEASE 2 CHANGES     @L0A*/         
-//* 10/15/96  CCY - HDZ11C0: Ship as SPE                     @WA22861*/         
-//* $T2=k150142,HDZ11E0,111997,SNJTCS: Adding TABL2 parameter    @T2A*/         
-//* 11/18/98  TCS - HDZ11E0: Fix for ISPFILE problem         @WA36007*/         
-//* $B1=EAV2   ,HDZ1B10,08/06/10,IBSTG: EATTR keyword support    @B1A*/         
-//* $B2=K1B0977,HDZ1B10,09/01/13,IBSTG: Update for EAV2          @B2A*/         
-//* $G1=FP0454 ,HDZ2230,16/09/10,IBSTG: DS Encryption            @G1A*/         
-//*                                                                  */         
-//********************************************************************/         
 //********************************************************************          
 //*                                                                  *          
-//* SAMPLE JCL TO GENERATE DATA SET REPORT FROM DCOLLECT DATA        *          
+//* PURPOSE: Generates a customized dataset report from DCOLLECT data *         
+//*          with the following functionality:                        *         
+//*          - Creates a formatted report with selected attributes    *         
+//*          - Includes dataset name, volume, space allocation,       *         
+//*            format, and storage class information                  *         
+//*          - Calculates space usage statistics and totals          *          
 //*                                                                  *          
-//*   INSTRUCTIONS BEFORE SUBMITTING:                                *          
+//* INPUT:   IBMUSER.DCOLLECT.DATA                                   *          
+//* OUTPUT:  IBMUSER.DATASET.REPORT                                  *          
 //*                                                                  *          
-//*      CHANGE JOBCARD                                              *          
-//*      CHANGE PREFIX                                               *          
-//*      CHANGE PARAMETERS                                           *          
+//* STEPS:                                                           *          
+//* 1. DELREP    - Deletes existing report dataset if present        *          
+//* 2. ALCISPFL  - Allocates new report dataset                      *          
+//* 3. GENREP    - Generates report using DCOLLECT data              *          
+//* 4. REPGEN    - Copies report to SYSOUT for viewing               *          
+//*                                                                  *          
+//* CUSTOMIZATION REQUIRED:                                          *          
+//* - Update jobcard parameters                                      *          
+//* - Modify DCOLLECT input dataset name                             *          
+//* - Adjust report parameters in SYSIN as needed                    *          
 //*                                                                  *          
 //********************************************************************          
-//********************************************************************          
-//*                                                                  *          
-//* DELETE STEP - TO DELETE THE REPORT DATA SET IF IT EXISTS ALREADY *          
-//*                                                                  *          
+//* DELETE STEP - Delete the report dataset if it exists             *          
 //********************************************************************          
 //DELREP    EXEC  PGM=IDCAMS                                                    
 //SYSPRINT  DD  SYSOUT=*                                                        
@@ -47,11 +34,7 @@
  DELETE IBMUSER.DATASET.REPORT                                                  
 /*                                                                              
 //********************************************************************          
-//*                                                                  *          
-//* STEP TO ALLOCATE ISPFILE, WHERE THE GENERATED REPORT IS SAVED    *          
-//* NOTE: THE DATA SET BEING ALLOCATED SHOULD NOT BE A TEMPORARY     *          
-//*       DATA SET.                                                  *          
-//*                                                                  *          
+//* ALLOCATE STEP - Create new report dataset                        *          
 //********************************************************************          
 //ALCISPFL EXEC PGM=IEFBR14                                                     
 //ISPFILE DD  DSN=IBMUSER.DATASET.REPORT,DISP=(NEW,CATLG),                      
@@ -60,54 +43,7 @@
 //SYSIN  DD *                                                                   
 /*                                                                              
 //********************************************************************          
-//*                                                                  *          
-//* REPORT GENERATION STEP                                           *          
-//*                                                                  *          
-//*    DCOLIN  - DCOLLECT DATA (INPUT)                               *          
-//*    ISPFILE - DATA SET REPORT (OUTPUT, FROM ALCISPFL STEP)        *          
-//*    SYSIN   - KEY WORDS TO SPECIFY THE DATA IN THE OUTPUT         *          
-//*                                                                  *          
-//*   CHOOSE FROM THE FOLLOWING PARAMETERS FOR DATA TO BE LISTED     *          
-//*   THE ORDER CHOSEN DETERMINES THE ORDER IN THE REPORT            *          
-//*   THE TOTAL REPORT WIDTH MAY NOT EXCEED 133                      *          
-//*                                                                  *          
-//*   PARAMETERS:                                                    *          
-//*                                                                  *          
-//*      ALLOCSP | ALLOCSPC  -   ALLOCATED SPACE                     *          
-//*      BACKUP | LASTBKUP   -   DATA SET'S LAST BACKUP DATE         *          
-//*      BLKUNUSED           -   BLOCKS UNUSED                       *          
-//*      CHANGE | CHGIND     -   CHANGE INDICATOR FOR DATA SET       *          
-//*      CREATE | CREATEDT   -   DATA SET CREATION DATE              *          
-//*      DATACLAS | DC       -   DATACLAS OF DATA SET                *          
-//*      DSNAME | DSN        -   DATASETNAME                         *          
-//*      DSNLENGTH           -   LIMIT DATASET NAME TO THIS NUMBER   *          
-//*                          -   OF CHARACTERS                       *          
-//*      DSORG               -   DATA SET ORGANIZATION               *          
-//*      EATTR               -   EATTR                           @B1A*          
-//*      ENCRTYPE            -   ENCRYPTION TYPE                 @G1A*          
-//*      ENCRKEYLABEL        -   ENCRYPTION KEY LABEL            @G1A*          
-//*      ENTRYTYPE           -   ENTRY TYPE OF DATA SET              *          
-//*      EXPIRE | EXPIREDT   -   DATA SET EXPIRATION DATE            *          
-//*      LASTREF | LASTREFDT -   DATA SET LAST REFERENCE DATE        *          
-//*      LRECL               -   RECORD LENGTH                       *          
-//*      MGMTCLAS | MC       -   MANAGEMENT CLASS FOR DATA SET       *          
-//*      MULTVOL             -   IS THE DATA SET MULI-VOLUME?        *          
-//*      NUMEXT | EXTNUM     -   NUMBER OF EXTENTS                   *          
-//*      PAGELENGTH          -   NUMBER OF LINES PER PAGE (DEF IS 60)*          
-//*      PDSE                -   IS THE DATA SET A PDSE?             *          
-//*      REBLOCK | REBLK     -   IS THE DATA SET REBLOCKABLE?        *          
-//*      RECFM | RECFMT      -   RECORD FORMAT                       *          
-//*      SMS | MANAGED       -   IS THE DATA SET MANAGED?            *          
-//*      STORCLAS | SC       -   STORAGE CLASS FOR DATA SET          *          
-//*      STORGRP | SG        -   STORAGE GROUP FOR DATA SET          *          
-//*      SPACEUSD            -   SPACE USED                      @B2A*          
-//*      TITLE=XXXXX         -   TITLE FOR REPORT                    *          
-//*      TOTALS              -   PRINT DSN SPACE TOTALS              *          
-//*      USED%               -   USED SPACE %                        *          
-//*      VOLSEQ              -   VOLUME SEQUENCE NUMBER              *          
-//*      VOLSER              -   VOLUME SERIAL                       *          
-//*      VVRCHK | VVR        -   IF SMS, IS THERE A VVR OR NVR?      *          
-//*                                                                  *          
+//* REPORT GENERATION STEP - Create formatted report                  *         
 //********************************************************************          
 //GENREP   EXEC  ACBJBAOB,PLIB1=SYS1.DGTPLIB,TABL2=IBMUSER.TEST.ISPTABL         
 //DCOLIN  DD  DSN=IBMUSER.DCOLLECT.DATA,DISP=SHR                                
@@ -118,31 +54,25 @@ ISPSTART CMD(ACBQBAR7) +
 BATSCRW(132) BATSCRD(27) BREDIMAX(3) BDISPMAX(99999999)                         
 /*                                                                              
 //SYSIN DD  *                                                                   
-DSN                                                                             
-VOLSER                                                                          
-ALLOCSP                                                                         
-RECFM                                                                           
-BLKUNUSED                                                                       
-TITLE=DATA SET REPORT FROM DCOLLECT DATA - 17/03/09                             
-TOTALS                                                                          
-BLKSIZE                                                                         
-EXTNUM                                                                          
-DSORG                                                                           
-PDSE                                                                            
-USED%                                                                           
-STORCLAS                                                                        
+DSN          /* Dataset Name */                                                 
+VOLSER       /* Volume Serial */                                                
+ALLOCSP      /* Allocated Space */                                              
+RECFM        /* Record Format */                                                
+BLKUNUSED    /* Blocks Unused */                                                
+TITLE=DATA SET REPORT FROM DCOLLECT DATA                                        
+TOTALS       /* Print Space Totals */                                           
+BLKSIZE      /* Block Size */                                                   
+EXTNUM       /* Number of Extents */                                            
+DSORG        /* Dataset Organization */                                         
+PDSE         /* PDSE Indicator */                                               
+USED%        /* Space Used Percentage */                                        
+STORCLAS     /* Storage Class */                                                
 /*                                                                              
 //********************************************************************          
-//*                                                                  *          
-//*  COPY THE DATA SET REPORT                                        *          
-//*                                                                  *          
-//*     SYSUT1 - INPUT (FROM PREVIOUS STEP)                          *          
-//*     SYSUT2 - OUTPUT                                              *          
-//*                                                                  *          
+//* REPORT PRINT STEP - Copy report to SYSOUT                        *          
 //********************************************************************          
 //REPGEN EXEC PGM=IEBGENER                                                      
 //SYSUT1   DD  DSN=IBMUSER.DATASET.REPORT,DISP=SHR                              
 //SYSUT2   DD  SYSOUT=*                                                         
 //SYSIN    DD  DUMMY                                                            
 //SYSPRINT DD  SYSOUT=*                                                         
-//********************************************************************          

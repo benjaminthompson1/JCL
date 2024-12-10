@@ -1,71 +1,60 @@
-//IUIVVS1 JOB  (FB3),'AVZIVVS1',CLASS=A,MSGCLASS=H,                     JOB01051
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                            00011000
-//********************************************************************* 00020000
-//*                                                                   * 00030000
-//*   © COPYRIGHT ROCKET SOFTWARE, INC. 1991, 2017.                   * 00040000
-//*                                                                   * 00050000
-//*   NAME       - AVZIVVS1 (WAS AVZIVVS1)                            * 00060000
-//*   PURPOSE    - TO EXTRACT COBOL,PL/1 AND VSAM MAPS IN BATCH       * 00070000
-//*   RELATED    - IVP FOR INSTALLATION OF VSAM INTERFACE             * 00080000
-//*   PARMS      - SEE BELOW                                          * 00090000
-//*   LANGUAGE   - JCL                                                * 00100000
-//*   FUTURE     - NONE                                               * 00110000
-//*   HISTORY    - NONE                                               * 00120000
-//*                                                                   * 00130000
-//*   NOTES      -                                                    * 00140000
-//*                                                                   * 00150000
-//*      THE FOLLOWING MODIFICATIONS SHOULD BE MADE PRIOR TO          * 00160000
-//*      EXECUTING THIS JOB:                                          * 00170000
-//*                                                                   * 00180000
-//*      1) SPECIFY VALID JOBCARD                                     * 00190000
-//*                                                                   * 00200000
-//*      2) CHANGE IBMUSER TO THE HIGH LEVEL QUALIFIER TO USE FOR THE * 00210000
-//*         SAMPLE VSAM FILE.                                         * 00220000
-//*                                                                   * 00230000
-//*      3) CUSTOMIZE THE JCL SET STATEMENTS BELOW WITH THE NAMES     * 00240000
-//*         OF THE DATA SETS CREATED DURING THE AVZ                   * 00250000
-//*         INSTALLATION.                                             * 00260000
-//*                                                                   * 00270000
-//*      4) CHANGE AVZS TO THE AVZ SUBSYSTEM NAME WHERE THE MAP IS    * 00280000
-//*         TO BE DEFINED.                                            * 00290000
-//*                                                                   * 00300000
-//********************************************************************* 00310000
-//*                                                                     00320000
-//* CUSTOMIZE THE FOLLOWING:                                            00330000
-//*                                                                     00340000
-// SET LOADLIB='DVM110.SAVZLOAD'            <- AVZ LOAD LIBRARY         00350000
-// SET REXXLIB='DVM110.SAVZEXEC'            <- AVZ REXX LIBRARY         00360000
-// SET SAMPLIB='DVM110.SAVZSAMP'            <- AVZ SAMP LIBRARY         00370000
-//*                                                                     00380000
-//DMFEXTR1  EXEC PGM=IKJEFT01,PARM=('AVZMBTPA O'),REGION=0M             00390000
-//STEPLIB   DD DISP=SHR,DSN=&LOADLIB                                    00400000
-//SYSEXEC   DD DISP=SHR,DSN=&REXXLIB                                    00410000
-//*OURCE    DD DUMMY                                                    00420000
-//SOURCE    DD DISP=SHR,DSN=&SAMPLIB.(AVZSTFCP)                         00430000
-//STDERR    DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                     00440000
-//XMLOUT    DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                     00450000
-//SYSTSPRT  DD SYSOUT=*                                                 00460000
-//SYSTSIN   DD DUMMY                                                    00470000
-//SYSIN     DD *                                                        00480000
-  SSID = AVZS                                                           00490000
-  FUNCTION    = STOD                                                    00500000
-  MAP NAME = STAFFVS                                                    00510000
-  SAVE OPTION = REPLACE                                                 00520000
-  REFRESH OPTION = REFRESH                                              00530000
-  OFFSET ZERO = Y                                                       00540000
-  START FIELD = STAFFVS-RECORD                                          00550000
-  END FIELD   = STAFFVS-DATA-YRS                                        00560000
-  VSAM FILE   = IBMUSER.STAFF.VSAM                                      00570000
-/*                                                                      00580000
-//REAAVZAM EXEC  PGM=AVZXMAPD,PARM='SSID=AVZS,MXR=30000000'             00590000
-//STEPLIB  DD DISP=SHR,DSN=&LOADLIB                                     00600000
-//RPT      DD SYSOUT=*                                                  00610000
-//*OUT      DD SYSOUT=*                                                 00620000
-//FMT      DD SYSOUT=*,DCB=LRECL=4096                                   00630000
-//*TRC      DD SYSOUT=*                                                 00640000
-//*SNAP     DD SYSOUT=*                                                 00650000
-//IN       DD *                                                         00660000
-++SET BUFSIZE=512 ;                                                     00670000
-++SET SSMU=6;                                                           00680000
-++SET NUMROWS=-1   ;                                                    00690000
-SELECT * FROM STAFFVS                                                   00700000
+//IUIVVS1 JOB  (FB3),'AVZIVVS1',CLASS=A,MSGCLASS=H,                             
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//********************************************************************          
+//* PURPOSE: Installation Verification Job for VSAM Interface         *         
+//*          Extracts COBOL, PL/1 and VSAM maps in batch mode       *           
+//*                                                                  *          
+//* STEPS:                                                          *           
+//* 1. DMFEXTR1  - Executes AVZMBTPA to extract map definitions    *            
+//*              - Processes STAFFVS map from VSAM source           *           
+//*                                                                 *           
+//* 2. REAAVZAM  - Executes AVZXMAPD to verify map access          *            
+//*              - Performs SELECT test against STAFFVS map         *           
+//*                                                                 *           
+//* REQUIRED CUSTOMIZATION:                                         *           
+//* 1. Update jobcard parameters                                    *           
+//* 2. Set correct high-level qualifier for STAFF.VSAM file        *            
+//* 3. Update the following SET statements with installation DSNs:  *           
+//*    - LOADLIB : AVZ load library                                *            
+//*    - REXXLIB : AVZ REXX library                                *            
+//*    - SAMPLIB : AVZ sample library                              *            
+//* 4. Update SSID parameter (currently AVZS) to match your system *            
+//*                                                                 *           
+//* MAP PARAMETERS:                                                *            
+//* - Map Name: STAFFVS                                           *             
+//* - Fields: STAFFVS-RECORD through STAFFVS-DATA-YRS             *             
+//* - Buffer Size: 512                                            *             
+//* - SSMU: 6                                                     *             
+//*                                                                *            
+//********************************************************************          
+// SET LOADLIB='DVM110.SAVZLOAD'            * AVZ Load Library                  
+// SET REXXLIB='DVM110.SAVZEXEC'            * AVZ REXX Library                  
+// SET SAMPLIB='DVM110.SAVZSAMP'            * AVZ Sample Library                
+//DMFEXTR1  EXEC PGM=IKJEFT01,PARM=('AVZMBTPA O'),REGION=0M                     
+//STEPLIB   DD DISP=SHR,DSN=&LOADLIB                                            
+//SYSEXEC   DD DISP=SHR,DSN=&REXXLIB                                            
+//SOURCE    DD DISP=SHR,DSN=&SAMPLIB.(AVZSTFCP)                                 
+//STDERR    DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                             
+//XMLOUT    DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                             
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD DUMMY                                                            
+//SYSIN     DD *                                                                
+  SSID = AVZS                    * Subsystem ID                                 
+  FUNCTION    = STOD             * Source to Database                           
+  MAP NAME = STAFFVS             * Target Map Name                              
+  SAVE OPTION = REPLACE          * Replace Existing                             
+  REFRESH OPTION = REFRESH       * Refresh After Save                           
+  OFFSET ZERO = Y                                                               
+  START FIELD = STAFFVS-RECORD   * First Field                                  
+  END FIELD   = STAFFVS-DATA-YRS * Last Field                                   
+  VSAM FILE   = IBMUSER.STAFF.VSAM                                              
+/*                                                                              
+//REAAVZAM EXEC  PGM=AVZXMAPD,PARM='SSID=AVZS,MXR=30000000'                     
+//STEPLIB  DD DISP=SHR,DSN=&LOADLIB                                             
+//RPT      DD SYSOUT=*                                                          
+//FMT      DD SYSOUT=*,DCB=LRECL=4096                                           
+//IN       DD *                                                                 
+++SET BUFSIZE=512 ;              * Buffer Size for Processing                   
+++SET SSMU=6;                    * System Storage Management Unit               
+++SET NUMROWS=-1   ;             * Return All Rows                              
+SELECT * FROM STAFFVS            * Test Query                                   

@@ -3,10 +3,17 @@
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
-//* PURPOSE: AMBLIST - Information on load, oblject modules          *          
+//* PURPOSE: Generate load module analysis using AMBLIST             *          
+//*          - Lists module attributes and entry point info          *          
+//*          - Shows CSECT details and cross-references              *          
+//*                                                                  *          
+//* INPUT:   IBMUSER.GIT.COBOL.LOAD(HELLOW)                          *          
+//* OUTPUT:  SYSPRINT - AMBLIST report                               *          
+//*                                                                  *          
+//* NOTE: Modify SYSLIB DSN and MEMBER name as needed                *          
 //*                                                                  *          
 //********************************************************************          
-//STEP1   EXEC PGM=AMBLIST                                                      
+//STEP1    EXEC PGM=AMBLIST                                                     
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSLIB   DD DSN=IBMUSER.GIT.COBOL.LOAD,DISP=SHR                               
 //SYSIN    DD *                                                                 
