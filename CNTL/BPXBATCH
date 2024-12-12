@@ -1,10 +1,17 @@
-//IUMETAC JOB (FB3),'METAL C',CLASS=A,MSGCLASS=H,                               
+//IUMETAC JOB (FB3),'METAL C COMPILE',CLASS=A,MSGCLASS=H,                       
 //       NOTIFY=&SYSUID,REGION=4M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//******************************************************************            
-//* Run the USS script to compile, assemble and link-ed the program             
-//******************************************************************            
-//*                                                                             
+//********************************************************************          
+//* PURPOSE: Compiles and builds Metal C programs through USS        *          
+//* scripting Metal C enables system-level programming with C syntax *          
+//*                                                                  *          
+//* PROCESS:                                                         *          
+//* - Executes USS script to compile Metal C source                  *          
+//* - Generates assembler code and creates load module               *          
+//* - Script details in IBMUSER.CNTL(BPXPARM)                        *          
+//*                                                                  *          
+//* NOTE: Requires z/OS XL C compiler with Metal C support           *          
+//********************************************************************          
 //BPXBATCH EXEC PGM=BPXBATCH                                                    
 //STDPARM  DD DSN=IBMUSER.CNTL(BPXPARM),DISP=SHR                                
 //SYSPRINT DD SYSOUT=*                                                          
@@ -13,4 +20,3 @@
 //CEEDUMP  DD SYSOUT=*                                                          
 //STDOUT   DD SYSOUT=*                                                          
 //STDERR   DD SYSOUT=*                                                          
-//*                                                                             

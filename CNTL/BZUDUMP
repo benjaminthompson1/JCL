@@ -1,11 +1,9 @@
-//IUVTPDP JOB (FB3),'VTP PLAY',CLASS=A,MSGCLASS=H,                              
+//IUVTPDP JOB (FB3),'VTP PLAYBACK',CLASS=A,MSGCLASS=H,                          
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
-//*                                                                  *          
-//* PURPOSE: VTP - PLAYBACK DUMP UTILITY ALLOWS A USER TO FORMAT THE *          
-//*          CONTENTS OF THE RECORDED PLAYBACK FILE.                 *          
-//*                                                                  *          
+//* PURPOSE: Formats and displays contents of VTP recorded playback  *          
+//*          files using the BZUPLAY formatting utility              *          
 //********************************************************************          
 //VTPDUMP EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                    
 //STEPLIB DD DISP=SHR,DSN=VTP201.SBZULOAD                                       

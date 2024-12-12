@@ -1,32 +1,50 @@
-//IUCSDUP JOB (FB3),'DFHCSDUP',CLASS=A,MSGCLASS=H,                              
+//IUCSDUP JOB (FB3),'CICS MORT DEF',CLASS=A,MSGCLASS=H,                         
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
-//*                                                                  *          
-//* PURPOSE: update CICS system definition for ZOFFICE               *          
-//*          MortgageApplication                                     *          
-//*                                                                  *          
+//* PURPOSE: Updates CICS System Definition (CSD) for ZOFFICE          *        
+//*          Mortgage Application. Defines the core components         *        
+//*          needed for the mortgage processing system.                *        
+//*                                                                    *        
+//* COMPONENTS:                                                        *        
+//* - MAPSET:  EPSMORT   (Mortgage Application Screen Definitions)     *        
+//* - PROGRAMS: EPSCMORT (Main Mortgage Processing)                    *        
+//*            EPSCSMRT (Mortgage Calculation Subroutine)             *         
+//* - TRANSACTION: EPSP  (Main Mortgage Processing Transaction)        *        
+//*                                                                    *        
+//* NOTE: Adds ZOFFICE group to APPLIST for CICS startup              *         
 //********************************************************************          
-//STEP1   EXEC PGM=DFHCSDUP,REGION=0M,                                          
+//* Execute CICS Resource Definition Utility                                    
+//STEP1    EXEC PGM=DFHCSDUP,REGION=0M,                                         
 //             PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                      
-//STEPLIB DD   DSN=DFH610.CICS.SDFHLOAD,DISP=SHR                                
-//DFHCSD   DD  DISP=SHR,DSN=DFH610.CICS.DFHCSD                                  
-//OUTDD    DD  SYSOUT=A                                                         
-//SYSPRINT DD  SYSOUT=A                                                         
-//SYSIN    DD  *                                                                
+//STEPLIB  DD   DSN=DFH610.CICS.SDFHLOAD,DISP=SHR    * CICS Modules             
+//DFHCSD   DD   DISP=SHR,DSN=DFH610.CICS.DFHCSD      * CSD File                 
+//OUTDD    DD   SYSOUT=A                              * Command Output          
+//SYSPRINT DD   SYSOUT=A                              * Messages                
+//* Resource Definitions                                                        
+//SYSIN    DD   *                                                               
+* Add ZOFFICE group to CICS startup list                                        
   ADD GROUP(ZOFFICE) LIST(APPLIST)                                              
+                                                                                
+* Define BMS screen layouts for mortgage application                            
   DEFINE MAPSET(EPSMORT) GROUP(ZOFFICE)                                         
          RESIDENT(NO) USAGE(NORMAL) USELPACOPY(NO) STATUS(ENABLED)              
+                                                                                
+* Define main mortgage processing program                                       
   DEFINE PROGRAM(EPSCMORT) GROUP(ZOFFICE)                                       
          LANGUAGE(COBOL) RELOAD(NO) RESIDENT(NO) USAGE(NORMAL)                  
          USELPACOPY(NO) STATUS(ENABLED) CEDF(YES) DATALOCATION(ANY)             
          EXECKEY(USER) CONCURRENCY(QUASIRENT) API(CICSAPI) DYNAMIC(NO)          
          EXECUTIONSET(FULLAPI) JVM(NO)                                          
+                                                                                
+* Define mortgage calculation subroutine                                        
   DEFINE PROGRAM(EPSCSMRT) GROUP(ZOFFICE)                                       
          LANGUAGE(COBOL) RELOAD(NO) RESIDENT(NO) USAGE(NORMAL)                  
          USELPACOPY(NO) STATUS(ENABLED) CEDF(YES) DATALOCATION(ANY)             
          EXECKEY(USER) CONCURRENCY(QUASIRENT) API(CICSAPI) DYNAMIC(NO)          
          EXECUTIONSET(FULLAPI) JVM(NO)                                          
+                                                                                
+* Define main mortgage transaction                                              
   DEFINE TRANSACTION(EPSP) GROUP(ZOFFICE)                                       
          PROGRAM(EPSCMORT) TWASIZE(0) PROFILE(DFHCICST) STATUS(ENABLED)         
          TASKDATALOC(ANY) TASKDATAKEY(USER) STORAGECLEAR(NO)                    

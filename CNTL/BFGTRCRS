@@ -1,44 +1,56 @@
-//IUMQFTE JOB  (FB3),'FTE ADMIN',CLASS=A,MSGCLASS=H,                    JOB00690
-//        NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                         
-//*                                                                             
+//IUMQFTET JOB (FB3),'MQ FTE TRANSFER',CLASS=A,MSGCLASS=H,                      
+//       NOTIFY=&SYSUID,REGION=4M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
-//* <copyright                                                                  
-//* notice="lm-source"                                                          
-//* pids="5655-MF9"                                                             
-//* years="2013,2016"                                                           
-//* crc="3927276320" >                                                          
-//* Licensed Materials - Property of IBM                                        
-//*                                                                             
-//* 5655-MF9                                                                    
-//*                                                                             
-//* (C) Copyright IBM Corp. 2013, 2016 All Rights Reserved.                     
-//* </copyright>                                                                
+//*                                                                  *          
+//* PURPOSE: Creates MQ Managed File Transfer (MQ MFT) definitions   *          
+//*          using fteCreateTransfer command to transfer files       *          
+//*          between z/OS and distributed systems                    *          
+//*                                                                  *          
+//* ACTIONS:                                                         *          
+//* - Executes BFGCMD utility for MQ MFT operations                  *          
+//* - Creates transfer definition XML file                           *          
+//* - Supports EBCDIC to ASCII text conversion                       *          
+//*                                                                  *          
+//* INPUT/OUTPUT:                                                    *          
+//* - SYSEXEC:  MQ MFT command library (ADV910.SBFGCMDS.CSQ9FTEA)    *          
+//* - SYSTSPRT/STDOUT/STDERR: Command and error messages             *          
+//*                                                                  *          
+//* PARAMETERS:                                                      *          
+//* - Queue manager: CSQ9                                            *          
+//* - Source agent: CSQ9FTEA                                         *          
+//* - Transfer type: text                                            *          
+//* - Wait time: 60 seconds                                          *          
+//*                                                                  *          
+//* NOTES:                                                           *          
+//* - Requires IBM MQ V9.3.0+                                        *          
+//* - Verify agent and queue manager availability                    *          
+//*                                                                  *          
 //********************************************************************          
-//* fteCreateTransfer Sample                                                    
-//* Transfer the contents of ADV910.SBFGCMDS.CSQ9FTEA                           
-//* to distributed agent's /tmp/JCL/ directory as text                          
-//* converting from EBCDIC to ASCII                                             
-//********************************************************************          
+//*                                                                             
+//* Step to execute the MQ File Transfer command                                
 //BFGCMD   EXEC PGM=IKJEFT01,REGION=0M                                          
-//SYSEXEC  DD DSN=ADV910.SBFGCMDS.CSQ9FTEA,DISP=SHR                             
-//SYSTSPRT DD SYSOUT=*                                                          
-//STDOUT   DD SYSOUT=*                                                          
-//STDERR   DD SYSOUT=*                                                          
+//* Load the MQ MFT commands library                                            
+//SYSEXEC  DD DSN=ADV930.SBFGCMDS.CSQ9FTEA,DISP=SHR                             
+//* Output DD statements for command execution                                  
+//SYSTSPRT DD SYSOUT=*         * TSO command processor messages                 
+//STDOUT   DD SYSOUT=*         * Standard output messages                       
+//STDERR   DD SYSOUT=*         * Error messages                                 
+//* Command input - Create XML transfer definition                              
 //SYSTSIN  DD *                                                                 
  %BFGCMD CMD=fteCreateTransfer +                                                
   -td /u/ibmuser/NAB01.xml                                                      
 /*                                                                              
-//                                                                              
- %BFGCMD CMD=fteCreateTransfer -h                                               
-                                                                                
-  /* %BFGCMD CMD=fteCreateTransfer +                                            
-  /*    -p CSQ9    +                                                            
-  /*    -sa CSQ9FTEA               +                                            
-  /*    -da <destination-agent>    +                                            
-  /*    -dd /tmp/JCL               +                                            
-  /*    -t text                    +                                            
-  /*    -w 60                      +                                            
-  /*     "//'ADV910.SBFGCMDS.CSQ9FTEA'"                                         
-                                                                                
-/*                                                                              
+//*                                                                             
+//* Template for complete transfer command (commented for reference)            
+//* Uncomment and modify parameters as needed                                   
+//*                                                                             
+//* %BFGCMD CMD=fteCreateTransfer +                                             
+//*    -p CSQ9                    * Queue manager name                          
+//*    -sa CSQ9FTEA              * Source agent name                            
+//*    -da <destination-agent>   * Target agent (modify as needed)              
+//*    -dd /tmp/JCL              * Destination directory                        
+//*    -t text                   * Transfer type (EBCDIC to ASCII)              
+//*    -w 60                     * Wait time in seconds                         
+//*     "//'ADV910.SBFGCMDS.CSQ9FTEA'"                                          
 //                                                                              

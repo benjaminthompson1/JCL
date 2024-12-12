@@ -3,28 +3,12 @@
 //*      TYPRUN=HOLD                                                            
 //MYLIB JCLLIB ORDER=SYS1.SACBCNTL                                              
 //********************************************************************          
+//* PURPOSE: Creates formatted dataset report from DCOLLECT data     *          
+//*          showing dataset attributes, space usage and statistics  *          
 //*                                                                  *          
-//* PURPOSE: Generates a customized dataset report from DCOLLECT data *         
-//*          with the following functionality:                        *         
-//*          - Creates a formatted report with selected attributes    *         
-//*          - Includes dataset name, volume, space allocation,       *         
-//*            format, and storage class information                  *         
-//*          - Calculates space usage statistics and totals          *          
-//*                                                                  *          
-//* INPUT:   IBMUSER.DCOLLECT.DATA                                   *          
-//* OUTPUT:  IBMUSER.DATASET.REPORT                                  *          
-//*                                                                  *          
-//* STEPS:                                                           *          
-//* 1. DELREP    - Deletes existing report dataset if present        *          
-//* 2. ALCISPFL  - Allocates new report dataset                      *          
-//* 3. GENREP    - Generates report using DCOLLECT data              *          
-//* 4. REPGEN    - Copies report to SYSOUT for viewing               *          
-//*                                                                  *          
-//* CUSTOMIZATION REQUIRED:                                          *          
-//* - Update jobcard parameters                                      *          
-//* - Modify DCOLLECT input dataset name                             *          
-//* - Adjust report parameters in SYSIN as needed                    *          
-//*                                                                  *          
+//* INPUT:  IBMUSER.DCOLLECT.DATA                                    *          
+//* OUTPUT: IBMUSER.DATASET.REPORT                                   *          
+//********************************************************************          
 //********************************************************************          
 //* DELETE STEP - Delete the report dataset if it exists             *          
 //********************************************************************          
@@ -43,7 +27,7 @@
 //SYSIN  DD *                                                                   
 /*                                                                              
 //********************************************************************          
-//* REPORT GENERATION STEP - Create formatted report                  *         
+//* REPORT GENERATION STEP - Create formatted report                 *          
 //********************************************************************          
 //GENREP   EXEC  ACBJBAOB,PLIB1=SYS1.DGTPLIB,TABL2=IBMUSER.TEST.ISPTABL         
 //DCOLIN  DD  DSN=IBMUSER.DCOLLECT.DATA,DISP=SHR                                

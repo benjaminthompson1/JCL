@@ -1,21 +1,28 @@
-//IUBPXCL JOB (FB3),'BPXCLEAN',CLASS=A,MSGCLASS=H,                              
+//IUBPXCL JOB (FB3),'USS CLEANUP',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*********************************************************************         
+//********************************************************************          
+//*                                                                  *          
+//* PURPOSE: Deletes files from USS filesystem older than 4 days to  *          
+//*          maintain filesystem space                               *          
+//*                                                                  *          
+//* PROCESS:                                                         *          
+//* - Finds and removes files older than 4 days using USS find/rm    *          
+//* - Works only on regular files in /global/wic/S0W1/ path          *          
+//* - Provides verbose output of deleted files                       *          
+//*                                                                  *          
+//* NOTES:                                                           *          
+//* - Command failures do NOT generate non-zero return codes         *          
+//* - Verify permissions before execution                            *          
+//*                                                                  *          
+//********************************************************************          
 //*                                                                             
-//* PURPOSE: DELETE FILE FROM A ZFS OLDER THEN A SPECIFIED NUMER                
-//*          OF DAYS.                                                           
-//*                                                                             
-//* NOTES  : FAILURE OF A COMMAND WILL **NOT** RESULT IN A NON-ZERO             
-//*          RETURN CODE.                                                       
-//*                                                                             
-//*********************************************************************         
 //CLEARN1  EXEC PGM=IKJEFT1A                                                    
-//SYSEXEC  DD DISP=SHR,DSN=SYS1.SBPXEXEC                                        
-//SYSLBC   DD DISP=SHR,DSN=SYS1.BRODCAST                                        
-//SYSTSPRT DD SYSOUT=*                                                          
+//SYSEXEC  DD DISP=SHR,DSN=SYS1.SBPXEXEC    * USS command library               
+//SYSLBC   DD DISP=SHR,DSN=SYS1.BRODCAST    * TSO messages                      
+//SYSTSPRT DD SYSOUT=*                      * Output messages                   
 //SYSTSIN  DD *                                                                 
-  PROFILE NOPREFIX MSGID WTPMSG                                                 
-  OSHELL find /global/wic/S0W1/ +                                               
-         -type f -mtime +4 -exec rm -v {} \;                                    
+ PROFILE NOPREFIX MSGID WTPMSG                                                  
+ OSHELL find /global/wic/S0W1/ +                                                
+        -type f -mtime +4 -exec rm -v {} \;                                     
 /*                                                                              

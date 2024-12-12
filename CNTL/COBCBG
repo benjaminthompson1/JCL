@@ -1,21 +1,42 @@
-//IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
+//IUCOBOL JOB (FB3),'COBOL BUILD-RUN',CLASS=A,MSGCLASS=H,                       
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
+//* PURPOSE: Performs a complete COBOL program cycle:                *          
+//*          1. Compiles source code into object code                *          
+//*          2. Binds (links) object code into executable module     *          
+//*          3. Executes the program with debug support              *          
 //*                                                                  *          
-//* PURPOSE: COBOL COMPILE, BIND AND GO                              *          
+//* PROGRAM: HELLOW                                                  *          
 //*                                                                  *          
+//* EXECUTION ENVIRONMENT:                                           *          
+//* - Enterprise COBOL V6.4.0 compiler                               *          
+//* - Debug Tool configured for remote debugging                     *          
+//* - Remote debugger connection: 10.1.1.86 port 8001                *          
+//*                                                                  *          
+//* DATASETS:                                                        *          
+//* - Source:  IBMUSER.GIT.COBOL.SOURCE                              *          
+//* - Object:  IBMUSER.GIT.COBOL.OBJECT                              *          
+//* - Load:    IBMUSER.GIT.COBOL.LOAD                                *          
+//* - Debug:   ISM330.SEQAMOD                                        *          
 //********************************************************************          
-//COBCBG1 EXEC IGYQCBG,LNGPRFX=IGY640,LIBPRF1=CEE,                              
-//             GPARM='/TEST(,,,TCPIP&10.1.1.86%8001:*)',                        
-//             GOPGM=HELLOW                                                     
+//* Compile, Bind, and Execute the program                                      
+//COBCBG1 EXEC IGYQCBG,                   * IBM Enterprise COBOL proc           
+//             LNGPRFX=IGY640,            * COBOL V6.4.0 libraries              
+//             LIBPRF1=CEE,               * Language Environment libs           
+//             GPARM='/TEST(,,,TCPIP&10.1.1.86%8001:*)', * Debug settings       
+//             GOPGM=HELLOW               * Program to process                  
+//* Compile step - Convert source to object code                                
 //COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
 //COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                 
 //COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
+//* Bind step - Create executable program                                       
 //BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
 //BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
 //BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   
+//* Execute step - Run the compiled program                                     
 //GO.STEPLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                            
 //            DD DISP=SHR,DSN=ISM330.SEQAMOD                                    
+//* Optional dataset definitions for program execution                          
 //*O.STDNTCRS DD DISP=SHR,DSN=IBMUSER.COBOL.STUDENT.COURSES                     
 //*O.STCRSRPT DD SYSOUT=*                                                       

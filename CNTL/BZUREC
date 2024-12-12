@@ -1,10 +1,9 @@
-//IUVTPRE JOB (FB3),'VTP RECORD',CLASS=A,MSGCLASS=H,                            
+//IUVTPRE JOB (FB3),'VTP I/O RECORD',CLASS=A,MSGCLASS=H,                        
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
-//*                                                                  *          
-//* PURPOSE: VTP - RECORD COLLECTING BATCH/FILE I/O CALLS            *          
-//*                                                                  *          
+//* PURPOSE: Records batch and file I/O operations using VTP (Visual *          
+//*          Terminal Program) for later playback and analysis       *          
 //********************************************************************          
 //VTPREC   EXEC  PGM=TOURFILE                                                   
 //STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULLEP                                      

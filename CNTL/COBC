@@ -1,13 +1,33 @@
-//IUCOBOL JOB (FB3),'COBOL C',CLASS=A,MSGCLASS=H,                               
+//IUCOBOL JOB (FB3),'COBOL COMPILE',CLASS=A,MSGCLASS=H,                         
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
+//* PURPOSE: Compiles an Enterprise COBOL program using the IGY V6.4 *          
+//*        compiler. This job takes source code from the GIT-managed *          
+//*        source library and produces object code that can be       *          
+//*        linked into an executable program.                        *          
 //*                                                                  *          
-//* PURPOSE: COBOL COMPILE                                           *          
+//* PARAMETERS:                                                      *          
+//* - GOPGM: Name of the COBOL program to compile (currently HELLOW) *          
 //*                                                                  *          
+//* SOURCE DATASETS:                                                 *          
+//* - Source code:  IBMUSER.GIT.COBOL.SOURCE                         *          
+//* - Copy books:   IBMUSER.GIT.COBOL.COPYLIB                        *          
+//* - Object code:  IBMUSER.GIT.COBOL.OBJECT                         *          
+//*                                                                  *          
+//* NOTES:                                                           *          
+//* - Uses Enterprise COBOL V6.4.0 compiler                          *          
+//* - Links with Language Environment (LE) libraries                 *          
+//* - Source and object members share the same name (&GOPGM)         *          
 //********************************************************************          
-//COBC1  EXEC IGYQC,LNGPRFX=IGY640,LIBPRF1=CEE,                                 
-//            GOPGM=HELLOW                                                      
+//* Compile step using Enterprise COBOL compiler                                
+//COBC1  EXEC IGYQC,                        * COBOL compile procedure           
+//            LNGPRFX=IGY640,               * Compiler version V6.4.0           
+//            LIBPRF1=CEE,                  * LE library prefix                 
+//            GOPGM=HELLOW                  * Program to compile                
+//* COBOL copy books for program dependencies                                   
 //SYSLIB DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                            
+//* Source code input from GIT-managed library                                  
 //SYSIN  DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                     
+//* Compiled object code output                                                 
 //SYSLIN DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                     

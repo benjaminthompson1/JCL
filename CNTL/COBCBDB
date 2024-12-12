@@ -1,27 +1,50 @@
-//IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
+//IUCOBOL JOB (FB3),'DB2 COBOL BUILD',CLASS=A,MSGCLASS=H,                       
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
+//* PURPOSE: Performs a complete DB2 COBOL program build process that*          
+//*          includes compilation, program binding, and DB2 package  *          
+//*          binding for program ERIS.                               *          
 //*                                                                  *          
-//* PURPOSE: DB2 COBOL COMPILE AND BIND                              *          
+//* BUILD PROCESS:                                                   *          
+//* 1. COMPILE: Compiles COBOL source with DB2 precompiler (SQL)     *          
+//*    - Creates object module for program binding                   *          
+//*    - Generates DBRM for DB2 package binding                      *          
 //*                                                                  *          
+//* 2. PROGRAM BIND: Creates executable load module                  *          
+//*    - Links object code with DB2 runtime libraries                *          
+//*    - Disables dynamic loading (DYNAM=NO for DB2)                 *          
+//*                                                                  *          
+//* 3. DB2 BIND: Creates DB2 package and plan                        *          
+//*    - Binds DBRM into package BENCOLLECTION.ERIS                  *          
+//*    - Creates plan BENPLAN for program execution                  *          
+//*                                                                  *          
+//* ENVIRONMENTS:                                                    *          
+//* - Enterprise COBOL V6.4.0                                        *          
+//* - DB2 V10 subsystem DBCG                                         *          
 //********************************************************************          
-//COMPILE  EXEC IGYQCB,LNGPRFX=IGY640,LIBPRF1=CEE,                              
-//         CPARM='SQL,TEST',                                                    
-//         BPARM='DYNAM=NO',                                                    
-//         GOPGM=ERIS                                                           
-//COBOL.STEPLIB DD DISP=SHR,DSN=DSNC10.DBCG.SDSNEXIT                            
-//              DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
+//* Step 1: Compile COBOL program with DB2 support                              
+//COMPILE  EXEC IGYQCB,                    * Compile and bind procedure         
+//         LNGPRFX=IGY640,                 * COBOL V6.4.0 libraries             
+//         LIBPRF1=CEE,                    * Language Environment               
+//         CPARM='SQL,TEST',               * Enable DB2 precompiler             
+//         BPARM='DYNAM=NO',               * Required for DB2 programs          
+//         GOPGM=ERIS                      * Program name                       
+//* Compile step DB2 and COBOL libraries                                        
+//COBOL.STEPLIB DD DISP=SHR,DSN=DSND10.DBCG.SDSNEXIT                            
+//              DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
 //COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                       
 //COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                
 //COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
 //COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.DBRMLIB(&GOPGM)               
-//BIND.SYSLIB   DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
+//* Program binding step libraries                                              
+//BIND.SYSLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
 //              DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                          
 //BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
 //BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                  
+//* Step 3: Bind DB2 package and plan                                           
 //DB2BIND  EXEC PGM=IKJEFT01                                                    
-//STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
+//STEPLIB  DD  DISP=SHR,DSN=DSND10.SDSNLOAD                                     
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSTSIN  DD  *                                                                
   DSN SYSTEM(DBCG)                                                              

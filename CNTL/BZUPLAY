@@ -1,10 +1,9 @@
-//IUVTPPL JOB (FB3),'VTP PLAY',CLASS=A,MSGCLASS=H,                              
+//IUVTPPL JOB (FB3),'VTP PLAYBACK',CLASS=A,MSGCLASS=H,                          
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
-//*                                                                  *          
-//* PURPOSE: VTP - PLAY RECORDING FROM BATCH/FILE I/O CALLS          *          
-//*                                                                  *          
+//* PURPOSE: Replays VTP recorded terminal sessions and batch I/O    *          
+//*          transactions for analysis and debugging                 *          
 //********************************************************************          
 //VTPLAY   EXEC  PGM=BZUPLAY                                                    
 //STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULLEP                                      

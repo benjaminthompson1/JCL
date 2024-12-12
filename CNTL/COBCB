@@ -1,16 +1,33 @@
-//IUCOBOL JOB (FB3),'COBOL CB',CLASS=A,MSGCLASS=H,                              
+//IUCOBOL JOB (FB3),'COBOL COMP-BIND',CLASS=A,MSGCLASS=H,                       
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
+//* PURPOSE: Performs a complete COBOL program build process:        *          
+//*          1. Compiles COBOL source code into object code          *          
+//*          2. Binds (links) the object code into an executable     *          
 //*                                                                  *          
-//* PURPOSE: COBOL COMPILE AND BIND                                  *          
+//* PROCESSING:                                                      *          
+//* - Uses Enterprise COBOL V6.4.0 compiler (IGYQCB procedure)       *          
+//* - Processes both compile and bind steps in a single job          *          
+//* - Reads source from GIT-managed libraries                        *          
+//* - Creates executable in LOAD library                             *          
 //*                                                                  *          
+//* DATASETS:                                                        *          
+//* - Source:    IBMUSER.GIT.COBOL.SOURCE(HELLOW)                    *          
+//* - Copylib:   IBMUSER.GIT.COBOL.COPYLIB                           *          
+//* - Object:    IBMUSER.GIT.COBOL.OBJECT(HELLOW)                    *          
+//* - Load:      IBMUSER.GIT.COBOL.LOAD(HELLOW)                      *          
 //********************************************************************          
-//COBCB1  EXEC IGYQCB,LNGPRFX=IGY640,LIBPRF1=CEE,                               
-//             GOPGM=HELLOW                                                     
+//* Execute the compile and bind procedure                                      
+//COBCB1  EXEC IGYQCB,                     * IBM Enterprise COBOL proc          
+//             LNGPRFX=IGY640,             * COBOL V6.4.0 libraries             
+//             LIBPRF1=CEE,                * Language Environment libs          
+//             GOPGM=HELLOW                * Program name to build              
+//* Compile step (COBOL) dataset definitions                                    
 //COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
 //COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                 
 //COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
+//* Bind (link-edit) step dataset definitions                                   
 //BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
 //BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
 //BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   

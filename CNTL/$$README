@@ -10,7 +10,7 @@ AVZIVVS1 - DVM IVP
 BFGTRCRS - MQ FTE fteCreateTransfer                                             
 BPXBATCH - BPXBATCH issue omvs commands                                         
 BPXCLEAN - Delete a file from ZFS older than 4 number of days                   
-BPXPARM  - STDPARM DD for BPXBATCHr                                             
+BPXPARM  - STDPARM DD for BPXBATCH                                              
 BZUDUMP  - VTP Playback Dump Utility                                            
 BZUPLAY  - VTP Play recording from batch/file I/O calls                         
 BZUREC   - VTP Record collecting batch/file I/O calls                           
