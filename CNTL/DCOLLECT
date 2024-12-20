@@ -13,15 +13,7 @@
 //            DISP=(NEW,CATLG,DELETE)                                           
 //* ON-LINE VOLUMES                                                             
 //SYSIN    DD *                                                                 
-     DCOLLECT -                                                                 
-           OFILE(OUTDS) -                                                       
-           VOLUME(*)                                                            
-/*                                                                              
-//                                                                              
-//* ON-LINE VOLUMES BELONGING TO A STORAGE GROUP                                
-//SYSIN    DD *                                                                 
-     DCOLLECT -                                                                 
-           OFILE(OUTDS) -                                                       
-           STORAGEGROUP(STGBASE) -                                              
-           NODATAINFO                                                           
+  DCOLLECT -                                                                    
+    OUTFILE(OUTDS) -                                                            
+    VOLUMES(*)                                                                  
 /*                                                                              
