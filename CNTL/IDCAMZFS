@@ -23,7 +23,7 @@
          ( -                                                                    
              NAME(@zfsdsn@) -                                                   
              LINEAR -                                                           
-             TRACKS(800 200) VOLUME(@volume@) -                                 
+             CYL(1 1) VOLUME(@volume@) -                                        
              DATACLASS(DCEXTEAV) -                                              
              SHAREOPTIONS(3) -                                                  
          )                                                                      
