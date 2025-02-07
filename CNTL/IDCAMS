@@ -14,8 +14,8 @@
 /*                                                                              
 //                                                                              
 //* CREATE DATASET ALIAS                                                        
- DEFINE ALIAS (NAME(DSNC10.SDSNEXIT) -                                          
-        RELATE(DSNC10.DBCG.SDSNEXIT))                                           
+ DEFINE ALIAS (NAME(IBMUSER.CNTL) -                                             
+        RELATE(IBMUSER.GIT.JCL.CNTL))                                           
 //                                                                              
 //* CREATE SYMBOLICRELATE ALIAS                                                 
  DEL IBMUSER.TEST.ALIAS                                                         

@@ -18,15 +18,16 @@
 PROFILE NOPREFIX                                                                
                                                                                 
 ADDGROUP CXPADM DATA('JCL Expert admin group') SUPGROUP(SYS1) +                 
-  OWNER(SYS1)                                                                   
+  OWNER(IBMUSER)                                                                
                                                                                 
 ADDGROUP CXPUSER DATA('JCL Expert users') SUPGROUP(CXPADM) +                    
   OWNER(CXPADM) OMVS(AUTOGID)                                                   
                                                                                 
 CONNECT (IBMUSER) GROUP(CXPUSER) OWNER(CXPUSER)                                 
                                                                                 
-ADDUSER CXPSRV DFLTGRP(SYS1) NOPASSWORD OMVS(AUTOUID +                          
-PROGRAM(/bin/sh) HOME(/global/jclexpert))                                       
+ADDUSER CXPSRV NAME('JCL Expert started task') +                                
+  OMVS(AUTOUID HOME(/global/jclexpert) PROGRAM(/bin/sh)) +                      
+  OWNER(IBMUSER) DFLTGRP(SYS1) NOPASSWORD                                       
                                                                                 
 CONNECT CXPSRV GROUP(CXPUSER) OWNER(CXPSRV)                                     
                                                                                 
@@ -37,7 +38,7 @@ SETROPTS RACLIST(STARTED) REFRESH
                                                                                 
 SETROPTS WHEN(PROGRAM)                                                          
                                                                                 
-RDEFINE PROGRAM CXPSRV ADDMEM('JCL120.CXP.SCXPLOAD'//NOPADCHK) +                
+RDEFINE PROGRAM CXPSRV ADDMEM('JCL.V1R2M0.SCXPLOAD'//NOPADCHK) +                
   UACC(READ)                                                                    
                                                                                 
 SETROPTS WHEN(PROGRAM) REFRESH                                                  
@@ -60,7 +61,7 @@ PERMIT CXP.JCLCKUSR.** CLASS(FACILITY) ACC(READ) ID(CXPUSER)
 SETROPTS REFRESH RACLIST(FACILITY)                                              
                                                                                 
 RACDCERT CERTAUTH GENCERT +                                                     
-  SUBJECTSDN(CN('JCL Expert z31a Root CA') +                                    
+  SUBJECTSDN(CN('JCL Expert z31c Root CA') +                                    
   OU('DTSC') +                                                                  
   O('IBM')) +                                                                   
   SIZE(2048) +                                                                  

@@ -86,7 +86,6 @@ KMQGBVJ1 - Ansible zForum COBOL GET
 KMQPBVK1 - Ansible zForum COBOL PUT                                             
 LIKECOPY - Create a dataset using the attributes for a base dataset             
 LOGREC   - Clear and initialize hardware event recorder dataset                 
-MAEKCER2 - Create key ring, CA as default, a personal certificate signed with CA
 MFAENB   - Enable MFA users                                                     
 MFARACF  - Create MFA RACF definitions                                          
 MFAUSER  - Create TSO MFA users for IBM MFA                                     

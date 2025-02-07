@@ -19,7 +19,7 @@
 PROFILE NOPREFIX                                                                
 ADDUSER OMEG NAME('Omegamon started task') -                                    
  OMVS(AUTOUID HOME(/u/automount/omeg) PROGRAM(/bin/sh)) -                       
-   OWNER(SYS1) -                                                                
+   OWNER(IBMUSER) -                                                             
    NOPASSWORD -                                                                 
    DFLTGRP(SYS1)                                                                
                                                                                 
