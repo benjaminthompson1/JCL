@@ -80,6 +80,7 @@ IZUDUUID - z/OS UUID part of zOSMF
 JAVA     - IVP Batch Java                                                       
 JES2CKPT - Create JES2 checkpoint data sets                                     
 JES2VFY  - Verify JES2 parm                                                     
+JVMJCL17 - JZOS V17 batch java                                                  
 KMQCBVJ1 - Ansible zForum COBOL GET compile CSQ4BVJ1                            
 KMQCBVK1 - Ansible zForum COBOL PUT compile CSQ4BVK1                            
 KMQGBVJ1 - Ansible zForum COBOL GET                                             
