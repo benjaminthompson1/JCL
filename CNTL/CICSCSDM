@@ -1,4 +1,4 @@
-//IUCSDUP JOB (FB3),'CICS MORT DEF',CLASS=A,MSGCLASS=H,                         
+//IUCICSD JOB (FB3),'CICS MORT CSD',CLASS=A,MSGCLASS=H,                         
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
@@ -17,8 +17,8 @@
 //* Execute CICS Resource Definition Utility                                    
 //STEP1    EXEC PGM=DFHCSDUP,REGION=0M,                                         
 //             PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                      
-//STEPLIB  DD   DSN=DFH610.CICS.SDFHLOAD,DISP=SHR    * CICS Modules             
-//DFHCSD   DD   DISP=SHR,DSN=DFH610.CICS.DFHCSD      * CSD File                 
+//STEPLIB  DD   DSN=DFH620.CICS.SDFHLOAD,DISP=SHR    * CICS Modules             
+//DFHCSD   DD   DISP=SHR,DSN=DFH620.CICS.DFHCSD      * CSD File                 
 //OUTDD    DD   SYSOUT=A                              * Command Output          
 //SYSPRINT DD   SYSOUT=A                              * Messages                
 //* Resource Definitions                                                        

@@ -1,3 +1,6 @@
+//IUCICSD JOB (FB3),'CICS CSD',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //* PURPOSE: Updates CICS System Definition (CSD) for the ZOFFICE      *        
 //*          example application. Defines VSAM files, BMS mapsets,     *        
@@ -18,9 +21,9 @@
 //STEP1   EXEC PGM=DFHCSDUP,REGION=0M,                                          
 //             PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                      
 //* CICS program libraries                                                      
-//STEPLIB DD   DSN=DFH610.CICS.SDFHLOAD,DISP=SHR                                
+//STEPLIB DD   DSN=DFH620.CICS.SDFHLOAD,DISP=SHR                                
 //* CICS System Definition file                                                 
-//DFHCSD  DD   DISP=SHR,DSN=DFH610.CICS.DFHCSD                                  
+//DFHCSD  DD   DISP=SHR,DSN=DFH620.CICS.DFHCSD                                  
 //* Utility output and messages                                                 
 //OUTDD   DD   SYSOUT=A                                                         
 //SYSPRINT DD  SYSOUT=A                                                         
