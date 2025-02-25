@@ -21,7 +21,7 @@ Here is a brief description of each JCL job in this repository:
 - `$VS`: Issue CONSOLE commands
 - `ACBJBARD`: Generating data set report from DCOLLECT data
 - `AMAPDUPL`: IBM Problem Documentation Upload Utility
-- `AMBLIST`: Service aid program to list program objects and load modules
+- `AMBLIST`: Information on load, object modules
 - `ARCSTRST`: DFSMShsm starter set - job #1
 - `ARCTOOLS`: DFSMShsm starter set - job #2
 - `AVZGNSTF`: DVM Create the sample VSAM file
@@ -34,8 +34,8 @@ Here is a brief description of each JCL job in this repository:
 - `BZUPLAY`: VTP Play recording from batch/file I/O calls
 - `BZUREC`: VTP Record collecting batch/file I/O calls
 - `CCBERIS`: COBOL compile and bind with Db2 ERIS
-- `CICSCSD`: Define EGUI CICS CSD entry
-- `CICSCSDM`: Define CICS CSD entries for multiple applications
+- `CICSCSD`: Define base application - EGUI CICS CSD entry
+- `CICSCSDM`: Define ZOFFICE MortgageApplication
 - `COBC`: COBOL compile
 - `COBCB`: COBOL compile and bind
 - `COBCBDB`: COBOL compile and bind with Db2
@@ -47,9 +47,9 @@ Here is a brief description of each JCL job in this repository:
 - `COBSORT`: COBOL with DFSORT
 - `CONVERTV`: SMS CONVERTV
 - `CRDB2ARC`: COBOL RUN DB2ARCH
-- `CRERIS`: COBOL run ERIS utilities
+- `CRERIS`: COBOL RUN ERIS
 - `CSQLOGP1`: CSQ LOG PRINT
-- `CSQLOGP2`: CSQ LOG PRINT commited messages and select specific data
+- `CSQLOGP2`: CSQ LOG PRINT committed messages and select specific data
 - `CSQUTIL`: MQ CSQ Utility
 - `CSQ4BCLR`: GET sample program CSQ4BCL1
 - `CSQ4BVJR`: PUT/GET sample programs, CSQ4BCK1/CSQ4BCJ1
@@ -57,16 +57,16 @@ Here is a brief description of each JCL job in this repository:
 - `DFH$ECAT`: copy from DFH540.CICS.SDFHINST
 - `DFH$ECNF`: copy from DFH540.CICS.SDFHINST
 - `DFSORT`: DFSORT Utility
-- `DSNBIND`: Db2 bind utilities for applications
+- `DSNBIND`: Db2 BIND
 - `DSNREST`: Creating and enabling Db2 native REST services for ZCEE
 - `DSNTIJAI`: SQLDI Pseudo Catalog
-- `DSNTIJAV`: Db2 authorization validation
-- `DSNTIJR2`: Db2 REST services setup - part 2
+- `DSNTIJAV`: SQLDI IVP
+- `DSNTIJR2`: Enabling Db2 REST service versioning support
 - `DSNTIJRS`: Enabling Db2 REST services
-- `DSNTIJTC`: Db2 trusted context setup
+- `DSNTIJTC`: activate a function level that requires a new catalog level
 - `DSSCOPY`: Copy dataset(s)
 - `DSSDFRAG`: Defrag a volume
-- `DSSDIAG`: Check VVR's and Catalog entries for datsets on a volume
+- `DSSDIAG`: Check VVR's and Catalog entries for datasets on a volume
 - `DSSDUMPF`: DSS Backup at volume level
 - `DSSDUMPL`: DSS Backup at logical dataset name
 - `DSSMOVE`: Move dataset(s) from volume
@@ -76,7 +76,7 @@ Here is a brief description of each JCL job in this repository:
 - `ERISDBIC`: Db2 full Image Copy on ERIS TS
 - `ERISPGM`: COBOL RUN ERIS
 - `ERISVSAM`: Create and load PERSON VSAM for ERIS project
-- `HBOJBCOL`: CDP z Batch collector
+- `HBOJBCOL`: CDP z Batch collect SMF data
 - `HBOJBDC2`: CDP z Batch DCOLLECT processor sending to DATA STREAMER
 - `HBOJBDCO`: CDP z Batch DCOLLECT processor
 - `HLASM`: Compile and link HLASM
@@ -84,35 +84,35 @@ Here is a brief description of each JCL job in this repository:
 - `ICETOOL`: ZSORT new feature in z15 hardware
 - `ICKDSF01`: 3390 Initialize Volume
 - `IDCAMCPY`: Copy VSAM data
-- `IDCAMDIA`: IDCAMS DIAGNOSE for VSAM diagnostics
+- `IDCAMDIA`: IDCAMS DIAGNOSE VTOC and CATALOG
 - `IDCAMGDG`: Create GDG base
 - `IDCAMS`: LISTCAT / DEFINE ALIAS
 - `IDCAMSMS`: Define backup SCDS for SMS
 - `IDCAMSVS`: Define VSAM dataset with alternate index
-- `IDCAMZFS`: Define ZFS dataset and mount on specified directory
-- `IEBCOPY`: Copy PDS members
-- `IEBDG`: Generate test data
+- `IDCAMZFS`: Define ZFS dataset and mount on the specified directory
+- `IEBCOPY`: copy PDS members
+- `IEBDG`: generate test data
 - `IEFBR14`: IEFBR14 testing allocations
 - `IFASMFDL`: SMF logstream dump program
-- `IFASMFDP`: SMF dataset dump program
+- `IFASMFDP`: SMF validate signature records
 - `ISCJCL86`: SCRT Report
 - `IXCMIAPU`: Define LOGSTREAM name(IFASMF.SMFALL.S0W1)
-- `IZUDUUID`: z/OSMF unique ID generation
+- `IZUDUUID`: z/OS UUID part of zOSMF
 - `IZUNASEC`: ZERT RACF
 - `JAVA`: IVP Batch Java
 - `JES2CKPT`: Create JES2 checkpoint data sets
 - `JES2VFY`: Verify JES2 parm
-- `JVMJCL17`: Java Virtual Machine JCL for Java 17
+- `JVMJCL17`: JZOS V17 batch java
 - `KMQCBVJ1`: Ansible zForum COBOL GET compile CSQ4BVJ1
 - `KMQCBVK1`: Ansible zForum COBOL PUT compile CSQ4BVK1
 - `KMQGBVJ1`: Ansible zForum COBOL GET
 - `KMQPBVK1`: Ansible zForum COBOL PUT
 - `LIKECOPY`: Create a dataset using the attributes for a base dataset
 - `LOGREC`: Clear and initialize hardware event recorder dataset
-- `MAEKCER2`: Create key ring, CA as default, a personal certificate singed with CA
-- `MFAENB`: Multi-Factor Authentication enablement job
-- `MFARACF`: Multi-Factor Authentication RACF setup
-- `MFAUSER`: Multi-Factor Authentication user setup
+- `MAKECER2`: Create key ring, CA as default, a personal certificate singed with CA
+- `MFAENB`: Enable MFA users
+- `MFARACF`: Create MFA RACF definitions
+- `MFAUSER`: Create TSO MFA users for IBM MFA
 - `MORTBIND`: MortgageApplication Db2 BIND
 - `MORTCICS`: MortgageApplication CICS CSD
 - `OMEGCRT`: OMEGAMON create - STEP 1
@@ -121,32 +121,32 @@ Here is a brief description of each JCL job in this repository:
 - `PICSCALC`: PL/I bit offsets for DVM DFAT EXIT
 - `PLIC`: PL/I compile
 - `PYTHON`: IVP Batch python
-- `RACFCERT`: Create signed personal cert that is attached to a keyring
-- `RACFHLQ`: RACF high-level qualifier setup
-- `RACFJCLX`: RACF comprehensive security setup
+- `RACFCERT`: Create a signed personal cert that is attached to a keyring
+- `RACFHLQ`: RACF used to implement HLQ dataset profiles
+- `RACFJCLX`: RACF used to implement JCL Expert
 - `RACFSTC`: STC Create USER ID and STARTED profile
 - `RACFZCX`: RACF used to implment zCX
 - `REXX`: Submit REXX in batch
 - `RFNJOBH`: Pull service from IBM and RECEIVE to the GLOBAL ZONE
-- `RMFCPU`: RMF post processor CPU utilization
+- `RMFCPU`: RMF post processor CPU utilisation
 - `SMFZERT`: SMF dump TYPE 119 for zERT reporting
 - `SMPACCPT`: SMP/E Accept
 - `SMPAPPLY`: SMP/E Apply
 - `SMPCRZNA`: SMP/E Create Global Zone
-- `SMPCRZNB`: SMP/E Allocates DATA SETS and DDDEF's
+- `SMPCRZNB`: SMP/E Allocates datasets and DDDEF's
 - `SMPECDP`: SMP/E CDP installation and configuration
 - `SMPHOLD`: SMP/E HOLD listing
-- `SMPLIST`: SMP/E List DDDEF definitions in target zone
+- `SMPLIST`: SMP/E List DDDEF definitions and maintaince
 - `SMPREC`: SMP/E Receive from Shopz Download Director
 - `SMPREJTA`: SMP/E Reject once they have been ACCEPTED
 - `SMPREJTG`: SMP/E Reject all received-only
 - `SMPRPT`: SMP/E Target report for SHOPz
-- `SYSLOG`: System log extraction and reporting
-- `TERSE`: TERSE Pack and Unpack dataset
+- `SYSLOG`: Dump the system log (SYSLOG) to the specified dataset
+- `TERSE`: AMATERSE Pack and Unpack dataset
 - `UJ04501`: UJ04501 zSecure Admin V2.4
-- `VSAM`: IDCAMS create VSAM file
+- `VSAM`: IDCAMS create a VSAM file
 - `VSAMAIX`: IDCAMS create alternative index
-- `VTAMUSSN`: VTAM USS node definition
+- `VTAMUSSN`: Assemble and link USSN table
 - `XMITPACK`: XMIT and TERSE (pack) a load library
 - `XMITREST`: TERSE (unpack) and XMIT (receive) a load library
 
