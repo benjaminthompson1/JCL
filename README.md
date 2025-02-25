@@ -21,6 +21,7 @@ Here is a brief description of each JCL job in this repository:
 - `$VS`: Issue CONSOLE commands
 - `ACBJBARD`: Generating data set report from DCOLLECT data
 - `AMAPDUPL`: IBM Problem Documentation Upload Utility
+- `AMBLIST`: Service aid program to list program objects and load modules
 - `ARCSTRST`: DFSMShsm starter set - job #1
 - `ARCTOOLS`: DFSMShsm starter set - job #2
 - `AVZGNSTF`: DVM Create the sample VSAM file
@@ -34,6 +35,7 @@ Here is a brief description of each JCL job in this repository:
 - `BZUREC`: VTP Record collecting batch/file I/O calls
 - `CCBERIS`: COBOL compile and bind with Db2 ERIS
 - `CICSCSD`: Define EGUI CICS CSD entry
+- `CICSCSDM`: Define CICS CSD entries for multiple applications
 - `COBC`: COBOL compile
 - `COBCB`: COBOL compile and bind
 - `COBCBDB`: COBOL compile and bind with Db2
@@ -41,9 +43,11 @@ Here is a brief description of each JCL job in this repository:
 - `COBCBGDB`: COBOL compile, bind and go (run) with Db2
 - `COBCBMQ`: COBOL compile and bind with MQ
 - `COBRUN`: COBOL run program
+- `COBRUNDB`: COBOL run program with Db2
 - `COBSORT`: COBOL with DFSORT
 - `CONVERTV`: SMS CONVERTV
 - `CRDB2ARC`: COBOL RUN DB2ARCH
+- `CRERIS`: COBOL run ERIS utilities
 - `CSQLOGP1`: CSQ LOG PRINT
 - `CSQLOGP2`: CSQ LOG PRINT commited messages and select specific data
 - `CSQUTIL`: MQ CSQ Utility
@@ -53,9 +57,13 @@ Here is a brief description of each JCL job in this repository:
 - `DFH$ECAT`: copy from DFH540.CICS.SDFHINST
 - `DFH$ECNF`: copy from DFH540.CICS.SDFHINST
 - `DFSORT`: DFSORT Utility
+- `DSNBIND`: Db2 bind utilities for applications
 - `DSNREST`: Creating and enabling Db2 native REST services for ZCEE
 - `DSNTIJAI`: SQLDI Pseudo Catalog
+- `DSNTIJAV`: Db2 authorization validation
+- `DSNTIJR2`: Db2 REST services setup - part 2
 - `DSNTIJRS`: Enabling Db2 REST services
+- `DSNTIJTC`: Db2 trusted context setup
 - `DSSCOPY`: Copy dataset(s)
 - `DSSDFRAG`: Defrag a volume
 - `DSSDIAG`: Check VVR's and Catalog entries for datsets on a volume
@@ -68,13 +76,15 @@ Here is a brief description of each JCL job in this repository:
 - `ERISDBIC`: Db2 full Image Copy on ERIS TS
 - `ERISPGM`: COBOL RUN ERIS
 - `ERISVSAM`: Create and load PERSON VSAM for ERIS project
-- `HBOJBDCO`: CDP z Batch DCOLLECT processor
+- `HBOJBCOL`: CDP z Batch collector
 - `HBOJBDC2`: CDP z Batch DCOLLECT processor sending to DATA STREAMER
+- `HBOJBDCO`: CDP z Batch DCOLLECT processor
 - `HLASM`: Compile and link HLASM
 - `ICEGENER`: IEBGENER replacement for VSAM and sequential files
 - `ICETOOL`: ZSORT new feature in z15 hardware
 - `ICKDSF01`: 3390 Initialize Volume
 - `IDCAMCPY`: Copy VSAM data
+- `IDCAMDIA`: IDCAMS DIAGNOSE for VSAM diagnostics
 - `IDCAMGDG`: Create GDG base
 - `IDCAMS`: LISTCAT / DEFINE ALIAS
 - `IDCAMSMS`: Define backup SCDS for SMS
@@ -83,13 +93,16 @@ Here is a brief description of each JCL job in this repository:
 - `IEBCOPY`: Copy PDS members
 - `IEBDG`: Generate test data
 - `IEFBR14`: IEFBR14 testing allocations
-- `ISCJCL86`: SCRT Report
 - `IFASMFDL`: SMF logstream dump program
+- `IFASMFDP`: SMF dataset dump program
+- `ISCJCL86`: SCRT Report
 - `IXCMIAPU`: Define LOGSTREAM name(IFASMF.SMFALL.S0W1)
+- `IZUDUUID`: z/OSMF unique ID generation
 - `IZUNASEC`: ZERT RACF
 - `JAVA`: IVP Batch Java
 - `JES2CKPT`: Create JES2 checkpoint data sets
 - `JES2VFY`: Verify JES2 parm
+- `JVMJCL17`: Java Virtual Machine JCL for Java 17
 - `KMQCBVJ1`: Ansible zForum COBOL GET compile CSQ4BVJ1
 - `KMQCBVK1`: Ansible zForum COBOL PUT compile CSQ4BVK1
 - `KMQGBVJ1`: Ansible zForum COBOL GET
@@ -97,8 +110,11 @@ Here is a brief description of each JCL job in this repository:
 - `LIKECOPY`: Create a dataset using the attributes for a base dataset
 - `LOGREC`: Clear and initialize hardware event recorder dataset
 - `MAEKCER2`: Create key ring, CA as default, a personal certificate singed with CA
-- `MORTBIND` : MortgageApplication Db2 BIND
-- `MORTCICS` : MortgageApplication CICS CSD
+- `MFAENB`: Multi-Factor Authentication enablement job
+- `MFARACF`: Multi-Factor Authentication RACF setup
+- `MFAUSER`: Multi-Factor Authentication user setup
+- `MORTBIND`: MortgageApplication Db2 BIND
+- `MORTCICS`: MortgageApplication CICS CSD
 - `OMEGCRT`: OMEGAMON create - STEP 1
 - `OMEGDIS`: OMEGAMON discover - STEP 3
 - `OMEGGEN`: OMEGAMON generate - STEP 4
@@ -106,6 +122,8 @@ Here is a brief description of each JCL job in this repository:
 - `PLIC`: PL/I compile
 - `PYTHON`: IVP Batch python
 - `RACFCERT`: Create signed personal cert that is attached to a keyring
+- `RACFHLQ`: RACF high-level qualifier setup
+- `RACFJCLX`: RACF comprehensive security setup
 - `RACFSTC`: STC Create USER ID and STARTED profile
 - `RACFZCX`: RACF used to implment zCX
 - `REXX`: Submit REXX in batch
@@ -116,21 +134,21 @@ Here is a brief description of each JCL job in this repository:
 - `SMPAPPLY`: SMP/E Apply
 - `SMPCRZNA`: SMP/E Create Global Zone
 - `SMPCRZNB`: SMP/E Allocates DATA SETS and DDDEF's
-- `SMPDDDEF`: SMP/E List DDDEF definitions in target zone
+- `SMPECDP`: SMP/E CDP installation and configuration
 - `SMPHOLD`: SMP/E HOLD listing
+- `SMPLIST`: SMP/E List DDDEF definitions in target zone
 - `SMPREC`: SMP/E Receive from Shopz Download Director
 - `SMPREJTA`: SMP/E Reject once they have been ACCEPTED
 - `SMPREJTG`: SMP/E Reject all received-only
 - `SMPRPT`: SMP/E Target report for SHOPz
+- `SYSLOG`: System log extraction and reporting
 - `TERSE`: TERSE Pack and Unpack dataset
 - `UJ04501`: UJ04501 zSecure Admin V2.4
 - `VSAM`: IDCAMS create VSAM file
-- `VASMAIX`: IDCAMS create alternative index
+- `VSAMAIX`: IDCAMS create alternative index
+- `VTAMUSSN`: VTAM USS node definition
 - `XMITPACK`: XMIT and TERSE (pack) a load library
 - `XMITREST`: TERSE (unpack) and XMIT (receive) a load library
-
-## Contributing
-Contributions to this repository are welcome. If you would like to contribute a new JCL job or improve an existing one, please submit a pull request with your changes. Be sure to include a brief description of your changes and update the job list in this README.md file accordingly.
 
 ## Contact
 If you have any questions or concerns, please open an issue on this repository.
