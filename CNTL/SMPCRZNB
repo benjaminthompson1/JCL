@@ -13,21 +13,21 @@
 //*  2) CHANGE THE JOB CARD TO MEET YOUR SYSTEM'S REQUIREMENTS.   *             
 //*  3) REVIEW ALL OF THE STATEMENTS BEFORE SUBMITTING            *             
 //*     THIS JOB.                                                 *             
-//*  4) CHANGE SMPE.CTZ.V3R1M0 TO THE HIGH-LEVEL QUALIFIER        *             
+//*  4) CHANGE SMPE.CYG.V3R1M0 TO THE HIGH-LEVEL QUALIFIER        *             
 //*     THAT COMPLIES WITH YOUR SITE'S NAMING STANDARDS.          *             
 //*  5) SYSALLDA IS THE DEFAULT UNIT IDENTIFICATION.              *             
 //*     CHANGE THIS, IF REQUIRED, TO                              *             
 //*     THE APPROPRIATE UNIT IDENTIFICATION.                      *             
 //*  6) CHANGE C3USR4 TO A VALID VOLUME SERIAL FOR THE            *             
 //*     SMP/E ENVIRONMENT.                                        *             
-//*  7) CHANGE CTZ310T TO THE NAME OF YOUR TARGET ZONE.           *             
-//*  8) CHANGE CTZ310D TO THE NAME OF YOUR DISTRIBUTION ZONE.     *             
+//*  7) CHANGE CYG310T TO THE NAME OF YOUR TARGET ZONE.           *             
+//*  8) CHANGE CYG310D TO THE NAME OF YOUR DISTRIBUTION ZONE.     *             
 //*  9) CHANGE THE ZOSOPT FIELD TO A VALID OPTIONS NAME           *             
 //*     THAT COMPLIES WITH YOUR SITE'S NAMING CONVENTIONS.        *             
 //*                                                               *             
 //*****************************************************************             
 //*                                                                             
-//AVZALB   PROC SMPPRE='SMPE.CTZ.V3R1M0',                                       
+//AVZALB   PROC SMPPRE='SMPE.CYG.V3R1M0',                                       
 //             SMPVOL=C3USR4,                                                   
 //             SMPUNIT=SYSALLDA                                                 
 //INITSMP  EXEC PGM=GIMSMP,REGION=0M                                            
@@ -37,7 +37,7 @@
 //**************************************************************/               
 //*                                                                             
 //SYSPRINT  DD SYSOUT=*                                                         
-//SMPCSI    DD DSN=SMPE.CTZ.V3R1M0.GLOBAL.CSI,                                  
+//SMPCSI    DD DSN=SMPE.CYG.V3R1M0.GLOBAL.CSI,                                  
 //             DISP=OLD                                                         
 //SMPLIST   DD SYSOUT=*                                                         
 //*                                                                             
@@ -95,7 +95,7 @@
   SET BDY(GLOBAL).                                                              
    UCLIN .                                                                      
     ADD OPTIONS(ZOSOPT)                                                         
-               DSPREFIX(SMPE.CTZ.V3R1M0)                                        
+               DSPREFIX(SMPE.CYG.V3R1M0)                                        
                DSSPACE(7500,500,200) .                                          
     ADD GLOBALZONE                                                              
             SREL(Z038)                                                          
@@ -105,64 +105,64 @@
     UCLIN.                                                                      
        ADD GZONE                                                                
            ZONEINDEX(                                                           
-              (CTZ310T,SMPE.CTZ.V3R1M0.GLOBAL.CSI,TARGET)                       
+              (CYG310T,SMPE.CYG.V3R1M0.GLOBAL.CSI,TARGET)                       
                     )   .                                                       
        ADD GZONE                                                                
            ZONEINDEX(                                                           
-              (CTZ310D,SMPE.CTZ.V3R1M0.GLOBAL.CSI,DLIB)                         
+              (CYG310D,SMPE.CYG.V3R1M0.GLOBAL.CSI,DLIB)                         
                     )   .                                                       
    ENDUCL.                                                                      
-  SET BDY(CTZ310T).                                                             
+  SET BDY(CYG310T).                                                             
    UCLIN.                                                                       
-    ADD TARGETZONE(CTZ310T)                                                     
+    ADD TARGETZONE(CYG310T)                                                     
         OPTIONS(ZOSOPT)                                                         
         SREL(Z038)                                                              
-        RELATED(CTZ310D).                                                       
+        RELATED(CYG310D).                                                       
    ENDUCL.                                                                      
-  SET BDY(CTZ310D).                                                             
+  SET BDY(CYG310D).                                                             
    UCLIN.                                                                       
-    ADD DLIBZONE(CTZ310D)                                                       
+    ADD DLIBZONE(CYG310D)                                                       
         ACCJCLIN                                                                
         OPTIONS(ZOSOPT)                                                         
         SREL(Z038)                                                              
-        RELATED(CTZ310T).                                                       
+        RELATED(CYG310T).                                                       
    ENDUCL.                                                                      
   LIST ALLZONES.                                                                
 /*                                                                              
 //DDDEF    EXEC PGM=GIMSMP,REGION=0M                                            
-//SMPCSI   DD DSN=SMPE.CTZ.V3R1M0.GLOBAL.CSI,                                   
+//SMPCSI   DD DSN=SMPE.CYG.V3R1M0.GLOBAL.CSI,                                   
 //            DISP=SHR                                                          
-//SMPPTS   DD DSN=SMPE.CTZ.V3R1M0.SMPPTS,                                       
+//SMPPTS   DD DSN=SMPE.CYG.V3R1M0.SMPPTS,                                       
 //            DISP=SHR                                                          
-//SMPLTS   DD DSN=SMPE.CTZ.V3R1M0.SMPLTS,                                       
+//SMPLTS   DD DSN=SMPE.CYG.V3R1M0.SMPLTS,                                       
 //            DISP=OLD                                                          
-//SMPLOG   DD DSN=SMPE.CTZ.V3R1M0.SMPLOG,                                       
+//SMPLOG   DD DSN=SMPE.CYG.V3R1M0.SMPLOG,                                       
 //            DISP=(MOD,KEEP)                                                   
-//SMPLOGA  DD DSN=SMPE.CTZ.V3R1M0.SMPLOGA,                                      
+//SMPLOGA  DD DSN=SMPE.CYG.V3R1M0.SMPLOGA,                                      
 //            DISP=(MOD,KEEP)                                                   
 //SMPCNTL  DD *                                                                 
   SET BDY(GLOBAL).                                                              
    UCLIN .                                                                      
     ADD DDDEF(SMPLOG)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPLOG)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPLOG)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPLOGA)                                                          
-        DATASET(SMPE.CTZ.V3R1M0.SMPLOGA)                                        
+        DATASET(SMPE.CYG.V3R1M0.SMPLOGA)                                        
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPPTS)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPPTS)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPPTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         SHR                                                                     
         .                                                                       
     ADD DDDEF(SMPLTS)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPLTS)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPLTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
@@ -174,46 +174,46 @@
     ADD DDDEF(SYSUT3)  CYL SPACE(150,50) UNIT(SYSALLDA).                        
     ADD DDDEF(SYSUT4)  CYL SPACE(150,50) UNIT(SYSALLDA).                        
    ENDUCL.                                                                      
-  SET BDY(CTZ310D).                                                             
+  SET BDY(CYG310D).                                                             
    UCLIN .                                                                      
     ADD DDDEF(SMPLOG)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPLOG)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPLOG)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPLOGA)                                                          
-        DATASET(SMPE.CTZ.V3R1M0.SMPLOGA)                                        
+        DATASET(SMPE.CYG.V3R1M0.SMPLOGA)                                        
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPLTS)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPLTS)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPLTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPPTS)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPPTS)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPPTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         SHR                                                                     
         .                                                                       
     ADD DDDEF(SMPMTS)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPMTS)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPMTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPSCDS)                                                          
-        DATASET(SMPE.CTZ.V3R1M0.SMPSCDS)                                        
+        DATASET(SMPE.CYG.V3R1M0.SMPSCDS)                                        
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPSTS)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPSTS)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPSTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
@@ -231,46 +231,46 @@
         CONCAT(SMPMTS   /* MUST BE FIRST */                                     
              ).                                                                 
    ENDUCL.                                                                      
-  SET BDY(CTZ310T).                                                             
+  SET BDY(CYG310T).                                                             
    UCLIN .                                                                      
     ADD DDDEF(SMPLOG)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPLOG)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPLOG)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPLOGA)                                                          
-        DATASET(SMPE.CTZ.V3R1M0.SMPLOGA)                                        
+        DATASET(SMPE.CYG.V3R1M0.SMPLOGA)                                        
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPLTS)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPLTS)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPLTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPPTS)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPPTS)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPPTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         SHR                                                                     
         .                                                                       
     ADD DDDEF(SMPMTS)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPMTS)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPMTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPSCDS)                                                          
-        DATASET(SMPE.CTZ.V3R1M0.SMPSCDS)                                        
+        DATASET(SMPE.CYG.V3R1M0.SMPSCDS)                                        
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPSTS)                                                           
-        DATASET(SMPE.CTZ.V3R1M0.SMPSTS)                                         
+        DATASET(SMPE.CYG.V3R1M0.SMPSTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     

@@ -10,7 +10,7 @@
 //*    DEFINING A NEW SMP/E CSI DATA SET FOR THE INSTALLATION         *         
 //*    OF THIS PRODUCT.                                               *         
 //* 2) CHANGE THE JOB CARD TO MEET YOUR SYSTEM'S REQUIREMENTS.        *         
-//* 3) CHANGE SMPE.CTZ.V3R1M0.GLOBAL.CSI TO THE DATA SET NAME OF YOUR *         
+//* 3) CHANGE SMPE.CYG.V3R1M0.GLOBAL.CSI TO THE DATA SET NAME OF YOUR *         
 //*    GLOBAL CSI DATA SET.                                           *         
 //* 4) CHANGE USER0A TO THE VOLSER FOR THE VOLUME CONTAINING          *         
 //*    YOUR GLOBAL CSI DATA SET.                                      *         
@@ -26,7 +26,7 @@
 //            DISP=SHR                                                          
 //SYSIN    DD *                                                                 
       DEFINE CLUSTER                       -                                    
-             (NAME(SMPE.CTZ.V3R1M0.GLOBAL.CSI) -                                
+             (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI) -                                
               FREESPACE(10,5)              -                                    
               KEYS(24 0)                   -                                    
               RECORDSIZE(24 143)           -                                    
@@ -35,12 +35,12 @@
               VOLUMES(C3USR4)              -                                    
              )                             -                                    
           DATA                             -                                    
-             (NAME(SMPE.CTZ.V3R1M0.GLOBAL.CSI.DATA) -                           
+             (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI.DATA) -                           
               CONTROLINTERVALSIZE(8192)    -                                    
               CYLINDERS(25 5)              -                                    
              )                             -                                    
           INDEX                            -                                    
-             (NAME(SMPE.CTZ.V3R1M0.GLOBAL.CSI.INDEX) -                          
+             (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI.INDEX) -                          
               CONTROLINTERVALSIZE(4096)    -                                    
               CYLINDERS(10 2)              -                                    
               IMBED                        -                                    
@@ -48,7 +48,7 @@
 /*                                                                              
 //PRIMEIT  EXEC PGM=IDCAMS,COND=(9,LT)                                          
 //SYSPRINT DD SYSOUT=*                                                          
-//SMPCSI   DD DSN=SMPE.CTZ.V3R1M0.GLOBAL.CSI,                                   
+//SMPCSI   DD DSN=SMPE.CYG.V3R1M0.GLOBAL.CSI,                                   
 //            DISP=OLD                                                          
 //ZPOOL    DD DSN=SYS1.MACLIB(GIMZPOOL),                                        
 //            DISP=SHR                                                          
