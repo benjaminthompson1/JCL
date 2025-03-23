@@ -44,18 +44,18 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //AMSDUMP  DD SYSOUT=*                                                          
 //SYSIN DD *                                                                    
-   DELETE IBMUSER.EXMPLAPP.EXMPCONF PURGE CLUSTER                               
+   DELETE APP.EXMPLAPP.EXMPCONF PURGE CLUSTER                                   
    SET MAXCC=0                                                                  
-   DEFINE CLUSTER (NAME(IBMUSER.EXMPLAPP.EXMPCONF)-                             
+   DEFINE CLUSTER (NAME(APP.EXMPLAPP.EXMPCONF)-                                 
           TRK(1 1) -                                                            
           KEYS(9 0) -                                                           
           RECORDSIZE(350,350) -                                                 
           SHAREOPTIONS(2 3) -                                                   
           INDEXED -                                                             
           ) -                                                                   
-          DATA (NAME(IBMUSER.EXMPLAPP.EXMPCONF.DATA) -                          
+          DATA (NAME(APP.EXMPLAPP.EXMPCONF.DATA) -                              
           ) -                                                                   
-          INDEX (NAME(IBMUSER.EXMPLAPP.EXMPCONF.INDEX) -                        
+          INDEX (NAME(APP.EXMPLAPP.EXMPCONF.INDEX) -                            
           )                                                                     
 //*                                                                             
 //CPYKSDS  EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                               
@@ -66,7 +66,7 @@ EXMP-CONF VSAM N DFH0XCMN DFH0XSDS DFH0XVDS DFH0XSOD DFH0XWOD DFH0XSSM
 OUTBNDURL http://myserver:80/exampleApp/dispatchOrder                           
 VSAM-NAME EXMPCAT                                                               
 WS-SERVER myserver:99999                                                        
-//OUTFILE  DD DSN=IBMUSER.EXMPLAPP.EXMPCONF,DISP=SHR                            
+//OUTFILE  DD DSN=APP.EXMPLAPP.EXMPCONF,DISP=SHR                                
 //SYSIN DD *                                                                    
  REPRO INFILE(INFILE) OUTFILE(OUTFILE)                                          
 //                                                                              

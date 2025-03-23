@@ -31,7 +31,7 @@
 //SYSIN   DD   *                                                                
   DEFINE FILE(EXMPCAT) GROUP(ZOFFICE)                                           
   DESCRIPTION(CICS Example Application - Catalog File)                          
-       DSNAME(IBMUSER.EXMPLAPP.EXMPCAT)                                         
+       DSNAME(APP.EXMPLAPP.EXMPCAT)                                             
        LSRPOOLNUM(1) RLSACCESS(NO)                                              
        READINTEG(UNCOMMITTED) DSNSHARING(ALLREQS) STRINGS(1)                    
        STATUS(ENABLED) OPENTIME(FIRSTREF) DISPOSITION(SHARE)                    
@@ -43,7 +43,7 @@
        BACKUPTYPE(STATIC)                                                       
   DEFINE FILE(EXMPCONF) GROUP(ZOFFICE)                                          
   DESCRIPTION(CICS Example Application - Configuration File)                    
-       DSNAME(IBMUSER.EXMPLAPP.EXMPCONF)                                        
+       DSNAME(APP.EXMPLAPP.EXMPCONF)                                            
        RLSACCESS(NO) LSRPOOLNUM(1)                                              
        READINTEG(UNCOMMITTED) DSNSHARING(ALLREQS) STRINGS(1)                    
        STATUS(ENABLED) OPENTIME(FIRSTREF) DISPOSITION(SHARE)                    

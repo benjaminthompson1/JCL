@@ -43,18 +43,18 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //AMSDUMP  DD SYSOUT=*                                                          
 //SYSIN DD *                                                                    
-   DELETE IBMUSER.EXMPLAPP.EXMPCAT PURGE CLUSTER                                
+   DELETE APP.EXMPLAPP.EXMPCAT PURGE CLUSTER                                    
    SET MAXCC=0                                                                  
-   DEFINE CLUSTER (NAME(IBMUSER.EXMPLAPP.EXMPCAT)-                              
+   DEFINE CLUSTER (NAME(APP.EXMPLAPP.EXMPCAT)-                                  
           TRK(1 1) -                                                            
           KEYS(4 0) -                                                           
           RECORDSIZE(80,80) -                                                   
           SHAREOPTIONS(2 3) -                                                   
           INDEXED -                                                             
           ) -                                                                   
-          DATA (NAME(IBMUSER.EXMPLAPP.EXMPCAT.DATA) -                           
+          DATA (NAME(APP.EXMPLAPP.EXMPCAT.DATA) -                               
           ) -                                                                   
-          INDEX (NAME(IBMUSER.EXMPLAPP.EXMPCAT.INDEX) -                         
+          INDEX (NAME(APP.EXMPLAPP.EXMPCAT.INDEX) -                             
           )                                                                     
 //*                                                                             
 //CPYKSDS  EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                               
@@ -82,7 +82,7 @@
 0190Highlighters Blue 5pk                   010003.490076020                    
 020012 inch clear rule 5pk                  010002.120014010                    
 0210Clear sticky tape 5pk                   010004.270073000                    
-//OUTFILE  DD DSN=IBMUSER.EXMPLAPP.EXMPCAT,DISP=SHR                             
+//OUTFILE  DD DSN=APP.EXMPLAPP.EXMPCAT,DISP=SHR                                 
 //SYSIN DD *                                                                    
  REPRO INFILE(INFILE) OUTFILE(OUTFILE)                                          
 //                                                                              
