@@ -1,4 +1,4 @@
-//IUPDUPL JOB (FB3),'AMAPDUPL',CLASS=A,MSGCLASS=H,                              
+//IUPDUPL JOB (FB3),'AMAPDUPL',CLASS=A,MSGCLASS=H,                      JOB07543
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
@@ -6,76 +6,64 @@
 //* PURPOSE: IBM Problem Documentation Upload Utility (PDUU)         *          
 //*          This job uploads problem documentation to IBM's         *          
 //*          Electronic Customer Upload Repository (ECuRep)          *          
-//*          using secure HTTPS protocol.                           *           
+//*          using secure HTTPS protocol.                            *          
 //*                                                                  *          
 //* FUNCTION:                                                        *          
-//*          - Establishes secure HTTPS connection to ECuRep        *           
+//*          - Establishes secure HTTPS connection to ECuRep         *          
 //*          - Uploads specified problem documentation files         *          
-//*          - Associates uploads with specified PMR/case number    *           
-//*          - Provides debug output for troubleshooting            *           
+//*          - Associates uploads with specified PMR/case number     *          
+//*          - Provides debug output for troubleshooting             *          
 //*                                                                  *          
-//* INPUT:   IBMUSER.BACKUP.D300721 - Source data for upload        *           
+//* INPUT:   IBMUSER.BACKUP.D300721 - Source data for upload         *          
 //*                                                                  *          
-//* OUTPUT:  IBMUSER.AMAPDUPL.DEBUG - Debug information             *           
+//* OUTPUT:  IBMUSER.AMAPDUPL.DEBUG - Debug information              *          
 //*                                                                  *          
 //* REQUIREMENTS:                                                    *          
-//*          - Valid PMR/Case number                                *           
-//*          - Network connectivity to ECuRep servers               *           
-//*          - Proper SSL/TLS certificates configuration            *           
+//*          - Valid PMR/Case number                                 *          
+//*          - Network connectivity to ECuRep servers                *          
+//*          - Proper SSL/TLS certificates configuration             *          
 //*                                                                  *          
-//* CUSTOMIZATION REQUIRED:                                         *           
-//*          - Update USERID and PASSWORD                           *           
-//*          - Modify input dataset name (SYSUT1)                   *           
-//*          - Update CASE number with valid PMR                    *           
-//*          - Adjust WORK_SIZE based on data volume                *           
-//*          - Verify HTTPS_KEYRING points to valid keyring         *           
+//* CUSTOMIZATION REQUIRED:                                          *          
+//*          - Update USERID and PASSWORD                            *          
+//*          - Modify input dataset name (SYSUT1)                    *          
+//*          - Update CASE number with valid PMR                     *          
+//*          - Adjust WORK_SIZE based on data volume                 *          
+//*          - Verify HTTPS_KEYRING points to valid keyring          *          
 //*                                                                  *          
 //********************************************************************          
 //********************************************************************          
-//* PDUU Upload Step - Performs secure file transfer to ECuRep        *         
+//* PDUU Upload Step - Performs secure file transfer to ECuRep       *          
 //********************************************************************          
 //FTP      EXEC PGM=AMAPDUPL                                                    
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //********************************************************************          
-//* SSL/TLS Configuration - Enables TLS 1.2 with specific ciphers     *         
-//********************************************************************          
-//CEEOPTS  DD *                                                                 
-  ENVAR(GSK_V3_CIPHER_SPECS=3D38392F3233,GSK_PROTOCOL_TLSV1_2=1)                
-/*                                                                              
-//********************************************************************          
-//* Debug Output Dataset - For troubleshooting if needed              *         
+//* Debug Output Dataset - For troubleshooting if needed             *          
 //********************************************************************          
 //DEBUG    DD DSN=IBMUSER.AMAPDUPL.DEBUG,DISP=(,CATLG),                         
 //            UNIT=SYSALLDA,SPACE=(CYL,(1,1),RLSE)                              
-//********************************************************************          
-//* Input Dataset - Contains the problem documentation                *         
-//********************************************************************          
-//SYSUT1   DD DISP=SHR,DSN=IBMUSER.BACKUP.D300721                               
-//********************************************************************          
-//* Primary Control Parameters                                        *         
-//********************************************************************          
-//SYSIN    DD *                                                                 
-USERID=anonymous                          /* ECuRep service userid */           
-PASSWORD=benjamin.thompson1@ibm.com       /* Contact email address */           
-TARGET_SYS=www.secure.ecurep.ibm.com      /* ECuRep server address */           
-TARGET_DSN=wessamp.bigfile                /* Target dataset name */             
-CC_HTTPS=03                               /* HTTPS control code */              
-WORK_SIZE=100                             /* Working storage in MB */           
-DIRECTORY=/toibm/mvs/                     /* Target directory path */           
-CASE=TS012345678                          /* PMR/Case number */                 
-USE_HTTPS=Y                               /* Enable HTTPS */                    
-HTTPS_KEYRING=TCPIP/ECuRepAP              /* Security keyring */                
-CIPHER_KEY=llama                          /* Encryption key */                  
+//CEEOPTS  DD  *                                                                
+  HEAP(32768,32768,ANYWHERE,FREE,8192,4096)                                     
 /*                                                                              
 //********************************************************************          
-//* Secondary Transfer Parameters - Optional configuration            *         
+//* Input Dataset - Contains the problem documentation               *          
+//********************************************************************          
+//SYSUT1   DD DISP=SHR,DSN=IBMUSER.SYSLOG.OUTPUTD                               
+//********************************************************************          
+//* Primary Control Parameters                                       *          
 //********************************************************************          
 //SYSIN    DD *                                                                 
-TARGET_DSN=WESSAMP.BIGFILE               /* Target dataset name */              
-WORK_DSN=WES.FTPOUT                      /* Work dataset name */                
-WORK_DSN_SIZE=500                        /* Work dataset size in MB */          
-DIRECTORY=/u/ibmuser/pduu/               /* Alternative directory */            
-CASE=TS012345678                         /* PMR/Case number */                  
-CIPHER_KEY=llama                         /* Encryption key */                   
+USERID=E-WMJ0IhNnks                                                             
+PASSWORD=rRTg-l36n-dCqS-t3E1-LN6p                                               
+TARGET_SYS=www.ecurep.ibm.com                                                   
+TARGET_DSN=wessamp.bigfile                                                      
+CC_HTTPS=03                                                                     
+WORK_SIZE=100                                                                   
+DIRECTORY=/toibm/mvs/                                                           
+CASE=TS018924773                                                                
+USE_HTTPS=Y                                                                     
+HTTPS_VERBOSE=Y                                                                 
+HTTPS_TLS12=Y                                                                   
+SSL_4CIPHER=C030                                                                
+HTTPS_KEYRING=TCPIP/ECuRepAP                                                    
 /*                                                                              
