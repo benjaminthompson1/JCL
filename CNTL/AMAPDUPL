@@ -34,7 +34,7 @@
 //********************************************************************          
 //* PDUU Upload Step - Performs secure file transfer to ECuRep       *          
 //********************************************************************          
-//FTP      EXEC PGM=AMAPDUPL                                                    
+//HTTPS    EXEC PGM=AMAPDUPL                                                    
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //********************************************************************          
@@ -62,8 +62,8 @@ WORK_SIZE=100
 DIRECTORY=/toibm/mvs/                                                           
 CASE=TS018924773                                                                
 USE_HTTPS=Y                                                                     
-HTTPS_VERBOSE=Y                                                                 
 HTTPS_TLS12=Y                                                                   
 SSL_4CIPHER=C030                                                                
 HTTPS_KEYRING=TCPIP/ECuRepAP                                                    
 /*                                                                              
+HTTPS_VERBOSE=Y                                                                 
