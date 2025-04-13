@@ -27,6 +27,7 @@ COBRUNDB - COBOL run program with Db2
 COBSORT  - COBOL with DFSORT                                                    
 CONVERTV - SMS CONVERTV                                                         
 CRDB2ARC - COBOL RUN DB2ARCH                                                    
+CSFTKD2  - CSF - Create and Initialise the TKDS VSAM                            
 CSQLOGP1 - CSQ LOG PRINT                                                        
 CSQLOGP2 - CSQ LOG PRINT committed messages and select specific data            
 CSQUTIL  - MQ CSQ Utility                                                       
