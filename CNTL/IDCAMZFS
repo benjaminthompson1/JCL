@@ -1,5 +1,6 @@
-//IUIDCAMS JOB  (FB3),'CREATE ZFS',CLASS=A,MSGCLASS=H,                          
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//IUIDCAM JOB (FB3),'CREATE ZFS',CLASS=A,MSGCLASS=H,                            
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: CREATE ZFS DATASET AND MOUNTPOINT                       *          
@@ -15,7 +16,7 @@
 //* @volume@ - Volume on which tocreate ZFS dataset                  *          
 //*                                                                  *          
 //********************************************************************          
-//CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
+//CREATE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   DEFINE -                                                                      
@@ -30,7 +31,7 @@
 /*                                                                              
 //*                                                                             
 // SET ZFSDSN='@zfsdsn@'                                                        
-//FORMAT   EXEC PGM=IOEAGFMT,REGION=0M,COND=(0,LT),                             
+//FORMAT   EXEC PGM=IOEAGFMT,COND=(0,LT),                                       
 // PARM='-aggregate &ZFSDSN -compat'                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //STDOUT   DD SYSOUT=*                                                          
@@ -38,6 +39,14 @@
 //SYSUDUMP DD SYSOUT=*                                                          
 //CEEDUMP  DD SYSOUT=*                                                          
 //*                                                                             
+//* Create the mountpoint directory                                             
+//*                                                                             
+//MKDIR    EXEC PGM=BPXBATCH,COND=(0,LT),                                       
+// PARM='SH'                                                                    
+//STDPARM  DD *                                                                 
+SH                                                                              
+mkdir -p @pathprefix@ && chmod 777 @pathprefix@                                 
+/*                                                                              
 //*                                                                             
 //* Mount the dataset at the mountpoint directory                               
 //*                                                                             

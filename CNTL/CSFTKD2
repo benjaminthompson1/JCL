@@ -33,18 +33,18 @@
 //DEFINE  EXEC PGM=IDCAMS,REGION=4M                                             
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN DD *                                                                    
-  DEFINE CLUSTER (NAME(CSF.CSFTKDS)          -                                  
+  DEFINE CLUSTER (NAME(CSF.SCSFTKDS)         -                                  
                   VOLUMES(C3USR4)            -                                  
                   RECORDS(100 50)            -                                  
                   RECORDSIZE(2200,32756)     -                                  
                   KEYS(72 0)                 -                                  
                   FREESPACE(0,0)             -                                  
                   SHAREOPTIONS(2,3))         -                                  
-            DATA (NAME(CSF.CSFTKDS.DATA)     -                                  
+            DATA (NAME(CSF.SCSFTKDS.DATA)    -                                  
                   BUFFERSPACE(100000)        -                                  
                   CONTROLINTERVALSIZE(32768) -                                  
                   ERASE)                     -                                  
-           INDEX (NAME(CSF.CSFTKDS.INDEX))                                      
+           INDEX (NAME(CSF.SCSFTKDS.INDEX))                                     
 /*                                                                              
 //*-------------------------------------------------------------------*         
 //* Repro header record into the TKDS                                 *         
@@ -73,5 +73,5 @@
 //SYSDATA  DD   DSN=*.MKHEAD.SYSUT2,DISP=(OLD,DELETE)                           
 //SYSIN    DD   *                                                               
    REPRO INFILE(SYSDATA) -                                                      
-      OUTDATASET(CSF.CSFTKDS)                                                   
+      OUTDATASET(CSF.SCSFTKDS)                                                  
 /*                                                                              
