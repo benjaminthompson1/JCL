@@ -1,16 +1,47 @@
-//IUJCHPT JOB  (FB3),'JES2 CHPT',CLASS=A,MSGCLASS=H,                            
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: CREATE JES2 CHECKPOINT DATA SETS                        *          
-//*          ALLOCATED TO NON SMS VOLUME A4SYS1                      *          
-//*                                                                  *          
-//********************************************************************          
-//ALLOCAT EXEC PGM=IEFBR14                                                      
-//CHECK1  DD DSN=SYS1.Z24C.CKPT1,UNIT=SYSDA,                                    
-//           VOLUME=SER=C4SYS1,DISP=(NEW,KEEP),                                 
-//           SPACE=(TRK,300),DCB=(DSORG=PSU)                                    
+//IUJCKTP JOB (FB3),'JES2CKPT',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : JES2CKPT                                                      
+//*  FUNCTION   :                                                               
+//*              - Allocate new JES2 checkpoint datasets (DSORG=PSU)            
+//*              - Copy JES2PARM member from ADCD.Z31C.PARMLIB                  
+//*              - Copy JES2 procedure from ADCD.Z31C.PROCLIB                   
 //*                                                                             
-//CHECK2  DD DSN=SYS1.Z24C.CKPT2,UNIT=SYSDA,                                    
-//           VOLUME=SER=C4SYS1,DISP=(NEW,KEEP),                                 
-//           SPACE=(TRK,300),DCB=(DSORG=PSU)                                    
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 24/04/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*              Ensure target volumes (C3SYS1, C3CFG1) are online.             
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    24/04/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//CKPT  EXEC PGM=IEFBR14                                                        
+//CKPT1 DD DSN=SYS1.Z31C.CKPT1,UNIT=SYSDA,                                      
+//         VOLUME=SER=C3SYS1,DISP=(NEW,CATLG),                                  
+//         SPACE=(CYL,20),DCB=(DSORG=PSU)                                       
+//*                                                                             
+//CKPT2 DD DSN=SYS1.Z31C.CKPT2,UNIT=SYSDA,                                      
+//         VOLUME=SER=C3CFG1,DISP=(NEW,CATLG),                                  
+//         SPACE=(CYL,20),DCB=(DSORG=PSU)                                       
+//*                                                                             
+//JES2PARM EXEC PGM=IEBCOPY                                                     
+//INPDS    DD  DSN=ADCD.Z31C.PARMLIB,DISP=SHR                                   
+//OUTPDS   DD  DSN=USER.Z31C.PARMLIB,DISP=SHR                                   
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSIN    DD  *                                                                
+  COPY INDD=INPDS,OUTDD=OUTPDS                                                  
+    SELECT MEMBER=(JES2PARM)                                                    
+/*                                                                              
+//*                                                                             
+//JES2     EXEC PGM=IEBCOPY                                                     
+//INPDS    DD  DSN=ADCD.Z31C.PROCLIB,DISP=SHR                                   
+//OUTPDS   DD  DSN=USER.Z31C.PROCLIB,DISP=SHR                                   
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSIN    DD  *                                                                
+  COPY INDD=INPDS,OUTDD=OUTPDS                                                  
+    SELECT MEMBER=(JES2)                                                        
+/*                                                                              
