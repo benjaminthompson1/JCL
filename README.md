@@ -147,6 +147,27 @@ Below is a brief description of each JCL job available in this repository:
 - `XMITPACK` - XMIT and TERSE a load library
 - `XMITREST` - TERSE and RECEIVE a load library
 
+---
+
+## Jobs by Category
+
+| Category          | Examples                                  | Description                                        |
+|-------------------|-------------------------------------------|----------------------------------------------------|
+| **Compilation**   | `COBC`, `PLIC`, `HLASM`, `JAVA`, `PYTHON`  | Compile COBOL, PL/I, Assembler, Java, and Python programs |
+| **Database (Db2)** | `DSNBIND`, `DSNREST`, `COBCBDB`, `COBRUNDB` | Work with Db2 programs, binds, and REST services   |
+| **Dataset Management** | `IEBCOPY`, `DSSCOPY`, `IDCAMS`, `LIKECOPY` | Copy, move, define, and manage datasets            |
+| **MQ Operations** | `CSQUTIL`, `CSQLOGP1`, `BFGTRCRS`          | Work with IBM MQ queues and logs                  |
+| **Security (RACF & Certificates)** | `RACFCERT`, `RACFHLQ`, `MAKECER2`, `MFAUSER` | Manage certificates, RACF profiles, and MFA       |
+| **System Utilities** | `BPXBATCH`, `ICEGENER`, `TERSE`, `SYSLOG` | Submit UNIX commands, copy datasets, manage logs  |
+| **SMP/E Operations** | `SMPACCPT`, `SMPAPPLY`, `SMPRPT`, `SMPREC` | SMP/E software installation and maintenance tasks |
+| **Backup and Restore** | `DSSDUMPF`, `DSSREST`, `SMFZERT`       | Backup and restore datasets and logs              |
+| **CICS Setup**    | `CICSCSD`, `DFH$ECAT`, `DFH$ECNF`          | Define and configure CICS environments            |
+| **OMEGAMON Setup** | `OMEGCRT`, `OMEGDIS`, `OMEGGEN`           | Setup for OMEGAMON monitoring tools                |
+| **VSAM Management** | `VSAM`, `VSAMAIX`, `IDCAMCPY`             | Create and manage VSAM datasets                   |
+| **Other Special Tasks** | `EREP`, `RMFCPU`, `RFNJOBH`             | SMF reporting, performance monitoring, and maintenance |
+
+---
+
 ## Contributing
 
 We welcome contributions!  
