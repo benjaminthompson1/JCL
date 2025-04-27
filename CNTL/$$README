@@ -1,5 +1,6 @@
 $$README contents of IBMUSER.GIT.JCL.CNTL                                       
 =======================================================================         
+$$DOCJCL - JCL header documentation block                                       
 $SDSF    - Issue SDFS commands                                                  
 $VS      - Issue CONSOLE commands                                               
 ACBJBARD - Generating data set report from DCOLLECT data                        
@@ -28,12 +29,14 @@ COBSORT  - COBOL with DFSORT
 CONVERTV - SMS CONVERTV                                                         
 CRDB2ARC - COBOL RUN DB2ARCH                                                    
 CSFTKD2  - CSF - Create and Initialise the TKDS VSAM                            
+CSQ4BCLR - MQ print messages from queue sample program                          
+CSQ4BVJR - MQ PUT/GET sample programs                                           
 CSQLOGP1 - CSQ LOG PRINT                                                        
 CSQLOGP2 - CSQ LOG PRINT committed messages and select specific data            
 CSQUTIL  - MQ CSQ Utility                                                       
 DCOLLECT - DCOLLECT collects stored dataset, volume and policy values           
-DFH$ECAT - copy from DFH540.CICS.SDFHINST                                       
-DFH$ECNF - copy from DFH540.CICS.SDFHINST                                       
+DFH$ECAT - Copy from DFH540.CICS.SDFHINST                                       
+DFH$ECNF - Copy from DFH540.CICS.SDFHINST                                       
 DFSORT   - DFSORT Utility                                                       
 DSNBIND  - Db2 BIND                                                             
 DSNREST  - Creating and enabling Db2 native REST services for ZCEE              
@@ -51,12 +54,9 @@ DSSMOVE  - Move dataset(s) from volume
 DSSREST  - DSS Backup restore                                                   
 DVMSQL   - Create sample DB and TB for DVM                                      
 EREP     - EREP processes logrec data set into reports                          
-ERISDBIC - Db2 full Image Copy on ERIS TS                                       
-ERISPGM  - COBOL RUN ERIS                                                       
-ERISVSAM - Create and load PERSON VSAM for ERIS project                         
 HBOJBCOL - CDP z Batch collect SMF data                                         
-HBOJBDC2 - CDP z Batch DCOLLECT processor sending to DATA STREAMER              
 HBOJBDCO - CDP z Batch DCOLLECT processor                                       
+HBOJBDC2 - CDP z Batch DCOLLECT processor sending to DATA STREAMER              
 HLASM    - Compile and link HLASM                                               
 ICEGENER - IEBGENER replacement for VSAM and sequential files                   
 ICETOOL  - ZSORT new feature in z15 hardware                                    
@@ -87,6 +87,7 @@ KMQGBVJ1 - Ansible zForum COBOL GET
 KMQPBVK1 - Ansible zForum COBOL PUT                                             
 LIKECOPY - Create a dataset using the attributes for a base dataset             
 LOGREC   - Clear and initialize hardware event recorder dataset                 
+MAKECER2 - Creates and manages digital certificates on a z/OS system            
 MFAENB   - Enable MFA users                                                     
 MFARACF  - Create MFA RACF definitions                                          
 MFAUSER  - Create TSO MFA users for IBM MFA                                     
