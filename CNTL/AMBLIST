@@ -1,21 +1,46 @@
 //IUAMBLT JOB (FB3),'AMBLIST',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: Generate load module analysis using AMBLIST             *          
-//*          - Lists module attributes and entry point info          *          
-//*          - Shows CSECT details and cross-references              *          
-//*                                                                  *          
-//* INPUT:   IBMUSER.GIT.COBOL.LOAD(HELLOW)                          *          
-//* OUTPUT:  SYSPRINT - AMBLIST report                               *          
-//*                                                                  *          
-//* NOTE: Modify SYSLIB DSN and MEMBER name as needed                *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : AMBLIST MODULE ANALYSIS                                       
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Generate a detailed analysis of a load module using AMBLIST.           
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 27/04/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job runs the AMBLIST utility to produce a formatted report          
+//*    listing key attributes of a specified load module. It performs           
+//*    the following actions:                                                   
+//*                                                                             
+//*    - Lists the modules attributes and entry point information.             
+//*    - Displays CSECT details and any cross-referenced sections.              
+//*                                                                             
+//*  INPUT :                                                                    
+//*    - Load module: IBMUSER.GIT.COBOL.LOAD(HELLOW)                            
+//*                                                                             
+//*  OUTPUT :                                                                   
+//*    - SYSPRINT dataset containing the AMBLIST report.                        
+//*                                                                             
+//*  NOTE :                                                                     
+//*    - Update the SYSLIB DSN and MEMBER name if required.                     
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    27/04/2025   BMT         Initial version.                                
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: RUN AMBLIST TO ANALYSE LOAD MODULE                                  
+//*--------------------------------------------------------------------*        
 //STEP1    EXEC PGM=AMBLIST                                                     
-//SYSPRINT DD SYSOUT=*                                                          
-//SYSLIB   DD DSN=IBMUSER.GIT.COBOL.LOAD,DISP=SHR                               
-//SYSIN    DD *                                                                 
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSLIB   DD  DSN=IBMUSER.GIT.COBOL.LOAD,DISP=SHR                              
+//SYSIN    DD  *                                                                
   LISTLOAD MEMBER=HELLOW                                                        
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of AMBLIST Module Analysis Job                                          
+//*--------------------------------------------------------------------*        

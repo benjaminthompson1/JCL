@@ -2,46 +2,52 @@
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //*--------------------------------------------------------------------*        
-//*  JOB NAME   : $SDSF                                                         
+//*  JOB NAME   : SDSF BATCH COMMANDS                                           
 //*                                                                             
 //*  FUNCTION   :                                                               
-//*    - Run SDSF commands in batch mode to automate system queries.            
+//*    - Run SDSF/system commands in batch to automate system queries.          
 //*                                                                             
 //*  AUTHOR     : BMT                                                           
 //*  DATE       : 27/04/2025                                                    
 //*                                                                             
 //*  DESCRIPTION :                                                              
-//*    This job runs SDSF in batch to collect and display system                
-//*    information. It performs the following actions:                          
+//*    This job uses SDSF in batch to collect and display system                
+//*    information. It performs the following tasks:                            
 //*                                                                             
 //*    - Displays the status of 16 devices starting from address 0A80.          
-//*      (/D U,,,0A80,16)                                                       
-//*                                                                             
-//*    - Interacts with the CICS region 'CICSTS62' to request system            
-//*      status information using CEMT commands.                                
-//*                                                                             
+//*    - Interacts with CICS region 'CICSTS62' to request system status.        
 //*    - Filters SDSF output to focus on the CICS region 'CICSTS62'.            
+//*    - Searches system logs for entries related to the CICS region.           
 //*                                                                             
-//*    - Searches system logs for specific entries related to the               
-//*      CICS region and drills down into detailed information.                 
+//*  SYSTEM COMMANDS USED :                                                     
+//*    - /D U,,,0A80,16 (Display devices)                                       
+//*    - /F CICSTS62,CEMT I SYS (Force CICS command input)                      
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
 //*    ------------ ---------- ----------------------------------------         
 //*    27/04/2025   BMT         Initial version.                                
 //*--------------------------------------------------------------------*        
-//SDSF   EXEC PGM=SDSF,PARM='++32,1000'                                         
-//ISFOUT DD  SYSOUT=*                                                           
-//ISFIN  DD  *                                                                  
+//*--------------------------------------------------------------------*        
+//* STEP 1: EXECUTE SDSF COMMANDS IN BATCH                                      
+//*--------------------------------------------------------------------*        
+//SDSF     EXEC PGM=SDSF,PARM='++32,1000'                                       
+//ISFOUT   DD SYSOUT=*                                                          
+//ISFIN    DD *                                                                 
   /D U,,,0A80,16                                                                
   /D U,,,0A90,16                                                                
   /D U,,,0AA0,16                                                                
   /D U,,,0AB0,16                                                                
   /D U,,,0AC0,16                                                                
 /*                                                                              
-//* End of SDSF device display commands.                                        
-//                                                                              
-//* Queries CICS region and searches for key system and log details.            
+//*--------------------------------------------------------------------*        
+//* DEVICE STATUS DISPLAY COMPLETED                                             
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 2: QUERY CICS REGION AND SEARCH SDSF OUTPUT                            
+//*--------------------------------------------------------------------*        
+//* (Continues input for SDSF commands)                                         
+//*                                                                             
   /F CICSTS62,CEMT I SYS                                                        
   PREFIX CICSTS62                                                               
   DA OSTC                                                                       
@@ -51,3 +57,6 @@
   ++S                                                                           
   FIND 'Cicstslevel'                                                            
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of SDSF Batch Commands Job                                              
+//*--------------------------------------------------------------------*        

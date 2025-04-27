@@ -1,35 +1,51 @@
-//IUGNSTF JOB  (FB3),'AVZGNSTF',CLASS=A,MSGCLASS=H,                             
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//* PURPOSE: Creates and populates a VSAM sample dataset for ODBC    *          
-//*          Call RPC demonstration.                                 *          
-//*                                                                  *          
-//* DATASET CREATED:                                                 *          
-//*   - VSAM KSDS: prefix.STAFF.VSAM                                 *          
-//*   - Record size: 80 bytes                                        *          
-//*   - Key length: 2 bytes (offset 0)                               *          
-//*   - Initial allocation: 1 cylinder (primary and secondary)       *          
-//*                                                                  *          
-//* STEPS:                                                           *          
-//* 1. DEFSTAFF - Deletes existing dataset if present                *          
-//*             - Defines new VSAM KSDS cluster                      *          
-//*             - Loads data from AVZSTFVS sample member             *          
-//*                                                                  *          
-//* CUSTOMIZATION REQUIRED:                                          *          
-//* 1. Update jobcard parameters as needed                           *          
-//* 2. Change IBMUSER to desired high-level qualifier                *          
-//* 3. Change DVM110 to product installation library prefix          *          
-//* 4. Modify VOLSER (currently 780094) if needed                    *          
-//*                                                                  *          
-//* TECHNICAL SPECIFICATIONS:                                        *          
-//* - CI Size: 512 bytes (both data and index)                       *          
-//* - Freespace: 10% CI and 10% CA                                   *          
-//* - Share options: (2,3) cross-system sharing                      *          
-//*                                                                  *          
-//********************************************************************          
-//DEFSTAFF  EXEC PGM=IDCAMS                                                     
-//SYSPRINT  DD SYSOUT=*                                                         
-//SYSIN     DD *                                                                
+//IUGNSTF JOB (FB3),'AVZGNSTF',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : VSAM STAFF DATASET CREATION                                   
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Create and populate a VSAM KSDS dataset for ODBC Call RPC demo.        
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 27/04/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job defines a VSAM Key-Sequenced Data Set (KSDS) and loads          
+//*    it with sample staff data. It performs the following actions:            
+//*                                                                             
+//*    - Deletes any existing dataset 'prefix.STAFF.VSAM'.                      
+//*    - Defines a new VSAM KSDS cluster with specific attributes.              
+//*    - Loads sample records from a provided PDS member.                       
+//*                                                                             
+//*  DATASETS :                                                                 
+//*    - VSAM KSDS : IBMUSER.STAFF.VSAM                                         
+//*    - Input Member: DVM110.SAVZSAMP(AVZSTFVS)                                
+//*                                                                             
+//*  TECHNICAL SPECIFICATIONS :                                                 
+//*    - Record size : 80 bytes (fixed)                                         
+//*    - Key length  : 2 bytes, starting at offset 0                            
+//*    - Allocation  : 1 cylinder primary, 1 cylinder secondary                 
+//*    - Control Interval size: 512 bytes                                       
+//*    - Freespace   : 10% per CI and CA                                        
+//*    - Share options: (2,3) - cross-system sharing allowed                    
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Update high-level qualifier from IBMUSER if needed.                    
+//*    - Update DVM110 prefix to match your product libraries.                  
+//*    - Adjust volume serial number (currently A3USR4) if required.            
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    27/04/2025   BMT         Initial version.                                
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: DEFINE AND LOAD VSAM STAFF DATASET                                  
+//*--------------------------------------------------------------------*        
+//DEFSTAFF EXEC PGM=IDCAMS                                                      
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSIN    DD  *                                                                
   DELETE           'IBMUSER.STAFF.VSAM'                                         
   SET MAXCC = 0                                                                 
   DEFINE CLUSTER ( NAME('IBMUSER.STAFF.VSAM') -                                 
@@ -37,15 +53,18 @@
                    SHAREOPTIONS(2,3) -                                          
                    INDEXED -                                                    
                    UNIQUE ) -                                                   
-            DATA ( NAME('IBMUSER.STAFF.VSAM.DATA') -                            
-                   CYLINDERS(1 1) -                                             
-                   KEYS(2,0) -                                                  
-                   RECORDSIZE(80,80) -                                          
-                   FREESPACE(10,10)  -                                          
-                   CISZ(512) ) -                                                
-            INDEX( NAME('IBMUSER.STAFF.VSAM.INDEX') -                           
-                   CYLINDERS(1 1) -                                             
-                   CISZ(512) )                                                  
-                                                                                
+         DATA ( NAME('IBMUSER.STAFF.VSAM.DATA') -                               
+                CYLINDERS(1 1) -                                                
+                KEYS(2,0) -                                                     
+                RECORDSIZE(80,80) -                                             
+                FREESPACE(10,10) -                                              
+                CISZ(512) ) -                                                   
+         INDEX( NAME('IBMUSER.STAFF.VSAM.INDEX') -                              
+                CYLINDERS(1 1) -                                                
+                CISZ(512) )                                                     
   REPRO INDATASET('DVM110.SAVZSAMP(AVZSTFVS)') -                                
         OUTDATASET('IBMUSER.STAFF.VSAM')                                        
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of VSAM Staff Dataset Creation Job                                      
+//*--------------------------------------------------------------------*        

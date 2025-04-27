@@ -1,36 +1,51 @@
-//IUIVVS1 JOB  (FB3),'AVZIVVS1',CLASS=A,MSGCLASS=H,                             
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//* PURPOSE: Installation Verification Job for VSAM Interface        *          
-//*          Extracts COBOL, PL/1 and VSAM maps in batch mode        *          
-//*                                                                  *          
-//* STEPS:                                                           *          
-//* 1. DMFEXTR1  - Executes AVZMBTPA to extract map definitions      *          
-//*              - Processes STAFFVS map from VSAM source            *          
-//*                                                                  *          
-//* 2. REAAVZAM  - Executes AVZXMAPD to verify map access            *          
-//*              - Performs SELECT test against STAFFVS map          *          
-//*                                                                  *          
-//* REQUIRED CUSTOMIZATION:                                          *          
-//* 1. Update jobcard parameters                                     *          
-//* 2. Set correct high-level qualifier for STAFF.VSAM file          *          
-//* 3. Update the following SET statements with installation DSNs:   *          
-//*    - LOADLIB : AVZ load library                                  *          
-//*    - REXXLIB : AVZ REXX library                                  *          
-//*    - SAMPLIB : AVZ sample library                                *          
-//* 4. Update SSID parameter (currently AVZS) to match your system   *          
-//*                                                                  *          
-//* MAP PARAMETERS:                                                  *          
-//* - Map Name: STAFFVS                                              *          
-//* - Fields: STAFFVS-RECORD through STAFFVS-DATA-YRS                *          
-//* - Buffer Size: 512                                               *          
-//* - SSMU: 6                                                        *          
-//*                                                                  *          
-//********************************************************************          
-// SET LOADLIB='DVM110.SAVZLOAD'            * AVZ Load Library                  
-// SET REXXLIB='DVM110.SAVZEXEC'            * AVZ REXX Library                  
-// SET SAMPLIB='DVM110.SAVZSAMP'            * AVZ Sample Library                
-//* Extract VSAM map definitions using AVZMBTPA                                 
+//IUIVVS1 JOB (FB3),'AVZIVVS1',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : VSAM INTERFACE INSTALLATION VERIFICATION (IVP)                
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Extract and verify VSAM map definitions using AVZ utilities.           
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 27/04/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job runs a two-step verification to ensure that the AVZ             
+//*    VSAM interface has been installed correctly. It performs:                
+//*                                                                             
+//*    - Extraction of the STAFFVS map from VSAM source using AVZMBTPA.         
+//*    - Verification and test access to the extracted map using AVZXMAPD.      
+//*                                                                             
+//*  STEPS :                                                                    
+//*    1. DMFEXTR1 - Extracts STAFFVS map from the VSAM dataset.                
+//*    2. REAAVZAM - Selects records to verify map access and functionality.    
+//*                                                                             
+//*  MAP PARAMETERS :                                                           
+//*    - Map Name : STAFFVS                                                     
+//*    - Fields   : STAFFVS-RECORD through STAFFVS-DATA-YRS                     
+//*    - Buffer Size : 512                                                      
+//*    - SSMU        : 6                                                        
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Update high-level qualifier for VSAM file (currently IBMUSER).         
+//*    - Update load, REXX, and sample library DSNs in the SET statements.      
+//*    - Confirm SSID parameter matches your system (currently AVZS).           
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    27/04/2025   BMT         Initial version.                                
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* SET LIBRARIES - UPDATE THESE AS NEEDED                                      
+//*--------------------------------------------------------------------//       
+ SET LOADLIB='DVM110.SAVZLOAD'            * AVZ Load Library                    
+ SET REXXLIB='DVM110.SAVZEXEC'            * AVZ REXX Library                    
+ SET SAMPLIB='DVM110.SAVZSAMP'            * AVZ Sample Library                  
+//*--------------------------------------------------------------------*        
+//* STEP 1: EXTRACT VSAM MAP DEFINITIONS USING AVZMBTPA                         
+//*--------------------------------------------------------------------*        
 //DMFEXTR1  EXEC PGM=IKJEFT01,PARM=('AVZMBTPA O'),REGION=0M                     
 //STEPLIB   DD DISP=SHR,DSN=&LOADLIB                                            
 //SYSEXEC   DD DISP=SHR,DSN=&REXXLIB                                            
@@ -39,24 +54,30 @@
 //XMLOUT    DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                             
 //SYSTSPRT  DD SYSOUT=*                                                         
 //SYSTSIN   DD DUMMY                                                            
-//SYSIN     DD *                                                                
+//SYSIN     DD  *                                                               
   SSID = AVZS                    * Subsystem ID                                 
   FUNCTION    = STOD             * Source to Database                           
   MAP NAME = STAFFVS             * Target Map Name                              
-  SAVE OPTION = REPLACE          * Replace Existing                             
+  SAVE OPTION = REPLACE          * Replace Existing Map                         
   REFRESH OPTION = REFRESH       * Refresh After Save                           
   OFFSET ZERO = Y                                                               
-  START FIELD = STAFFVS-RECORD   * First Field                                  
-  END FIELD   = STAFFVS-DATA-YRS * Last Field                                   
+  START FIELD = STAFFVS-RECORD   * Starting Field Name                          
+  END FIELD   = STAFFVS-DATA-YRS * Ending Field Name                            
   VSAM FILE   = IBMUSER.STAFF.VSAM                                              
 /*                                                                              
-//* Test extracted map access using AVZXMAPD                                    
+//*--------------------------------------------------------------------*        
+//* STEP 2: TEST EXTRACTED MAP ACCESS USING AVZXMAPD                            
+//*--------------------------------------------------------------------*        
 //REAAVZAM EXEC  PGM=AVZXMAPD,PARM='SSID=AVZS,MXR=30000000'                     
 //STEPLIB  DD DISP=SHR,DSN=&LOADLIB                                             
 //RPT      DD SYSOUT=*                                                          
 //FMT      DD SYSOUT=*,DCB=LRECL=4096                                           
-//IN       DD *                                                                 
+//IN       DD  *                                                                
 ++SET BUFSIZE=512 ;              * Buffer Size for Processing                   
 ++SET SSMU=6;                    * System Storage Management Unit               
-++SET NUMROWS=-1   ;             * Return All Rows                              
-SELECT * FROM STAFFVS            * Test Query                                   
+++SET NUMROWS=-1 ;               * Return All Rows                              
+SELECT * FROM STAFFVS            * Test SELECT Query                            
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of VSAM Interface Installation Verification Job                         
+//*--------------------------------------------------------------------*        
