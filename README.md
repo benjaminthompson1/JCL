@@ -156,6 +156,3 @@ If you have useful JCL jobs or improvements, feel free to open a pull request.
 
 If you have any questions, issues, or suggestions, please open an issue on this repository.
 
----
-
-Would you also like me to prepare a **small summary table** you could add at the very top, listing, for example, *"Jobs by Category"* (like Compile, Database, MQ, RACF, etc.)? It would make the repository even easier for new users to explore. 🚀
