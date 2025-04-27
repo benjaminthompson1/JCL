@@ -1,34 +1,51 @@
-//IUSDSF JOB  (FB3),'SDSF',CLASS=A,MSGCLASS=H,                                  
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//*********************************************************                     
-//* BATCH SDSF COMMANDS                                                         
-//* USAGE:                                                                      
-//*  TO USE AN ACTION CHARACTER, CODE ++ACTION-CHARACTER                        
-//*  IN YOUR BATCH JOB  ++S IS SELECT                                           
-//* DESCRIPTION:                                                                
-//*  THIS JCL JOB DEMONSTRATES HOW TO EXECUTE BATCH SDSF                        
-//*  COMMANDS. THE SDSF UTILITY IS USED TO ISSUE VARIOUS                        
-//*  SYSTEM COMMANDS, PROVIDING INFORMATION ABOUT THE                           
-//*  STATUS OF JOBS, DEVICES, AND OTHER SYSTEM RESOURCES.                       
+//IUSDSF JOB (FB3),'SDSF BATCH',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : $SDSF                                                         
 //*                                                                             
-//*  THIS JOB ISSUES A SERIES OF "/D U" COMMANDS TO DISPLAY                     
-//*  THE STATUS OF VARIOUS DEVICES IN THE SYSTEM. THE                           
-//*  DEVICES ARE DISPLAYED IN BLOCKS OF 10, STARTING FROM                       
-//*  DEVICE ADDRESS 1000 AND INCREMENTING BY 100.                               
-//*********************************************************                     
-//STEP1    EXEC PGM=SDSF,PARM='++32,1000'                                       
-//ISFOUT   DD  SYSOUT=*                                                         
-//ISFIN    DD  *                                                                
-  /D U,,,1000,10                                                                
-  /D U,,,1100,10                                                                
-  /D U,,,1200,10                                                                
-  /D U,,,1300,10                                                                
+//*  FUNCTION   :                                                               
+//*    - Run SDSF commands in batch mode to automate system queries.            
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 27/04/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job runs SDSF in batch to collect and display system                
+//*    information. It performs the following actions:                          
+//*                                                                             
+//*    - Displays the status of 16 devices starting from address 0A80.          
+//*      (/D U,,,0A80,16)                                                       
+//*                                                                             
+//*    - Interacts with the CICS region 'CICSTS62' to request system            
+//*      status information using CEMT commands.                                
+//*                                                                             
+//*    - Filters SDSF output to focus on the CICS region 'CICSTS62'.            
+//*                                                                             
+//*    - Searches system logs for specific entries related to the               
+//*      CICS region and drills down into detailed information.                 
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    27/04/2025   BMT         Initial version.                                
+//*--------------------------------------------------------------------*        
+//SDSF   EXEC PGM=SDSF,PARM='++32,1000'                                         
+//ISFOUT DD  SYSOUT=*                                                           
+//ISFIN  DD  *                                                                  
+  /D U,,,0A80,16                                                                
+  /D U,,,0A90,16                                                                
+  /D U,,,0AA0,16                                                                
+  /D U,,,0AB0,16                                                                
+  /D U,,,0AC0,16                                                                
 /*                                                                              
+//* End of SDSF device display commands.                                        
 //                                                                              
-  /F CICSTS61,CEMT I SYS                                                        
-  PREFIX CICSTS61                                                               
+//* Queries CICS region and searches for key system and log details.            
+  /F CICSTS62,CEMT I SYS                                                        
+  PREFIX CICSTS62                                                               
   DA OSTC                                                                       
-  FIND 'CICSTS61'                                                               
+  FIND 'CICSTS62'                                                               
   ++?                                                                           
   FIND 'JESMSGLG'                                                               
   ++S                                                                           
