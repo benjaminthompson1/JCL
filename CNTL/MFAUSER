@@ -1,12 +1,32 @@
-//IUMFAUS JOB  (FB3),'MFA USER',CLASS=A,MSGCLASS=H,                             
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//IUMFA02 JOB (FB3),'MFA USER',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CREATE MFA TSO USERS                                          
 //*                                                                             
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: CREATE TSO MFA USERS FOR IBM MFA                        *          
-//*                                                                  *          
-//********************************************************************          
-//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//*  FUNCTION   :                                                               
+//*    - Define and configure TSO user IDs for MFA testing                      
+//*    - Associate MFA factors and policies                                     
+//*    - Clean up and recreate ISPF profile datasets                            
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 26/05/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - Deletes and recreates user IDs MFAUSR1 to MFAUSR3                      
+//*    - Assumes MFADEF and FACILITY classes are already active                 
+//*    - IZUACCT must be a valid ACCTNUM resource                               
+//*    - Adjust UID, DFLTGRP, or POLICY references if needed                    
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    26/05/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: DELETE & CREATE USERS WITH TSO SEGMENTS AND MFA SETTINGS            
+//*--------------------------------------------------------------------*        
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
 //STDERR   DD SYSOUT=*                                                          
@@ -79,15 +99,21 @@ LISTUSER MFAUSR1 MFA
 LISTUSER MFAUSR2 MFA                                                            
 LISTUSER MFAUSR3 MFA                                                            
 /*                                                                              
-//DELETE EXEC PGM=IDCAMS                                                        
+//*--------------------------------------------------------------------*        
+//* STEP 2: CLEAN UP OLD ISPF PROFILE DATASETS (IF THEY EXIST)                  
+//*--------------------------------------------------------------------*        
+//DELETE EXEC PGM=IDCAMS,COND=(0,NE)                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
-  DELETE MFAUSR1.S0W1.ISPF.ISPPROF PURGE                                        
-  DELETE MFAUSR2.S0W1.ISPF.ISPPROF PURGE                                        
-  DELETE MFAUSR3.S0W1.ISPF.ISPPROF PURGE                                        
+  DELETE MFAUSR1.S0W1.ISPF.ISPFPROF PURGE                                       
+  DELETE MFAUSR2.S0W1.ISPF.ISPFPROF PURGE                                       
+  DELETE MFAUSR3.S0W1.ISPF.ISPFPROF PURGE                                       
   SET MAXCC=0                                                                   
 /*                                                                              
-//DEFINE   EXEC PGM=IEFBR14                                                     
+//*--------------------------------------------------------------------*        
+//* STEP 3: ALLOCATE NEW ISPF PROFILE LIBRARIES FOR USERS                       
+//*--------------------------------------------------------------------*        
+//DEFINE   EXEC PGM=IEFBR14,COND=(0,NE)                                         
 //MFAUSR1  DD DSN=MFAUSR1.S0W1.ISPF.ISPFPROF,                                   
 //            DISP=(NEW,CATLG),                                                 
 //            UNIT=SYSDA,                                                       

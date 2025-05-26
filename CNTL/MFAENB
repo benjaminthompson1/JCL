@@ -1,12 +1,29 @@
-//IUMFAEN JOB  (FB3),'MFA ENABLE',CLASS=A,MSGCLASS=H,                           
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//IUMFA03 JOB (FB3),'MFA ENABLE',CLASS=A,MSGCLASS=H,                            
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : ENABLE MFA FACTORS AND POLICIES                               
 //*                                                                             
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: ENABLE MFA USERS                                        *          
-//*                                                                  *          
-//********************************************************************          
-//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//*  FUNCTION   :                                                               
+//*    - Reapply MFA factors to existing test user IDs                          
+//*    - Add relevant MFA policies                                              
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 26/05/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - This job assumes user IDs (MFAUSR1MFAUSR3) already exist              
+//*    - Useful for restoring MFA configuration after reset                     
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    26/05/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: ENABLE MFA FACTORS AND POLICIES                                     
+//*--------------------------------------------------------------------*        
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
 //STDERR   DD SYSOUT=*                                                          
@@ -28,3 +45,4 @@ ALTUSER MFAUSR3 MFA(ADDPOLICY(TOTPPOLICY))
 LISTUSER MFAUSR1 MFA                                                            
 LISTUSER MFAUSR2 MFA                                                            
 LISTUSER MFAUSR3 MFA                                                            
+/*                                                                              

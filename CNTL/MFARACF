@@ -1,12 +1,35 @@
-//IUMFARA JOB  (FB3),'MFA RACF',CLASS=A,MSGCLASS=H,                             
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//IUMFA01 JOB (FB3),'MFA RACF',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : MFA RACF DEFINITIONS                                          
 //*                                                                             
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: CREATE MFA RACF DEFINITIONS                             *          
-//*                                                                  *          
-//********************************************************************          
-//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//*  FUNCTION   :                                                               
+//*    - Define MFA-related RACF groups and users                               
+//*    - Set up MFADEF and FACILITY class profiles                              
+//*    - Configure STARTED class entries for MFA STCs                           
+//*    - Permit access for MFA components to required resources                 
+//*    - Define digital certificates and keyrings for MFA                       
+//*    - Activate RACF options needed for MFA to function                       
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 26/05/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - Ensure RACF is active and the user has sufficient authority            
+//*    - Certificates assume a CERTAUTH named 'zOSMFCA' exists                  
+//*    - Customize IP/DNS details, certificate labels, and UID setup            
+//*    - This job affects security settings review before running               
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    26/05/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: DEFINE GROUPS AND USERS FOR MFA                                     
+//*--------------------------------------------------------------------*        
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
 //STDERR   DD SYSOUT=*                                                          
@@ -82,6 +105,9 @@ PERMIT IRR.RFACTOR.MFADEF.AZFTOTP1 ID(AZFWEB) ACCESS(READ) +
    CLASS(FACILITY)                                                              
 SETROPTS RACLIST(FACILITY) REFRESH                                              
                                                                                 
+PERMIT CSFRNGL CLASS(CSFSERV) ID(AZFWEB) ACCESS(READ)                           
+SETROPTS RACLIST(CSFSERV) REFRESH                                               
+                                                                                
 SETROPTS PASSWORD(MIXEDCASE)                                                    
                                                                                 
 RACDCERT ID(AZFWEB) GENCERT +                                                   
@@ -90,14 +116,14 @@ RACDCERT ID(AZFWEB) GENCERT +
   O('IBM')) +                                                                   
   SIZE(2048) +                                                                  
   WITHLABEL('AZFWEB-SERV-CERT') +                                               
-  SIGNWITH(CERTAUTH LABEL('ZOSMFCA')) +                                         
+  SIGNWITH(CERTAUTH LABEL('zOSMFCA')) +                                         
   NOTAFTER(DATE(2050/01/02)) +                                                  
   ALTNAME(IP(192.168.1.171) +                                                   
           DOMAIN('S0W1.DAL-EBIS.IHOST.COM') +                                   
           URI('S0W1.DAL-EBIS.IHOST.COM'))                                       
                                                                                 
 RACDCERT ID(AZFWEB) ADDRING(AZFWEBKEYRING)                                      
-RACDCERT ID(AZFWEB) CONNECT(CERTAUTH LABEL('ZOSMFCA') +                         
+RACDCERT ID(AZFWEB) CONNECT(CERTAUTH LABEL('zOSMFCA') +                         
   RING(AZFWEBKEYRING) USAGE(CERTAUTH))                                          
 RACDCERT ID(AZFWEB) CONNECT(ID(AZFWEB) LABEL('AZFWEB-SERV-CERT') +              
   RING(AZFWEBKEYRING) USAGE(PERSONAL) DEFAULT)                                  
@@ -117,3 +143,4 @@ PERMIT USER.MFA.SERVER.PKCS CLASS(CRYPTOZ) ID(AZFWEB) ACCESS(UPDATE)
 SETROPTS RACLIST(FACILITY, CRYPTOZ) REFRESH                                     
                                                                                 
 RACDCERT ADDTOKEN(MFA.SERVER.PKCS)                                              
+/*                                                                              
