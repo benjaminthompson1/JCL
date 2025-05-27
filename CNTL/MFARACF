@@ -17,7 +17,7 @@
 //*                                                                             
 //*  NOTES      :                                                               
 //*    - Ensure RACF is active and the user has sufficient authority            
-//*    - Certificates assume a CERTAUTH named 'zOSMFCA' exists                  
+//*    - Certificates assume a CERTAUTH named 'BaseCA' exists                   
 //*    - Customize IP/DNS details, certificate labels, and UID setup            
 //*    - This job affects security settings review before running               
 //*                                                                             
@@ -115,18 +115,18 @@ RACDCERT ID(AZFWEB) GENCERT +
   OU('DTSC') +                                                                  
   O('IBM')) +                                                                   
   SIZE(2048) +                                                                  
-  WITHLABEL('AZFWEB-SERV-CERT') +                                               
-  SIGNWITH(CERTAUTH LABEL('zOSMFCA')) +                                         
+  WITHLABEL('AZFWEB.CERT.S0W1') +                                               
+  SIGNWITH(CERTAUTH LABEL('BaseCA')) +                                          
   NOTAFTER(DATE(2050/01/02)) +                                                  
   ALTNAME(IP(192.168.1.171) +                                                   
-          DOMAIN('S0W1.DAL-EBIS.IHOST.COM') +                                   
-          URI('S0W1.DAL-EBIS.IHOST.COM'))                                       
+          DOMAIN('s0w1.dal-ebis.ihost.com') +                                   
+          URI('s0w1.dal-ebis.ihost.com'))                                       
                                                                                 
-RACDCERT ID(AZFWEB) ADDRING(AZFWEBKEYRING)                                      
-RACDCERT ID(AZFWEB) CONNECT(CERTAUTH LABEL('zOSMFCA') +                         
-  RING(AZFWEBKEYRING) USAGE(CERTAUTH))                                          
-RACDCERT ID(AZFWEB) CONNECT(ID(AZFWEB) LABEL('AZFWEB-SERV-CERT') +              
-  RING(AZFWEBKEYRING) USAGE(PERSONAL) DEFAULT)                                  
+RACDCERT ID(AZFWEB) ADDRING(AZFWEBKeyRing)                                      
+RACDCERT ID(AZFWEB) CONNECT(CERTAUTH LABEL('BaseCA') +                          
+  RING(AZFWEBKeyRing) USAGE(CERTAUTH))                                          
+RACDCERT ID(AZFWEB) CONNECT(ID(AZFWEB) LABEL('AZFWEB.CERT.S0W1') +              
+  RING(AZFWEBKeyRing) USAGE(PERSONAL) DEFAULT)                                  
 SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                    
                                                                                 
 PERMIT IRR.RFACTOR.USER       ID(AZFWEB) ACCESS(UPDATE) +                       

@@ -29,7 +29,7 @@ PROFILE NOPREFIX
     OU('DTSC') +                                                                
     O('IBM')) +                                                                 
     SIZE(2048) +                                                                
-    WITHLABEL('RMFDDS') +                                                       
+    WITHLABEL('RMF.CERT.S0W1') +                                                
     SIGNWITH(CERTAUTH LABEL('RMFRootCert')) +                                   
     NOTAFTER(DATE(2050/01/02)) +                                                
     ALTNAME(IP(192.168.1.171) +                                                 
@@ -41,7 +41,7 @@ PROFILE NOPREFIX
   RACDCERT ID(GPMSERVE) CONNECT(CERTAUTH LABEL('RMFRootCert') +                 
     RING(DDSServerKeyring) USAGE(CERTAUTH))                                     
                                                                                 
-  RACDCERT ID(GPMSERVE) CONNECT(ID(GPMSERVE) LABEL('RMFDDS') +                  
+  RACDCERT ID(GPMSERVE) CONNECT(ID(GPMSERVE) LABEL('RMF.CERT.S0W1') +           
     RING(DDSServerKeyring) USAGE(PERSONAL) DEFAULT)                             
                                                                                 
   SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                  
