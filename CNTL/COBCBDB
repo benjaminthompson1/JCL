@@ -1,58 +1,88 @@
 //IUCOBOL JOB (FB3),'DB2 COBOL BUILD',CLASS=A,MSGCLASS=H,                       
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//* PURPOSE: Performs a complete DB2 COBOL program build process that*          
-//*          includes compilation, program binding, and DB2 package  *          
-//*          binding for program ERIS.                               *          
-//*                                                                  *          
-//* BUILD PROCESS:                                                   *          
-//* 1. COMPILE: Compiles COBOL source with DB2 precompiler (SQL)     *          
-//*    - Creates object module for program binding                   *          
-//*    - Generates DBRM for DB2 package binding                      *          
-//*                                                                  *          
-//* 2. PROGRAM BIND: Creates executable load module                  *          
-//*    - Links object code with DB2 runtime libraries                *          
-//*    - Disables dynamic loading (DYNAM=NO for DB2)                 *          
-//*                                                                  *          
-//* 3. DB2 BIND: Creates DB2 package and plan                        *          
-//*    - Binds DBRM into package BENCOLLECTION.ERIS                  *          
-//*    - Creates plan BENPLAN for program execution                  *          
-//*                                                                  *          
-//* ENVIRONMENTS:                                                    *          
-//* - Enterprise COBOL V6.4.0                                        *          
-//* - DB2 V10 subsystem DBCG                                         *          
-//********************************************************************          
-//* Step 1: Compile COBOL program with DB2 support                              
-//COMPILE  EXEC IGYQCB,                    * Compile and bind procedure         
-//         LNGPRFX=IGY640,                 * COBOL V6.4.0 libraries             
-//         LIBPRF1=CEE,                    * Language Environment               
-//         CPARM='SQL,TEST',               * Enable DB2 precompiler             
-//         BPARM='DYNAM=NO',               * Required for DB2 programs          
-//         GOPGM=ERIS                      * Program name                       
-//* Compile step DB2 and COBOL libraries                                        
-//COBOL.STEPLIB DD DISP=SHR,DSN=DSND10.DBCG.SDSNEXIT                            
-//              DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
-//COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                       
-//COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                
-//COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
-//COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.DBRMLIB(&GOPGM)               
-//* Program binding step libraries                                              
-//BIND.SYSLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
-//              DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                          
-//BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
-//BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                  
-//* Step 3: Bind DB2 package and plan                                           
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : DB2 COBOL BUILD                                               
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Compile a COBOL program with DB2 SQL support                           
+//*    - Bind the compiled program to create an executable                      
+//*    - Bind the associated DBRM to a DB2 package and plan                     
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 17/06/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job performs a full build process for a DB2-enabled COBOL           
+//*    application using Enterprise COBOL V6.4. The build includes:             
+//*                                                                             
+//*      1. Compilation with DB2 precompiler to produce:                        
+//*         - Object module                                                     
+//*         - DBRM for binding                                                  
+//*                                                                             
+//*      2. Link-edit to create an executable load module                       
+//*                                                                             
+//*      3. DB2 BIND command to:                                                
+//*         - Bind the DBRM into a package in BENCOLLECTION                     
+//*         - Create the DB2 plan BENPLAN for execution                         
+//*                                                                             
+//*    Environment details:                                                     
+//*      - COBOL compiler: Enterprise COBOL V6.4.0                              
+//*      - DB2 subsystem:  DBCG (DB2 V10)                                       
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - IGYQCB procedure and DB2 SDSNLOAD libraries                            
+//*    - Program name defined in GOPGM=                                         
+//*    - COBOL and DB2 datasets allocated and catalogued                        
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Replace GOPGM=ERIS with the target program name                        
+//*    - Adjust dataset names as per your environment                           
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    17/06/2025   BMT         Initial version.                                
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: COMPILE COBOL PROGRAM WITH DB2 SUPPORT                              
+//*--------------------------------------------------------------------*        
+//COMPILE  EXEC IGYQCB,                                                         
+//             LNGPRFX=IGY640,               * COBOL V6.4.0 libraries           
+//             LIBPRF1=CEE,                  * Language Environment             
+//             CPARM='SQL,TEST',             * Enable DB2 precompiler           
+//             BPARM='DYNAM=NO',             * Disable dynamic loading          
+//             GOPGM=ERIS                    * Program name                     
+//* DB2 AND COBOL LIBRARIES FOR COMPILE                                         
+//COBOL.STEPLIB  DD DISP=SHR,DSN=DSND10.DBCG.SDSNEXIT                           
+//               DD DISP=SHR,DSN=DSND10.SDSNLOAD                                
+//COBOL.SYSLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                      
+//COBOL.SYSIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)               
+//COBOL.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
+//COBOL.DBRMLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.DBRMLIB(&GOPGM)              
+//*--------------------------------------------------------------------*        
+//* STEP 2: LINK-EDIT (PROGRAM BIND)                                            
+//*--------------------------------------------------------------------*        
+//BIND.SYSLIB    DD DISP=SHR,DSN=DSND10.SDSNLOAD                                
+//               DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                         
+//BIND.SYSLIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
+//BIND.SYSLMOD   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                 
+//*--------------------------------------------------------------------*        
+//* STEP 3: DB2 PACKAGE AND PLAN BIND                                           
+//*--------------------------------------------------------------------*        
 //DB2BIND  EXEC PGM=IKJEFT01                                                    
-//STEPLIB  DD  DISP=SHR,DSN=DSND10.SDSNLOAD                                     
-//SYSTSPRT DD  SYSOUT=*                                                         
-//SYSTSIN  DD  *                                                                
+//STEPLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                                     
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
   DSN SYSTEM(DBCG)                                                              
   BIND PACKAGE(BENCOLLECTION) MEMBER(ERIS) +                                    
-       LIBRARY('IBMUSER.COBOL.DBRMLIB') +                                       
+       LIBRARY('IBMUSER.GIT.COBOL.DBRMLIB') +                                   
        EXPLAIN(YES) +                                                           
        ARCHIVESENSITIVE(YES) +                                                  
        ACTION(REPLACE)                                                          
   BIND PLAN(BENPLAN) PKLIST(BENCOLLECTION.ERIS)                                 
   END                                                                           
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of DB2 COBOL Build Job                                                  
+//*--------------------------------------------------------------------*        

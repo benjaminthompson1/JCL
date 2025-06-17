@@ -1,21 +1,74 @@
 //IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: MQ COBOL COMPILE AND BIND                               *          
-//*                                                                  *          
-//********************************************************************          
-//COBCB1  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                               
-//             BPARM='XREF,MAP,DYNAM=DLL',                                      
-//             GOPGM=CSQ4BVK1                                                   
-//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
-//             DD DISP=SHR,DSN=CSQ911.SCSQCOBC                                  
-//COBOL.SYSIN  DD DISP=SHR,DSN=CSQ911.SCSQCOBS(&GOPGM)                          
-//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
-//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
-//BIND.SYSOBJ  DD DISP=SHR,DSN=CEE.SCEEOBJ                                      
-//             DD DISP=SHR,DSN=CSQ911.SCSQDEFS                                  
-//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
-//             DD DISP=SHR,DSN=CSQ911.SCSQLOAD(CSQBSTUB)                        
-//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : MQ COBOL COMPILE AND BIND                                     
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Compile a COBOL program that uses IBM MQ APIs                          
+//*    - Link-edit the object module with MQ stubs and libraries                
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 17/06/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job compiles a COBOL program that interfaces with IBM MQ            
+//*    using the MQ-supplied copybooks and stub modules. The program            
+//*    is compiled with the appropriate compiler and MQ libraries, then         
+//*    bound into an executable load module.                                    
+//*                                                                             
+//*    Key elements:                                                            
+//*      - Uses Enterprise COBOL V6.3 (IGY630)                                  
+//*      - MQ copybooks from CSQ911.SCSQCOBC                                    
+//*      - MQ stub module CSQBSTUB included at bind time                        
+//*                                                                             
+//*    Dataset overview:                                                        
+//*      - Source:   CSQ911.SCSQCOBS                                            
+//*      - Copylib:  IBMUSER.GIT.COBOL.COPYLIB, CSQ911.SCSQCOBC                 
+//*      - Object:   IBMUSER.GIT.COBOL.OBJECT                                   
+//*      - Load:     IBMUSER.GIT.COBOL.LOAD                                     
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - IBM MQ libraries available (CSQ911.*)                                  
+//*    - MQ stub CSQBSTUB must be present in SCSQLOAD                           
+//*    - Program name defined via GOPGM=                                        
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Replace GOPGM=CSQ4BVK1 with the target program name                    
+//*    - Adjust dataset names for your environment                              
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    17/06/2025   BMT         Initial version.                                
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: COMPILE MQ COBOL PROGRAM                                            
+//*--------------------------------------------------------------------*        
+//COBCB1   EXEC IGYQCB,                                                         
+//             LNGPRFX=IGY630,                * COBOL V6.3.0 compiler           
+//             LIBPRF1=CEE,                   * Language Environment            
+//             BPARM='XREF,MAP,DYNAM=DLL',    * Bind options for MQ             
+//             GOPGM=CSQ4BVK1                 * Program name                    
+//* COPYBOOK LIBRARIES (MQ AND CUSTOM)                                          
+//COBOL.SYSLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                      
+//               DD DISP=SHR,DSN=CSQ911.SCSQCOBC                                
+//* SOURCE PROGRAM                                                              
+//COBOL.SYSIN    DD DISP=SHR,DSN=CSQ911.SCSQCOBS(&GOPGM)                        
+//* COMPILE OUTPUT OBJECT                                                       
+//COBOL.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
+//*--------------------------------------------------------------------*        
+//* STEP 2: LINK-EDIT WITH MQ STUBS AND LIBRARIES                               
+//*--------------------------------------------------------------------*        
+//BIND.SYSLIB    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                         
+//* BINDER OBJECT LIBRARIES                                                     
+//BIND.SYSOBJ    DD DISP=SHR,DSN=CEE.SCEEOBJ                                    
+//               DD DISP=SHR,DSN=CSQ911.SCSQDEFS                                
+//* LINK OBJECT + MQ STUB (CSQBSTUB)                                            
+//BIND.SYSLIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
+//               DD DISP=SHR,DSN=CSQ911.SCSQLOAD(CSQBSTUB)                      
+//* LOAD MODULE OUTPUT                                                          
+//BIND.SYSLMOD   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                 
+//*--------------------------------------------------------------------*        
+//* End of MQ COBOL Compile and Bind Job                                        
+//*--------------------------------------------------------------------*        

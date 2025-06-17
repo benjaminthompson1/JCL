@@ -1,21 +1,58 @@
 //IUMIAPU JOB (FB3),'IXCMIAPU',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE:  DEFINE LOGSTREAM NAME(IFASMF.SMFALL.S0W1)              *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMF LOGSTREAM DEFINITION                                      
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Define a new SMF log stream (IFASMF.SMFALL.S0W1) for use in            
+//*      logstream mode recording on system S0W1.                               
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 17/06/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job defines a log stream using the IXCMIAPU utility, which          
+//*    allows SMF records to be written directly to a log stream rather         
+//*    than to traditional datasets. This supports enhanced collection,         
+//*    management, and offload of SMF data.                                     
+//*                                                                             
+//*    Key parameters include:                                                  
+//*      - DASD-only logstream                                                  
+//*      - Autodeletion enabled after 2 days                                    
+//*      - Storage and logstream size defined                                   
+//*      - High and low offload thresholds specified                            
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - Coupling Facility configuration (if applicable)                        
+//*    - Sufficient DASD space for staging and logstream                        
+//*    - IXCMIAPU utility available                                             
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Update system name in logstream (S0W1)                                 
+//*    - Adjust size and retention values based on requirements                 
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    17/06/2025   BMT         Initial version.                                
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: DEFINE LOGSTREAM USING IXCMIAPU                                     
+//*--------------------------------------------------------------------*        
 //CREATE   EXEC PGM=IXCMIAPU                                                    
 //SYSPRINT DD   SYSOUT=*                                                        
 //SYSIN    DD   *                                                               
-DATA TYPE(LOGR)                                                                 
-DEFINE LOGSTREAM NAME(IFASMF.SMFALL.S0W1)                                       
-DASDONLY(YES)                                                                   
-STG_SIZE(12800)                                                                 
-LS_SIZE(180000)                                                                 
-AUTODELETE(YES)                                                                 
-RETPD(2)                                                                        
-HIGHOFFLOAD(60)                                                                 
-LOWOFFLOAD(35)                                                                  
+  DATA TYPE(LOGR)                                                               
+  DEFINE LOGSTREAM NAME(IFASMF.SMFALL.S0W1)                                     
+  DASDONLY(YES)                                                                 
+  STG_SIZE(12800)                                                               
+  LS_SIZE(180000)                                                               
+  AUTODELETE(YES)                                                               
+  RETPD(2)                                                                      
+  HIGHOFFLOAD(60)                                                               
+  LOWOFFLOAD(35)                                                                
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of SMF Logstream Definition Job                                         
+//*--------------------------------------------------------------------*        

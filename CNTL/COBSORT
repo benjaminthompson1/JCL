@@ -1,35 +1,84 @@
 //IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: DFSORT                                                  *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : DFSORT + COBOL COMPILE-BIND-EXECUTE                           
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Sort an input dataset using DFSORT                                     
+//*    - Compile, bind, and execute a COBOL program using IGYQCBG               
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 17/06/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job performs two functions:                                         
+//*                                                                             
+//*    1. Sorts account data from a flat file using DFSORT,                     
+//*       sorting by a 15-character field starting at byte 107.                 
+//*                                                                             
+//*    2. Compiles a COBOL program named CNTRLBRK, binds it, and                
+//*       executes it using the IGYQCBG procedure. The program uses             
+//*       the sorted data as input and produces report output.                  
+//*                                                                             
+//*    Debugging is enabled for remote connection:                              
+//*      - IP:   10.1.1.36                                                      
+//*      - Port: 8001                                                           
+//*                                                                             
+//*    Dataset overview:                                                        
+//*      - Input:   IBMUSER.LEARN.ACCT.DATA                                     
+//*      - Copylib: IBMUSER.LEARN.COPYLIB                                       
+//*      - Source:  IBMUSER.LEARN.COBOL                                         
+//*      - Object:  IBMUSER.LEARN.OBJECT                                        
+//*      - Load:    IBMUSER.LEARN.LOAD                                          
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - DFSORT installed and configured                                        
+//*    - Enterprise COBOL V6.3 environment (IGY630)                             
+//*    - Debug Tool configured for remote debugging                             
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Update GOPGM=CNTRLBRK if using a different program                     
+//*    - Adjust sorting fields in SYSIN as needed                               
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    17/06/2025   BMT         Initial version.                                
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: SORT ACCOUNT DATA USING DFSORT                                      
+//*--------------------------------------------------------------------*        
 //DFSORT   EXEC PGM=SORT,REGION=0M                                              
-//SORTIN   DD DISP=SHR,DSN=IBMUSER.LEARN.ACCT.DATA                              
-//SORTOUT  DD DSN=&&TEMP,                                                       
-//            DISP=(NEW,PASS),UNIT=SYSDA,                                       
-//            DCB=(RECFM=FB,LRECL=170),                                         
-//            SPACE=(TRK,(1,1))                                                 
-//SYSPRINT DD SYSOUT=*                                                          
-//SYSOUT   DD SYSOUT=*                                                          
+//SORTIN   DD   DISP=SHR,DSN=IBMUSER.LEARN.ACCT.DATA                            
+//SORTOUT  DD   DSN=&&TEMP,                                                     
+//               DISP=(NEW,PASS),UNIT=SYSDA,                                    
+//               DCB=(RECFM=FB,LRECL=170),                                      
+//               SPACE=(TRK,(1,1))                                              
+//SYSPRINT DD   SYSOUT=*                                                        
+//SYSOUT   DD   SYSOUT=*                                                        
 //SYSIN    DD   *                                                               
   SORT FIELDS=(107,15,CH,A)                                                     
 /*                                                                              
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: COBOL COMPILE, BIND AND GO                              *          
-//*                                                                  *          
-//********************************************************************          
-//COBCBG1 EXEC IGYQCBG,LNGPRFX=IGY630,LIBPRF1=CEE,                              
-//             CPARM='TEST',                                                    
+//*--------------------------------------------------------------------*        
+//* STEP 2: COMPILE, BIND AND EXECUTE CNTRLBRK COBOL PROGRAM                    
+//*--------------------------------------------------------------------*        
+//COBCBG1  EXEC IGYQCBG,                                                        
+//             LNGPRFX=IGY630,             * COBOL V6.3.0 compiler              
+//             LIBPRF1=CEE,                * Language Environment               
+//             CPARM='TEST',               * Compiler parameters                
 //             GPARM='/TEST(,,,TCPIP&10.1.1.36%8001:*)',                        
-//             GOPGM=CNTRLBRK                                                   
-//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.LEARN.COPYLIB                            
-//COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.LEARN.COBOL(&GOPGM)                      
-//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                     
-//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                     
-//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD(&GOPGM)                       
-//GO.ACCTSORT  DD DISP=SHR,DSN=*.DFSORT.SORTOUT                                 
-//GO.PRTLINE   DD SYSOUT=*                                                      
+//             GOPGM=CNTRLBRK              * COBOL program name                 
+//* COPYLIB AND SOURCE                                                          
+//COBOL.SYSLIB   DD DISP=SHR,DSN=IBMUSER.LEARN.COPYLIB                          
+//COBOL.SYSIN    DD DISP=SHR,DSN=IBMUSER.LEARN.COBOL(&GOPGM)                    
+//COBOL.SYSLIN   DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                   
+//* BIND OUTPUT                                                                 
+//BIND.SYSLIN    DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                   
+//BIND.SYSLMOD   DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD(&GOPGM)                     
+//* EXECUTION INPUT AND OUTPUT                                                  
+//GO.ACCTSORT    DD DISP=SHR,DSN=*.DFSORT.SORTOUT                               
+//GO.PRTLINE     DD SYSOUT=*                                                    
+//*--------------------------------------------------------------------*        
+//* End of Sort and COBOL Build-and-Run Job                                     
+//*--------------------------------------------------------------------*        
