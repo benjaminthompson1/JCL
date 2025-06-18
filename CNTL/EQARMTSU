@@ -1,4 +1,6 @@
-//EQARMTSU JOB <job parameters>                                                 
+//IURMTSU JOB (FB3),'EQARMTSU',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //*********************************************************************         
 //* Licensed Materials - Property of IBM                              *         
 //*                                                                   *         

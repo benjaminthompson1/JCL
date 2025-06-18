@@ -105,28 +105,28 @@ LISTUSER MFAUSR3 MFA
 //DELETE EXEC PGM=IDCAMS,COND=(0,NE)                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
-  DELETE MFAUSR1.S0W1.ISPF.ISPFPROF PURGE                                       
-  DELETE MFAUSR2.S0W1.ISPF.ISPFPROF PURGE                                       
-  DELETE MFAUSR3.S0W1.ISPF.ISPFPROF PURGE                                       
+  DELETE MFAUSR1.S0W1.ISPF.ISPPROF PURGE                                        
+  DELETE MFAUSR2.S0W1.ISPF.ISPPROF PURGE                                        
+  DELETE MFAUSR3.S0W1.ISPF.ISPPROF PURGE                                        
   SET MAXCC=0                                                                   
 /*                                                                              
 //*--------------------------------------------------------------------*        
 //* STEP 3: ALLOCATE NEW ISPF PROFILE LIBRARIES FOR USERS                       
 //*--------------------------------------------------------------------*        
 //DEFINE   EXEC PGM=IEFBR14,COND=(0,NE)                                         
-//MFAUSR1  DD DSN=MFAUSR1.S0W1.ISPF.ISPFPROF,                                   
+//MFAUSR1  DD DSN=MFAUSR1.S0W1.ISPF.ISPPROF,                                    
 //            DISP=(NEW,CATLG),                                                 
 //            UNIT=SYSDA,                                                       
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
 //            DSNTYPE=LIBRARY,                                                  
 //            SPACE=(TRK,(1,1,1))                                               
-//MFAUSR2  DD DSN=MFAUSR2.S0W1.ISPF.ISPFPROF,                                   
+//MFAUSR2  DD DSN=MFAUSR2.S0W1.ISPF.ISPPROF,                                    
 //            DISP=(NEW,CATLG),                                                 
 //            UNIT=SYSDA,                                                       
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
 //            DSNTYPE=LIBRARY,                                                  
 //            SPACE=(TRK,(1,1,1))                                               
-//MFAUSR3  DD DSN=MFAUSR3.S0W1.ISPF.ISPFPROF,                                   
+//MFAUSR3  DD DSN=MFAUSR3.S0W1.ISPF.ISPPROF,                                    
 //            DISP=(NEW,CATLG),                                                 
 //            UNIT=SYSDA,                                                       
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
