@@ -5,37 +5,38 @@
 //*  JOB NAME   : SMP/E RECEIVE FROMNETWORK                                     
 //*                                                                             
 //*  FUNCTION   :                                                               
-//*    - Pull IBM service content directly from the IBM-hosted server           
+//*    - Pull IBM service content from the IBM-hosted server                    
 //*      and RECEIVE it into the SMP/E global zone.                             
 //*                                                                             
 //*  AUTHOR     : BMT                                                           
 //*  DATE       : 26/06/2025                                                    
 //*                                                                             
 //*  DESCRIPTION :                                                              
-//*    This job uses the SMP/E RECEIVE command with the FROMNETWORK             
-//*    clause to download a service package from IBM's service delivery         
-//*    infrastructure into the local SMP/E global zone.                         
+//*    This job uses the SMP/E RECEIVE command with the                         
+//*    FROMNETWORK clause to download a service package from                    
+//*    IBM's delivery system into the SMP/E global zone.                        
 //*                                                                             
-//*    The RECEIVE step can optionally perform only the file transfer           
-//*    by uncommenting `TRANSFERONLY`, which skips the RECEIVE processing.      
+//*    The RECEIVE step can optionally perform transfer only                    
+//*    by uncommenting `TRANSFERONLY`, skipping RECEIVE                         
+//*    processing.                                                              
 //*                                                                             
 //*    The job expects the following:                                           
-//*      - Global zone CSI:    #globalzone (update to match your system)        
-//*      - SMPNTS path:        /u/smpe/smpnts/                                  
-//*      - Java 11 environment configured for HTTPS downloads                   
+//*      - Global zone CSI: #globalzone (update accordingly)                    
+//*      - SMPNTS path:     /u/smpe/smpnts/                                     
+//*      - Java 11:         Configured for HTTPS downloads                      
 //*                                                                             
 //*  REQUIREMENTS :                                                             
-//*    - Valid IBM service credentials and package information                  
-//*    - Java 11 installed and accessible at specified path                     
-//*    - SMP/E setup with internet access and secure certificates               
+//*    - Valid IBM service credentials and package info                         
+//*    - Java 11 installed and accessible                                       
+//*    - SMP/E setup with secure internet access                                
 //*                                                                             
 //*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Replace `#globalzone` with your actual CSI dataset                     
-//*    - Confirm Java path and certificate trust store                          
-//*    - Adjust package info if reusing this for a different order              
+//*    - Update `#globalzone` with your CSI dataset                             
+//*    - Confirm Java path and trust store                                      
+//*    - Adjust package details if reused                                       
 //*                                                                             
 //*  SECURITY NOTE :                                                            
-//*    - Avoid hardcoding credentials in shared libraries or panels             
+//*    - Avoid hardcoding credentials in shared libraries                       
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
