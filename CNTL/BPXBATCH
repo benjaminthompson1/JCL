@@ -1,22 +1,54 @@
 //IUMETAC JOB (FB3),'METAL C COMPILE',CLASS=A,MSGCLASS=H,                       
-//       NOTIFY=&SYSUID,REGION=4M,TIME=1440                                     
+//             NOTIFY=&SYSUID,REGION=4M,TIME=1440                               
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//* PURPOSE: Compiles and builds Metal C programs through USS        *          
-//* scripting Metal C enables system-level programming with C syntax *          
-//*                                                                  *          
-//* PROCESS:                                                         *          
-//* - Executes USS script to compile Metal C source                  *          
-//* - Generates assembler code and creates load module               *          
-//* - Script details in IBMUSER.CNTL(BPXPARM)                        *          
-//*                                                                  *          
-//* NOTE: Requires z/OS XL C compiler with Metal C support           *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : METAL C COMPILE                                               
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Compile and link Metal C source code using USS scripting.              
+//*    - Metal C enables low-level system programming using C syntax,           
+//*      producing assembler code suitable for z/OS environments.               
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 26/06/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job runs a USS shell script (via BPXBATCH) to compile               
+//*    Metal C source code. The script generates assembler code and             
+//*    builds the final load module.                                            
+//*                                                                             
+//*    The job expects the following:                                           
+//*      - Script location: IBMUSER.CNTL(BPXPARM)                               
+//*        (Points to USS script and its parameters)                            
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - z/OS XL C Compiler with Metal C support                                
+//*    - USS environment properly configured                                    
+//*    - Access to BPXBATCH and required datasets                               
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Update script or parameters in BPXPARM if needed                       
+//*    - Verify USS paths used in the script                                    
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    26/06/2025   BMT         Initial version.                                
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: EXECUTE METAL C COMPILE SCRIPT IN USS                               
+//*--------------------------------------------------------------------*        
 //BPXBATCH EXEC PGM=BPXBATCH                                                    
-//STDPARM  DD DSN=IBMUSER.CNTL(BPXPARM),DISP=SHR                                
+//* USS SCRIPT PARAMETERS                                                       
+//STDPARM  DD DISP=SHR,DSN=IBMUSER.CNTL(BPXPARM)                                
+//* STANDARD MESSAGES AND DIAGNOSTICS                                           
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSERR   DD SYSOUT=*                                                          
 //SYSOUT   DD SYSOUT=*                                                          
 //CEEDUMP  DD SYSOUT=*                                                          
 //STDOUT   DD SYSOUT=*                                                          
 //STDERR   DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
+                                                                                

@@ -15,7 +15,7 @@
 //*    listing key attributes of a specified load module. It performs           
 //*    the following actions:                                                   
 //*                                                                             
-//*    - Lists the modules attributes and entry point information.             
+//*    - Lists the modules attributes and entry point information.              
 //*    - Displays CSECT details and any cross-referenced sections.              
 //*                                                                             
 //*  INPUT :                                                                    
@@ -35,12 +35,12 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: RUN AMBLIST TO ANALYSE LOAD MODULE                                  
 //*--------------------------------------------------------------------*        
-//STEP1    EXEC PGM=AMBLIST                                                     
-//SYSPRINT DD  SYSOUT=*                                                         
-//SYSLIB   DD  DSN=IBMUSER.GIT.COBOL.LOAD,DISP=SHR                              
-//SYSIN    DD  *                                                                
+//STEP1  EXEC PGM=AMBLIST                                                       
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSLIB   DD DSN=IBMUSER.GIT.COBOL.LOAD,DISP=SHR                               
+//SYSIN    DD *                                                                 
   LISTLOAD MEMBER=HELLOW                                                        
 /*                                                                              
 //*--------------------------------------------------------------------*        
-//* End of AMBLIST Module Analysis Job                                          
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

@@ -11,26 +11,26 @@
 //*  DATE       : 27/04/2025                                                    
 //*                                                                             
 //*  DESCRIPTION :                                                              
-//*    This job runs a two-step verification to ensure that the AVZ             
-//*    VSAM interface has been installed correctly. It performs:                
+//*    This job performs a two-step verification to ensure the AVZ              
+//*    VSAM interface is correctly installed. It includes:                      
 //*                                                                             
-//*    - Extraction of the STAFFVS map from VSAM source using AVZMBTPA.         
-//*    - Verification and test access to the extracted map using AVZXMAPD.      
+//*    - Extraction of the STAFFVS map using AVZMBTPA.                          
+//*    - Verification of map access using AVZXMAPD.                             
 //*                                                                             
 //*  STEPS :                                                                    
-//*    1. DMFEXTR1 - Extracts STAFFVS map from the VSAM dataset.                
-//*    2. REAAVZAM - Selects records to verify map access.                      
+//*    1. DMFEXTR1 - Extract STAFFVS map from VSAM dataset.                     
+//*    2. REAAVZAM - Test map access and field availability.                    
 //*                                                                             
 //*  MAP PARAMETERS :                                                           
-//*    - Map Name : STAFFVS                                                     
-//*    - Fields   : STAFFVS-RECORD through STAFFVS-DATA-YRS                     
+//*    - Map Name    : STAFFVS                                                  
+//*    - Fields      : STAFFVS-RECORD to STAFFVS-DATA-YRS                       
 //*    - Buffer Size : 512                                                      
 //*    - SSMU        : 6                                                        
 //*                                                                             
 //*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update high-level qualifier for VSAM file (currently IBMUSER).         
-//*    - Update load, REXX, and samp DSN in the SET statement.                  
-//*    - Confirm SSID parameter matches your system (currently AVZS).           
+//*    - Update high-level qualifier for VSAM file (IBMUSER).                   
+//*    - Update DSNs for load, REXX, and sample libraries in SETs.              
+//*    - Confirm SSID setting matches your system (currently AVZS).             
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
@@ -46,15 +46,15 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: EXTRACT VSAM MAP DEFINITIONS USING AVZMBTPA                         
 //*--------------------------------------------------------------------*        
-//DMFEXTR1  EXEC PGM=IKJEFT01,PARM=('AVZMBTPA O'),REGION=0M                     
-//STEPLIB   DD DISP=SHR,DSN=&LOADLIB                                            
-//SYSEXEC   DD DISP=SHR,DSN=&REXXLIB                                            
-//SOURCE    DD DISP=SHR,DSN=&SAMPLIB.(AVZSTFCP)                                 
-//STDERR    DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                             
-//XMLOUT    DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                             
-//SYSTSPRT  DD SYSOUT=*                                                         
-//SYSTSIN   DD DUMMY                                                            
-//SYSIN     DD  *                                                               
+//DMFEXTR1 EXEC PGM=IKJEFT01,PARM=('AVZMBTPA O'),REGION=0M                      
+//STEPLIB  DD DISP=SHR,DSN=&LOADLIB                                             
+//SYSEXEC  DD DISP=SHR,DSN=&REXXLIB                                             
+//SOURCE   DD DISP=SHR,DSN=&SAMPLIB.(AVZSTFCP)                                  
+//STDERR   DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                              
+//XMLOUT   DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                              
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD DUMMY                                                             
+//SYSIN    DD *                                                                 
   SSID = AVZS                    * Subsystem ID                                 
   FUNCTION    = STOD             * Source to Database                           
   MAP NAME = STAFFVS             * Target Map Name                              
@@ -68,16 +68,16 @@
 //*--------------------------------------------------------------------*        
 //* STEP 2: TEST EXTRACTED MAP ACCESS USING AVZXMAPD                            
 //*--------------------------------------------------------------------*        
-//REAAVZAM EXEC  PGM=AVZXMAPD,PARM='SSID=AVZS,MXR=30000000'                     
-//STEPLIB  DD DISP=SHR,DSN=&LOADLIB                                             
-//RPT      DD SYSOUT=*                                                          
-//FMT      DD SYSOUT=*,DCB=LRECL=4096                                           
-//IN       DD  *                                                                
+//REAAVZAM EXEC PGM=AVZXMAPD,PARM='SSID=AVZS,MXR=30000000'                      
+//STEPLIB DD DISP=SHR,DSN=&LOADLIB                                              
+//RPT     DD SYSOUT=*                                                           
+//FMT     DD SYSOUT=*,DCB=LRECL=4096                                            
+//IN      DD *                                                                  
 ++SET BUFSIZE=512 ;              * Buffer Size for Processing                   
 ++SET SSMU=6;                    * System Storage Management Unit               
 ++SET NUMROWS=-1 ;               * Return All Rows                              
 SELECT * FROM STAFFVS            * Test SELECT Query                            
 /*                                                                              
 //*--------------------------------------------------------------------*        
-//* End of VSAM Interface Installation Verification Job                         
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

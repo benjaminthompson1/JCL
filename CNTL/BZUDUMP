@@ -1,41 +1,51 @@
 //IUVTPDP  JOB (FB3),'VTP PLAYBACK',CLASS=A,MSGCLASS=H,                         
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                   
+//             NOTIFY=&SYSUID,REGION=0M,TIME=1440                               
 //*       TYPRUN=HOLD                                                           
-//********************************************************************          
-//*  JOB NAME   : VTP PLAYBACK FORMATTING                            *          
-//*                                                                  *          
-//*  PURPOSE    :                                                    *          
-//*    Format and display the contents of a recorded VTP playback    *          
-//*    file using the BZUPLAY utility. This provides a readable      *          
-//*    dump of captured VTP activity for review or diagnostics.      *          
-//*                                                                  *          
-//*  PROCESS    :                                                    *          
-//*    - Executes BZUPLAY with PARM='RUN=BZUDCP' to interpret        *          
-//*      and format the playback dataset.                            *          
-//*                                                                  *          
-//*  INPUT      :                                                    *          
-//*    - DSN: IBMUSER.VTP.TOURFILE.PLAY                              *          
-//*                                                                  *          
-//*  OUTPUT     :                                                    *          
-//*    - Formatted playback output sent to SYSOUT.                   *          
-//*                                                                  *          
-//*  REQUIREMENTS :                                                  *          
-//*    - Ensure STEPLIB points to the correct VTP load library.      *          
-//*                                                                  *          
-//*  AUTHOR     : BMT                                                *          
-//*  DATE       : 26/06/2025                                         *          
-//*                                                                  *          
-//*  CHANGE LOG :                                                    *          
-//*    DD/MM/YYYY   Author     Description                           *          
-//*    ------------ ---------- ------------------------------------- *          
-//*    26/06/2025   BMT        Initial version                       *          
-//********************************************************************          
-//VTPDUMP  EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                   
-//STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULOAD                                      
-//* Playback file                                                               
-//BZUPLAY  DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.PLAY                            
-//* Formatted Output                                                            
-//BZUMSG   DD SYSOUT=*                                                          
-//********************************************************************          
-//* END OF JOB - VTP PLAYBACK FORMATTING                             *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : VTP PLAYBACK FORMATTING                                       
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Format and display the contents of a recorded VTP playback             
+//*      file using the BZUPLAY utility.                                        
+//*    - Produces a human-readable report for diagnostics and review.           
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 26/06/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job runs the `BZUPLAY` utility with parameter `RUN=BZUDCP`          
+//*    to interpret and format a VTP playback dataset. The formatted            
+//*    results are written to SYSOUT for analysis.                              
+//*                                                                             
+//*    The job expects the following datasets:                                  
+//*      - Playback input: IBMUSER.VTP.TOURFILE.PLAY                            
+//*      - Load library:   VTP201.SBZULOAD                                      
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - VTP software installed with access to BZUPLAY in STEPLIB               
+//*    - Valid VTP playback file captured and available                         
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Update playback dataset (BZUPLAY DD) if needed                         
+//*    - Adjust STEPLIB if using a different VTP version                        
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    26/06/2025   BMT         Initial version                                 
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: FORMAT VTP PLAYBACK FILE USING BZUPLAY                              
+//*--------------------------------------------------------------------*        
+//VTPDUMP EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                    
+//* VTP LOAD LIBRARY                                                            
+//STEPLIB DD DISP=SHR,DSN=VTP201.SBZULOAD                                       
+//* PLAYBACK FILE INPUT                                                         
+//BZUPLAY DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.PLAY                             
+//* FORMATTED OUTPUT                                                            
+//BZUMSG  DD SYSOUT=*                                                           
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
+                                                                                
+                                                                                

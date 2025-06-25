@@ -45,18 +45,18 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: COMPILE AND BIND COBOL PROGRAM                                      
 //*--------------------------------------------------------------------*        
-//COBCB1   EXEC IGYQCB,                                                         
-//             LNGPRFX=IGY640,             * COBOL V6.4.0 libraries             
-//             LIBPRF1=CEE,                * Language Environment libs          
-//             GOPGM=HELLOW                * Program name to build              
+//COBCB1 EXEC IGYQCB,                                                           
+//            LNGPRFX=IGY640,                                                   
+//            LIBPRF1=CEE,                                                      
+//            GOPGM=HELLOW                                                      
 //* COMPILE STEP: COPYBOOKS AND SOURCE                                          
-//COBOL.SYSLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                      
-//COBOL.SYSIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)               
-//COBOL.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
+//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
+//COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                 
+//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
 //* BIND STEP: OBJECT AND LOAD MODULE                                           
-//BIND.SYSLIB    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                         
-//BIND.SYSLIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
-//BIND.SYSLMOD   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                 
+//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
+//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
+//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   
 //*--------------------------------------------------------------------*        
-//* End of COBOL Compile and Bind Job                                           
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

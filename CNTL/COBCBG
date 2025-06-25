@@ -45,29 +45,29 @@
 //*    17/06/2025   BMT         Initial version.                                
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
-//* STEP 12: COMPILE AND BIND PROGRAM                                          
+//* STEP 1 and 2: COMPILE AND BIND PROGRAM                                      
 //*--------------------------------------------------------------------*        
 //COBCBG1 EXEC IGYQCBG,                                                         
-//             LNGPRFX=IGY640,             * COBOL V6.4.0 libraries             
-//             LIBPRF1=CEE,                * Language Environment libs          
-//             GPARM='/TEST(,,,TCPIP&10.1.1.86%8001:*)', * Debug config         
-//             GOPGM=HELLOW                * Program to compile and run         
+//             LNGPRFX=IGY640,                                                  
+//             LIBPRF1=CEE,                                                     
+//             GPARM='/TEST(,,,TCPIP&10.1.1.86%8001:*)',                        
+//             GOPGM=HELLOW                                                     
 //* COBOL COPYLIB AND SOURCE                                                    
-//COBOL.SYSLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                      
-//COBOL.SYSIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)               
-//COBOL.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
+//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
+//COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                 
+//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
 //* LINK-EDIT TO CREATE EXECUTABLE MODULE                                       
-//BIND.SYSLIB    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                         
-//BIND.SYSLIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
-//BIND.SYSLMOD   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                 
+//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
+//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
+//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   
 //*--------------------------------------------------------------------*        
 //* STEP 3: EXECUTE PROGRAM WITH DEBUG SUPPORT                                  
 //*--------------------------------------------------------------------*        
-//GO.STEPLIB     DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                         
-//               DD DISP=SHR,DSN=ISM330.SEQAMOD                                 
+//GO.STEPLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
+//             DD DISP=SHR,DSN=ISM330.SEQAMOD                                   
 //* OPTIONAL RUNTIME DD STATEMENTS FOR PROGRAM INPUT/OUTPUT                     
 //*GO.STDNTCRS   DD DISP=SHR,DSN=IBMUSER.COBOL.STUDENT.COURSES                  
 //*GO.STCRSRPT   DD SYSOUT=*                                                    
 //*--------------------------------------------------------------------*        
-//* End of COBOL Build and Execute Job                                          
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

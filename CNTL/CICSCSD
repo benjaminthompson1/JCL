@@ -1,34 +1,63 @@
 //IUCICSD JOB (FB3),'CICS CSD',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//* PURPOSE: Updates CICS System Definition (CSD) for the ZOFFICE      *        
-//*          example application. Defines VSAM files, BMS mapsets,     *        
-//*          COBOL programs, and transactions needed for the           *        
-//*          application.                                             *         
-//*                                                                   *         
-//* UPDATES:                                                          *         
-//* - VSAM Files:   EXMPCAT (Catalog), EXMPCONF (Configuration)      *          
-//* - BMS Mapsets:  DFH0XS1/2/3 for various application screens      *          
-//* - Programs:     13 COBOL programs for application functionality   *         
-//* - Transactions: ECFG (Configuration), EGUI (BMS Interface)        *         
-//*                                                                   *         
-//* PREREQUISITES:                                                    *         
-//* - CICS TS 6.1.0 libraries must be available                      *          
-//* - CSD file must be allocated and accessible                      *          
-//********************************************************************          
-//* Execute CICS System Definition utility                                      
-//STEP1   EXEC PGM=DFHCSDUP,REGION=0M,                                          
-//             PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                      
-//* CICS program libraries                                                      
-//STEPLIB DD   DSN=DFH620.CICS.SDFHLOAD,DISP=SHR                                
-//* CICS System Definition file                                                 
-//DFHCSD  DD   DISP=SHR,DSN=DFH620.CICS.DFHCSD                                  
-//* Utility output and messages                                                 
-//OUTDD   DD   SYSOUT=A                                                         
-//SYSPRINT DD  SYSOUT=A                                                         
-//* Resource definitions for ZOFFICE application                                
-//SYSIN   DD   *                                                                
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CICS CSD UPDATE  ZOFFICE APPLICATION                         
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Define all required resources for the ZOFFICE sample                   
+//*      application into the CICS System Definition (CSD).                     
+//*    - This includes VSAM files, BMS mapsets, COBOL programs,                 
+//*      and transaction definitions.                                           
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 26/06/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job uses the DFHCSDUP utility to define resources for               
+//*    the ZOFFICE application. It ensures that all program, mapset,            
+//*    file, and transaction definitions are added to the appropriate           
+//*    CICS group in the CSD file.                                              
+//*                                                                             
+//*    The job expects the following datasets:                                  
+//*      - CSD file: DFH620.CICS.DFHCSD                                         
+//*      - Loadlib : DFH620.CICS.SDFHLOAD (for DFHCSDUP)                        
+//*                                                                             
+//*  RESOURCES DEFINED :                                                        
+//*    - Files      : EXMPCAT, EXMPCONF                                         
+//*    - Mapsets    : DFH0XS1, DFH0XS2, DFH0XS3                                 
+//*    - Programs   : DFH0XCFG, DFH0XCMN, DFH0XGUI, DFH0XODE,                   
+//*                   DFH0XSDS, DFH0XSOD, DFH0XSSM, DFH0XVDS,                   
+//*                   DFH0XWOD                                                  
+//*    - Transactions: ECFG, EGUI                                               
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - CICS TS 6.1.0 libraries installed and available                        
+//*    - CSD file allocated and accessible for update                           
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Review dataset names to match your local environment                   
+//*    - Modify resource names if your application structure differs            
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    26/06/2025   BMT         Initial version                                 
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: EXECUTE DFHCSDUP TO DEFINE ZOFFICE RESOURCES                        
+//*--------------------------------------------------------------------*        
+//STEP1 EXEC PGM=DFHCSDUP,REGION=0M,                                            
+//           PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                        
+//* CICS LOAD LIBRARY                                                           
+//STEPLIB  DD DISP=SHR,DSN=DFH620.CICS.SDFHLOAD                                 
+//* CICS SYSTEM DEFINITION FILE                                                 
+//DFHCSD   DD DISP=SHR,DSN=DFH620.CICS.DFHCSD                                   
+//* CSD UPDATE OUTPUT                                                           
+//OUTDD    DD SYSOUT=A                                                          
+//SYSPRINT DD SYSOUT=A                                                          
+//* RESOURCE DEFINITIONS                                                        
+//SYSIN    DD *                                                                 
   DEFINE FILE(EXMPCAT) GROUP(ZOFFICE)                                           
   DESCRIPTION(CICS Example Application - Catalog File)                          
        DSNAME(APP.EXMPLAPP.EXMPCAT)                                             
@@ -135,3 +164,6 @@
        CONFDATA(NO) OTSTIMEOUT(NO) ACTION(BACKOUT) WAIT(YES)                    
        WAITTIME(0,0,0) RESSEC(NO) CMDSEC(NO)                                    
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

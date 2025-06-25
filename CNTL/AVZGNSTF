@@ -5,35 +5,35 @@
 //*  JOB NAME   : VSAM STAFF DATASET CREATION                                   
 //*                                                                             
 //*  FUNCTION   :                                                               
-//*    - Create and populate a VSAM KSDS dataset for ODBC Call RPC demo.        
+//*    - Create and populate a VSAM KSDS for ODBC Call RPC demo.                
 //*                                                                             
 //*  AUTHOR     : BMT                                                           
 //*  DATE       : 27/04/2025                                                    
 //*                                                                             
 //*  DESCRIPTION :                                                              
-//*    This job defines a VSAM Key-Sequenced Data Set (KSDS) and loads          
-//*    it with sample staff data. It performs the following actions:            
+//*    Defines a VSAM Key-Sequenced Data Set (KSDS) and loads it                
+//*    with sample staff data. Performs the following:                          
 //*                                                                             
-//*    - Deletes any existing dataset 'prefix.STAFF.VSAM'.                      
-//*    - Defines a new VSAM KSDS cluster with specific attributes.              
-//*    - Loads sample records from a provided PDS member.                       
+//*    - Deletes existing 'prefix.STAFF.VSAM' dataset.                          
+//*    - Defines a new KSDS cluster with fixed attributes.                      
+//*    - Loads sample records from a PDS member.                                
 //*                                                                             
 //*  DATASETS :                                                                 
-//*    - VSAM KSDS : IBMUSER.STAFF.VSAM                                         
-//*    - Input Member: DVM110.SAVZSAMP(AVZSTFVS)                                
+//*    - VSAM KSDS     : IBMUSER.STAFF.VSAM                                     
+//*    - Input Member  : DVM110.SAVZSAMP(AVZSTFVS)                              
 //*                                                                             
 //*  TECHNICAL SPECIFICATIONS :                                                 
-//*    - Record size : 80 bytes (fixed)                                         
-//*    - Key length  : 2 bytes, starting at offset 0                            
-//*    - Allocation  : 1 cylinder primary, 1 cylinder secondary                 
-//*    - Control Interval size: 512 bytes                                       
-//*    - Freespace   : 10% per CI and CA                                        
-//*    - Share options: (2,3) - cross-system sharing allowed                    
+//*    - Record size       : 80 bytes (fixed)                                   
+//*    - Key length        : 2 bytes at offset 0                                
+//*    - Allocation        : 1 cyl primary, 1 cyl secondary                     
+//*    - CI size           : 512 bytes                                          
+//*    - Freespace         : 10% per CI and CA                                  
+//*    - Share options     : (2,3) cross-system sharing                         
 //*                                                                             
 //*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update high-level qualifier from IBMUSER if needed.                    
-//*    - Update DVM110 prefix to match your product libraries.                  
-//*    - Adjust volume serial number (currently A3USR4) if required.            
+//*    - Update HLQ from IBMUSER if needed.                                     
+//*    - Update DVM110 prefix as per your environment.                          
+//*    - Adjust VOL=SER (currently A3USR4) if needed.                           
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
@@ -46,7 +46,7 @@
 //DEFSTAFF EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
-  DELETE 'IBMUSER.STAFF.VSAM'                                                   
+  DELETE           'IBMUSER.STAFF.VSAM'                                         
   SET MAXCC = 0                                                                 
   DEFINE CLUSTER ( NAME('IBMUSER.STAFF.VSAM') -                                 
                    VOL(A3USR4) -                                                
@@ -66,5 +66,5 @@
         OUTDATASET('IBMUSER.STAFF.VSAM')                                        
 /*                                                                              
 //*--------------------------------------------------------------------*        
-//* End of VSAM Staff Dataset Creation Job                                      
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

@@ -40,17 +40,17 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: EXECUTE DB2-ENABLED COBOL PROGRAM                                   
 //*--------------------------------------------------------------------*        
-//DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              
+//DB2RUN EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                                
 //* DB2, DEBUG, AND PROGRAM LIBRARIES                                           
-//STEPLIB   DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
-//          DD DISP=SHR,DSN=EQAE20.SEQAMOD                                      
-//          DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                              
+//STEPLIB  DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                      
+//         DD DISP=SHR,DSN=EQAE20.SEQAMOD                                       
+//         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
 //* OUTPUT AND DUMP SUPPORT                                                     
-//SYSTSPRT  DD SYSOUT=*                                                         
-//SYSPRINT  DD SYSOUT=*                                                         
-//SYSUDUMP  DD SYSOUT=*                                                         
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
 //* DB2 COMMAND INPUT                                                           
-//SYSTSIN   DD *                                                                
+//SYSTSIN  DD *                                                                 
   DSN SYSTEM(DBCG)                                                              
   RUN PROGRAM(ERIS) PLAN(BENPLAN) LIBRARY('IBMUSER.GIT.COBOL.LOAD') +           
       PARM('/TEST')                                                             
@@ -59,12 +59,12 @@
 //*--------------------------------------------------------------------*        
 //* STEP 2: PROGRAM INPUT DATASETS                                              
 //*--------------------------------------------------------------------*        
-//ERISPRM   DD *                                                                
+//ERISPRM  DD *                                                                 
 00000500 00001000                                                               
 /*                                                                              
-//ERISPER   DD DISP=SHR,DSN=IBMUSER.ERIS.PERSON                                 
-//ERISPRO   DD DISP=SHR,DSN=IBMUSER.ERIS.PROVIDER                               
-//ERISVAC   DD DISP=SHR,DSN=IBMUSER.ERIS.VACCINE                                
+//ERISPER  DD DISP=SHR,DSN=IBMUSER.ERIS.PERSON                                  
+//ERISPRO  DD DISP=SHR,DSN=IBMUSER.ERIS.PROVIDER                                
+//ERISVAC  DD DISP=SHR,DSN=IBMUSER.ERIS.VACCINE                                 
 //*--------------------------------------------------------------------*        
-//* End of DB2 COBOL Execution Job                                              
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

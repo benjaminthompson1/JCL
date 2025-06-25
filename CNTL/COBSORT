@@ -49,36 +49,36 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: SORT ACCOUNT DATA USING DFSORT                                      
 //*--------------------------------------------------------------------*        
-//DFSORT   EXEC PGM=SORT,REGION=0M                                              
-//SORTIN   DD   DISP=SHR,DSN=IBMUSER.LEARN.ACCT.DATA                            
-//SORTOUT  DD   DSN=&&TEMP,                                                     
-//               DISP=(NEW,PASS),UNIT=SYSDA,                                    
-//               DCB=(RECFM=FB,LRECL=170),                                      
-//               SPACE=(TRK,(1,1))                                              
-//SYSPRINT DD   SYSOUT=*                                                        
-//SYSOUT   DD   SYSOUT=*                                                        
-//SYSIN    DD   *                                                               
+//DFSORT EXEC PGM=SORT,REGION=0M                                                
+//SORTIN   DD DISP=SHR,DSN=IBMUSER.LEARN.ACCT.DATA                              
+//SORTOUT  DD DSN=&&TEMP,                                                       
+//            DISP=(NEW,PASS),UNIT=SYSDA,                                       
+//            DCB=(RECFM=FB,LRECL=170),                                         
+//            SPACE=(TRK,(1,1))                                                 
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSOUT   DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
   SORT FIELDS=(107,15,CH,A)                                                     
 /*                                                                              
 //*--------------------------------------------------------------------*        
 //* STEP 2: COMPILE, BIND AND EXECUTE CNTRLBRK COBOL PROGRAM                    
 //*--------------------------------------------------------------------*        
-//COBCBG1  EXEC IGYQCBG,                                                        
+//COBCBG1 EXEC IGYQCBG,                                                         
 //             LNGPRFX=IGY630,             * COBOL V6.3.0 compiler              
 //             LIBPRF1=CEE,                * Language Environment               
 //             CPARM='TEST',               * Compiler parameters                
 //             GPARM='/TEST(,,,TCPIP&10.1.1.36%8001:*)',                        
 //             GOPGM=CNTRLBRK              * COBOL program name                 
 //* COPYLIB AND SOURCE                                                          
-//COBOL.SYSLIB   DD DISP=SHR,DSN=IBMUSER.LEARN.COPYLIB                          
-//COBOL.SYSIN    DD DISP=SHR,DSN=IBMUSER.LEARN.COBOL(&GOPGM)                    
-//COBOL.SYSLIN   DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                   
+//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.LEARN.COPYLIB                            
+//COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.LEARN.COBOL(&GOPGM)                      
+//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                     
 //* BIND OUTPUT                                                                 
-//BIND.SYSLIN    DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                   
-//BIND.SYSLMOD   DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD(&GOPGM)                     
+//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.LEARN.OBJECT(&GOPGM)                     
+//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD(&GOPGM)                       
 //* EXECUTION INPUT AND OUTPUT                                                  
-//GO.ACCTSORT    DD DISP=SHR,DSN=*.DFSORT.SORTOUT                               
-//GO.PRTLINE     DD SYSOUT=*                                                    
+//GO.ACCTSORT  DD DISP=SHR,DSN=*.DFSORT.SORTOUT                                 
+//GO.PRTLINE   DD SYSOUT=*                                                      
 //*--------------------------------------------------------------------*        
-//* End of Sort and COBOL Build-and-Run Job                                     
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

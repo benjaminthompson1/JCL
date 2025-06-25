@@ -39,16 +39,16 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: COMPILE COBOL PROGRAM USING IGY V6.4.0                              
 //*--------------------------------------------------------------------*        
-//COBC1    EXEC IGYQC,                                                          
-//             LNGPRFX=IGY640,               * Compiler version V6.4.0          
-//             LIBPRF1=CEE,                  * LE library prefix                
-//             GOPGM=HELLOW                  * Program to compile               
+//COBC1 EXEC IGYQC,                                                             
+//           LNGPRFX=IGY640,                                                    
+//           LIBPRF1=CEE,                                                       
+//           GOPGM=HELLOW                                                       
 //* COBOL COPYBOOKS                                                             
-//SYSLIB   DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                          
+//SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                              
 //* SOURCE CODE INPUT                                                           
-//SYSIN    DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                   
+//SYSIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                       
 //* COMPILED OBJECT OUTPUT                                                      
-//SYSLIN   DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                   
+//SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                       
 //*--------------------------------------------------------------------*        
-//* End of COBOL Compile Job                                                    
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

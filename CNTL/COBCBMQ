@@ -45,30 +45,30 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: COMPILE MQ COBOL PROGRAM                                            
 //*--------------------------------------------------------------------*        
-//COBCB1   EXEC IGYQCB,                                                         
-//             LNGPRFX=IGY630,                * COBOL V6.3.0 compiler           
-//             LIBPRF1=CEE,                   * Language Environment            
-//             BPARM='XREF,MAP,DYNAM=DLL',    * Bind options for MQ             
-//             GOPGM=CSQ4BVK1                 * Program name                    
+//COBCB1 EXEC IGYQCB,                                                           
+//            LNGPRFX=IGY640,                                                   
+//            LIBPRF1=CEE,                                                      
+//            BPARM='XREF,MAP,DYNAM=DLL',                                       
+//            GOPGM=CSQ4BVK1                                                    
 //* COPYBOOK LIBRARIES (MQ AND CUSTOM)                                          
-//COBOL.SYSLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                      
-//               DD DISP=SHR,DSN=CSQ911.SCSQCOBC                                
+//COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
+//             DD DISP=SHR,DSN=CSQ911.SCSQCOBC                                  
 //* SOURCE PROGRAM                                                              
-//COBOL.SYSIN    DD DISP=SHR,DSN=CSQ911.SCSQCOBS(&GOPGM)                        
+//COBOL.SYSIN  DD DISP=SHR,DSN=CSQ911.SCSQCOBS(&GOPGM)                          
 //* COMPILE OUTPUT OBJECT                                                       
-//COBOL.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
+//COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
 //*--------------------------------------------------------------------*        
 //* STEP 2: LINK-EDIT WITH MQ STUBS AND LIBRARIES                               
 //*--------------------------------------------------------------------*        
-//BIND.SYSLIB    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                         
+//BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
 //* BINDER OBJECT LIBRARIES                                                     
-//BIND.SYSOBJ    DD DISP=SHR,DSN=CEE.SCEEOBJ                                    
-//               DD DISP=SHR,DSN=CSQ911.SCSQDEFS                                
+//BIND.SYSOBJ  DD DISP=SHR,DSN=CEE.SCEEOBJ                                      
+//             DD DISP=SHR,DSN=CSQ911.SCSQDEFS                                  
 //* LINK OBJECT + MQ STUB (CSQBSTUB)                                            
-//BIND.SYSLIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
-//               DD DISP=SHR,DSN=CSQ911.SCSQLOAD(CSQBSTUB)                      
+//BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
+//             DD DISP=SHR,DSN=CSQ911.SCSQLOAD(CSQBSTUB)                        
 //* LOAD MODULE OUTPUT                                                          
-//BIND.SYSLMOD   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                 
+//BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   
 //*--------------------------------------------------------------------*        
-//* End of MQ COBOL Compile and Bind Job                                        
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

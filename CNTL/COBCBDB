@@ -47,33 +47,33 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: COMPILE COBOL PROGRAM WITH DB2 SUPPORT                              
 //*--------------------------------------------------------------------*        
-//COMPILE  EXEC IGYQCB,                                                         
-//             LNGPRFX=IGY640,               * COBOL V6.4.0 libraries           
-//             LIBPRF1=CEE,                  * Language Environment             
-//             CPARM='SQL,TEST',             * Enable DB2 precompiler           
-//             BPARM='DYNAM=NO',             * Disable dynamic loading          
-//             GOPGM=ERIS                    * Program name                     
+//COMPILE EXEC IGYQCB,                                                          
+//             LNGPRFX=IGY640,                                                  
+//             LIBPRF1=CEE,                                                     
+//             CPARM='SQL,TEST',                                                
+//             BPARM='DYNAM=NO',                                                
+//             GOPGM=ERIS                                                       
 //* DB2 AND COBOL LIBRARIES FOR COMPILE                                         
-//COBOL.STEPLIB  DD DISP=SHR,DSN=DSND10.DBCG.SDSNEXIT                           
-//               DD DISP=SHR,DSN=DSND10.SDSNLOAD                                
-//COBOL.SYSLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                      
-//COBOL.SYSIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)               
-//COBOL.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
-//COBOL.DBRMLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.DBRMLIB(&GOPGM)              
+//COBOL.STEPLIB DD DISP=SHR,DSN=DSND10.DBCG.SDSNEXIT                            
+//              DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
+//COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                       
+//COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                
+//COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
+//COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.DBRMLIB(&GOPGM)               
 //*--------------------------------------------------------------------*        
 //* STEP 2: LINK-EDIT (PROGRAM BIND)                                            
 //*--------------------------------------------------------------------*        
-//BIND.SYSLIB    DD DISP=SHR,DSN=DSND10.SDSNLOAD                                
-//               DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                         
-//BIND.SYSLIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)               
-//BIND.SYSLMOD   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                 
+//BIND.SYSLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
+//              DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                          
+//BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
+//BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                  
 //*--------------------------------------------------------------------*        
 //* STEP 3: DB2 PACKAGE AND PLAN BIND                                           
 //*--------------------------------------------------------------------*        
-//DB2BIND  EXEC PGM=IKJEFT01                                                    
-//STEPLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                                     
-//SYSTSPRT  DD SYSOUT=*                                                         
-//SYSTSIN   DD *                                                                
+//DB2BIND EXEC PGM=IKJEFT01                                                     
+//STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
   DSN SYSTEM(DBCG)                                                              
   BIND PACKAGE(BENCOLLECTION) MEMBER(ERIS) +                                    
        LIBRARY('IBMUSER.GIT.COBOL.DBRMLIB') +                                   
@@ -84,5 +84,5 @@
   END                                                                           
 /*                                                                              
 //*--------------------------------------------------------------------*        
-//* End of DB2 COBOL Build Job                                                  
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

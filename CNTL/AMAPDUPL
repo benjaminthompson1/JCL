@@ -2,33 +2,38 @@
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //*--------------------------------------------------------------------*        
-//*  JOB NAME   : PDUU UPLOAD                                                   
+//*  JOB NAME   : VSAM STAFF DATASET CREATION                                   
 //*                                                                             
 //*  FUNCTION   :                                                               
-//*    - Upload problem documentation securely to IBM's ECuRep server.          
+//*    - Create and populate a VSAM KSDS for ODBC Call RPC demo.                
 //*                                                                             
 //*  AUTHOR     : BMT                                                           
 //*  DATE       : 27/04/2025                                                    
 //*                                                                             
 //*  DESCRIPTION :                                                              
-//*    This job uses IBM's Problem Documentation Upload Utility (PDUU)          
-//*    to send diagnostic files to the Electronic Customer Upload               
-//*    Repository (ECuRep) over HTTPS. It performs the following actions:       
+//*    Defines a VSAM Key-Sequenced Data Set (KSDS) and loads it                
+//*    with sample staff data. Performs the following:                          
 //*                                                                             
-//*    - Establishes a secure connection to the ECuRep server.                  
-//*    - Uploads specified problem documentation files.                         
-//*    - Associates uploads with a specified PMR/Case number.                   
-//*    - Captures debug output for troubleshooting if needed.                   
+//*    - Deletes existing 'prefix.STAFF.VSAM' dataset.                          
+//*    - Defines a new KSDS cluster with fixed attributes.                      
+//*    - Loads sample records from a PDS member.                                
 //*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Valid PMR or Case number.                                              
-//*    - Network connectivity to ECuRep servers.                                
-//*    - Correct SSL/TLS certificate and keyring configuration.                 
+//*  DATASETS :                                                                 
+//*    - VSAM KSDS     : IBMUSER.STAFF.VSAM                                     
+//*    - Input Member  : DVM110.SAVZSAMP(AVZSTFVS)                              
+//*                                                                             
+//*  TECHNICAL SPECIFICATIONS :                                                 
+//*    - Record size       : 80 bytes (fixed)                                   
+//*    - Key length        : 2 bytes at offset 0                                
+//*    - Allocation        : 1 cyl primary, 1 cyl secondary                     
+//*    - CI size           : 512 bytes                                          
+//*    - Freespace         : 10% per CI and CA                                  
+//*    - Share options     : (2,3) cross-system sharing                         
 //*                                                                             
 //*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update USERID and PASSWORD fields.                                     
-//*    - Modify input dataset (SYSUT1) if necessary.                            
-//*    - Verify and adjust CASE number, WORK_SIZE, and HTTPS_KEYRING.           
+//*    - Update HLQ from IBMUSER if needed.                                     
+//*    - Update DVM110 prefix as per your environment.                          
+//*    - Adjust VOL=SER (currently A3USR4) if needed.                           
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
@@ -75,5 +80,5 @@
   HTTPS_VERBOSE=Y                                                               
 /*                                                                              
 //*--------------------------------------------------------------------*        
-//* End of PDUU Upload Job                                                      
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        

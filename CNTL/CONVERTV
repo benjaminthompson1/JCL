@@ -1,11 +1,27 @@
 //IUCONVER JOB  (FB3),'SMS CONVERTV',CLASS=A,MSGCLASS=H,                        
 //       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: CONVERT EXISTING VOLUMES TO SMS                         *          
-//*                                                                  *          
-//********************************************************************          
-//STEP1  EXEC PGM=ADRDSSU,REGION=0M                                             
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMS CONVERTV                                                  
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*              - Convert a non-SMS managed DASD volume                        
+//*                to SMS-managed format                                        
+//*              - Enable use of SMS storage class for allocations              
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 26/06/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*              - Ensure the volume is online and not in use                   
+//*              - Requires DFSMSdss (ADRDSSU) utility installed                
+//*              - Modify VOL=SER=USER0A for the target volume                  
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    26/06/2025   BMT       Initial version                                   
+//*--------------------------------------------------------------------*        
+//STEP1 EXEC PGM=ADRDSSU,REGION=0M                                              
 //SYSPRINT DD SYSOUT=*                                                          
 //INVOL1   DD VOL=SER=USER0A,UNIT=3390,DISP=SHR                                 
 //SYSIN    DD *                                                                 
@@ -13,3 +29,6 @@
   DDNAME(INVOL1) -                                                              
   SMS                                                                           
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                         *        
+//*--------------------------------------------------------------------*        

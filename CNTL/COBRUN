@@ -34,9 +34,9 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: EXECUTE COBOL PROGRAM                                               
 //*--------------------------------------------------------------------*        
-//COBOL    EXEC PGM=HELLOW                                                      
-//STEPLIB  DD   DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                             
-//SYSPRINT DD   SYSOUT=*                                                        
+//COBOL EXEC PGM=HELLOW                                                         
+//STEPLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
+//SYSPRINT DD SYSOUT=*                                                          
 //*--------------------------------------------------------------------*        
-//* End of COBOL Execution Job                                                  
+//* End of Job                                                                  
 //*--------------------------------------------------------------------*        
