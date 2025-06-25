@@ -1,62 +1,102 @@
 //IURFNJB JOB (FB3),'RFNJOBH',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: pull service from IBM and RECEIVE to the GLOBAL ZONE    *          
-//*                                                                  *          
-//* NOTES:                                                           *          
-//* 1) #globalzone  - SMP/E GLOBAL ZONE NAME                         *          
-//* 2) TRANSFERONLY - DOES NOT RECEIVE                               *          
-//*                                                                  *          
-//********************************************************************          
-//SMPER1  EXEC PGM=GIMSMP,REGION=0M,                                            
-//             PARM='PROCESS=WAIT'                                              
-//SMPCSI   DD  DISP=SHR,DSN=#globalzone                                         
-//SMPNTS   DD  PATHDISP=KEEP,                                                   
-//             PATH='/u/smpe/smpnts/'                                           
-//*SYSUT1   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
-//*SYSUT2   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
-//*SYSUT3   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
-//*SYSUT4   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
-//SMPOUT   DD  SYSOUT=*                                                         
-//SMPRPT   DD  SYSOUT=*                                                         
-//SMPLIST  DD  SYSOUT=*                                                         
-//SYSPRINT DD  SYSOUT=*                                                         
-//SMPCNTL  DD  *                                                                
-  SET      BOUNDARY (GLOBAL) .                                                  
-  RECEIVE                                                                       
-        FROMNETWORK(                                                            
-          SERVER(SERVINFO)                                                      
-     /*   TRANSFERONLY                   <=== NOTE 2 */                         
-          CLIENT(CLNTINFO)                                                      
-          )                                                                     
-           .                                                                    
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMP/E RECEIVE FROMNETWORK                                     
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Pull IBM service content directly from the IBM-hosted server           
+//*      and RECEIVE it into the SMP/E global zone.                             
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 26/06/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job uses the SMP/E RECEIVE command with the FROMNETWORK             
+//*    clause to download a service package from IBM's service delivery         
+//*    infrastructure into the local SMP/E global zone.                         
+//*                                                                             
+//*    The RECEIVE step can optionally perform only the file transfer           
+//*    by uncommenting `TRANSFERONLY`, which skips the RECEIVE processing.      
+//*                                                                             
+//*    The job expects the following:                                           
+//*      - Global zone CSI:    #globalzone (update to match your system)        
+//*      - SMPNTS path:        /u/smpe/smpnts/                                  
+//*      - Java 11 environment configured for HTTPS downloads                   
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - Valid IBM service credentials and package information                  
+//*    - Java 11 installed and accessible at specified path                     
+//*    - SMP/E setup with internet access and secure certificates               
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Replace `#globalzone` with your actual CSI dataset                     
+//*    - Confirm Java path and certificate trust store                          
+//*    - Adjust package info if reusing this for a different order              
+//*                                                                             
+//*  SECURITY NOTE :                                                            
+//*    - Avoid hardcoding credentials in shared libraries or panels             
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    26/06/2025   BMT         Initial version                                 
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: SMP/E RECEIVE FROMNETWORK                                           
+//*--------------------------------------------------------------------*        
+//SMPER1   EXEC PGM=GIMSMP,REGION=0M,                                           
+//              PARM='PROCESS=WAIT'                                             
+//* GLOBAL ZONE CSI                                                             
+//SMPCSI   DD   DISP=SHR,DSN=#globalzone                                        
+//* SMPNTS DIRECTORY                                                            
+//SMPNTS   DD   PATHDISP=KEEP,                                                  
+//              PATH='/u/smpe/smpnts/'                                          
+//* SMP/E TEMP DATASETS (OPTIONAL)                                              
+//*SYSUT1  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
+//*SYSUT2  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
+//*SYSUT3  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
+//*SYSUT4  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
+//* REPORT OUTPUTS                                                              
+//SMPOUT   DD   SYSOUT=*                                                        
+//SMPRPT   DD   SYSOUT=*                                                        
+//SMPLIST  DD   SYSOUT=*                                                        
+//SYSPRINT DD   SYSOUT=*                                                        
+//* SMP/E COMMANDS                                                              
+//SMPCNTL  DD   *                                                               
+  SET      BOUNDARY(GLOBAL) .                                                   
+  RECEIVE  FROMNETWORK(                                                         
+             SERVER(SERVINFO)                                                   
+/*           TRANSFERONLY             * Uncomment to skip RECEIVE */            
+             CLIENT(CLNTINFO)                                                   
+           ) .                                                                  
 /*                                                                              
-//*                                                                             
-//* The information provided in the SERVINFO DD has                             
-//* been customized for your order.  Please do not                              
-//* alter this information.                                                     
-//*                                                                             
-//SERVINFO DD *                                                                 
+//*--------------------------------------------------------------------*        
+//* SERVER DEFINITION (SERVICE PACKAGE INFO)  DO NOT MODIFY                    
+//*--------------------------------------------------------------------*        
+//SERVINFO DD   *                                                               
   <SERVER                                                                       
     host="deliverycb-bld.dhe.ibm.com"                                           
     user="S608988z"                                                             
-    pw="c282282D315066c"                                                        
-    >                                                                           
+    pw="c282282D315066c">                                                       
     <PACKAGE                                                                    
       file="2021080860340/PROD/GIMPAF.XML"                                      
       hash="6E41C54D873854FCFFF94450C37465FBEE9A8581"                           
-      id="U02294531"                                                            
-      >                                                                         
+      id="U02294531">                                                           
     </PACKAGE>                                                                  
   </SERVER>                                                                     
 /*                                                                              
-//*                                                                             
-//CLNTINFO DD *                                                                 
-<CLIENT                                                                         
-javahome="/usr/lpp/java/J11.0_64"                                               
-downloadmethod="https"                                                          
-downloadkeyring="javatruststore">                                               
-</CLIENT>                                                                       
+//*--------------------------------------------------------------------*        
+//* CLIENT ENVIRONMENT (JAVA PATH AND SECURITY)                                 
+//*--------------------------------------------------------------------*        
+//CLNTINFO DD   *                                                               
+  <CLIENT                                                                       
+    javahome="/usr/lpp/java/J11.0_64"                                           
+    downloadmethod="https"                                                      
+    downloadkeyring="javatruststore">                                           
+  </CLIENT>                                                                     
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job  SMP/E RECEIVE FROMNETWORK                                      
+//*--------------------------------------------------------------------*        
+                                                                                

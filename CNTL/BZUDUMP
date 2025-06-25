@@ -1,11 +1,40 @@
-//IUVTPDP JOB (FB3),'VTP PLAYBACK',CLASS=A,MSGCLASS=H,                          
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//IUVTPDP  JOB (FB3),'VTP PLAYBACK',CLASS=A,MSGCLASS=H,                         
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                   
+//*       TYPRUN=HOLD                                                           
 //********************************************************************          
-//* PURPOSE: Formats and displays contents of VTP recorded playback  *          
-//*          files using the BZUPLAY formatting utility              *          
+//*  JOB NAME   : VTP PLAYBACK FORMATTING                            *          
+//*                                                                  *          
+//*  PURPOSE    :                                                    *          
+//*    Format and display the contents of a recorded VTP playback    *          
+//*    file using the BZUPLAY utility. This provides a readable      *          
+//*    dump of captured VTP activity for review or diagnostics.      *          
+//*                                                                  *          
+//*  PROCESS    :                                                    *          
+//*    - Executes BZUPLAY with PARM='RUN=BZUDCP' to interpret        *          
+//*      and format the playback dataset.                            *          
+//*                                                                  *          
+//*  INPUT      :                                                    *          
+//*    - DSN: IBMUSER.VTP.TOURFILE.PLAY                              *          
+//*                                                                  *          
+//*  OUTPUT     :                                                    *          
+//*    - Formatted playback output sent to SYSOUT.                   *          
+//*                                                                  *          
+//*  REQUIREMENTS :                                                  *          
+//*    - Ensure STEPLIB points to the correct VTP load library.      *          
+//*                                                                  *          
+//*  AUTHOR     : BMT                                                *          
+//*  DATE       : 26/06/2025                                         *          
+//*                                                                  *          
+//*  CHANGE LOG :                                                    *          
+//*    DD/MM/YYYY   Author     Description                           *          
+//*    ------------ ---------- ------------------------------------- *          
+//*    26/06/2025   BMT        Initial version                       *          
 //********************************************************************          
-//VTPDUMP EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                    
-//STEPLIB DD DISP=SHR,DSN=VTP201.SBZULOAD                                       
-//BZUPLAY DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.PLAY                             
-//BZUMSG  DD SYSOUT=*                                                           
+//VTPDUMP  EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                   
+//STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULOAD       * VTP Load Library             
+//BZUPLAY  DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.PLAY  * Playback File           
+//BZUMSG   DD SYSOUT=*                            * Formatted Output            
+//********************************************************************          
+//* END OF JOB  VTP PLAYBACK FORMATTING                             *          
+//********************************************************************          
+                                                                                

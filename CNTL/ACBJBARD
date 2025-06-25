@@ -39,7 +39,8 @@
 //*--------------------------------------------------------------------*        
 //ALCISPFL EXEC PGM=IEFBR14                                                     
 //ISPFILE  DD  DSN=IBMUSER.DATASET.REPORT,DISP=(NEW,CATLG),                     
-//             BLKSIZE=0,SPACE=(TRK,(3,1)),RECFM=FBA,LRECL=133,UNIT=SYSDA       
+//             BLKSIZE=0,SPACE=(TRK,(3,1)),RECFM=FBA,                           
+//             LRECL=133,UNIT=SYSDA                                             
 //SYSPRINT DD  SYSOUT=*                                                         
 //SYSIN    DD  *                                                                
 /*                                                                              
