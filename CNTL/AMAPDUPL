@@ -38,28 +38,28 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: EXECUTE PDUU TO UPLOAD FILES                                        
 //*--------------------------------------------------------------------*        
-//HTTPS    EXEC PGM=AMAPDUPL                                                    
-//SYSUDUMP DD  SYSOUT=*                                                         
-//SYSPRINT DD  SYSOUT=*                                                         
+//HTTPS EXEC PGM=AMAPDUPL                                                       
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
 //*--------------------------------------------------------------------*        
 //* STEP 2: DEFINE DEBUG OUTPUT DATASET                                         
 //*--------------------------------------------------------------------*        
-//DEBUG    DD  DSN=IBMUSER.AMAPDUPL.DEBUG,DISP=(,CATLG),                        
-//             UNIT=SYSALLDA,SPACE=(CYL,(1,1),RLSE)                             
+//DEBUG    DD DSN=IBMUSER.AMAPDUPL.DEBUG,DISP=(,CATLG),                         
+//            UNIT=SYSALLDA,SPACE=(CYL,(1,1),RLSE)                              
 //*--------------------------------------------------------------------*        
 //* STEP 3: CEEOPTIONS FOR MEMORY MANAGEMENT                                    
 //*--------------------------------------------------------------------*        
-//CEEOPTS  DD  *                                                                
+//CEEOPTS  DD *                                                                 
   HEAP(32768,32768,ANYWHERE,FREE,8192,4096)                                     
 /*                                                                              
 //*--------------------------------------------------------------------*        
 //* STEP 4: INPUT DATASET CONTAINING PROBLEM DOCUMENTATION                      
 //*--------------------------------------------------------------------*        
-//SYSUT1   DD  DISP=SHR,DSN=IBMUSER.SYSLOG.OUTPUTD                              
+//SYSUT1   DD DISP=SHR,DSN=IBMUSER.SYSLOG.OUTPUTD                               
 //*--------------------------------------------------------------------*        
 //* STEP 5: PRIMARY CONTROL PARAMETERS FOR UPLOAD                               
 //*--------------------------------------------------------------------*        
-//SYSIN    DD  *                                                                
+//SYSIN    DD *                                                                 
   USERID=E-WMJ0IhNnks                                                           
   PASSWORD=rRTg-l36n-dCqS-t3E1-LN6p                                             
   TARGET_SYS=www.ecurep.ibm.com                                                 

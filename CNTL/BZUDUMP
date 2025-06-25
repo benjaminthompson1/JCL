@@ -31,10 +31,11 @@
 //*    26/06/2025   BMT        Initial version                       *          
 //********************************************************************          
 //VTPDUMP  EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                   
-//STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULOAD       * VTP Load Library             
-//BZUPLAY  DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.PLAY  * Playback File           
-//BZUMSG   DD SYSOUT=*                            * Formatted Output            
+//STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULOAD                                      
+//* Playback file                                                               
+//BZUPLAY  DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.PLAY                            
+//* Formatted Output                                                            
+//BZUMSG   DD SYSOUT=*                                                          
 //********************************************************************          
-//* END OF JOB  VTP PLAYBACK FORMATTING                             *          
+//* END OF JOB - VTP PLAYBACK FORMATTING                             *          
 //********************************************************************          
-                                                                                

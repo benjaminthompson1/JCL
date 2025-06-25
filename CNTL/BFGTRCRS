@@ -33,9 +33,9 @@
 //* Load the MQ MFT commands library                                            
 //SYSEXEC  DD DSN=ADV930.SBFGCMDS.CSQ9FTEA,DISP=SHR                             
 //* Output DD statements for command execution                                  
-//SYSTSPRT DD SYSOUT=*         * TSO command processor messages                 
-//STDOUT   DD SYSOUT=*         * Standard output messages                       
-//STDERR   DD SYSOUT=*         * Error messages                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
 //* Command input - Create XML transfer definition                              
 //SYSTSIN  DD *                                                                 
  %BFGCMD CMD=fteCreateTransfer +                                                

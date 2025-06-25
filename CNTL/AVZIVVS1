@@ -19,7 +19,7 @@
 //*                                                                             
 //*  STEPS :                                                                    
 //*    1. DMFEXTR1 - Extracts STAFFVS map from the VSAM dataset.                
-//*    2. REAAVZAM - Selects records to verify map access and functionality.    
+//*    2. REAAVZAM - Selects records to verify map access.                      
 //*                                                                             
 //*  MAP PARAMETERS :                                                           
 //*    - Map Name : STAFFVS                                                     
@@ -29,7 +29,7 @@
 //*                                                                             
 //*  CUSTOMIZATION REQUIRED :                                                   
 //*    - Update high-level qualifier for VSAM file (currently IBMUSER).         
-//*    - Update load, REXX, and sample library DSNs in the SET statements.      
+//*    - Update load, REXX, and samp DSN in the SET statement.                  
 //*    - Confirm SSID parameter matches your system (currently AVZS).           
 //*                                                                             
 //*  CHANGE LOG :                                                               

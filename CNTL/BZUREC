@@ -38,7 +38,7 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: RECORD I/O ACTIVITY USING TOURFILE                                  
 //*--------------------------------------------------------------------*        
-//VTPREC   EXEC  PGM=TOURFILE                                                   
+//VTPREC EXEC PGM=TOURFILE                                                      
 //* VTP AND APPLICATION LOAD LIBRARIES                                          
 //STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULLEP                                      
 //         DD DISP=SHR,DSN=VTP201.SBZULOAD                                      
@@ -55,6 +55,5 @@
 //* OUTPUT TARGET (SIMULATED I/O RESULTS)                                       
 //OUTFILE  DD SYSOUT=*                                                          
 //*--------------------------------------------------------------------*        
-//* End of Job  VTP I/O Recording                                              
+//* End of Job - VTP I/O Recording                                              
 //*--------------------------------------------------------------------*        
-                                                                                

@@ -45,36 +45,36 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: SMP/E RECEIVE FROMNETWORK                                           
 //*--------------------------------------------------------------------*        
-//SMPER1   EXEC PGM=GIMSMP,REGION=0M,                                           
+//SMPER1 EXEC PGM=GIMSMP,REGION=0M,                                             
 //              PARM='PROCESS=WAIT'                                             
 //* GLOBAL ZONE CSI                                                             
-//SMPCSI   DD   DISP=SHR,DSN=#globalzone                                        
+//SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
 //* SMPNTS DIRECTORY                                                            
-//SMPNTS   DD   PATHDISP=KEEP,                                                  
-//              PATH='/u/smpe/smpnts/'                                          
+//SMPNTS   DD PATHDISP=KEEP,                                                    
+//            PATH='/u/smpe/smpnts/'                                            
 //* SMP/E TEMP DATASETS (OPTIONAL)                                              
 //*SYSUT1  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
 //*SYSUT2  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
 //*SYSUT3  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
 //*SYSUT4  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
 //* REPORT OUTPUTS                                                              
-//SMPOUT   DD   SYSOUT=*                                                        
-//SMPRPT   DD   SYSOUT=*                                                        
-//SMPLIST  DD   SYSOUT=*                                                        
-//SYSPRINT DD   SYSOUT=*                                                        
+//SMPOUT   DD SYSOUT=*                                                          
+//SMPRPT   DD SYSOUT=*                                                          
+//SMPLIST  DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
 //* SMP/E COMMANDS                                                              
-//SMPCNTL  DD   *                                                               
+//SMPCNTL  DD *                                                                 
   SET      BOUNDARY(GLOBAL) .                                                   
   RECEIVE  FROMNETWORK(                                                         
              SERVER(SERVINFO)                                                   
-/*           TRANSFERONLY             * Uncomment to skip RECEIVE */            
+          /* TRANSFERONLY * Uncomment to skip RECEIVE */                        
              CLIENT(CLNTINFO)                                                   
            ) .                                                                  
 /*                                                                              
 //*--------------------------------------------------------------------*        
-//* SERVER DEFINITION (SERVICE PACKAGE INFO)  DO NOT MODIFY                    
+//* SERVER DEFINITION (SERVICE PACKAGE INFO)                                    
 //*--------------------------------------------------------------------*        
-//SERVINFO DD   *                                                               
+//SERVINFO DD *                                                                 
   <SERVER                                                                       
     host="deliverycb-bld.dhe.ibm.com"                                           
     user="S608988z"                                                             
@@ -89,7 +89,7 @@
 //*--------------------------------------------------------------------*        
 //* CLIENT ENVIRONMENT (JAVA PATH AND SECURITY)                                 
 //*--------------------------------------------------------------------*        
-//CLNTINFO DD   *                                                               
+//CLNTINFO DD *                                                                 
   <CLIENT                                                                       
     javahome="/usr/lpp/java/J11.0_64"                                           
     downloadmethod="https"                                                      
@@ -97,6 +97,5 @@
   </CLIENT>                                                                     
 /*                                                                              
 //*--------------------------------------------------------------------*        
-//* End of Job  SMP/E RECEIVE FROMNETWORK                                      
+//* End of Job SMP/E RECEIVE FROMNETWORK                                        
 //*--------------------------------------------------------------------*        
-                                                                                

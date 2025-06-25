@@ -44,9 +44,9 @@
 //* STEP 1: DEFINE AND LOAD VSAM STAFF DATASET                                  
 //*--------------------------------------------------------------------*        
 //DEFSTAFF EXEC PGM=IDCAMS                                                      
-//SYSPRINT DD  SYSOUT=*                                                         
-//SYSIN    DD  *                                                                
-  DELETE           'IBMUSER.STAFF.VSAM'                                         
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  DELETE 'IBMUSER.STAFF.VSAM'                                                   
   SET MAXCC = 0                                                                 
   DEFINE CLUSTER ( NAME('IBMUSER.STAFF.VSAM') -                                 
                    VOL(A3USR4) -                                                
