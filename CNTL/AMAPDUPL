@@ -46,24 +46,16 @@
 //HTTPS EXEC PGM=AMAPDUPL                                                       
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
-//*--------------------------------------------------------------------*        
-//* STEP 2: DEFINE DEBUG OUTPUT DATASET                                         
-//*--------------------------------------------------------------------*        
+//* DEFINE DEBUG OUTPUT DATASET                                                 
 //DEBUG    DD DSN=IBMUSER.AMAPDUPL.DEBUG,DISP=(,CATLG),                         
 //            UNIT=SYSALLDA,SPACE=(CYL,(1,1),RLSE)                              
-//*--------------------------------------------------------------------*        
-//* STEP 3: CEEOPTIONS FOR MEMORY MANAGEMENT                                    
-//*--------------------------------------------------------------------*        
+//* CEEOPTIONS FOR MEMORY MANAGEMENT                                            
 //CEEOPTS  DD *                                                                 
   HEAP(32768,32768,ANYWHERE,FREE,8192,4096)                                     
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 4: INPUT DATASET CONTAINING PROBLEM DOCUMENTATION                      
-//*--------------------------------------------------------------------*        
+//* INPUT DATASET CONTAINING PROBLEM DOCUMENTATION                              
 //SYSUT1   DD DISP=SHR,DSN=IBMUSER.SYSLOG.OUTPUTD                               
-//*--------------------------------------------------------------------*        
-//* STEP 5: PRIMARY CONTROL PARAMETERS FOR UPLOAD                               
-//*--------------------------------------------------------------------*        
+//* PRIMARY CONTROL PARAMETERS FOR UPLOAD                                       
 //SYSIN    DD *                                                                 
   USERID=E-WMJ0IhNnks                                                           
   PASSWORD=rRTg-l36n-dCqS-t3E1-LN6p                                             

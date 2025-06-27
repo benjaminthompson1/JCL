@@ -10,7 +10,6 @@ AMBLIST   - Display info on load and object modules
 AVZGNSTF  - DVM Create the sample VSAM file                                     
 AVZIVVS1  - DVM IVP                                                             
                                                                                 
-BFGTRCRS  - MQ FTE fteCreateTransfer                                            
 BPXBATCH  - Issue OMVS commands using BPXBATCH                                  
 BPXCLEAN  - Delete files from ZFS older than 4 days                             
 BPXPARM   - STDPARM DD for BPXBATCH                                             

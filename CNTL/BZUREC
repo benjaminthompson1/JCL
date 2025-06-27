@@ -45,8 +45,8 @@
 //         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
 //* VTP PLAYBACK OUTPUT DATASET                                                 
 //BZUPLAY  DD DISP=(NEW,CATLG),DSN=IBMUSER.VTP.TOURFILE.PLAY,                   
-//            SPACE=(TRK,(1,1)),UNIT=SYSDA,                                     
-//            DCB=(BLKSIZE=32760,LRECL=32756,RECFM=VB)                          
+//           SPACE=(TRK,(1,1)),UNIT=SYSDA,                                      
+//           DCB=(BLKSIZE=32760,LRECL=32756,RECFM=VB)                           
 //* LOG AND DIAGNOSTIC MESSAGES                                                 
 //SYSPRINT DD SYSOUT=*                                                          
 //BZUMSG   DD SYSOUT=*                                                          
@@ -57,4 +57,3 @@
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
 //*--------------------------------------------------------------------*        
-                                                                                

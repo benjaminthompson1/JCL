@@ -2,7 +2,7 @@
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //*--------------------------------------------------------------------*        
-//*  JOB NAME   : CICS CSD UPDATE  ZOFFICE APPLICATION                         
+//*  JOB NAME   : CICS CSD UPDATE - ZOFFICE APPLICATION                         
 //*                                                                             
 //*  FUNCTION   :                                                               
 //*    - Define all required resources for the ZOFFICE sample                   

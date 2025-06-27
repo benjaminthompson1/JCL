@@ -2,7 +2,7 @@
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //*--------------------------------------------------------------------*        
-//*  JOB NAME   : DB2 COBOL COMPILEBINDEXECUTE (CBG)                          
+//*  JOB NAME   : DB2 COBOL COMPILE - BIND - EXECUTE (CBG)                      
 //*                                                                             
 //*  FUNCTION   :                                                               
 //*    - Compile a DB2-enabled COBOL program                                    

@@ -1,18 +1,35 @@
 //IUSMPAP JOB (FB3),'SMPE APPLY',CLASS=A,MSGCLASS=H,                            
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMP/E APPLY                                                   
 //*                                                                             
-//* PURPOSE: SMP/E APPLY                                                        
+//*  FUNCTION   :                                                               
+//*              - Apply installed service from the SMP/E global zone           
+//*              - Run in CHECK mode with default bypass options                
 //*                                                                             
-//* NOTES:                                                                      
-//* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
-//* 2) #target     - SMP/E TARGET ZONE NAME                                     
-//* 3) #smplogdsn  - SMPLOG DATASET NAME - OPTIONAL                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 27/06/2025                                                    
 //*                                                                             
-//********************************************************************          
-//APPLY  EXEC PGM=GIMSMP,REGION=0M,TIME=NOLIMIT                                 
+//*  NOTES      :                                                               
+//*              - Uses the APPLY CHECK function to simulate APPLY              
+//*              - Can optionally direct SMPLOG to a dataset                    
+//*              - Expected inputs:                                             
+//*                  - CSI: #globalzone                                         
+//*                  - Target zone: #target                                     
+//*                  - Optional SMPLOG dataset: #smplogdsn                      
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    27/06/2025   BMT         Initial version                                 
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: SMP/E APPLY CHECK                                                   
+//*--------------------------------------------------------------------*        
+//APPLY    EXEC PGM=GIMSMP,REGION=0M,TIME=NOLIMIT                               
 //SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
+//* SMP/E TEMP DATASETS (OPTIONAL)                                              
 //*SYSUT1   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
 //*SYSUT2   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
 //*SYSUT3   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
@@ -22,16 +39,24 @@
 //*SMPWRK3  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
 //*SMPWRK4  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
 //*SMPWRK6  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
+//* REPORT OUTPUT                                                               
 //SMPLOG   DD SYSOUT=*                                                          
+//* Optional dataset log output                                                 
 //*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
- SET BDY(#target) .                                                             
-   APPLY CHECK                                                                  
-   BYPASS(HOLDSYS)                                                              
-   GROUPEXTEND                                                                  
-   COMPRESS(ALL) .                                                              
+  SET      BDY(#target) .                                                       
+  APPLY    CHECK                                                                
+           BYPASS(HOLDSYS)                                                      
+           GROUPEXTEND                                                          
+           COMPRESS(ALL) .                                                      
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
 //                                                                              
+//*--------------------------------------------------------------------*        
+//* SOURCE ID AND SYSMOD SELECTION                                              
+//*--------------------------------------------------------------------*        
    S (UI64830,UI64837,UI64839)                                                  
    SOURCEID(FIX29)                                                              
