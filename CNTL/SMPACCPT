@@ -1,32 +1,64 @@
 //IUSMPAC JOB (FB3),'SMPE ACCEPT',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMP/E ACCEPT                                                  
 //*                                                                             
-//* PURPOSE: SMP/E ACCEPT                                                       
+//*  FUNCTION   :                                                               
+//*              - Accept SYSMODs into the DLIB zone                            
+//*              - Perform a CHECK of the ACCEPT process                        
 //*                                                                             
-//* NOTES:                                                                      
-//* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
-//* 2) #dlib       - SMP/E DLIB ZONE NAME                                       
-//* 3) #smplogdsn  - SMPLOG DATASET NAME - OPTIONAL                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 09/07/2025                                                    
 //*                                                                             
-//********************************************************************          
-//ACCEPT EXEC PGM=GIMSMP,REGION=0M,TIME=NOLIMIT                                 
+//*  NOTES      :                                                               
+//*              - Operates on the specified DLIB zone                          
+//*              - Assumes a valid SMP/E environment                            
+//*              - BYPASS(HOLDSYS) will skip system hold checks                 
+//*              - SMPLOG DD can be SYSOUT or a dataset                         
+//*              - Expected inputs:                                             
+//*                  - CSI: #globalzone                                         
+//*                  - DLIB zone: #dlib                                         
+//*                  - Optional SMPLOG dataset: #smplogdsn                      
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    09/07/2025   BMT         Initial version                                 
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: SMP/E ACCEPT                                                        
+//*--------------------------------------------------------------------*        
+//ACCEPT   EXEC PGM=GIMSMP,REGION=0M,TIME=NOLIMIT                               
+//* GLOBAL ZONE CSI                                                             
 //SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
-//*SYSUT1   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
-//*SYSUT2   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
-//*SYSUT3   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
-//*SYSUT4   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//* SMP/E TEMP DATASETS (OPTIONAL)                                              
+//*SYSUT1  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
+//*SYSUT2  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
+//*SYSUT3  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
+//*SYSUT4  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
+//* SMP/E LOGGING                                                               
 //SMPLOG   DD SYSOUT=*                                                          
-//*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
+//*SMPLOG  DD DSN=#smplogdsn,DISP=MOD                                           
+//* SMP/E COMMAND OUTPUT                                                        
 //SYSPRINT DD SYSOUT=*                                                          
+//* SMP/E COMMANDS                                                              
 //SMPCNTL  DD *                                                                 
- SET BDY(#dlib) .                                                               
-   ACCEPT CHECK                                                                 
-   BYPASS(HOLDSYS)                                                              
-   GROUPEXTEND                                                                  
-   COMPRESS(ALL) .                                                              
+  SET      BDY(#dlib) .                                                         
+  ACCEPT   CHECK                                                                
+           BYPASS(HOLDSYS)                                                      
+           GROUPEXTEND                                                          
+           COMPRESS(ALL) .                                                      
 /*                                                                              
-//                                                                              
-   S (UI64830,UI64837,UI64839)                                                  
-   SOURCEID(FIX29)                                                              
+//*--------------------------------------------------------------------*        
+//* OPTIONALLY ACCEPT SPECIFIC SYSMODs BY SOURCEID                              
+//*--------------------------------------------------------------------*        
+//* NOTE: Uncomment below to accept only selected SYSMODs                       
+//*       with a specific SOURCEID (e.g., FIX29)                                
+//*                                                                             
+//*   S (UI64830,UI64837,UI64839)                                               
+//*   SOURCEID(FIX29)                                                           
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
+                                                                                

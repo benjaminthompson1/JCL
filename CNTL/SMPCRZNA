@@ -1,51 +1,59 @@
-//IUSMPCA JOB (FB3),'CREATE ZONE',CLASS=A,MSGCLASS=H,                           
+//IUSMPCA JOB (FB3),'CREATE ZONE A',CLASS=A,MSGCLASS=H,                         
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//*                                                                   *         
-//* PURPOSE: SMP/E CREATE GLOBAL ZONE                                 *         
-//*                                                                   *         
-//* NOTES:                                                            *         
-//* 1) THIS JOB IS OPTIONAL. EXECUTE THIS JOB ONLY IF YOU ARE         *         
-//*    DEFINING A NEW SMP/E CSI DATA SET FOR THE INSTALLATION         *         
-//*    OF THIS PRODUCT.                                               *         
-//* 2) CHANGE THE JOB CARD TO MEET YOUR SYSTEM'S REQUIREMENTS.        *         
-//* 3) CHANGE SMPE.CYG.V3R1M0.GLOBAL.CSI TO THE DATA SET NAME OF YOUR *         
-//*    GLOBAL CSI DATA SET.                                           *         
-//* 4) CHANGE USER0A TO THE VOLSER FOR THE VOLUME CONTAINING          *         
-//*    YOUR GLOBAL CSI DATA SET.                                      *         
-//* 5) SYSALLDA IS THE DEFAULT UNIT IDENTIFICATION.                   *         
-//*    CHANGE THIS, IF REQUIRED, TO THE APPROPRIATE                   *         
-//*    UNIT IDENTIFICATION.                                           *         
-//*                                                                   *         
-//*********************************************************************         
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMP/E CREATE GLOBAL ZONE                                      
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*              - Allocate a new VSAM dataset for the SMP/E Global CSI         
+//*              - Optionally prime the CSI with standard content               
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 09/07/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*              - Run this job only when creating a new SMP/E CSI              
+//*              - Update dataset name as required                              
+//*              - Change VOLSER and UNIT for your environment                  
+//*              - SYSALLDA is the default unit, adjust if necessary            
+//*              - Optional second step copies initial content from             
+//*                SYS1.MACLIB(GIMZPOOL) to the new CSI                         
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    09/07/2025   BMT         Initial version                                 
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: DEFINE SMP/E GLOBAL CSI                                             
+//*--------------------------------------------------------------------*        
 //DEFINE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //CSIVOL   DD UNIT=SYSALLDA,                                                    
 //            VOL=SER=C3USR4,                                                   
 //            DISP=SHR                                                          
 //SYSIN    DD *                                                                 
-      DEFINE CLUSTER                       -                                    
-             (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI) -                                
-              FREESPACE(10,5)              -                                    
-              KEYS(24 0)                   -                                    
-              RECORDSIZE(24 143)           -                                    
-              SHAREOPTIONS(2 3)            -                                    
-              UNIQUE                       -                                    
-              VOLUMES(C3USR4)              -                                    
-             )                             -                                    
-          DATA                             -                                    
-             (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI.DATA) -                           
-              CONTROLINTERVALSIZE(8192)    -                                    
-              CYLINDERS(25 5)              -                                    
-             )                             -                                    
-          INDEX                            -                                    
-             (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI.INDEX) -                          
-              CONTROLINTERVALSIZE(4096)    -                                    
-              CYLINDERS(10 2)              -                                    
-              IMBED                        -                                    
-             )                                                                  
+  DEFINE CLUSTER                          -                                     
+         (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI) -                                    
+          FREESPACE(10,5)                 -                                     
+          KEYS(24 0)                      -                                     
+          RECORDSIZE(24 143)             -                                      
+          SHAREOPTIONS(2 3)              -                                      
+          UNIQUE                          -                                     
+          VOLUMES(C3USR4)                ) -                                    
+      DATA                                -                                     
+         (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI.DATA) -                               
+          CONTROLINTERVALSIZE(8192)      -                                      
+          CYLINDERS(25 5)                ) -                                    
+      INDEX                               -                                     
+         (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI.INDEX) -                              
+          CONTROLINTERVALSIZE(4096)      -                                      
+          CYLINDERS(10 2)                -                                      
+          IMBED                          )                                      
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 2 (OPTIONAL): PRIME NEW CSI FROM GIMZPOOL                              
+//*--------------------------------------------------------------------*        
 //PRIMEIT  EXEC PGM=IDCAMS,COND=(9,LT)                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCSI   DD DSN=SMPE.CYG.V3R1M0.GLOBAL.CSI,                                   
@@ -53,5 +61,9 @@
 //ZPOOL    DD DSN=SYS1.MACLIB(GIMZPOOL),                                        
 //            DISP=SHR                                                          
 //SYSIN    DD *                                                                 
-      REPRO OUTFILE(SMPCSI) INFILE(ZPOOL)                                       
+  REPRO OUTFILE(SMPCSI) INFILE(ZPOOL)                                           
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
+                                                                                

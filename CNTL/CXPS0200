@@ -1,0 +1,43 @@
+//IUCX200 JOB (FB3),'CXPS0200',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//* PID 5698-J01                                                      *         
+//* COPYRIGHT TERACLOUD APS 2022, 2024                                *         
+//*********************************************************************         
+//* Run JCL Expert on a single PDS member.                            *         
+//*********************************************************************         
+//* Add job statement parameters, and configure the SET statements    *         
+//*  1.  CXPHLQ should point to the HLQ of the product install.       *         
+//*  2.  CXPPATH should point to the zFS product install location.    *         
+//*  3.  JCLMEMB should point to the JCL member that will be scanned. *         
+//*  4.  (optional) If CEE.SCEERUN is not in your LINKLST or LPA then *         
+//*        modify the STEPLIB accordingly.                            *         
+//*********************************************************************         
+//*                                                                             
+//         SET CXPHLQ=JCL.V2R1M0                                                
+//         SET CXPPATH='/global/jclexpert'                                      
+//         SET JCLMEMB=JCL.V2R1M0.S0W1.SCXPSAMP(CXPS0202)                       
+//*                                                                             
+//JCLXPERT EXEC PGM=CXPJCLB,PARM='/OUTPUT=TEXT'                                 
+//*                                                                             
+//* Program lives here...                                                       
+//*                                                                             
+//STEPLIB  DD DSN=&CXPHLQ..SCXPLOAD,DISP=SHR                                    
+//*                                                                             
+//* Set the zFS home installation directory...                                  
+//*                                                                             
+//CXPHOME  DD PATH='&CXPPATH',PATHOPTS=ORDONLY                                  
+//*                                                                             
+//* Scan the target PDS member                                                  
+//*                                                                             
+//INDD     DD DSN=&JCLMEMB,DISP=SHR                                             
+//*                                                                             
+//* Output to this jobs spool                                                   
+//*                                                                             
+//SYSPRINT DD SYSOUT=*                                                          
+//*                                                                             
+//CEEOPTS  DD *                                                                 
+  POSIX(ON)                                                                     
+/*                                                                              
+//                                                                              
