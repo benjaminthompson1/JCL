@@ -1,77 +1,110 @@
 //IULOGP1 JOB (FB3),'CSQLOGP1',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE:  MQ - PRINT LOG UTILITY - EXTRACT INFORMATION           *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CSQLOGP1 - MQ LOG PRINT UTILITY                               
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Runs the IBM MQ utility CSQ1LOGP to extract log data                   
+//*    - Reads archive logs and outputs categorized datasets                    
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job analyzes IBM MQ archive logs and extracts transaction           
+//*    data into categorized output files. You can optionally filter            
+//*    by RBA range, URID, or data contents.                                    
+//*                                                                             
+//*    Environment details:                                                     
+//*      - MQ archive log: CSQARC1.CSQ9.A0000019                                
+//*      - Load libraries: CSQ911.SCSQLOAD, SCSQANLE                            
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - Ensure archive log DSNs are available and not in use                   
+//*    - Output datasets must not already exist unless REUSE is added           
+//*    - Optionally uncomment and configure RBA/PAGESET/URID filters            
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Replace ARCHIVE DD with your actual log dataset                        
+//*    - Adjust output dataset HLQs and space settings as required              
+//*    - Uncomment and tune SYSIN filtering parameters if needed                
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP: RUN MQ LOG PRINT UTILITY                                              
+//*--------------------------------------------------------------------*        
 //PRTLOG   EXEC PGM=CSQ1LOGP                                                    
-//STEPLIB  DD  DISP=SHR,DSN=CSQ911.SCSQANLE                                     
-//         DD  DISP=SHR,DSN=CSQ911.SCSQLOAD                                     
-//*-------------------------------------------------------------------          
-//* ARCHIVE LOG DATASET(S)                                                      
-//*-------------------------------------------------------------------          
-//ARCHIVE DD  DISP=SHR,                                                         
-//            DSN=CSQARC1.CSQ9.A0000019                                         
-//*                                                                             
-//*-------------------------------------------------------------------          
-//* BSDS DATASET(S)                                                             
-//*-------------------------------------------------------------------          
-//*BSDS    DD  DISP=SHR,DSN=#MQHLQ.BSDS01                                       
-//*                                                                             
-//*-------------------------------------------------------------------          
-//* EXTRACT (OUTPUT) DATASETS                                                   
-//*-------------------------------------------------------------------          
-//CSQBACK  DD  DSN=IBMUSER.CSQ9.BACKOUT.DATASET,                                
+//STEPLIB  DD DISP=SHR,DSN=CSQ911.SCSQANLE                                      
+//         DD DISP=SHR,DSN=CSQ911.SCSQLOAD                                      
+//*--------------------------------------------------------------------*        
+//* INPUT: ARCHIVE LOG DATASET                                                  
+//*--------------------------------------------------------------------*        
+//ARCHIVE  DD DISP=SHR,DSN=CSQARC1.CSQ9.A0000019                                
+//*--------------------------------------------------------------------*        
+//* OPTIONAL: BSDS DATASET (REQUIRED FOR PAGESET FILTERING)                     
+//*--------------------------------------------------------------------*        
+//*BSDS     DD DISP=SHR,DSN=#MQHLQ.BSDS01                                       
+//*--------------------------------------------------------------------*        
+//* OUTPUT: EXTRACTED LOG RECORD DATASETS                                       
+//*--------------------------------------------------------------------*        
+//CSQBACK  DD DSN=IBMUSER.CSQ9.BACKOUT.DATASET,                                 
 //            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
 //            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
 //            SPACE=(CYL,(1,10,0))                                              
-//CSQCMT   DD  DSN=IBMUSER.CSQ9.COMMIT.DATASET,                                 
+//CSQCMT   DD DSN=IBMUSER.CSQ9.COMMIT.DATASET,                                  
 //            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
 //            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
 //            SPACE=(CYL,(1,10,0))                                              
-//CSQBOTH  DD  DSN=IBMUSER.CSQ9.BOTH.DATASET,                                   
+//CSQBOTH  DD DSN=IBMUSER.CSQ9.BOTH.DATASET,                                    
 //            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
 //            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
 //            SPACE=(CYL,(1,10,0))                                              
-//CSQINFLT DD  DSN=IBMUSER.CSQ9.INFLIGHT.DATASET,                               
+//CSQINFLT DD DSN=IBMUSER.CSQ9.INFLIGHT.DATASET,                                
 //            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
 //            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
 //            SPACE=(CYL,(1,10,0))                                              
-//CSQOBJS  DD  DSN=IBMUSER.CSQ9.OBJECTS.DATASET,                                
+//CSQOBJS  DD DSN=IBMUSER.CSQ9.OBJECTS.DATASET,                                 
 //            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
 //            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
 //            SPACE=(CYL,(1,10,0))                                              
-//*                                                                             
-//*-------------------------------------------------------------------          
-//SYSPRINT DD DUMMY                                                             
-//SYSSUMRY DD DUMMY                                                             
+//*--------------------------------------------------------------------*        
+//* OUTPUT: REPORTS                                                             
+//*--------------------------------------------------------------------*        
 //SYSPRINT DD SYSOUT=*,LRECL=131                                                
 //SYSSUMRY DD SYSOUT=*,LRECL=131                                                
+//*--------------------------------------------------------------------*        
+//* CONTROL PARAMETERS                                                          
+//*--------------------------------------------------------------------*        
 //SYSIN    DD *                                                                 
-* SUMMARY REPORT ALSO (DEFAULT IS NO SUMMARY REPORT)                            
+* Include summary report                                                        
  SUMMARY(YES)                                                                   
                                                                                 
-* EXTRACT LOG RECORDS TO DATASET(S) IN DD STATEMENTS                            
+* Extract log records to datasets                                               
  EXTRACT(YES)                                                                   
                                                                                 
-* ONLY LOG RECORDS FOR THESE PAGESET(S)                                         
-* //BSDS IS REQUIRED IF PAGESET IS SPECIFIED                                    
-* RBASTART IS REQUIRED IF PAGESET IS SPECIFIED                                  
-* I HAVENT BEEN ABLE TO GET THIS PARM WORKING                                   
+* Filter options (optional, uncomment to use):                                  
+* - PAGESET(xx)   : Only for specific pagesets (requires BSDS + RBA)            
+* - RBASTART(hex) : Start RBA filter                                            
+* - RBAEND(hex)   : End RBA filter                                              
+* - URID(hex)     : Only include a specific Unit-of-Work record                 
+* - DATA(hex)     : Search for data containing a hex string                     
+                                                                                
 *PAGESET(00)                                                                    
 *PAGESET(01)                                                                    
                                                                                 
-* ONLY RECORDS FROM THIS RBA                                                    
 *RBASTART(000000900000)                                                         
-* ONLY RECORDS TO THIS RBA                                                      
 *RBAEND(000000968FFF)                                                           
                                                                                 
-* ONLY THIS UOW RECORD ID (=LOG RBA OF BEGIN UR RECORD)                         
 *URID(000000000000)                                                             
                                                                                 
-* ONLY DATA CONTAINING THIS HEX STRING                                          
 *DATA(E7C2E3)                                                                   
 *     X B T                                                                     
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

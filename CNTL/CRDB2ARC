@@ -1,24 +1,62 @@
 //IUCOBOL JOB (FB3),'COBOL RUN',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: COBOL EXECUTE PROGRAM DB2                               *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : COBOL RUN                                                     
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Executes a DB2-enabled COBOL program                                   
+//*    - Uses TSO environment to invoke the program via IKJEFT01                
+//*    - Passes input parameters via DD IMMUN                                   
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job runs a precompiled and bound COBOL program                      
+//*    named DB2ARCH using the BENPLAN DB2 plan. It loads                       
+//*    the executable from the specified PDS library.                           
+//*                                                                             
+//*    Environment details:                                                     
+//*      - DB2 subsystem: DBCG                                                  
+//*      - Load library: 'IBMUSER.COBOL.LOAD'                                   
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - The COBOL program DB2ARCH must be compiled and bound                   
+//*    - PLAN BENPLAN must include this program/package                         
+//*    - Required load modules must be in STEPLIB datasets                      
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Adjust program name (DB2ARCH) and PLAN name if necessary               
+//*    - Modify IMMUN DD with appropriate runtime parameters                    
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP: EXECUTE COBOL PROGRAM UNDER DB2/TSO ENVIRONMENT                       
+//*--------------------------------------------------------------------*        
 //DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              
-//STEPLIB  DD  DISP=SHR,DSN=DSNC10.SDSNLOAD                                     
-//         DD  DISP=SHR,DSN=EQAE20.SEQAMOD                                      
-//SYSTSPRT DD  SYSOUT=*                                                         
-//SYSPRINT DD  SYSOUT=*                                                         
-//SYSUDUMP DD  SYSOUT=*                                                         
-//SYSTSIN  DD  *                                                                
+//STEPLIB  DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                      
+//         DD DISP=SHR,DSN=EQAE20.SEQAMOD                                       
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
   DSN SYSTEM(DBCG)                                                              
   RUN PROGRAM(DB2ARCH) PLAN(BENPLAN) LIBRARY('IBMUSER.COBOL.LOAD') +            
-    PARM('/TEST')                                                               
+      PARM('/TEST')                                                             
   END                                                                           
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* INPUT DATA FOR PROGRAM EXECUTION                                            
+//*--------------------------------------------------------------------*        
 //IMMUN    DD *                                                                 
 LD1235ABCDE2021-01-23                                                           
 SS1235                                                                          
 /*                                                                              
+/*---------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

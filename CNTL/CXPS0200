@@ -1,43 +1,54 @@
 //IUCX200 JOB (FB3),'CXPS0200',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//* PID 5698-J01                                                      *         
-//* COPYRIGHT TERACLOUD APS 2022, 2024                                *         
-//*********************************************************************         
-//* Run JCL Expert on a single PDS member.                            *         
-//*********************************************************************         
-//* Add job statement parameters, and configure the SET statements    *         
-//*  1.  CXPHLQ should point to the HLQ of the product install.       *         
-//*  2.  CXPPATH should point to the zFS product install location.    *         
-//*  3.  JCLMEMB should point to the JCL member that will be scanned. *         
-//*  4.  (optional) If CEE.SCEERUN is not in your LINKLST or LPA then *         
-//*        modify the STEPLIB accordingly.                            *         
-//*********************************************************************         
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CXPS0200 - RUN JCL EXPERT ON A SINGLE MEMBER                  
 //*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Executes Teracloud JCL Expert to scan one JCL member                   
+//*    - Produces a text-based compliance report to SYSOUT                      
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job runs the CXPJCLB program to analyze a JCL member                
+//*    using JCL Expert. Results are written to SYSPRINT in text form.          
+//*                                                                             
+//*    Required variables:                                                      
+//*      - CXPHLQ   : HLQ of JCL Expert install libraries                       
+//*      - CXPPATH  : zFS path to JCL Expert installation                       
+//*      - JCLMEMB  : Fully qualified PDS(member) to scan                       
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - JCL Expert must be installed and accessible                            
+//*    - If CEE.SCEERUN is not in the LNKLST, add it to STEPLIB                 
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* SET JCL VARIABLES                                                           
+//*--------------------------------------------------------------------*        
 //         SET CXPHLQ=JCL.V2R1M0                                                
 //         SET CXPPATH='/global/jclexpert'                                      
 //         SET JCLMEMB=JCL.V2R1M0.S0W1.SCXPSAMP(CXPS0202)                       
-//*                                                                             
+//*--------------------------------------------------------------------*        
+//* STEP: RUN JCL EXPERT                                                        
+//*--------------------------------------------------------------------*        
 //JCLXPERT EXEC PGM=CXPJCLB,PARM='/OUTPUT=TEXT'                                 
-//*                                                                             
-//* Program lives here...                                                       
-//*                                                                             
 //STEPLIB  DD DSN=&CXPHLQ..SCXPLOAD,DISP=SHR                                    
-//*                                                                             
-//* Set the zFS home installation directory...                                  
-//*                                                                             
 //CXPHOME  DD PATH='&CXPPATH',PATHOPTS=ORDONLY                                  
-//*                                                                             
-//* Scan the target PDS member                                                  
-//*                                                                             
+//*--------------------------------------------------------------------*        
+//* INPUT: TARGET JCL MEMBER TO SCAN                                            
+//*--------------------------------------------------------------------*        
 //INDD     DD DSN=&JCLMEMB,DISP=SHR                                             
-//*                                                                             
-//* Output to this jobs spool                                                   
-//*                                                                             
 //SYSPRINT DD SYSOUT=*                                                          
-//*                                                                             
 //CEEOPTS  DD *                                                                 
   POSIX(ON)                                                                     
 /*                                                                              
-//                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

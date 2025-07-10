@@ -1,50 +1,101 @@
 //IUCSQUT JOB (FB3),'CSQUTIL',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: COBOL COMPILE                                           *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CSQUTIL - MQSC COMMAND EXECUTION UTILITY                      
 //*                                                                             
-//* MAKEDEF DEFINE NOREPLACE, WITH ALL THE ATTRIBUTES                           
-//* AND VALUES RETURNED BY THE DISPLAY COMMANDS.                                
+//*  FUNCTION   :                                                               
+//*    - Executes IBM MQ commands via CSQUTIL                                   
+//*    - Supports CLEAR, DISPLAY, DEFINE, DELETE, ALTER, and MOVE               
 //*                                                                             
-//* MAKEDEL DELETE. FOR LOCAL QUEUES, NOPURGE IS USED.                          
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 10/07/2025                                                    
 //*                                                                             
-//* MAKEREP DEFINE REPLACE, WITH ANY KEYWORDS AND VALUES                        
-//* FROM THE DATA SET SPECIFIED BY THE DATA KEYWORD.                            
+//*  DESCRIPTION :                                                              
+//*    This job runs the MQ CSQUTIL utility to issue command sets               
+//*    against a queue manager (CSQ9). It can be used for viewing,              
+//*    modifying, or migrating MQ objects.                                      
 //*                                                                             
-//* MAKEALT ALTER, WITH ANY KEYWORDS AND VALUES FROM THE                        
-//* DATA SET SPECIFIED BY THE DATA KEYWORD.                                     
+//*    Example use cases include:                                               
+//*      - CLEAR queue                                                          
+//*      - DISPLAY attributes for all objects                                   
+//*      - MOVE queues between pagesets                                         
+//*      - Generate DEFINE statements for backup or replication                 
 //*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - Ensure MQ load libraries are available in STEPLIB                      
+//*    - Replace QUEUE, STGCLASS, or DATASET names as required                  
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Update queue names, filters, and target STGCLASS                       
+//*    - Uncomment OUTPUT1 and MAKEALT/MAKEDEF logic if needed                  
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP: EXECUTE MQSC COMMANDS VIA CSQUTIL                                     
+//*--------------------------------------------------------------------*        
 //CQSUTIL  EXEC PGM=CSQUTIL,PARM='CSQ9'                                         
 //STEPLIB  DD DISP=SHR,DSN=CSQ911.SCSQANLE                                      
 //SYSPRINT DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* OPTIONAL: GENERATE DEFINE/ALTER/REPLACE COMMANDS TO OUTPUT1                 
+//*--------------------------------------------------------------------*        
 //*OUTPUT1  DD DISP=(NEW,CATLG,DELETE),DSN=IBMUSER.USRDEF,                      
 //*            BLKSIZE=0,LRECL=80,RECFM=FB,SPACE=(CYL,(1,1))                    
-//*SYSIN    DD *                                                                
-//*   COMMAND DD(CMDINP) MAKEALT(OUTPUT1)                                       
-//SYSIN   DD *                                                                  
-     COMMAND                                                                    
-//CSQUCMD DD *                                                                  
+//*--------------------------------------------------------------------*        
+//* SYSIN CONTROLS WHICH COMMAND SET TO RUN                                     
+//*                                                                             
+//*  - SYSIN tells CSQUTIL which MQSC command set to execute.                   
+//*                                                                             
+//*  - To run a command set, use:                                               
+//*      SYSIN DD *                                                             
+//*        COMMAND                                                              
+//*      /*                                                                     
+//*                                                                             
+//*  - Then define the actual commands in a DD named:                           
+//*      CSQUCMD  - CLEAR queue example                                         
+//*      CMDINP   - DISPLAY objects                                             
+//*      ATTR     - DISPLAY with filters                                        
+//*      MOVEQ    - MOVE queues between pagesets                                
+//*                                                                             
+//*  - Only one command set can be run per job.                                 
+//*--------------------------------------------------------------------*        
+//SYSIN    DD *                                                                 
+  COMMAND                                                                       
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* COMMAND SET - DIRECT MQSC INSTRUCTIONS                                      
+//*--------------------------------------------------------------------*        
+//CSQUCMD  DD *                                                                 
   CLEAR QL(IBMUSER.TEST)                                                        
 /*                                                                              
-//                                                                              
-//CMDINP  DD *                                                                  
-     DISPLAY CHANNEL(*) ALL                                                     
+//*--------------------------------------------------------------------*        
+//* ALTERNATE COMMAND SET - DISPLAY QUEUE MANAGER STATE                         
+//*--------------------------------------------------------------------*        
+//CMDINP   DD *                                                                 
+  DISPLAY CHANNEL(*) ALL                                                        
+  DISPLAY QMGR ALL                                                              
+  DISPLAY STGCLASS(*) ALL                                                       
+  DISPLAY QUEUE(*) ALL                                                          
+  DISPLAY NAMELIST(*) ALL                                                       
+  DISPLAY PROCESS(*) ALL                                                        
+  DISPLAY CHANNEL(*) ALL                                                        
 /*                                                                              
-//                                                                              
-     DISPLAY QMGR ALL                                                           
-     DISPLAY STGCLASS(*) ALL                                                    
-     DISPLAY QUEUE(*) ALL                                                       
-     DISPLAY NAMELIST(*) ALL                                                    
-     DISPLAY PROCESS(*) ALL                                                     
-     DISPLAY CHANNEL(*) ALL                                                     
-//*                                                                             
-//* TO MOVE QUEUES AND THEIR MESSAGES FROM ONE PAGE SET TO ANOTHER              
-//*                                                                             
-//MOVEQ  DD    *                                                                
+//*--------------------------------------------------------------------*        
+//* DISPLAY EXAMPLES WITH FILTERS                                               
+//*--------------------------------------------------------------------*        
+//ATTR     DD *                                                                 
+  DISPLAY QL(*) QDEPTHHI WHERE(QDEPTHHI EQ 5)                                   
+  DISPLAY QUEUE(SYSTEM.*) WHERE (STGCLASS EQ SYSTEM)                            
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* MOVE QUEUE DATA TO ANOTHER PAGESET - REQUIRES TWO MOVES                     
+//*--------------------------------------------------------------------*        
+//MOVEQ    DD *                                                                 
   ALTER QL(QUEUE_TO_MOVE) PUT(DISABLED)                                         
   DELETE QL(TEMP_QUEUE) PURGE                                                   
   DEFINE QL(TEMP_QUEUE) LIKE(QUEUE_TO_MOVE) PUT(ENABLED) GET(ENABLED)           
@@ -54,11 +105,7 @@
   DEFINE QL(QUEUE_TO_MOVE) LIKE(TEMP_QUEUE) STGCLASS(NEW)                       
   MOVE QLOCAL(TEMP_QUEUE) TOQLOCAL(QUEUE_TO_MOVE)                               
   DELETE QL(TEMP_QUEUE)                                                         
-                                                                                
-//*                                                                             
-//* DISPLAY SELECT ATTRIBUTES                                                   
-//*                                                                             
-//ATTR   DD    *                                                                
-  DISPLAY QL(*) QDEPTHHI WHERE(QDEPTHHI EQ 5)                                   
-                                                                                
-  DISPLAY QUEUE(SYSTEM.*) WHERE (STGCLASS EQ SYSTEM)                            
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

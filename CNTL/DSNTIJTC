@@ -46,7 +46,7 @@
 //UTPRINT  DD   SYSOUT=*                                                        
 //SYSUDUMP DD   SYSOUT=*                                                        
 //SYSIN    DD  *                                                                
-   CATMAINT UPDATE LEVEL V13R1M505                                              
+   CATMAINT UPDATE LEVEL V13R1M506                                              
 //*                                                                             
 //*********************************************************************         
 //* PERFORM CLEAN UP AND GATHER ADDITIONAL DIAGNOSTICS IF THE                   

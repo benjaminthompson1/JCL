@@ -1,43 +1,70 @@
 //IULOGP2 JOB (FB3),'CSQLOGP2',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE:  MQ - PRINT LOG UTILITY - EXTRACT INFORMATION           *          
-//* JOB STEPS :                                                      *          
-//* =========                                                        *          
-//* PRTLOG     - EXTRACT COMMITED MESSAGE FROM ARCHIVE LOG           *          
-//* DFSORT     - EXTARCT ONLY SELECTED QUEUE                         *          
-//********************************************************************          
-//******************************************************************            
-//* PRINT LOG OF MQST ARCHIVE LOG                                               
-//******************************************************************            
-//PRTLOG   EXEC PGM=CSQ1LOGP                                                    
-//STEPLIB  DD  DISP=SHR,DSN=CSQ911.SCSQANLE                                     
-//         DD  DISP=SHR,DSN=CSQ911.SCSQLOAD                                     
-//*-------------------------------------------------------------------          
-//* ARCHIVE LOG DATASET(S)                                                      
-//*-------------------------------------------------------------------          
-//ARCHIVE DD  DISP=SHR,                                                         
-//            DSN=CSQARC1.CSQ9.A0000019                                         
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CSQLOGP2 - MQ LOG EXTRACT AND FILTER                          
 //*                                                                             
-//*-------------------------------------------------------------------          
-//* EXTRACT (OUTPUT) DATASETS                                                   
-//*-------------------------------------------------------------------          
-//CSQCMT   DD  DSN=&&TEMP,                                                      
+//*  FUNCTION   :                                                               
+//*    - Extract committed messages from MQ archive logs                        
+//*    - Filter messages for specific queue using DFSORT                        
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job uses CSQ1LOGP to extract log data from an MQ archive            
+//*    log dataset and writes committed messages to a temporary file.           
+//*    It then runs DFSORT to filter messages from queue                        
+//*    'IBMUSER.TEST' and writes them to a permanent dataset.                   
+//*                                                                             
+//*    Key filtering logic:                                                     
+//*      - INCLUDE COND=(112,12,CH,EQ,C'IBMUSER.TEST')                          
+//*      - OUTREC converts ASCII data to EBCDIC                                 
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - Archive log must exist and be accessible                               
+//*    - Ensure DFSORT is installed and available                               
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Update ARCHIVE and SORTOUT DSNs as needed                              
+//*    - Adjust queue name filter in DFSORT SYSIN                               
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: EXTRACT COMMITTED MESSAGES FROM MQ ARCHIVE LOG                      
+//*--------------------------------------------------------------------*        
+//PRTLOG   EXEC PGM=CSQ1LOGP                                                    
+//STEPLIB  DD DISP=SHR,DSN=CSQ911.SCSQANLE                                      
+//         DD DISP=SHR,DSN=CSQ911.SCSQLOAD                                      
+//*--------------------------------------------------------------------*        
+//* INPUT: MQ ARCHIVE LOG DATASET                                               
+//*--------------------------------------------------------------------*        
+//ARCHIVE  DD DISP=SHR,DSN=CSQARC1.CSQ9.A0000019                                
+//*--------------------------------------------------------------------*        
+//* OUTPUT: TEMP DATASET FOR COMMITTED MESSAGES                                 
+//*--------------------------------------------------------------------*        
+//CSQCMT   DD DSN=&&TEMP,                                                       
 //            DISP=(NEW,PASS),UNIT=SYSDA,                                       
 //            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
 //            SPACE=(CYL,(100,50,0))                                            
-//*-------------------------------------------------------------------          
-//SYSPRINT DD  DUMMY                                                            
-//SYSSUMRY DD  DUMMY                                                            
-//SYSIN    DD  *                                                                
-* EXTRACT LOG RECORDS TO DATASET(S) IN DD STATEMENTS                            
+//*--------------------------------------------------------------------*        
+//* SUPPRESS PRINTED OUTPUT                                                     
+//*--------------------------------------------------------------------*        
+//SYSPRINT DD DUMMY                                                             
+//SYSSUMRY DD DUMMY                                                             
+//*--------------------------------------------------------------------*        
+//* CONTROL PARAMETERS                                                          
+//*--------------------------------------------------------------------*        
+//SYSIN    DD *                                                                 
  EXTRACT(YES)                                                                   
 /*                                                                              
-//******************************************************************            
-//* DFSORT EXTRACT ONLY NEVDIS MESSAGE FROM NTG                                 
-//******************************************************************            
+//*--------------------------------------------------------------------*        
+//* STEP 2: DFSORT - FILTER FOR QUEUE 'IBMUSER.TEST' ONLY                       
+//*--------------------------------------------------------------------*        
 //DFSORT   EXEC PGM=SORT,COND=(0,NE)                                            
 //SORTIN   DD DISP=(OLD,DELETE),DSN=*.PRTLOG.CSQCMT                             
 //SORTOUT  DD DSN=XBT.INTRA.DATASET,                                            
@@ -49,7 +76,14 @@
 //SORTWK03 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(200,200))                
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSOUT   DD SYSOUT=*                                                          
-//SYSIN    DD   *                                                               
+//*--------------------------------------------------------------------*        
+//* DFSORT CONTROL STATEMENTS                                                   
+//*--------------------------------------------------------------------*        
+//SYSIN    DD *                                                                 
   SORT FIELDS=(4,21,CH,D)                                                       
   INCLUDE COND=(112,12,CH,EQ,C'IBMUSER.TEST')                                   
   OUTREC BUILD=(1,4,5,TRAN=ATOE)                                                
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

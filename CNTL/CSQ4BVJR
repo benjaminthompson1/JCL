@@ -1,82 +1,74 @@
 //IUBVJR JOB (FB3),'CSQ4BVJR',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//******************************************************************            
-//*                                                                *            
-//* <copyright                                                     *            
-//* notice="lm-source"                                             *            
-//* pids="5655-MQ9"                                                *            
-//* years="1993,2016"                                              *            
-//* crc="3187029640" >                                             *            
-//* Licensed Materials - Property of IBM                           *            
-//*                                                                *            
-//* 5655-MQ9                                                       *            
-//*                                                                *            
-//* (C) Copyright IBM Corp. 1993, 2016 All Rights Reserved.        *            
-//* </copyright>                                                   *            
-//******************************************************************            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CSQ4BVJR - MQ PUT/GET SAMPLE PROGRAMS                         
 //*                                                                             
-//* IBM MQ for z/OS                                                             
+//*  FUNCTION   :                                                               
+//*    - Executes CSQ4BVK1 to put messages on a queue                           
+//*    - Optionally executes CSQ4BVJ1 to get messages from a queue              
 //*                                                                             
-//* THIS JOB RUNS THE PUT/GET SAMPLE PROGRAMS, CSQ4BVK1/CSQ4BVJ1                
+//*  AUTHOR     : IBM (Customized by BMT)                                       
+//*  DATE       : 10/07/2025                                                    
 //*                                                                             
-//*  PROGRAM CSQ4BVK1 ISSUES MQPUT ON A QUEUE.                                  
-//*   - FIRST PARM  (++QMGR++)  QUEUE MANAGER NAME                              
-//*   - SECOND PARM (++QUEUE++) QUEUE NAME                                      
-//*   - THIRD PARM  (++MSGS++)  THE NUMBER OF MESSAGES TO PUT-(9999)            
-//*   - FOURTH PARM (++PAD++)   THE PADDING CHARACTER                           
-//*   - FIFTH PARM  (++LEN++)   THE LENGTH OF EACH MESSAGE-(9999)               
-//*   - SIXTH PARM  (++PERS++)  (P)ERSISTENT/(N)ON PERSISTENT MESSAGES          
-//*  MESSAGES ARE PRINTED TO DD SYSPRINT                                        
+//*  DESCRIPTION :                                                              
+//*    This job demonstrates IBM MQ message put/get functions using             
+//*    the CSQ4BVK1 and CSQ4BVJ1 sample programs.                               
 //*                                                                             
-//*  PROGRAM CSQ4BVJ1 ISSUES MQGET ON A QUEUE.                                  
-//*   (EXEC and PARM statements are commented out as shipped)                   
+//*    CSQ4BVK1 Parameters:                                                     
+//*      - QMGR   : Queue Manager name (e.g. CSQ9)                              
+//*      - QUEUE  : Queue name (e.g. KMQ.ANSIBLE.TEST)                          
+//*      - MSGS   : Number of messages to put (e.g. 99)                         
+//*      - PAD    : Padding character (e.g. Z)                                  
+//*      - LEN    : Length of each message (e.g. 80)                            
+//*      - PERS   : P=Persistent, N=Non-persistent                              
 //*                                                                             
-//*   - FIRST PARM  (++QMGR++)  QUEUE MANAGER NAME                              
-//*   - SECOND PARM (++QUEUE++) QUEUE NAME                                      
-//*   - THIRD PARM  (++MSGS++)  THE NUMBER OF MESSAGES TO GET-(9999)            
-//*   - FOURTH PARM (++GET++)   GET TYPE-(B)ROWSE/(D)ESTRUCTIVE                 
-//*   - FIFTH PARM  (++SYNC++)  (S)YNCPOINT/(N)O SYNCPOINT                      
-//*  MESSAGES ARE PRINTED TO DD SYSPRINT                                        
-//*                                                                *            
-//******************************************************************            
-//* CUSTOMIZE THIS JCL HERE FOR YOUR INSTALLATION                               
-//* YOU MUST DO GLOBAL CHANGES ON THESE PARAMETERS USING YOUR EDITOR            
+//*    CSQ4BVJ1 Parameters (commented out):                                     
+//*      - QMGR   : Queue Manager name                                          
+//*      - QUEUE  : Queue name                                                  
+//*      - MSGS   : Number of messages to get                                   
+//*      - GET    : B=Browse, D=Destructive                                     
+//*      - SYNC   : S=Syncpoint, N=No syncpoint                                 
 //*                                                                             
-//*    Replace                                                                  
-//*    ++THLQUAL++         - The high level qualifier of the                    
-//*                          IBM MQ target library data sets.                   
-//*    ++LANGLETTER++      - The language suffix letter:                        
-//*                          - C - Simplified Chinese                           
-//*                          - E - US English (Mixed case)                      
-//*                          - F - French                                       
-//*                          - K - Japanese                                     
-//*                          - U - US English (Uppercase)                       
+//*  REQUIREMENTS :                                                             
+//*    - IBM MQ libraries defined in JOBLIB                                     
+//*    - LE SCEERUN must be in the LNKLST or JOBLIB                             
 //*                                                                             
-//* If you create your own CSQ4BVK1/CSQ4BVJ1 load modules, replace the          
-//* DD statement   //JOBLIB   DD DSN=++THLQUAL++.SCSQLOAD,DISP=SHR              
-//* with           //JOBLIB   DD DSN=++USERLIB++,DISP=SHR                       
-//* where ++USERLIB++ is the name of your load module library.                  
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Replace PARM values with local queue manager and queue                 
+//*    - Uncomment GETMSGS step if MQGET operation is required                  
+//*    - Adjust MSGS, PAD, LEN, PERS, GET, and SYNC as needed                   
 //*                                                                             
-//*  IT IS ASSUMED THAT THE LE RUNTIME LIBRARY, SCEERUN, IS IN THE              
-//*  LINK LIST.  IF IT IS NOT, THEN ADD IT TO THE JOBLIB CONCATENATION          
-//*  IN THIS JOB.                                                               
-//*                                                                             
-//*********************************************************************         
-//JOBLIB   DD   DSN=CSQ911.SCSQLOAD,DISP=SHR                                    
-//         DD   DSN=CSQ911.SCSQANLE,DISP=SHR                                    
-//         DD   DSN=CSQ911.SCSQAUTH,DISP=SHR                                    
-//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Customized MQ sample job                         
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP: DEFINE LIBRARIES FOR PROGRAM EXECUTION                                
+//*--------------------------------------------------------------------*        
+//JOBLIB   DD DSN=CSQ911.SCSQLOAD,DISP=SHR                                      
+//         DD DSN=CSQ911.SCSQANLE,DISP=SHR                                      
+//         DD DSN=CSQ911.SCSQAUTH,DISP=SHR                                      
+//*--------------------------------------------------------------------*        
+//* STEP: PUT MESSAGES TO MQ QUEUE USING CSQ4BVK1                               
+//*--------------------------------------------------------------------*        
 //PUTMSGS  EXEC PGM=CSQ4BVK1,REGION=1024K,                                      
-//  PARM=('CSQ9,KMQ.ANSIBLE.TEST,99,Z,80,P')                                    
-//*  PARM=('++QMGR++,++QUEUE++,++MSGS++,++PAD++,++LEN++,++PERS++')              
-//*                                                                             
+//        PARM=('CSQ9,KMQ.ANSIBLE.TEST,99,Z,80,P')                              
+//*       PARM=('++QMGR++,++QUEUE++,++MSGS++,++PAD++,++LEN++,++PERS++')         
+//*--------------------------------------------------------------------*        
+//* OPTIONAL STEP: GET MESSAGES FROM MQ QUEUE USING CSQ4BVJ1                    
+//*--------------------------------------------------------------------*        
 //*GETMSGS  EXEC PGM=CSQ4BVJ1,REGION=1024K,                                     
-//*  PARM=('CSQ9,KMQ.ANSIBLE.TEST,99,D,S')                                      
-//*  PARM=('++QMGR++,++QUEUE++,++MSGS++,++GET++,++SYNC++')                      
-//*                                                                             
-//SYSDBOUT DD   SYSOUT=*                                                        
-//SYSABOUT DD   SYSOUT=*                                                        
-//SYSPRINT DD   SYSOUT=*                                                        
-//SYSOUT   DD   SYSOUT=*                                                        
-//                                                                              
+//*       PARM=('CSQ9,KMQ.ANSIBLE.TEST,99,D,S')                                 
+//*       PARM=('++QMGR++,++QUEUE++,++MSGS++,++GET++,++SYNC++')                 
+//*--------------------------------------------------------------------*        
+//* OUTPUT AND DIAGNOSTIC MESSAGES                                              
+//*--------------------------------------------------------------------*        
+//SYSDBOUT DD SYSOUT=*                                                          
+//SYSABOUT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSOUT   DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

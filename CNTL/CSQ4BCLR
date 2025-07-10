@@ -1,58 +1,48 @@
 //IU4BCLR JOB (FB3),'CSQ4BCLR',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*CSQ4BCLR JOB                                                                 
-//******************************************************************            
-//*                                                                *            
-//* <copyright                                                     *            
-//* notice="lm-source"                                             *            
-//* pids="5655-MQ9"                                                *            
-//* years="1993,2016"                                              *            
-//* crc="2365888606" >                                             *            
-//* Licensed Materials - Property of IBM                           *            
-//*                                                                *            
-//* 5655-MQ9                                                       *            
-//*                                                                *            
-//* (C) Copyright IBM Corp. 1993, 2016 All Rights Reserved.        *            
-//* </copyright>                                                   *            
-//*                                                                *            
-//******************************************************************            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CSQ4BCLR - BROWSE MQ QUEUE SAMPLE                             
 //*                                                                             
-//* IBM MQ for z/OS                                                             
+//*  FUNCTION   :                                                               
+//*    - Executes the CSQ4BCL1 sample program to browse and print               
+//*      messages from an IBM MQ queue                                          
+//*    - Uses MQGET with browse option to read all messages                     
+//*    - Messages are written to SYSPRINT                                       
 //*                                                                             
-//* THIS JOB RUNS THE PRINT MESSAGES FROM QUEUE SAMPLE PROGRAM                  
+//*  AUTHOR     : IBM (Customized by BMT)                                       
+//*  DATE       : 10/07/2025                                                    
 //*                                                                             
-//*  PROGRAM CSQ4BCL1 ISSUES MQGET WITH BROWSE ON A QUEUE UNTIL                 
-//*  EMPTY.                                                                     
-//*   - FIRST PARM (++QMGR++) IS QUEUE MANAGER NAME                             
-//*   - SECOND PARM (++QUEUE++) IS QUEUE NAME                                   
-//*  MESSAGES ARE PRINTED TO DD SYSPRINT                                        
+//*  DESCRIPTION :                                                              
+//*    This job invokes the CSQ4BCL1 sample provided with IBM MQ                
+//*    for z/OS. It reads and prints all messages from a specified              
+//*    queue using browse mode without deleting them.                           
 //*                                                                             
-//******************************************************************            
-//* CUSTOMIZE THIS JOB HERE FOR YOUR INSTALLATION                               
-//* YOU MUST DO GLOBAL CHANGES ON THESE PARAMETERS USING YOUR EDITOR            
+//*    Execution Parameters:                                                    
+//*      - PARM=('CSQ9 IBMUSER.TEST')                                           
+//*        CSQ9         = Queue Manager name                                    
+//*        IBMUSER.TEST = Queue name                                            
 //*                                                                             
-//* Replace the following names with those for your installation                
-//*    ++THLQUAL++         - The high level qualifier of the                    
-//*                          IBM MQ target library data sets.                   
-//*    ++LANGLETTER++      - The language suffix letter:                        
-//*                          - C - Simplified Chinese                           
-//*                          - E - US English (Mixed case)                      
-//*                          - F - French                                       
-//*                          - K - Japanese                                     
-//*                          - U - US English (Uppercase)                       
+//*    Environment details:                                                     
+//*      - MQ load libraries must be available in STEPLIB                       
+//*      - LE SCEERUN must be in LNKLST or STEPLIB                              
 //*                                                                             
-//* If you create your own CSQ4BCL1 load module, replace the                    
-//* DD statement   //STEPLIB  DD DSN=++THLQUAL++.SCSQLOAD,DISP=SHR              
-//* with           //STEPLIB  DD DSN=++USERLIB++,DISP=SHR                       
-//* where ++USERLIB++ is the name of your load module library.                  
+//*  REQUIREMENTS :                                                             
+//*    - Replace queue manager and queue names as needed                        
+//*    - Update STEPLIB datasets for your environment                           
 //*                                                                             
-//*  IT IS ASSUMED THAT THE LE RUNTIME LIBRARY, SCEERUN, IS IN THE              
-//*  LINK LIST.  IF IT IS NOT, THEN ADD IT TO THE STEPLIB CONCATENATION         
-//*  IN THIS JOB.                                                               
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Replace CSQ9 and IBMUSER.TEST with valid names                         
+//*    - Adjust HLQ (e.g., CSQ911) in STEPLIB for your MQ install               
 //*                                                                             
-//*********************************************************************         
-//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Customized IBM sample for local use              
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP: EXECUTE CSQ4BCL1 TO BROWSE AND PRINT QUEUE MESSAGES                   
+//*--------------------------------------------------------------------*        
 //READQ    EXEC PGM=CSQ4BCL1,REGION=1024K,                                      
 //             PARM=('CSQ9 IBMUSER.TEST')                                       
 //STEPLIB  DD DSN=CSQ911.SCSQLOAD,DISP=SHR                                      
@@ -61,4 +51,6 @@
 //STDOUT   DD SYSOUT=*                                                          
 //STDERR   DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
-//                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
