@@ -1,14 +1,26 @@
 //IUBIND JOB (FB3),'DB2 BIND',CLASS=A,MSGCLASS=H,                     JOB09516  
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: DB2 BIND PLAN AND PACKAGE                               *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : DB2 BIND - BIND DB2 PACKAGE AND PLAN                          
 //*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Bind a compiled DBRM into a DB2 package                                
+//*    - Bind the package into a plan for execution                             
+//*    - Grant execute permissions on the package                               
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: BIND DB2 PACKAGE                                                    
+//*--------------------------------------------------------------------*        
 //BINDPKG  EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
-//* BIND PACKAGE                                                                
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
@@ -16,20 +28,22 @@
 //SYSTSIN  DD *                                                                 
   DSN SYSTEM(DBDG)                                                              
   BIND PACKAGE(BENCOLL) -                                                       
-    MEMBER(EPSCMORT) -                                                          
-    ACTION(REPLACE) -                                                           
-    LIB('IBMUSER.DBB.DBRM') -                                                   
-    OWNER(IBMUSER) -                                                            
-    QUALIFIER(IBMUSER) -                                                        
-    ISOLATION(CS) -                                                             
-    RELEASE(COMMIT) -                                                           
-    EXPLAIN(NO) -                                                               
-    FLAG(I) -                                                                   
-    VALIDATE(BIND)                                                              
+       MEMBER(EPSCMORT) -                                                       
+       ACTION(REPLACE) -                                                        
+       LIB('IBMUSER.DBB.DBRM') -                                                
+       OWNER(IBMUSER) -                                                         
+       QUALIFIER(IBMUSER) -                                                     
+       ISOLATION(CS) -                                                          
+       RELEASE(COMMIT) -                                                        
+       EXPLAIN(NO) -                                                            
+       FLAG(I) -                                                                
+       VALIDATE(BIND)                                                           
   END                                                                           
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 2: BIND DB2 PLAN                                                       
+//*--------------------------------------------------------------------*        
 //BINDPLAN EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
-//* BIND PLAN                                                                   
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
@@ -37,16 +51,18 @@
 //SYSTSIN  DD *                                                                 
   DSN SYSTEM(DBDG)                                                              
   BIND PLAN(BENPLAN) -                                                          
-    PKLIST(BENCOLL.EPSCMORT) -                                                  
-    ACTION(REPLACE) -                                                           
-    OWNER(IBMUSER) -                                                            
-    ISOLATION(CS) -                                                             
-    RELEASE(COMMIT) -                                                           
-    VALIDATE(BIND)                                                              
+       PKLIST(BENCOLL.EPSCMORT) -                                               
+       ACTION(REPLACE) -                                                        
+       OWNER(IBMUSER) -                                                         
+       ISOLATION(CS) -                                                          
+       RELEASE(COMMIT) -                                                        
+       VALIDATE(BIND)                                                           
   END                                                                           
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 3: GRANT EXECUTE PERMISSION TO PUBLIC                                  
+//*--------------------------------------------------------------------*        
 //GRANTPKG EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
-//* GRANT EXECUTE PERMISSIONS                                                   
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
@@ -54,4 +70,8 @@
 //SYSTSIN  DD *                                                                 
   DSN SYSTEM(DBDG)                                                              
   GRANT EXECUTE ON PACKAGE BENCOLL.EPSCMORT TO PUBLIC;                          
+  END                                                                           
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

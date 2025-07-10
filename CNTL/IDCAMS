@@ -9,7 +9,7 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   LISTCAT -                                                                     
-  ENTRIES(DSNC10.DBCG.SDSNEXIT) -                                               
+  ENTRIES(DSND10.DBCG.SDSNEXIT) -                                               
   ALL                                                                           
 /*                                                                              
 //                                                                              

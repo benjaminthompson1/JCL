@@ -1,21 +1,39 @@
 //IUREST JOB (FB3),'DSNREST',CLASS=A,MSGCLASS=H,                       JOB08034 
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: Creating and enabling Db2 native REST services for ZCEE *          
-//*                                                                  *          
-//********************************************************************          
-//FREE1 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : DB2 REST BIND - EMPLOYEE SERVICE DEPLOYMENT                   
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Frees existing REST services                                           
+//*    - Binds SQL statements to Db2 native REST services                       
+//*    - Services target table IBMUSER.EMP                                      
+//*                                                                             
+//*  AUTHOR     : NA (formatted by BMT)                                         
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//* STEP 1: FREE 'employeeList' SERVICE                                         
+//*--------------------------------------------------------------------*        
+//FREE1    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
 //         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSTSIN  DD *                                                                 
-DSN SYSTEM(DBDG)                                                                
-FREE SERVICE("zCEEService"."employeeList")                                      
-//BIND1 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+  DSN SYSTEM(DBDG)                                                              
+  FREE SERVICE("EmployeeService"."employeeList")                                
+  END                                                                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 2: BIND 'employeeList' SERVICE                                         
+//*--------------------------------------------------------------------*        
+//BIND1    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
 //         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
 //SYSTSPRT DD SYSOUT=*                                                          
@@ -24,24 +42,34 @@ FREE SERVICE("zCEEService"."employeeList")
 //DSNSTMT  DD *                                                                 
   SELECT EMPNO AS "employeeNumber", FIRSTNME AS "firstName",                    
          LASTNAME AS "lastName", WORKDEPT AS "department"                       
-  FROM IBMUSER.EMP ORDER BY LASTNAME                                            
+  FROM IBMUSER.EMP                                                              
+  ORDER BY LASTNAME                                                             
 //SYSTSIN  DD *                                                                 
-DSN SYSTEM(DBDG)                                                                
-BIND SERVICE("zCEEService") -                                                   
-NAME("employeeList") -                                                          
-SQLENCODING(1047) -                                                             
-DESCRIPTION('Returns a list of employees')                                      
+  DSN SYSTEM(DBDG)                                                              
+  BIND SERVICE("EmployeeService") -                                             
+       NAME("employeeList") -                                                   
+       SQLENCODING(1047) -                                                      
+       DESCRIPTION('Returns a list of employees')                               
+  END                                                                           
 /*                                                                              
-//FREE2 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+//*--------------------------------------------------------------------*        
+//* STEP 3: FREE 'employeeDetails' SERVICE                                      
+//*--------------------------------------------------------------------*        
+//FREE2    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
 //         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSTSIN  DD *                                                                 
-DSN SYSTEM(DBDG)                                                                
-FREE SERVICE("zCEEService"."employeeDetails")                                   
-//BIND2 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+  DSN SYSTEM(DBDG)                                                              
+  FREE SERVICE("EmployeeService"."employeeDetails")                             
+  END                                                                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 4: BIND 'employeeDetails' SERVICE                                      
+//*--------------------------------------------------------------------*        
+//BIND2    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
 //         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
 //SYSTSPRT DD SYSOUT=*                                                          
@@ -51,24 +79,34 @@ FREE SERVICE("zCEEService"."employeeDetails")
   SELECT EMPNO AS "employeeNumber", FIRSTNME AS "firstName",                    
          LASTNAME AS "lastName", WORKDEPT AS "department",                      
          PHONENO AS "phoneNumber", HIREDATE AS "hireDate"                       
-  FROM IBMUSER.EMP WHERE EMPNO = :employeeNumber                                
+  FROM IBMUSER.EMP                                                              
+  WHERE EMPNO = :employeeNumber                                                 
 //SYSTSIN  DD *                                                                 
-DSN SYSTEM(DBDG)                                                                
-BIND SERVICE("zCEEService") -                                                   
-NAME("employeeDetails") -                                                       
-SQLENCODING(1047) -                                                             
-DESCRIPTION('Returns the details of an individual employee')                    
+  DSN SYSTEM(DBDG)                                                              
+  BIND SERVICE("EmployeeService") -                                             
+       NAME("employeeDetails") -                                                
+       SQLENCODING(1047) -                                                      
+       DESCRIPTION('Returns the details of an individual employee')             
+  END                                                                           
 /*                                                                              
-//FREE2 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+//*--------------------------------------------------------------------*        
+//* STEP 5: FREE 'employeeUpdate' SERVICE                                       
+//*--------------------------------------------------------------------*        
+//FREE3    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
 //         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSTSIN  DD *                                                                 
-DSN SYSTEM(DBDG)                                                                
-FREE SERVICE("zCEEService"."employeeUpdate")                                    
-//BIND2 EXEC PGM=IKJEFT01,DYNAMNBR=20                                           
+  DSN SYSTEM(DBDG)                                                              
+  FREE SERVICE("EmployeeService"."employeeUpdate")                              
+  END                                                                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 6: BIND 'employeeUpdate' SERVICE                                       
+//*--------------------------------------------------------------------*        
+//BIND3    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
 //         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
 //SYSTSPRT DD SYSOUT=*                                                          
@@ -76,13 +114,20 @@ FREE SERVICE("zCEEService"."employeeUpdate")
 //SYSUDUMP DD SYSOUT=*                                                          
 //DSNSTMT  DD *                                                                 
   UPDATE IBMUSER.EMP SET                                                        
-         FIRSTNME = :firstName, LASTNAME = :lastName,                           
-         WORKDEPT = :department, PHONENO = :phoneNumber,                        
-         HIREDATE = :hireDate WHERE EMPNO = :employeeNumber                     
+         FIRSTNME = :firstName,                                                 
+         LASTNAME = :lastName,                                                  
+         WORKDEPT = :department,                                                
+         PHONENO  = :phoneNumber,                                               
+         HIREDATE = :hireDate                                                   
+  WHERE EMPNO = :employeeNumber                                                 
 //SYSTSIN  DD *                                                                 
-DSN SYSTEM(DBDG)                                                                
-BIND SERVICE("zCEEService") -                                                   
-NAME("employeeUpdate") -                                                        
-SQLENCODING(1047) -                                                             
-DESCRIPTION('Updates the details of an individual employee')                    
+  DSN SYSTEM(DBDG)                                                              
+  BIND SERVICE("EmployeeService") -                                             
+       NAME("employeeUpdate") -                                                 
+       SQLENCODING(1047) -                                                      
+       DESCRIPTION('Updates the details of an individual employee')             
+  END                                                                           
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

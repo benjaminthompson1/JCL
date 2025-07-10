@@ -39,7 +39,7 @@
 //* STEP: EXECUTE COBOL PROGRAM UNDER DB2/TSO ENVIRONMENT                       
 //*--------------------------------------------------------------------*        
 //DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              
-//STEPLIB  DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                      
+//STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //         DD DISP=SHR,DSN=EQAE20.SEQAMOD                                       
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          

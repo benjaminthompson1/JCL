@@ -42,7 +42,7 @@
 //*--------------------------------------------------------------------*        
 //DB2RUN EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                                
 //* DB2, DEBUG, AND PROGRAM LIBRARIES                                           
-//STEPLIB  DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                      
+//STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //         DD DISP=SHR,DSN=EQAE20.SEQAMOD                                       
 //         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
 //* OUTPUT AND DUMP SUPPORT                                                     

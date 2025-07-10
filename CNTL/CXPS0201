@@ -1,0 +1,66 @@
+//IUCX201 JOB (FB3),'CXPS0201',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CXPS0201 - RUN JCL EXPERT ON ENTIRE PDS                       
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Executes Teracloud JCL Expert against all members of a PDS             
+//*    - Outputs compliance report to spool in plain text format                
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job scans a JCL library (PDS) using the CXPJCLB program.            
+//*    Each member is analyzed and results are written to SYSPRINT.             
+//*                                                                             
+//*    Required variables:                                                      
+//*      - CXPHLQ   : HLQ for JCL Expert libraries                              
+//*      - CXPPATH  : zFS path to JCL Expert base directory                     
+//*      - JCLPDS   : PDS containing JCL members to be scanned                  
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - JCL Expert must be installed correctly                                 
+//*    - If CEE.SCEERUN is not in LNKLST, add it to STEPLIB                     
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* SET JCL VARIABLES                                                           
+//*--------------------------------------------------------------------*        
+//         SET CXPHLQ=JCL.V2R1M0                                                
+//         SET CXPPATH='/global/jclexpert'                                      
+//         SET JCLPDS=IBMUSER.CNTL                                              
+//*--------------------------------------------------------------------*        
+//* STEP: RUN JCL EXPERT SCAN ACROSS ENTIRE LIBRARY                             
+//*--------------------------------------------------------------------*        
+//JCLXPERT EXEC PGM=CXPJCLB,PARM='/OUTPUT=TEXT'                                 
+//*--------------------------------------------------------------------*        
+//* LOAD MODULE LOCATION                                                        
+//*--------------------------------------------------------------------*        
+//STEPLIB  DD DSN=&CXPHLQ..SCXPLOAD,DISP=SHR                                    
+//*--------------------------------------------------------------------*        
+//* zFS INSTALLATION DIRECTORY                                                  
+//*--------------------------------------------------------------------*        
+//CXPHOME  DD PATH='&CXPPATH',PATHOPTS=ORDONLY                                  
+//*--------------------------------------------------------------------*        
+//* INPUT: JCL PDS TO BE SCANNED                                                
+//*--------------------------------------------------------------------*        
+//INDD     DD DSN=&JCLPDS,DISP=SHR                                              
+//*--------------------------------------------------------------------*        
+//* OUTPUT: RESULTS TO SYSOUT                                                   
+//*--------------------------------------------------------------------*        
+//SYSPRINT DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* REQUIRED FOR POSIX EXECUTION                                                
+//*--------------------------------------------------------------------*        
+//CEEOPTS  DD *                                                                 
+  POSIX(ON)                                                                     
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

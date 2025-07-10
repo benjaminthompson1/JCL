@@ -1,45 +1,23 @@
 //IUECNF JOB  (FB3),'DFH$ECNF',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
-//*********************************************************************         
-//*                                                                   *         
-//*                                                                   *         
-//*                                                                   *         
-//*     Licensed Materials - Property of IBM                          *         
-//*                                                                   *         
-//*     "Restricted Materials of IBM"                                 *         
-//*                                                                   *         
-//*     5655-Y04                                                      *         
-//*                                                                   *         
-//*     (C) Copyright IBM Corp. 2005, 2007"                           *         
-//*                                                                   *         
-//*                                                                   *         
-//*                                                                   *         
-//*                                                                   *         
-//* STATUS = 7.1.0                                                    *         
-//*                                                                   *         
-//* CHANGE ACTIVITY :                                                 *         
-//*          $MOD(DFH$ECNF),COMP(SAMPLES),PROD(CICS TS ):             *         
-//*                                                                   *         
-//*      PN= REASON REL YYMMDD HDXXIII : REMARKS                      *         
-//*     $D0= I07544 640 050124 HDIPCB  : ExampleApp Add sample JCL and*         
-//*     $D0= I07544 640 050114 HDIPCB  : Example App Cics Client      *         
-//*     $P0= D16161 650 061207 HDHCPC  : Fix typo in comments         *         
-//*     $P1= D13975 650 060301 HDIKTG  : Remove sequence numbers      *         
-//*     $P2= D17982 650 070412 HD3SCWG : Modify for use by DFHINST    *         
-//*                                                                   *         
-//*********************************************************************         
-//*********************************************************************         
-//*                                                                   *         
-//* JCL NAME = DFH$ECNF                                               *         
-//*                                                                   *         
-//* DESCRIPTIVE NAME = Web services example application               *         
-//*                                                                   *         
-//* FUNCTION =                                                        *         
-//*    This is sample JCL to build the configuration file required    *         
-//*    by the base application of the web services example            *         
-//*    application                                                    *         
-//*                                                                   *         
-//*********************************************************************         
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : DFH$ECNF - BUILD CONFIGURATION FILE FOR SAMPLE APP            
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Defines and loads a KSDS dataset with web services config              
+//*    - Required by the CICS Web Services example application                  
+//*                                                                             
+//*  AUTHOR     : IBM (formatted by BMT)                                        
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Reformatted and cleaned version                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: DELETE AND DEFINE CONFIGURATION KSDS                                
+//*--------------------------------------------------------------------*        
 //DEFKSDS EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                                
 //SYSPRINT DD SYSOUT=*                                                          
 //AMSDUMP  DD SYSOUT=*                                                          
@@ -57,7 +35,10 @@
           ) -                                                                   
           INDEX (NAME(APP.EXMPLAPP.EXMPCONF.INDEX) -                            
           )                                                                     
-//*                                                                             
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 2: LOAD CONFIGURATION DATA                                             
+//*--------------------------------------------------------------------*        
 //CPYKSDS  EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                               
 //SYSPRINT DD SYSOUT=*                                                          
 //AMSDUMP  DD SYSOUT=*                                                          
@@ -69,4 +50,7 @@ WS-SERVER myserver:99999
 //OUTFILE  DD DSN=APP.EXMPLAPP.EXMPCONF,DISP=SHR                                
 //SYSIN DD *                                                                    
  REPRO INFILE(INFILE) OUTFILE(OUTFILE)                                          
-//                                                                              
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

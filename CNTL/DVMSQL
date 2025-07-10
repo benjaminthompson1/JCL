@@ -3,11 +3,11 @@
 //*                                                                             
 //DBPLANS  EXEC PGM=IKJEFT01,REGION=0M                                          
 //*        DB2 Runtime Libraries                                                
-//STEPLIB  DD DISP=SHR,DSN=DSNC10.DBCG.SDSNEXIT                                 
-//         DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                      
-//         DD DISP=SHR,DSN=DSNC10.SDSNLOD2                                      
-//         DD DISP=SHR,DSN=DSNC10.DBCG.RUNLIB.LOAD                              
-//DBRMLIB  DD DISP=SHR,DSN=DSNC10.SDSNDBRM                                      
+//STEPLIB  DD DISP=SHR,DSN=DSND10.DBCG.SDSNEXIT                                 
+//         DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
+//         DD DISP=SHR,DSN=DSND10.SDSNLOD2                                      
+//         DD DISP=SHR,DSN=DSND10.DBCG.RUNLIB.LOAD                              
+//DBRMLIB  DD DISP=SHR,DSN=DSND10.SDSNDBRM                                      
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN  DD *                                                                 
 DSN SYSTEM(DBCG)                                                                

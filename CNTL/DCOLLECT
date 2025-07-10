@@ -1,19 +1,51 @@
 //IUDCOLL1 JOB  (FB3),'DCOLLECT',CLASS=A,MSGCLASS=H,                            
 //             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: DFSMS DATA COLLECTION FACILITY (DCOLLECT)               *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : DCOLLECT - DFSMS DATA COLLECTION UTILITY                      
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Executes IDCAMS with DCOLLECT to gather storage metadata               
+//*    - Captures data for all online DASD volumes                              
+//*    - Writes output to a sequential dataset                                  
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job collects DFSMS-managed system information from all              
+//*    online volumes using DCOLLECT and writes it to a VB-format               
+//*    dataset for analysis or reporting.                                       
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - IDCAMS must be available                                               
+//*    - Catalog must support generation datasets (e.g. GDG base)               
+//*    - Ensure SPACE and DCB values suit your expected data volume             
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP: EXECUTE DCOLLECT TO CAPTURE VOLUME METADATA                           
+//*--------------------------------------------------------------------*        
 //DCOLLECT EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* OUTPUT: SEQUENTIAL FILE WITH DCOLLECT INFORMATION                           
+//*--------------------------------------------------------------------*        
 //OUTDS    DD DSN=IBMUSER.Z31A.DCOLLECT(+1),DSORG=PS,                           
 //            DCB=(RECFM=VB,LRECL=644,BLKSIZE=0),                               
 //            SPACE=(CYL,(1,1),RLSE),                                           
 //            DISP=(NEW,CATLG,DELETE)                                           
-//* ON-LINE VOLUMES                                                             
+//*--------------------------------------------------------------------*        
+//* CONTROL STATEMENTS TO SPECIFY DCOLLECT OPERATION                            
+//*--------------------------------------------------------------------*        
 //SYSIN    DD *                                                                 
   DCOLLECT -                                                                    
     OUTFILE(OUTDS) -                                                            
     VOLUMES(*)                                                                  
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

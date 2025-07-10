@@ -1,11 +1,34 @@
 //IUDFSRT JOB (FB3),'DFSORT',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: DFSORT                                                  *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : DFSORT - SORT AND FILTER SYSLOG RECORDS                       
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Sorts and filters daily SYSLOG data using DFSORT                       
+//*    - Includes substring search and handles VB records safely                
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job sorts SYSLOG data first by a 4-digit field at byte              
+//*    124, then by a 3-digit field at byte 129 (both ascending).               
+//*    It filters for records containing '18TK' at byte 103, and                
+//*    'COPY' anywhere in positions 5-104 using substring search.               
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - Input dataset must use RECFM=VB                                        
+//*    - DFSORT VLSHRT option required to prevent termination                   
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP: DFSORT                                                                
+//*--------------------------------------------------------------------*        
 //DFSORT   EXEC PGM=SORT,REGION=0M                                              
 //SORTIN   DD DISP=SHR,DSN=OPS.SYSLOG.DAILY                                     
 //SORTOUT  DD DISP=SHR,DSN=XBT.SYSLOG                                           
@@ -14,12 +37,15 @@
 //SORTWK03 DD DISP=(NEW,DELETE),UNIT=SYSDA,SPACE=(CYL,(200,200))                
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSOUT   DD SYSOUT=*                                                          
-//SYSIN    DD   *                                                               
+//*--------------------------------------------------------------------*        
+//* CONTROL STATEMENTS                                                          
+//*--------------------------------------------------------------------*        
+//SYSIN    DD *                                                                 
+  OPTION COPY,VLSHRT                                                            
+  INCLUDE COND=(103,4,CH,EQ,C'18TK')                                            
+  INCLUDE COND=(5,100,SS,EQ,C'COPY')                                            
   SORT FIELDS=(124,4,ZD,A,129,3,ZD,A)                                           
 /*                                                                              
-//                                                                              
-  INCLUDE COND=(103,4,CH,EQ,C'18TK')                                            
-//* DFSORT'S SUBSTRING SEARCH FEATURE                                           
-//* TOO PREVENT DFSORT FROM TERMINATING WITH VB RECORDSUSE VLSHRT               
-  OPTION COPY,VLSHRT                                                            
-  INCLUDE COND=(5,100,SS,EQ,C'COPY')                                            
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

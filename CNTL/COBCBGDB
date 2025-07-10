@@ -57,8 +57,8 @@
 //             LIBPRF1=CEE,                                                     
 //             BPARM='DYNAM=NO',                                                
 //             GOPGM=ERIS                                                       
-//COBOL.STEPLIB DD DISP=SHR,DSN=DSNC10.DBCG.SDSNEXIT                            
-//              DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
+//COBOL.STEPLIB DD DISP=SHR,DSN=DSND10.DBCG.SDSNEXIT                            
+//              DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
 //COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                       
 //COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                
 //COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
@@ -66,7 +66,7 @@
 //*--------------------------------------------------------------------*        
 //* STEP 2: PROGRAM BIND CREATE EXECUTABLE MODULE                               
 //*--------------------------------------------------------------------//       
-//BIND.SYSLIB   DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                 
+//BIND.SYSLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
 //              DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                          
 //BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
 //BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                  
@@ -74,7 +74,7 @@
 //* STEP 3: DB2 PACKAGE AND PLAN BIND                                           
 //*--------------------------------------------------------------------*        
 //DB2BIND EXEC PGM=IKJEFT01                                                     
-//STEPLIB  DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                      
+//STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN  DD *                                                                 
   DSN SYSTEM(DBCG)                                                              
@@ -90,7 +90,7 @@
 //* STEP 4: RUN PROGRAM WITH DEBUG TOOL ENABLED                                 
 //*--------------------------------------------------------------------*        
 //DB2RUN EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                                
-//STEPLIB  DD DISP=SHR,DSN=DSNC10.SDSNLOAD                                      
+//STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //         DD DISP=SHR,DSN=EQAE20.SEQAMOD                                       
 //         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
 //SYSTSPRT DD SYSOUT=*                                                          
