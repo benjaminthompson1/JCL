@@ -1,18 +1,36 @@
 //IUSMPREJJOB (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: SMP/E REJECT                                            *          
-//*          PURGE MODE USED WHEN SYSMODS WERE NOT AUTOMATICALLY     *          
-//*          DELETED ONCE THEY HAVE BEEN ACCEPTED                    *          
-//*                                                                  *          
-//* NOTES:                                                           *          
-//* 1) #globalzone - SMP/E GLOBAL CSI NAME                           *          
-//* 2) #smplogdsn  - SMPLOG DATASET NAME                             *          
-//* 3) #dlib       - SMP/E DLIB ZONE NAME                            *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMP/E REJECT PURGE PROCESSED SYSMODS                          
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Rejects and purges SYSMODs that were not automatically                 
+//*      deleted after successful ACCEPT processing                             
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 14/07/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - This job uses the PURGE option to remove processed SYSMODs             
+//*      from the DLIB zone and free associated space in SMPPTS                 
+//*                                                                             
+//*    - Substitution variables:                                                
+//*        #globalzone : SMP/E Global CSI dataset name                          
+//*        #smplogdsn  : Optional log dataset (uncomment SMPLOG DD)             
+//*        #dlib       : Name of the DLIB zone to purge from                    
+//*                                                                             
+//*    - Uncomment SMPLOG DD to write log to a dataset                          
+//*    - SMPJHOME is only needed if Java services are invoked                   
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    14/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: REJECT SYSMODS AND PURGE FROM SMPPTS                                
+//*--------------------------------------------------------------------*        
 //RECNTS   EXEC PGM=GIMSMP,REGION=0M,                                           
 //         PARM='CSI=#globalzone'                                               
 //SMPOUT   DD SYSOUT=*                                                          
@@ -25,8 +43,11 @@
 //SYSUT4   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
- SET BDY(GLOBAL).                                                               
- REJECT PURGE(#dlib)                                                            
- PTFS COMPRESS(SMPPTS)                                                          
- CHECK .                                                                        
+  SET BDY(GLOBAL).                                                              
+  REJECT PURGE(#dlib)                                                           
+  PTFS COMPRESS(SMPPTS)                                                         
+  CHECK .                                                                       
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

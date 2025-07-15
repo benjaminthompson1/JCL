@@ -19,6 +19,7 @@
 //*              - Expected inputs:                                             
 //*                  - CSI: #globalzone                                         
 //*                  - SMPNTS path: /u/smpe/smpnts/                             
+//*                  - SERVINFO DD: customized for your order                   
 //*                  - Java 11 installed and trusted for HTTPS                  
 //*                                                                             
 //*  CHANGE LOG :                                                               
@@ -56,17 +57,19 @@
            ) .                                                                  
 /*                                                                              
 //*--------------------------------------------------------------------*        
-//* SERVER DEFINITION (SERVICE PACKAGE INFO) - DO NOT MODIFY                    
+//* SERVER DEFINITION (SERVICE PACKAGE INFO) - MODIFY                           
 //*--------------------------------------------------------------------*        
 //SERVINFO DD *                                                                 
   <SERVER                                                                       
-    host="deliverycb-bld.dhe.ibm.com"                                           
-    user="S608988z"                                                             
-    pw="c282282D315066c">                                                       
+    host="deliverycb-mul.dhe.ibm.com"                                           
+    user="P3820m70"                                                             
+    pw="q42r5684385124q"                                                        
+    >                                                                           
     <PACKAGE                                                                    
-      file="2021080860340/PROD/GIMPAF.XML"                                      
-      hash="6E41C54D873854FCFFF94450C37465FBEE9A8581"                           
-      id="U02294531">                                                           
+      file="2025071100004/PROD/GIMPAF.XML"                                      
+       hash="C638388D66B6E161127FD4762E378437FEBF512F"                          
+      id="STP69545"                                                             
+      >                                                                         
     </PACKAGE>                                                                  
   </SERVER>                                                                     
 /*                                                                              

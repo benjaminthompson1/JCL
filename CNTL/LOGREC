@@ -1,12 +1,38 @@
 //IULOGRC JOB (FB3),'CLEAR LOGREC',CLASS=A,MSGCLASS=H,                          
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* CLEAR AND INITIALIZE HARDWARE EVENT RECORDER DATASET             *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CLEAR AND INITIALIZE LOGREC DATASET                           
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Executes the IFCDIP00 utility to clear and initialize the              
+//*      LOGREC dataset used by the Hardware Event Recording Facility           
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 14/07/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - This job **destroys** all existing LOGREC data.                        
+//*    - Use with caution. Ensure LOGREC data has been archived or              
+//*      is no longer needed.                                                   
+//*                                                                             
+//*    - Update the dataset name, volume serial, and unit as required:          
+//*        - DSN=SYS1.S0W1.LOGREC                                               
+//*        - VOL=SER=C3SYS1                                                     
+//*        - UNIT=SYSDA                                                         
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    14/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: EXECUTE IFCDIP00 TO INITIALIZE LOGREC DATASET                       
+//*--------------------------------------------------------------------*        
 //IFCDIP00 EXEC PGM=IFCDIP00                                                    
-//SERERDS  DD  DSN=SYS1.S0W1.LOGREC,DISP=OLD,                                   
-//             VOL=SER=C3SYS1,                                                  
-//             UNIT=SYSDA                                                       
+//SERERDS  DD DSN=SYS1.S0W1.LOGREC,DISP=OLD,                                    
+//            VOL=SER=C3SYS1,                                                   
+//            UNIT=SYSDA                                                        
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

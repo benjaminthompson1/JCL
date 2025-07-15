@@ -1,18 +1,32 @@
 //IUSMPLI JOB (FB3),'SMPE LIST',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*******************************************************************           
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMP/E LIST GLOBAL ZONE DEFINITIONS                            
 //*                                                                             
-//* PURPOSE: List all DDDEF entries and SOURCEIDs in the Global Zone            
+//*  FUNCTION   :                                                               
+//*    - Display current SMP/E Global Zone definitions, including:              
+//*        - All DDDEF entries                                                  
+//*        - All SOURCEIDs                                                      
 //*                                                                             
-//* NOTES:                                                                      
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 14/07/2025                                                    
 //*                                                                             
-//* 1) #globalzone - SMP/E GLOBAL CSI NAME                                      
+//*  NOTES      :                                                               
+//*    - Ensure the correct CSI dataset name is supplied by                     
+//*      substituting #globalzone with the desired SMP/E GLOBAL CSI             
+//*    - This job is non-destructive; it only produces output reports           
 //*                                                                             
-//*******************************************************************           
-//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    14/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: LIST DDDEF AND SOURCEID ENTRIES FROM GLOBAL ZONE                    
+//*--------------------------------------------------------------------*        
 //LISTSMPE EXEC PGM=GIMSMP                                                      
-//SMPCSI   DD DSN=#globalzone,DISP=SHR                                          
+//SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
 //SMPLOG   DD SYSOUT=*                                                          
 //SMPHOLD  DD DUMMY                                                             
 //SMPOUT   DD SYSOUT=*                                                          
@@ -25,3 +39,6 @@
   LIST DDDEF.                                                                   
   LIST SOURCEID(*).                                                             
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

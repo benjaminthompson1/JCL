@@ -1,11 +1,37 @@
 //IUTERSE JOB (FB3),'TERSE',CLASS=A,MSGCLASS=H,                                 
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: AMATERSE TO PACK / SPACK / UNPACK DATASETS              *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : TERSE / UNTERSE DATASETS USING AMATERSE                       
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Uses AMATERSE utility to SPACK (compress), PACK, or                    
+//*      UNPACK datasets for efficient storage or transfer                      
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 14/07/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - AMATERSE PARM values:                                                  
+//*        SPACK : Compress sequential dataset using standard method            
+//*        PACK  : Compress using old terse format                              
+//*        UNPACK: Expand a tersed dataset                                      
+//*                                                                             
+//*    - Customize dataset names as needed:                                     
+//*        SYSUT1 : Input dataset (original file)                               
+//*        SYSUT2 : Output compressed or expanded dataset                       
+//*                                                                             
+//*    - Ensure only one SYSUT2 DD statement is active:                         
+//*        - Comment out unused SYSUT2 definitions                              
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    14/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: EXECUTE AMATERSE TO PACK / SPACK / UNPACK DATASET                   
+//*--------------------------------------------------------------------*        
 //AMATERSE EXEC PGM=AMATERSE,PARM=SPACK                                         
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD DSN=SMF.S0W1.DATA.G0051V00,                                       
@@ -15,8 +41,10 @@
 //            UNIT=SYSDA,                                                       
 //            SPACE=(CYL,(50,50),RLSE),                                         
 //            DCB=(RECFM=FB,LRECL=1024,BLKSIZE=0)                               
-//                                                                              
-//SYSUT2   DD DSN=CUST.AGL.SMF,                                                 
-//            DISP=(NEW,CATLG,DELETE),                                          
-//            LABEL=(1,SL,RETPD=10),                                            
-//            UNIT=3490                                                         
+//*SYSUT2   DD DSN=CUST.AGL.SMF,                                                
+//*            DISP=(NEW,CATLG,DELETE),                                         
+//*            LABEL=(1,SL,RETPD=10),                                           
+//*            UNIT=3490                                                        
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

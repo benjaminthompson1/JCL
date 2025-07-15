@@ -5,24 +5,27 @@
 //*  JOB NAME   : SMP/E CREATE GLOBAL ZONE                                      
 //*                                                                             
 //*  FUNCTION   :                                                               
-//*              - Allocate a new VSAM dataset for the SMP/E Global CSI         
-//*              - Optionally prime the CSI with standard content               
+//*    - This job is part of a two-step process used during CBPDO               
+//*      installation. It performs the following:                               
+//*        - Allocates a new VSAM dataset for the SMP/E Global CSI              
+//*        - Optionally primes the CSI using SYS1.MACLIB(GIMZPOOL)              
+//*                                                                             
+//*    Related Jobs:                                                            
+//*      - SMPCRZNA : this job (create the CSI)                                 
+//*      - SMPCRZNB : next job (define zones and environments)                  
 //*                                                                             
 //*  AUTHOR     : BMT                                                           
 //*  DATE       : 09/07/2025                                                    
 //*                                                                             
 //*  NOTES      :                                                               
-//*              - Run this job only when creating a new SMP/E CSI              
-//*              - Update dataset name as required                              
-//*              - Change VOLSER and UNIT for your environment                  
-//*              - SYSALLDA is the default unit, adjust if necessary            
-//*              - Optional second step copies initial content from             
-//*                SYS1.MACLIB(GIMZPOOL) to the new CSI                         
+//*    - Run this job only to create a **new** SMP/E CSI                        
+//*    - Update dataset name, VOLSER, and UNIT as needed                        
+//*    - Optional Step 2 copies GIMZPOOL contents into new CSI                  
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    09/07/2025   BMT         Initial version                                 
+//*    ------------ ---------- --------------------------------------           
+//*    09/07/2025   BMT        Initial version                                  
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP 1: DEFINE SMP/E GLOBAL CSI                                             
@@ -34,7 +37,7 @@
 //            DISP=SHR                                                          
 //SYSIN    DD *                                                                 
   DEFINE CLUSTER                          -                                     
-         (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI) -                                    
+         (NAME(SMPE.CDM.V1R2M0.GLOBAL.CSI) -                                    
           FREESPACE(10,5)                 -                                     
           KEYS(24 0)                      -                                     
           RECORDSIZE(24 143)             -                                      
@@ -42,11 +45,11 @@
           UNIQUE                          -                                     
           VOLUMES(C3USR4)                ) -                                    
       DATA                                -                                     
-         (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI.DATA) -                               
+         (NAME(SMPE.CDM.V1R2M0.GLOBAL.CSI.DATA) -                               
           CONTROLINTERVALSIZE(8192)      -                                      
           CYLINDERS(25 5)                ) -                                    
       INDEX                               -                                     
-         (NAME(SMPE.CYG.V3R1M0.GLOBAL.CSI.INDEX) -                              
+         (NAME(SMPE.CDM.V1R2M0.GLOBAL.CSI.INDEX) -                              
           CONTROLINTERVALSIZE(4096)      -                                      
           CYLINDERS(10 2)                -                                      
           IMBED                          )                                      
@@ -56,7 +59,7 @@
 //*--------------------------------------------------------------------*        
 //PRIMEIT  EXEC PGM=IDCAMS,COND=(9,LT)                                          
 //SYSPRINT DD SYSOUT=*                                                          
-//SMPCSI   DD DSN=SMPE.CYG.V3R1M0.GLOBAL.CSI,                                   
+//SMPCSI   DD DSN=SMPE.CDM.V1R2M0.GLOBAL.CSI,                                   
 //            DISP=OLD                                                          
 //ZPOOL    DD DSN=SYS1.MACLIB(GIMZPOOL),                                        
 //            DISP=SHR                                                          
@@ -66,4 +69,3 @@
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
 //*--------------------------------------------------------------------*        
-                                                                                

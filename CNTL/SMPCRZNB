@@ -1,50 +1,61 @@
 //IUSMPCB JOB (FB3),'CREATE ZONE',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*****************************************************************             
-//*                                                               *             
-//* PURPOSE: SMP/E CREATE DATASET AND DDDEFS FOR GLOBAL ZONE      *             
-//*                                                               *             
-//* NOTES:                                                        *             
-//*  1) THIS JOB IS OPTIONAL. EXECUTE THIS JOB ONLY IF YOU        *             
-//*     DEFINED A NEW SMP/E CSI DATA SET. THIS JOB                *             
-//*     INITIALIZES THE CSI ZONES, ALLOCATES SMP/E DATA SETS,     *             
-//*     AND CREATES NECESSARY DDDEF ENTRIES REQUIRED BY SMP/E.    *             
-//*  2) CHANGE THE JOB CARD TO MEET YOUR SYSTEM'S REQUIREMENTS.   *             
-//*  3) REVIEW ALL OF THE STATEMENTS BEFORE SUBMITTING            *             
-//*     THIS JOB.                                                 *             
-//*  4) CHANGE SMPE.CYG.V3R1M0 TO THE HIGH-LEVEL QUALIFIER        *             
-//*     THAT COMPLIES WITH YOUR SITE'S NAMING STANDARDS.          *             
-//*  5) SYSALLDA IS THE DEFAULT UNIT IDENTIFICATION.              *             
-//*     CHANGE THIS, IF REQUIRED, TO                              *             
-//*     THE APPROPRIATE UNIT IDENTIFICATION.                      *             
-//*  6) CHANGE C3USR4 TO A VALID VOLUME SERIAL FOR THE            *             
-//*     SMP/E ENVIRONMENT.                                        *             
-//*  7) CHANGE CYG310T TO THE NAME OF YOUR TARGET ZONE.           *             
-//*  8) CHANGE CYG310D TO THE NAME OF YOUR DISTRIBUTION ZONE.     *             
-//*  9) CHANGE THE ZOSOPT FIELD TO A VALID OPTIONS NAME           *             
-//*     THAT COMPLIES WITH YOUR SITE'S NAMING CONVENTIONS.        *             
-//*                                                               *             
-//*****************************************************************             
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMP/E CREATE ZONES AND DEFINE ENVIRONMENT                     
 //*                                                                             
-//AVZALB   PROC SMPPRE='SMPE.CYG.V3R1M0',                                       
+//*  FUNCTION   :                                                               
+//*    - This job is part of a two-step process used during CBPDO               
+//*      installation. It performs the following:                               
+//*        - Initializes the SMP/E Global CSI                                   
+//*        - Allocates required SMP/E datasets using a cataloged PROC           
+//*        - Defines the Global, Target, and DLIB zones                         
+//*        - Creates DDDEF entries for all SMP/E zones                          
+//*                                                                             
+//*    Related Jobs:                                                            
+//*      - SMPCRZNA : previous job (create CSI dataset)                         
+//*      - SMPCRZNB : this job (define zones and environments)                  
+//*                                                                             
+//*    Cataloged PROC:                                                          
+//*      - AVZALB : Allocates and catalogs the SMP/E datasets                   
+//*                (can be modified to match site standards)                    
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 09/07/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - Run this job **only** after the CSI has been created                   
+//*    - Review the AVZALB PROC for dataset naming and allocations              
+//*    - Update HLQ, zone names, and system parameters as needed:               
+//*        - SMPE.CDM.V1R2M0   (HLQ)                                            
+//*        - C3USR4            (volume)                                         
+//*        - CYG310T, CYG310D  (zone names)                                     
+//*        - ZOSOPT            (options name)                                   
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    09/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* PROC DEFINITION: AVZALB                                                     
+//* - Defines all datasets required by SMP/E                                    
+//* - Used later in this job via EXEC AVZALB                                    
+//*--------------------------------------------------------------------*        
+//AVZALB   PROC SMPPRE='SMPE.CDM.V1R2M0',                                       
 //             SMPVOL=C3USR4,                                                   
 //             SMPUNIT=SYSALLDA                                                 
 //INITSMP  EXEC PGM=GIMSMP,REGION=0M                                            
-//*                                                                             
-//**************************************************************/               
-//*               INITIALIZE CSI DATA SET                      */               
-//**************************************************************/               
-//*                                                                             
+//*--------------------------------------------------------------------*        
+//* INITIALIZE CSI DATA SET                                                     
+//*--------------------------------------------------------------------*        
 //SYSPRINT  DD SYSOUT=*                                                         
-//SMPCSI    DD DSN=SMPE.CYG.V3R1M0.GLOBAL.CSI,                                  
+//SMPCSI    DD DSN=SMPE.CDM.V1R2M0.GLOBAL.CSI,                                  
 //             DISP=OLD                                                         
 //SMPLIST   DD SYSOUT=*                                                         
-//*                                                                             
-//**************************************************************/               
-//*                   SMP DATA SETS                            */               
-//**************************************************************/               
-//*                                                                             
+//*--------------------------------------------------------------------*        
+//* SMPE DATA SETS                                                              
+//*--------------------------------------------------------------------*        
 //SMPLOG   DD DSN=&SMPPRE..SMPLOG,DISP=(NEW,CATLG),                             
 //            UNIT=&SMPUNIT,VOL=SER=&SMPVOL,                                    
 //            DCB=(RECFM=VB,LRECL=510,BLKSIZE=0),                               
@@ -83,19 +94,19 @@
 //SYSUT2   DD UNIT=&SMPUNIT,SPACE=(CYL,(150,50))                                
 //SYSUT3   DD UNIT=&SMPUNIT,SPACE=(CYL,(150,50))                                
 //SYSUT4   DD UNIT=&SMPUNIT,SPACE=(CYL,(150,50))                                
-//*                                                                             
 //AVZALB   PEND                                                                 
+//*--------------------------------------------------------------------*        
+//* End of PROC                                                                 
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: DEFINE OPTIONS, ZONES, ZONEINDEX                                    
+//*--------------------------------------------------------------------*        
 //ZONING   EXEC AVZALB                                                          
-//*                                                                             
-//**************************************************************/               
-//*              ALLOCATION AND INITIALIZATION                 */               
-//**************************************************************/               
-//*                                                                             
 //SMPCNTL  DD *                                                                 
   SET BDY(GLOBAL).                                                              
    UCLIN .                                                                      
     ADD OPTIONS(ZOSOPT)                                                         
-               DSPREFIX(SMPE.CYG.V3R1M0)                                        
+               DSPREFIX(SMPE.CDM.V1R2M0)                                        
                DSSPACE(7500,500,200) .                                          
     ADD GLOBALZONE                                                              
             SREL(Z038)                                                          
@@ -105,64 +116,67 @@
     UCLIN.                                                                      
        ADD GZONE                                                                
            ZONEINDEX(                                                           
-              (CYG310T,SMPE.CYG.V3R1M0.GLOBAL.CSI,TARGET)                       
+              (CDM120T,SMPE.CDM.V1R2M0.GLOBAL.CSI,TARGET)                       
                     )   .                                                       
        ADD GZONE                                                                
            ZONEINDEX(                                                           
-              (CYG310D,SMPE.CYG.V3R1M0.GLOBAL.CSI,DLIB)                         
+              (CDM120D,SMPE.CDM.V1R2M0.GLOBAL.CSI,DLIB)                         
                     )   .                                                       
    ENDUCL.                                                                      
-  SET BDY(CYG310T).                                                             
+  SET BDY(CDM120T).                                                             
    UCLIN.                                                                       
-    ADD TARGETZONE(CYG310T)                                                     
+    ADD TARGETZONE(CDM120T)                                                     
         OPTIONS(ZOSOPT)                                                         
         SREL(Z038)                                                              
-        RELATED(CYG310D).                                                       
+        RELATED(CDM120D).                                                       
    ENDUCL.                                                                      
-  SET BDY(CYG310D).                                                             
+  SET BDY(CDM120D).                                                             
    UCLIN.                                                                       
-    ADD DLIBZONE(CYG310D)                                                       
+    ADD DLIBZONE(CDM120D)                                                       
         ACCJCLIN                                                                
         OPTIONS(ZOSOPT)                                                         
         SREL(Z038)                                                              
-        RELATED(CYG310T).                                                       
+        RELATED(CDM120T).                                                       
    ENDUCL.                                                                      
   LIST ALLZONES.                                                                
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 2: ADD DDDEFs FOR GLOBAL, DLIB, AND TARGET ZONES                       
+//*--------------------------------------------------------------------*        
 //DDDEF    EXEC PGM=GIMSMP,REGION=0M                                            
-//SMPCSI   DD DSN=SMPE.CYG.V3R1M0.GLOBAL.CSI,                                   
+//SMPCSI   DD DSN=SMPE.CDM.V1R2M0.GLOBAL.CSI,                                   
 //            DISP=SHR                                                          
-//SMPPTS   DD DSN=SMPE.CYG.V3R1M0.SMPPTS,                                       
+//SMPPTS   DD DSN=SMPE.CDM.V1R2M0.SMPPTS,                                       
 //            DISP=SHR                                                          
-//SMPLTS   DD DSN=SMPE.CYG.V3R1M0.SMPLTS,                                       
+//SMPLTS   DD DSN=SMPE.CDM.V1R2M0.SMPLTS,                                       
 //            DISP=OLD                                                          
-//SMPLOG   DD DSN=SMPE.CYG.V3R1M0.SMPLOG,                                       
+//SMPLOG   DD DSN=SMPE.CDM.V1R2M0.SMPLOG,                                       
 //            DISP=(MOD,KEEP)                                                   
-//SMPLOGA  DD DSN=SMPE.CYG.V3R1M0.SMPLOGA,                                      
+//SMPLOGA  DD DSN=SMPE.CDM.V1R2M0.SMPLOGA,                                      
 //            DISP=(MOD,KEEP)                                                   
 //SMPCNTL  DD *                                                                 
   SET BDY(GLOBAL).                                                              
    UCLIN .                                                                      
     ADD DDDEF(SMPLOG)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPLOG)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPLOG)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPLOGA)                                                          
-        DATASET(SMPE.CYG.V3R1M0.SMPLOGA)                                        
+        DATASET(SMPE.CDM.V1R2M0.SMPLOGA)                                        
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPPTS)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPPTS)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPPTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         SHR                                                                     
         .                                                                       
     ADD DDDEF(SMPLTS)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPLTS)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPLTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
@@ -174,46 +188,46 @@
     ADD DDDEF(SYSUT3)  CYL SPACE(150,50) UNIT(SYSALLDA).                        
     ADD DDDEF(SYSUT4)  CYL SPACE(150,50) UNIT(SYSALLDA).                        
    ENDUCL.                                                                      
-  SET BDY(CYG310D).                                                             
+  SET BDY(CDM120D).                                                             
    UCLIN .                                                                      
     ADD DDDEF(SMPLOG)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPLOG)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPLOG)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPLOGA)                                                          
-        DATASET(SMPE.CYG.V3R1M0.SMPLOGA)                                        
+        DATASET(SMPE.CDM.V1R2M0.SMPLOGA)                                        
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPLTS)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPLTS)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPLTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPPTS)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPPTS)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPPTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         SHR                                                                     
         .                                                                       
     ADD DDDEF(SMPMTS)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPMTS)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPMTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPSCDS)                                                          
-        DATASET(SMPE.CYG.V3R1M0.SMPSCDS)                                        
+        DATASET(SMPE.CDM.V1R2M0.SMPSCDS)                                        
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPSTS)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPSTS)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPSTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
@@ -231,46 +245,46 @@
         CONCAT(SMPMTS   /* MUST BE FIRST */                                     
              ).                                                                 
    ENDUCL.                                                                      
-  SET BDY(CYG310T).                                                             
+  SET BDY(CDM120T).                                                             
    UCLIN .                                                                      
     ADD DDDEF(SMPLOG)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPLOG)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPLOG)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPLOGA)                                                          
-        DATASET(SMPE.CYG.V3R1M0.SMPLOGA)                                        
+        DATASET(SMPE.CDM.V1R2M0.SMPLOGA)                                        
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         MOD                                                                     
         .                                                                       
     ADD DDDEF(SMPLTS)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPLTS)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPLTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPPTS)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPPTS)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPPTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         SHR                                                                     
         .                                                                       
     ADD DDDEF(SMPMTS)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPMTS)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPMTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPSCDS)                                                          
-        DATASET(SMPE.CYG.V3R1M0.SMPSCDS)                                        
+        DATASET(SMPE.CDM.V1R2M0.SMPSCDS)                                        
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
         .                                                                       
     ADD DDDEF(SMPSTS)                                                           
-        DATASET(SMPE.CYG.V3R1M0.SMPSTS)                                         
+        DATASET(SMPE.CDM.V1R2M0.SMPSTS)                                         
         UNIT(SYSALLDA)                                                          
         WAITFORDSN                                                              
         OLD                                                                     
@@ -289,3 +303,6 @@
               ).                                                                
    ENDUCL.                                                                      
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

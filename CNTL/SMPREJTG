@@ -1,16 +1,37 @@
 //IUSMPRE JOB (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: SMP/E REJECT                                            *          
-//*          REJECT ALL RECEIVED-ONLY                                *          
-//*                                                                  *          
-//* NOTES:                                                           *          
-//* 1) #globalzone - SMP/E GLOBAL CSI NAME                           *          
-//* 2) #smplogdsn - SMPLOG DATASET NAME                              *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMP/E REJECT RECEIVED-ONLY SYSMODS                            
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Rejects all SYSMODs that have been RECEIVED but not                    
+//*      applied or accepted in the Global Zone                                 
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 14/07/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - This job identifies and lists all eligible SYSMODs that                
+//*      remain in 'RECEIVED' status and are no longer required.                
+//*                                                                             
+//*    - Substitution variables:                                                
+//*        #globalzone : SMP/E Global CSI dataset name                          
+//*        #smplogdsn  : Optional log dataset (uncomment SMPLOG DD)             
+//*                                                                             
+//*    - This job uses the CHECK operand, so no SYSMODs are removed             
+//*      unless the job is modified to omit CHECK.                              
+//*                                                                             
+//*    - SMPJHOME is only needed if Java-dependent FMIDs are involved           
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    14/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: REJECT RECEIVED-ONLY SYSMODS (DRY RUN MODE)                         
+//*--------------------------------------------------------------------*        
 //RECNTS   EXEC PGM=GIMSMP,REGION=0M,                                           
 //         PARM='CSI=#globalzone'                                               
 //SMPOUT   DD SYSOUT=*                                                          
@@ -23,7 +44,10 @@
 //SYSUT4   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
- SET BDY(GLOBAL).                                                               
- REJECT                                                                         
- CHECK.                                                                         
+  SET BDY(GLOBAL).                                                              
+  REJECT                                                                        
+  CHECK.                                                                        
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

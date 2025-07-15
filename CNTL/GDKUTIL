@@ -1,0 +1,39 @@
+//IUMINIO JOB  (FB3),'MINIO',CLASS=A,MSGCLASS=H,                                
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : IUMINIO                                                       
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*              - Upload a dataset to a MinIO object storage bucket            
+//*              - Uses GDKUTIL to send data via S3-compatible API              
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 26/06/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*              - Ensure network access to MinIO endpoint                      
+//*              - Requires GDKUTIL with S3 provider support                    
+//*              - Edit OBJNAME for the object path in MinIO                    
+//*              - LOCAL DD refers to the dataset being uploaded                
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    26/06/2025   BMT       Initial version                                   
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: Upload dataset to MinIO via GDKUTIL                                 
+//*--------------------------------------------------------------------*        
+//MINIO    EXEC PGM=GDKUTIL                                                     
+//SYSIN    DD *                                                                 
+  UPLOAD PROVIDER(MINIO) LOG(DEBUG)                                             
+/*                                                                              
+//OBJNAME  DD *                                                                 
+  /z31c/backup/mydata.txt                                                       
+/*                                                                              
+//LOCAL    DD DSN=IBMUSER.SYSLOG.OUTPUTD,DISP=SHR                               
+//SYSOUT   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

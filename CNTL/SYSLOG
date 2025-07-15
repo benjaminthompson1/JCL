@@ -1,20 +1,47 @@
 //IUSYSLG JOB (FB3),'SYSLOG EXTRACT',CLASS=A,MSGCLASS=H,                        
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* DUMP THE SYSTEM LOG (SYSLOG) TO THE SPECIFIED DATASET            *          
-//*                                                                  *          
-//********************************************************************          
-//LOG EXEC PGM=ISFAFD,DYNAMNBR=150,PARM='++122,1000'                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SYSLOG EXTRACT                                                
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Dumps a portion of the system log (SYSLOG) to a specified              
+//*      dataset using SDSF batch interface (ISFAFD)                            
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 14/07/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - This job uses SDSF's ISFAFD utility to extract SYSLOG output           
+//*                                                                             
+//*    - The following parameters must be customized as needed:                 
+//*        - Output dataset: IBMUSER.SYSLOG.TEMP                                
+//*        - Time range:                                                        
+//*            PT hh.mm.ss mm/dd/yyyy hh.mm.ss mm/dd/yyyy                       
+//*                                                                             
+//*    - Ensure appropriate SDSF access is in place (user ID must               
+//*      have authority to issue LOG and PT commands)                           
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    14/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: DUMP SYSLOG TO TEMPORARY DATASET                                    
+//*--------------------------------------------------------------------*        
+//DUMPLOG  EXEC PGM=ISFAFD,DYNAMNBR=150,PARM='++122,1000'                       
 //SYSPRINT DD SYSOUT=*                                                          
-//SYSOUT DD SYSOUT=*                                                            
-//ISFOUT DD DSN=IBMUSER.SYSLOG.TEMP,                                            
-//          DISP=(NEW,CATLG,DELETE),                                            
-//          UNIT=DISK,SPACE=(CYL,(100,100),RLSE)                                
-//ISFIN DD *                                                                    
+//SYSOUT   DD SYSOUT=*                                                          
+//ISFOUT   DD DSN=IBMUSER.SYSLOG.TEMP,                                          
+//            DISP=(NEW,CATLG,DELETE),                                          
+//            UNIT=DISK,SPACE=(CYL,(100,100),RLSE)                              
+//ISFIN    DD *                                                                 
 LOG S                                                                           
 PT ODSN 'IBMUSER.SYSLOG.TEMP' * SHR                                             
 PT 00.01.00 05/20/2023 05.28.00 07/20/2023                                      
 CLOSE                                                                           
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
