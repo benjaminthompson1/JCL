@@ -1,0 +1,78 @@
+//IUWCRVS JOB (FB3),'EQAWCRVS',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*                                                                             
+//*********************************************************************         
+//* Licensed Materials - Property of IBM                              *         
+//* 5724-T07                                                          *         
+//* Copyright IBM Corp. 1997, 2022 All Rights Reserved                *         
+//*                                                                   *         
+//* US Government Users Restricted Rights - Use, duplication or       *         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                   *         
+//*  This JCL will define the VSAM file used by DTCN to store         *         
+//*  debugging profiles on CICS.                                      *         
+//*                                                                   *         
+//*  CAUTION: This is neither a JCL procedure nor a complete job.     *         
+//*  Before using this job step, you will have to make the following  *         
+//*  modifications:                                                   *         
+//*                                                                   *         
+//*  1) Change the ISM403.S0W1 values to your preferred dataset       *         
+//*     name prefix for the EQADPFMB VSAM file.                       *         
+//*                                                                   *         
+//*  Notes:                                                           *         
+//*                                                                   *         
+//*  1. This job will complete with a return code 0.                  *         
+//*  2. In z/OS Debugger Version 15, the record size increased        *         
+//*     from 2000 to 3000 bytes.                                      *         
+//*     Files from previous versions of z/OS Debugger may not be      *         
+//*     used with z/OS Debugger V15 or above.                         *         
+//*     Files created and used with z/OS Debugger V15 and above may   *         
+//*     not be used with z/OS Debugger Versions prior to V15.         *         
+//*     See sample job EQADPCNV which can be used to convert          *         
+//*     earlier file contents to the V15 format.                      *         
+//*                                                                   *         
+//*  NOTE: In Debug Tool Version 12, the record size increased        *         
+//*        from 1304 to 2000 bytes.  If you need to upgrade from      *         
+//*        Debug Tool V11 to z/OS Debugger V15, you must run the      *         
+//*        EQADPCNV utility twice, to convert from V11 to V12 format, *         
+//*        and then V12 to V15 format. See the EQADPCNV sample for    *         
+//*        more information.                                          *         
+//*                                                                   *         
+//*********************************************************************         
+//*        DELETE THE EXISTING FILE                                   *         
+//*********************************************************************         
+//DELETE    EXEC PGM=IDCAMS,REGION=1M                                           
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+ DELETE ISM403.S0W1.EQADPFMB                                                    
+ SET MAXCC=0                                                                    
+/*                                                                              
+//*********************************************************************         
+//*        DEFINE A NEW VSAM DEBUGGING PROFILE DATASET                *         
+//*********************************************************************         
+//DEFINE    EXEC PGM=IDCAMS,REGION=1M                                           
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+ /*                           */                                                
+ /* DEFINE DEBUGGING PROFILES */                                                
+ /* BASE AND PATH DATA SETS   */                                                
+ /*                           */                                                
+    DEFINE CLUSTER (RECORDS(256) -                                              
+     NAME (ISM403.S0W1.EQADPFMB) -                                              
+     SHAREOPTIONS(2 3) -                                                        
+     LOG(NONE) -                                                                
+     VOLUME(C3USR3)-                                                            
+     IXD) -                                                                     
+    DATA -                                                                      
+     (RECSZ(3000,3000) -                                                        
+     NAME (ISM403.S0W1.EQADPFMB.DATA) -                                         
+     KEYS(8 16) -                                                               
+     FREESPACE(10 10) -                                                         
+     BUFFERSPACE (20000)) -                                                     
+   INDEX -                                                                      
+     (NAME(ISM403.S0W1.EQADPFMB.INDX))                                          
+/*                                                                              
+//*                                                                             

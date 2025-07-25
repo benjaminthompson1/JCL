@@ -7,7 +7,7 @@
 //*                                                                  *          
 //********************************************************************          
 //IFASMFDL EXEC PGM=IFASMFDL,REGION=0M                                          
-//OUTDD1   DD DSN=SMF.S0W1.DATA(+1),                                            
+//OUTDD1   DD DSN=ARCH.SMF.S0W1.BACKUP(+1),                                     
 //            DISP=(NEW,CATLG,DELETE),UNIT=DASD,                                
 //            SPACE=(CYL,(200,100),RLSE),DATACLAS=DCEXTEAV                      
 //SYSPRINT DD SYSOUT=*                                                          

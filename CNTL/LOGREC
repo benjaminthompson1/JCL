@@ -5,34 +5,45 @@
 //*  JOB NAME   : CLEAR AND INITIALIZE LOGREC DATASET                           
 //*                                                                             
 //*  FUNCTION   :                                                               
-//*    - Executes the IFCDIP00 utility to clear and initialize the              
-//*      LOGREC dataset used by the Hardware Event Recording Facility           
+//*    - Offloads current LOGREC entries to a GDG dataset.                      
+//*    - Clears and reinitializes the LOGREC dataset using IFCDIP00.            
 //*                                                                             
 //*  AUTHOR     : BMT                                                           
 //*  DATE       : 14/07/2025                                                    
 //*                                                                             
 //*  NOTES      :                                                               
-//*    - This job **destroys** all existing LOGREC data.                        
-//*    - Use with caution. Ensure LOGREC data has been archived or              
-//*      is no longer needed.                                                   
+//*    - This job **DESTROYS** all existing LOGREC records.                     
+//*    - Use with caution. Ensure that critical LOGREC data has been            
+//*      reviewed, archived, or is no longer required.                          
 //*                                                                             
-//*    - Update the dataset name, volume serial, and unit as required:          
-//*        - DSN=SYS1.S0W1.LOGREC                                               
-//*        - VOL=SER=C3SYS1                                                     
-//*        - UNIT=SYSDA                                                         
+//*    - Update the following parameters to suit your environment:              
+//*        - DSN  = SYS1.S0W1.LOGREC                                            
+//*        - VOL  = C3SYS1                                                      
+//*        - UNIT = SYSDA                                                       
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
 //*    ------------ ---------- ----------------------------------------         
 //*    14/07/2025   BMT        Initial version                                  
+//*    24/07/2025   BMT        Added GDG offload                                
 //*--------------------------------------------------------------------*        
+//* STEP 1: OFFLOAD CURRENT LOGREC CONTENTS TO GDG BACKUP                       
 //*--------------------------------------------------------------------*        
-//* STEP 1: EXECUTE IFCDIP00 TO INITIALIZE LOGREC DATASET                       
+//STEP1    EXEC PGM=IFCDIP00                                                    
+//SYSPRINT DD SYSOUT=*                                                          
+//SERERDS  DD DSN=SYS1.S0W1.LOGREC,DISP=SHR                                     
+//OUTDD    DD DSN=ARCH.LOGREC.S0W1.BACKUP(+1),                                  
+//            DISP=(NEW,CATLG,DELETE),                                          
+//            SPACE=(CYL,(1,1)),UNIT=SYSDA,                                     
+//            DCB=(RECFM=VB,LRECL=137,BLKSIZE=3120)                             
 //*--------------------------------------------------------------------*        
-//IFCDIP00 EXEC PGM=IFCDIP00                                                    
-//SERERDS  DD DSN=SYS1.S0W1.LOGREC,DISP=OLD,                                    
-//            VOL=SER=C3SYS1,                                                   
-//            UNIT=SYSDA                                                        
+//* STEP 2: INITIALIZE (CLEAR) LOGREC DATASET                                   
 //*--------------------------------------------------------------------*        
-//* End of Job                                                                  
+//STEP2    EXEC PGM=IEBGENER                                                    
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD DUMMY                                                             
+//SYSUT2   DD DSN=SYS1.S0W1.LOGREC,DISP=SHR                                     
+//SYSIN    DD DUMMY                                                             
+//*--------------------------------------------------------------------*        
+//* END OF JOB                                                                  
 //*--------------------------------------------------------------------*        

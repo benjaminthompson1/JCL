@@ -1,0 +1,130 @@
+//IUTKDS JOB (FB3),'CSFTKDS',CLASS=A,MSGCLASS=H,                                
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : CSFTKD2 - VSAM TKDS INITIALIZATION                            
+//*                                                                             
+//*    - Define a new VSAM dataset for the Trusted Key Data Set (TKDS)          
+//*      in common record format.                                               
+//*    - Initialize the TKDS with a default static header record.               
+//*                                                                             
+//*    This job also deletes and redefines the following datasets:              
+//*                                                                             
+//*    - CSFCKDS - Clear Key Data Set                                           
+//*      Stores clear (unencrypted) operational keys used by ICSF.              
+//*      Recreating this dataset will remove all existing clear keys.           
+//*                                                                             
+//*    - CSFPKDS - Private Key Data Set                                         
+//*      Stores asymmetric private keys. Redefinition removes all               
+//*      previously stored private key material.                                
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 10/07/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    This job is intended for first-time setup only. It performs              
+//*    the initial creation and population of the TKDS, and resets the          
+//*    clear and private key datasets for a clean cryptographic setup.          
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    10/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: DEFINE VSAM CLUSTER FOR TKDS                                        
+//*--------------------------------------------------------------------*        
+//DEFINE  EXEC PGM=IDCAMS,REGION=4M                                             
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN DD *                                                                    
+  DEFINE CLUSTER (NAME(CSF.SCSFTKDS)         -                                  
+                  VOLUMES(C3USR4)            -                                  
+                  RECORDS(100 50)            -                                  
+                  RECORDSIZE(2200,32756)     -                                  
+                  KEYS(72 0)                 -                                  
+                  FREESPACE(0,0)             -                                  
+                  SHAREOPTIONS(2,3))         -                                  
+            DATA (NAME(CSF.SCSFTKDS.DATA)    -                                  
+                  BUFFERSPACE(100000)        -                                  
+                  CONTROLINTERVALSIZE(32768) -                                  
+                  ERASE)                     -                                  
+           INDEX (NAME(CSF.SCSFTKDS.INDEX))                                     
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 2: CREATE HEADER RECORD FOR TKDS USING IEBGENER                        
+//*--------------------------------------------------------------------*        
+//MKHEAD   EXEC PGM=IEBGENER                                                    
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD *                                                                 
+/*                                                                              
+//SYSUT2   DD DSN=&&GENTMP,UNIT=SYSDA,DISP=(,PASS),                             
+//         DCB=(RECFM=FB,LRECL=156,BLKSIZE=1560),                               
+//         SPACE=(TRK,(1,1))                                                    
+//SYSIN    DD *                                                                 
+ GENERATE MAXFLDS=10,MAXLITS=156                                                
+ RECORD FIELD=(20,X'0000000000000000000000000000000000000000',,1),              
+        FIELD=(20,X'0000000000000000000000000000000000000000',,21),             
+        FIELD=(20,X'E3C8C4D900000000000000000000000000000000',,41),             
+        FIELD=(20,X'0000000000000000000000000000000000000000',,61),             
+        FIELD=(16,X'00000000000000000000000000000000',,81),                     
+        FIELD=(16,X'00000000000000000000000000000000',,97),                     
+        FIELD=(4,X'0000009C',,113),                                             
+        FIELD=(16,X'00000000000000000000000000000000',,117),                    
+        FIELD=(20,X'0000000000000000000000000000000000000000',,133),            
+        FIELD=(4,X'00000200',,153)                                              
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 3: REPRO HEADER RECORD INTO THE TKDS VSAM DATASET                      
+//*--------------------------------------------------------------------*        
+//REPROKSD EXEC PGM=IDCAMS                                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSDATA  DD DSN=*.MKHEAD.SYSUT2,DISP=(OLD,DELETE)                             
+//SYSIN    DD *                                                                 
+   REPRO INFILE(SYSDATA) -                                                      
+      OUTDATASET(CSF.SCSFTKDS)                                                  
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 4: DELETE AND REDEFINE CSFCKDS - CLEAR KEY DATA SET                    
+//*--------------------------------------------------------------------*        
+//DEFINE  EXEC PGM=IDCAMS,REGION=4M                                             
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN DD *                                                                    
+  DELETE CSF.CSFCKDS CLUSTER                                                    
+  SET MAXCC=0                                                                   
+  DEFINE CLUSTER (NAME(CSF.CSFCKDS)          -                                  
+                  VOLUMES(C3USR4)            -                                  
+                  RECORDS(200 100)           -                                  
+                  RECORDSIZE(372,32756)      -                                  
+                  KEYS(72 0)                 -                                  
+                  FREESPACE(10,10)           -                                  
+                  SHAREOPTIONS(2,3))         -                                  
+            DATA (NAME(CSF.CSFCKDS.DATA)     -                                  
+                  BUFFERSPACE(100000)        -                                  
+                  ERASE                      -                                  
+                  CISZ(32768))               -                                  
+           INDEX (NAME(CSF.CSFCKDS.INDEX))                                      
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* STEP 5: DELETE AND REDEFINE CSFPKDS - PRIVATE KEY DATA SET                  
+//*--------------------------------------------------------------------*        
+//DEFINE  EXEC PGM=IDCAMS,REGION=64M                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN DD *                                                                    
+  DELETE CSF.CSFPKDS CLUSTER                                                    
+  SET MAXCC=0                                                                   
+  DEFINE CLUSTER (NAME(CSF.CSFPKDS)          -                                  
+                  VOLUMES(C3USR4)            -                                  
+                  RECORDS(100 50)            -                                  
+                  RECORDSIZE(800,32756)      -                                  
+                  KEYS(72 0)                 -                                  
+                  FREESPACE(0,0)             -                                  
+                  SHAREOPTIONS(2,3))         -                                  
+            DATA (NAME(CSF.CSFPKDS.DATA)     -                                  
+                  BUFFERSPACE(100000)        -                                  
+                  ERASE                      -                                  
+                  CISZ(32768))               -                                  
+           INDEX (NAME(CSF.CSFPKDS.INDEX))                                      
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

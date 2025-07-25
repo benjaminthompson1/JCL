@@ -7,7 +7,7 @@
 //*                                                                  *          
 //********************************************************************          
 //IFASMSDP EXEC PGM=IFASMFDP,REGION=0M                                          
-//DUMPIN   DD DSN=SMF.S0W1.DATA(0),DISP=SHR                                     
+//DUMPIN   DD DSN=ARCH.SMF.S0W1.BACKUP(0),DISP=SHR                              
 //DDSMF1   DD DUMMY                                                             
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 

@@ -32,7 +32,7 @@ COBSORT   - COBOL with DFSORT
 CONVERTV  - SMS CONVERTV                                                        
 CRDB2ARC  - COBOL RUN DB2ARCH                                                   
                                                                                 
-CSFTKD2   - Create and initialize TKDS VSAM                                     
+CSFTKDS   - Initializes the TKDS and recreates ICSF key datasets (CKDS, PKDS)   
 CSQ4BCLR  - MQ print messages from queue (sample)                               
 CSQ4BVJR  - MQ PUT/GET sample programs                                          
 CSQLOGP1  - MQ CSQ LOG PRINT                                                    
