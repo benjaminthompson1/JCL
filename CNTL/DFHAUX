@@ -1,0 +1,35 @@
+//IUDFHA JOB (FB3),'DFHAUX',CLASS=A,MSGCLASS=H,                                 
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : DFSAUX - FORMAT AUXILIARY TEMPORARY STORAGE FILES             
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Runs DFHTU750 to initialise the DFHAUXT and DFHBUXT datasets           
+//*    - Required for CICS temporary storage AUXILIARY pool use                 
+//*                                                                             
+//*  AUTHOR     : IBM (formatted by BMT)                                        
+//*  DATE       : 25/07/2025                                                    
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    25/07/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//* STEP 1: RUN DFHTU750 TO FORMAT AUXILIARY TS FILES                           
+//*--------------------------------------------------------------------*        
+//DFHTU660 EXEC PGM=DFHTU750,REGION=5M                                          
+//STEPLIB  DD DISP=SHR,DSN=DFH620.CICS.SDFHLOAD                                 
+//         DD DISP=SHR,DSN=DFH620.CICS.SDFHLINK                                 
+//DFHAUXT  DD DISP=SHR,DSN=DFH620.CICS.DFHAUXT                                  
+//DFHBUXT  DD DISP=SHR,DSN=DFH620.CICS.DFHBUXT                                  
+//DFHAXPRT DD SYSOUT=*,HOLD=YES                                                 
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSABEND DD SYSOUT=*                                                          
+//SYSABOUT DD SYSOUT=*                                                          
+//DFHAXPRM DD *                                                                 
+FULL                                                                            
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

@@ -1,4 +1,4 @@
-//IUSMPREJJOB (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                           
+//IUSMPRE JOB (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //*--------------------------------------------------------------------*        
