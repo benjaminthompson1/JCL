@@ -50,7 +50,7 @@ mkdir -p @pathprefix@ && chmod 777 @pathprefix@
 //*                                                                             
 //* Mount the dataset at the mountpoint directory                               
 //*                                                                             
-//MOUNT    EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=99,COND=(0,LT)                  
+//MOUNT    EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=99,COND=(4,LT)                  
 //SYSTSPRT  DD SYSOUT=*                                                         
 //SYSTSIN   DD *                                                                
   PROFILE MSGID WTPMSG                                                          
