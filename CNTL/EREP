@@ -1,18 +1,38 @@
 //IULOGRC JOB (FB3),'CLEAR LOGREC',CLASS=A,MSGCLASS=H,                          
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* EREP REPORT FOR LOGREC                                           *          
-//* NOTE 1: CODE THE SERLOG DD IF GOING AGAINST THE LIVE FILE;       *          
-//* OTHERWISE, CODE THE ACCIN DD. DO NOT CODE BOTH.                  *          
-//* NOTE 2: CODE HIST=N IF GOING AGAINST THE LIVE FILE.              *          
-//* CODE HIST=Y IF GOING AGAINST THE HISTORICAL FILE.                *          
-//*                                                                  *          
-//********************************************************************          
+//*------------------------------------------------------------------*          
+//*  JOB NAME   : EREP REPORT FOR LOGREC                                        
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Generates an EREP report using IFCEREP1 for analysis of                
+//*      hardware and software events recorded in LOGREC.                       
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 04/08/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - CODE ONLY ONE OF THE FOLLOWING:                                        
+//*        - SERLOG DD for live LOGREC dataset                                  
+//*        - ACCIN  DD for historical LOGREC file                               
+//*                                                                             
+//*    - HIST= parameter controls file type:                                    
+//*        - HIST=N  Live LOGREC file                                          
+//*        - HIST=Y  Historical LOGREC file                                    
+//*                                                                             
+//*    - Adjust dataset names and DISP values as needed.                        
+//*    - Report is printed to SYSOUT via EREPPT and TOURIST DDs.                
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    04/08/2025   BMT        Initial documented version                       
+//*------------------------------------------------------------------*          
+//* STEP 1: RUN IFCEREP1 TO REPORT ON LOGREC DATA                               
+//*------------------------------------------------------------------*          
 //ERIP EXEC PGM=IFCEREP1,PARM='CARD'                                            
-//SERLOG DD DISP=SHR,DSN=SYS1.S0W1.LOGREC <=== SEE NOTE 1                       
-//*ACCIN DD DISP=SHR,DSN=SYS1.LOGREC.HIST <=== SEE NOTE 1                       
+//SERLOG   DD DISP=SHR,DSN=SYS1.S0W1.LOGREC          <=== SEE NOTE 1            
+//*ACCIN   DD DISP=SHR,DSN=SYS1.LOGREC.HIST          <=== SEE NOTE 1            
 //TOURIST  DD SYSOUT=*,DCB=BLKSIZE=133                                          
 //EREPPT   DD SYSOUT=*,DCB=BLKSIZE=133                                          
 //SYSABEND DD SYSOUT=A                                                          
@@ -25,3 +45,6 @@ ACC=N
 TYPE=ACDEHIMOSX                                                                 
 ENDPARM                                                                         
 /*                                                                              
+//*------------------------------------------------------------------*          
+//* END OF JOB                                                                  
+//*------------------------------------------------------------------*          

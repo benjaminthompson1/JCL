@@ -1,11 +1,32 @@
-//IULIKEC JOB  (FB3),'LIKECOPY',CLASS=A,MSGCLASS=H,                             
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: DATA SET ATTRIBUTES USED FOR IBMUSER.COBOL.LOAD.NEW     *          
-//*          FROM THE CATALOGED MODEL DATA SET IBMUSER.COBOL.LOAD    *          
-//*                                                                  *          
-//********************************************************************          
+//IULIKEC JOB (FB3),'LIKECOPY',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*------------------------------------------------------------------*          
+//*  JOB NAME   : CREATE NEW DATASET USING LIKE PARAMETER                       
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Allocates a new dataset IBMUSER.COBOL.LOAD.NEW                         
+//*      with attributes copied from the cataloged model                        
+//*      dataset IBMUSER.COBOL.LOAD using the LIKE parameter.                   
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 04/08/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*    - The dataset is created with DISP=KEEP and will not be                  
+//*      deleted after job completion.                                          
+//*    - Ensure that IBMUSER.COBOL.LOAD exists and is cataloged.                
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    04/08/2025   BMT        Initial version                                  
+//*------------------------------------------------------------------*          
+//* STEP 1: ALLOCATE NEW DATASET USING LIKE PARAMETER                           
+//*------------------------------------------------------------------*          
 //LIKECPY EXEC PGM=IEFBR14                                                      
 //SMSDS1  DD DSNAME=IBMUSER.COBOL.LOAD.NEW,                                     
 //        LIKE=IBMUSER.COBOL.LOAD,DISP=(NEW,KEEP)                               
+//*------------------------------------------------------------------*          
+//* END OF JOB                                                                  
+//*------------------------------------------------------------------*          

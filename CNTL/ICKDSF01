@@ -1,5 +1,6 @@
-//ICKDSF01 JOB  (FB3),'INIT 3380 DASD',CLASS=A,MSGCLASS=H,                      
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//IUDSF01 JOB (FB3),'ICKDSF01',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: 3390 INITIALIZE VOLUME                                  *          
