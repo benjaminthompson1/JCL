@@ -1,0 +1,41 @@
+//IUVSAM JOB (FB3),'IPCSVSAM',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : IPCSVSAM  Create IPCS Dump Directory (VSAM KSDS)              
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*   Define a reusable VSAM KSDS for the IPCS dump directory,                  
+//*   storing keyed summary records of system dumps.                            
+//*                                                                             
+//*   Compression can be enabled if using extended format, but                  
+//*   space savings are minimal since keys are not compressed.                  
+//*                                                                             
+//*  AUTHOR     : IBM (formatted by BMT)                                        
+//*  DATE       : 05/08/2025                                                    
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    05/08/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//* STEP 1: DEFINE IPCS DUMP DIRECTORY USING IDCAMS                             
+//*--------------------------------------------------------------------*        
+//IPCSVASM EXEC PGM=IDCAMS                                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//AMSDUMP  DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  DEFINE CLUSTER ( -                                                            
+    NAME(IBMUSER.DDIR) -                                                        
+    VOLUMES(C3USR4) -                                                           
+    RECORDSIZE(384 3072) -                                                      
+    KEYS(128 0) -                                                               
+    CYLINDERS(1 1) -                                                            
+    INDEXED -                                                                   
+    REUSE ) -                                                                   
+  DATA   (NAME(IBMUSER.DDIR.D)) -                                               
+  INDEX  (NAME(IBMUSER.DDIR.I))                                                 
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

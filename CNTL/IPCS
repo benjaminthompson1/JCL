@@ -1,0 +1,45 @@
+//IUIPCS JOB (FB3),'IPCS',CLASS=A,MSGCLASS=H,                                   
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : IPCS                                                          
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*   Use IPCS to analyse GTF trace data and manage the IPCS                    
+//*   dump directory. This job runs an IPCS session in batch mode,              
+//*   defining input trace data and updating the dump directory.                
+//*                                                                             
+//*   The IPCS dump directory is a VSAM KSDS defined separately                 
+//*   and allocated via the IPCSDDIR DD statement.                              
+//*                                                                             
+//*  AUTHOR     : IBM (formatted by BMT)                                        
+//*  DATE       : 05/08/2025                                                    
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- --------------------------------------           
+//*    05/08/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//* STEP 1: RUN IPCS IN BATCH TO ANALYSE GTF TRACE                              
+//*--------------------------------------------------------------------*        
+//IPCS   EXEC PGM=IKJEFT01                                                      
+//STEPLIB  DD DISP=SHR,DSN=SYS1.MIGLIB                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//IPCSTOC  DD SYSOUT=*                                                          
+//PRINTER  DD SYSOUT=*                                                          
+//SYSPROC  DD DISP=SHR,DSN=SYS1.SBLSCLI0                                        
+//IPCSPRNT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//GTFIN    DD DISP=SHR,DSN=IBMUSER.GTFRACF.TRACE                                
+//IPCSDDIR DD DISP=SHR,DSN=IBMUSER.DDIR                                         
+//SYSTSIN  DD *                                                                 
+  IPCS NOPARM                                                                   
+  DROPDUMP                                                                      
+  SETDEF FILE(GTFIN) NOCONFIRM                                                  
+  GTFTRACE USR(F44,F45)                                                         
+  END                                                                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
