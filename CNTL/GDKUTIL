@@ -1,37 +1,75 @@
-//IUMINIO JOB  (FB3),'MINIO',CLASS=A,MSGCLASS=H,                                
+//IUMINIO JOB  (FB3),'MINIO',CLASS=A,MSGCLASS=H,                        JOB00993
 //       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
 //*--------------------------------------------------------------------*        
 //*  JOB NAME   : IUMINIO                                                       
 //*                                                                             
 //*  FUNCTION   :                                                               
-//*              - Upload a dataset to a MinIO object storage bucket            
-//*              - Uses GDKUTIL to send data via S3-compatible API              
+//*              - Demonstrate upload, list, and download of a dataset          
+//*                to/from a MinIO object storage bucket.                       
+//*              - Uses GDKUTIL to communicate with MinIO via an                
+//*                S3-compatible API endpoint.                                  
 //*                                                                             
 //*  AUTHOR     : BMT                                                           
 //*  DATE       : 26/06/2025                                                    
 //*                                                                             
 //*  NOTES      :                                                               
-//*              - Ensure network access to MinIO endpoint                      
-//*              - Requires GDKUTIL with S3 provider support                    
-//*              - Edit OBJNAME for the object path in MinIO                    
-//*              - LOCAL DD refers to the dataset being uploaded                
+//*              - Ensure network access to the MinIO endpoint.                 
+//*              - Requires GDKUTIL with S3 provider support.                   
+//*              - OBJNAME specifies the object path in MinIO.                  
+//*              - LOCAL DD specifies the z/OS dataset to upload or             
+//*                the target dataset for downloads.                            
+//*              - LOG(DEBUG) produces detailed diagnostic output from          
+//*                GDKUTIL to aid troubleshooting.                              
+//*              - WEBTOOLKITLOGU enables verbose logging of the                
+//*                z/OS Web Enablement Toolkit layer, showing low-level         
+//*                HTTP(S) requests and responses during S3 operations.         
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
 //*    ------------ ---------- ----------------------------------------         
 //*    26/06/2025   BMT       Initial version                                   
+//*    09/08/2025   BMT       LIST and DOWNLOAD steps added                     
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP 1: Upload dataset to MinIO via GDKUTIL                                 
 //*--------------------------------------------------------------------*        
-//MINIO    EXEC PGM=GDKUTIL                                                     
+//MINIO1   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
-  UPLOAD PROVIDER(MINIO) LOG(DEBUG)                                             
+  UPLOAD PROVIDER(MINIO) LOG(DEBUG) WEBTOOLKITLOGU                              
 /*                                                                              
 //OBJNAME  DD *                                                                 
-  /z31c/backup/mydata.txt                                                       
+  /z31c/z31c_SYSLOG                                                             
 /*                                                                              
 //LOCAL    DD DSN=IBMUSER.SYSLOG.OUTPUTD,DISP=SHR                               
+//SYSOUT   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* STEP 2: List objects in MinIO via GDKUTIL                                   
+//*--------------------------------------------------------------------*        
+//MINIO2   EXEC PGM=GDKUTIL                                                     
+//SYSIN    DD *                                                                 
+  LIST PROVIDER(MINIO) LOG(DEBUG) WEBTOOLKITLOGU                                
+/*                                                                              
+//OBJNAME  DD *                                                                 
+  /z31c                                                                         
+/*                                                                              
+//SYSOUT   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* STEP 3: Download dataset from MinIO via GDKUTIL                             
+//*--------------------------------------------------------------------*        
+//MINIO3   EXEC PGM=GDKUTIL                                                     
+//SYSIN    DD *                                                                 
+  DOWNLOAD PROVIDER(MINIO) LOG(DEBUG) WEBTOOLKITLOGU                            
+/*                                                                              
+//OBJNAME  DD *                                                                 
+  /z31c/z31c_SYSLOG                                                             
+/*                                                                              
+//LOCAL    DD DSN=IBMUSER.SYSLOG.DOWNLOAD.OUTPUTD,                              
+//            DISP=(NEW,CATLG,DELETE),                                          
+//            UNIT=SYSDA,                                                       
+//            SPACE=(CYL,(1,1)),                                                
+//            DCB=(RECFM=VBA,LRECL=240,BLKSIZE=0)                               
 //SYSOUT   DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //*--------------------------------------------------------------------*        
