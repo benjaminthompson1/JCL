@@ -33,12 +33,12 @@
 //STEP1    EXEC PGM=GIMXSID,PARM='WAIT=10MIN,L=ENU'                             
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPOUT   DD SYSOUT=*                                                          
-//SMPXTOUT DD DSN=IBMUSER.ADV910.REPORT,DISP=(NEW,CATLG),                       
+//SMPXTOUT DD DSN=IBMUSER.MVS310.REPORT,DISP=(NEW,CATLG),                       
 //            DCB=(RECFM=FB,LRECL=12560,BLKSIZE=25120),                         
 //            SPACE=(TRK,(10,10))                                               
 //SYSIN    DD DATA,DLM=$$                                                       
-CSI=#globalzone                                                                 
-TARGET=#target                                                                  
+CSI=MVS.GLOBAL.CSI                                                              
+TARGET=MVST                                                                     
 $$                                                                              
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  

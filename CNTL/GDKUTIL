@@ -48,7 +48,7 @@
 //*--------------------------------------------------------------------*        
 //MINIO2   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
-  LIST PROVIDER(MINIO) LOG(DEBUG) WEBTOOLKITLOGU                                
+  LIST PROVIDER(MINIO)                                                          
 /*                                                                              
 //OBJNAME  DD *                                                                 
   /z31c                                                                         
@@ -60,7 +60,7 @@
 //*--------------------------------------------------------------------*        
 //MINIO3   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
-  DOWNLOAD PROVIDER(MINIO) LOG(DEBUG) WEBTOOLKITLOGU                            
+  DOWNLOAD PROVIDER(MINIO)                                                      
 /*                                                                              
 //OBJNAME  DD *                                                                 
   /z31c/z31c_SYSLOG                                                             
