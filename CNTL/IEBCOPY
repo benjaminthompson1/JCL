@@ -1,13 +1,46 @@
-//IUIEBCPY JOB (FB3),'IEBCOPY',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                        
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: COPY PDS MEMBERS                                        *          
-//*                                                                  *          
-//********************************************************************          
-//COPY1 EXEC PGM=IEBCOPY                                                        
+//IUIEBCP JOB (FB3),'IEBCOPY',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : COPY PDS MEMBERS WITH IEBCOPY                                 
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Copies members from one PDS/PDSE to another using IEBCOPY.             
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 19/08/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    Copies all members from SYS1.MIGLIB to SYS1.MIGLIB.NEW. The new          
+//*    library is allocated as a PDSE.                                          
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Change DDIN DSN= to your source library                                
+//*    - Change DDOUT DSN= to your target library                               
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    19/08/2025   BMT        Initial documented version.                      
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: COPY MEMBERS FROM SOURCE TO TARGET WITH IEBCOPY                     
+//*--------------------------------------------------------------------*        
+//IEBCOPY1 EXEC PGM=IEBCOPY                                                     
 //SYSPRINT DD SYSOUT=*                                                          
-//DDIN     DD DISP=SHR,DSN=DVM110.SMPPTS.OLD                                    
-//DDOUT    DD DISP=SHR,DSN=DVM110.SMPPTS                                        
+//DDIN     DD DISP=SHR,DSN=SYS1.MIGLIB,VOL=SER=C3RES1,UNIT=3390                 
+//DDOUT    DD DSN=SYS1.MIGLIB.NEW,                                              
+//            DISP=(NEW,KEEP),                                                  
+//            UNIT=3390,                                                        
+//            VOL=SER=C3RES1,                                                   
+//            SPACE=(CYL,(50,10)),                                              
+//            DSNTYPE=LIBRARY,                                                  
+//            DCB=(DSORG=PO,RECFM=U,LRECL=0,BLKSIZE=32760),                     
+//*            DCB=(DSORG=PO,RECFM=FB,LRECL=80,BLKSIZE=0),                      
+//            STORCLAS=SCNOSMS                                                  
 //SYSIN    DD *                                                                 
   COPY OUTDD=DDOUT,INDD=DDIN                                                    
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

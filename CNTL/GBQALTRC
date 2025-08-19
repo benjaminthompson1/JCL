@@ -1,0 +1,27 @@
+//IUALTRC JOB (FB3),'GBQALTRC',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//*                                                                   *         
+//* (C) COPYRIGHT TERACLOUD APS 2023                                  *         
+//* ALL RIGHTS RESERVED.                                              *         
+//*                                                                   *         
+//* LICENSED MATERIALS - PROPERTY OF TERACLOUD                        *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                   *         
+//* SAMPLE JOB TO ALLOCATE THE INTERNAL TRACE DATA SETS.              *         
+//*                                                                   *         
+//*                                                                   *         
+//* Change the HLQ and STORCLAS as required for your installation.    *         
+//*                                                                   *         
+//*                                                                   *         
+//*                                                                   *         
+//*********************************************************************         
+//ALLOC    EXEC  PGM=IEFBR14                                                    
+//GBQTRC1  DD DISP=(,CATLG),DSN=CDM.V1R2M0.GBQS0W1.TRACE1,                      
+//         LRECL=4096,RECFM=VB,DSORG=PS,                                        
+//         SPACE=(CYL,(100))                                                    
+//GBQTRC2  DD DISP=(,CATLG),DSN=CDM.V1R2M0.GBQS0W1.TRACE2,                      
+//         LRECL=4096,RECFM=VB,DSORG=PS,                                        
+//         SPACE=(CYL,(100))                                                    

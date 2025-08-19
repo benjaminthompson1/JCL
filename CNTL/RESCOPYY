@@ -1,0 +1,13 @@
+//IURSCPY JOB (FB3),'RESCOPYY',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//DO       EXEC PGM=ADRDSSU                                                     
+//SYSPRINT DD   SYSOUT=*                                                        
+//SYSIN    DD   *                                                               
+  COPY  FULL -                                                                  
+        INDYN((C3RES1)) -                                                       
+        OUTDYN((Y3RES1))                                                        
+  COPY  FULL -                                                                  
+        INDYN((C3RES2)) -                                                       
+        OUTDYN((Y3RES2))                                                        
+/*                                                                              
