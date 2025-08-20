@@ -28,15 +28,17 @@
 //*--------------------------------------------------------------------*        
 //IEBCOPY1 EXEC PGM=IEBCOPY                                                     
 //SYSPRINT DD SYSOUT=*                                                          
-//DDIN     DD DISP=SHR,DSN=SYS1.MIGLIB,VOL=SER=C3RES1,UNIT=3390                 
-//DDOUT    DD DSN=SYS1.MIGLIB.NEW,                                              
+//DDIN     DD DISP=SHR,DSN=SYS1.SGRBLINK,VOL=SER=C3RES1,UNIT=3390               
+//DDOUT    DD DSN=SYS1.SGRBLINK.NEW,                                            
 //            DISP=(NEW,KEEP),                                                  
 //            UNIT=3390,                                                        
 //            VOL=SER=C3RES1,                                                   
-//            SPACE=(CYL,(50,10)),                                              
-//            DSNTYPE=LIBRARY,                                                  
+//            SPACE=(CYL,(5,1,156)),                                            
+//*           SPACE=(CYL,(50,10)),                                              
+//            DSNTYPE=PDS,                                                      
+//*           DSNTYPE=LIBRARY,                                                  
 //            DCB=(DSORG=PO,RECFM=U,LRECL=0,BLKSIZE=32760),                     
-//*            DCB=(DSORG=PO,RECFM=FB,LRECL=80,BLKSIZE=0),                      
+//*           DCB=(DSORG=PO,RECFM=FB,LRECL=80,BLKSIZE=0),                       
 //            STORCLAS=SCNOSMS                                                  
 //SYSIN    DD *                                                                 
   COPY OUTDD=DDOUT,INDD=DDIN                                                    
@@ -44,3 +46,12 @@
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
 //*--------------------------------------------------------------------*        
+//DDOUT    DD  DSN=SYS1.MIGLIB.NEW,                                             
+//             DISP=(NEW,KEEP),                                                 
+//             UNIT=3390,                                                       
+//             VOL=SER=C3RES1,                                                  
+//             SPACE=(CYL,(50,10,598)),                                         
+//             DSNTYPE=PDS,                                                     
+//             DCB=(DSORG=PO,RECFM=U,LRECL=0,BLKSIZE=32760),                    
+//*            DCB=(DSORG=PO,RECFM=FB,LRECL=80,BLKSIZE=0),                      
+//             STORCLAS=SCNOSMS                                                 
