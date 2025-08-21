@@ -1,12 +1,30 @@
-//IURACFS JOB  (FB3),'RACF STC',CLASS=A,MSGCLASS=H,                             
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//IURACFS JOB (FB3),'RACF STC',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*------------------------------------------------------------------*          
+//*  JOB NAME   : RACF STC                                                      
 //*                                                                             
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: Define USERID STC and PERMIT required resources         *          
-//*          rules in RACF                                           *          
-//*                                                                  *          
-//********************************************************************          
+//*  FUNCTION   :                                                               
+//*              - Define RACF started task (STC) user ID for Omegamon          
+//*              - Associate the STC with OMVS segment for UNIX access          
+//*              - Define RACF STARTED class profile mapping OMEG.*             
+//*                to the OMEG user                                             
+//*              - Refresh RACF STARTED class to activate definitions           
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 21/08/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*              - The HOME path (/u/automount/omeg) should exist or            
+//*                be created separately                                        
+//*              - User OMEG has no password (for STC use only)                 
+//*              - Update OWNER and DFLTGRP according to site standards         
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ---------------------------------------          
+//*    21/08/2025   BMT        Initial version                                  
+//*------------------------------------------------------------------*          
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -27,3 +45,6 @@ RDEFINE STARTED OMEG.** LEVEL(0) OWNER(IBMUSER) -
 STDATA(USER(OMEG) GROUP(SYS1))                                                  
 SETROPTS REFRESH RACLIST(STARTED)                                               
 /*                                                                              
+//*------------------------------------------------------------------*          
+//* End of Job                                                                  
+//*------------------------------------------------------------------*          

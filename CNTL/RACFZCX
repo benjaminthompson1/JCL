@@ -1,12 +1,31 @@
-//IURACFZ JOB  (FB3),'RACF ZCX',CLASS=A,MSGCLASS=H,                             
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//IURACFZ JOB (FB3),'RACF ZCX',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*------------------------------------------------------------------*          
+//*  JOB NAME   : RACF ZCX                                                      
 //*                                                                             
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: Define zCX rules in RACF                                *          
-//*                                                                  *          
-//********************************************************************          
-//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//*  FUNCTION   :                                                               
+//*              - Define RACF groups and users required for zCX                
+//*              - Provision users, started task users, and admin               
+//*                users with appropriate OMVS segments                         
+//*              - Set dataset profiles for isolation and control               
+//*              - Refresh RACF settings so changes are active                  
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 21/08/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*              - User IDs and groups can be adjusted as per                   
+//*                installation naming standards                                
+//*              - Ensure passwords are changed after initial setup             
+//*              - Dataset profiles created for each zCX user                   
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ---------------------------------------          
+//*    21/08/2025   BMT        Initial version                                  
+//*------------------------------------------------------------------*          
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
 //STDERR   DD SYSOUT=*                                                          
@@ -76,3 +95,7 @@ PERMIT   'ZCXADM1.*' GENERIC +
          ID(IBMUSER) ACCESS(ALTER)                                              
                                                                                 
 SETROPTS REFRESH GENERIC(DATASET)                                               
+/*                                                                              
+//*------------------------------------------------------------------*          
+//* End of Job                                                                  
+//*------------------------------------------------------------------*          

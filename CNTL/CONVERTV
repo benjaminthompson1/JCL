@@ -1,5 +1,6 @@
-//IUCONVER JOB  (FB3),'SMS CONVERTV',CLASS=A,MSGCLASS=H,                        
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//IUCONVE JOB (FB3),'SMS CONVERT',CLASS=A,MSGCLASS=H,                           
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //*--------------------------------------------------------------------*        
 //*  JOB NAME   : SMS CONVERTV                                                  
 //*                                                                             
@@ -21,7 +22,7 @@
 //*    ------------ ---------- ----------------------------------------         
 //*    26/06/2025   BMT       Initial version                                   
 //*--------------------------------------------------------------------*        
-//STEP1 EXEC PGM=ADRDSSU,REGION=0M                                              
+//STEP1 EXEC PGM=ADRDSSU                                                        
 //SYSPRINT DD SYSOUT=*                                                          
 //INVOL1   DD VOL=SER=USER0A,UNIT=3390,DISP=SHR                                 
 //SYSIN    DD *                                                                 

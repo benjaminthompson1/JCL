@@ -1,7 +1,32 @@
 //IURSCPX JOB (FB3),'RESCOPYX',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//DO       EXEC PGM=ADRDSSU                                                     
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : RESCOPYX                                                      
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*              - Clone the "golden" RESVOL image (C3RESn)                     
+//*                which has maintenance applied                                
+//*              - Copy the updated images to the IPL RESVOL volumes            
+//*                (X3RESn)                                                     
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 21/08/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*              - Requires DFSMSdss (ADRDSSU) utility installed                
+//*              - Ensure target IPL RESVOL volumes are not in use              
+//*                before running this job                                      
+//*              - Source volumes (C3RESn) should contain the                   
+//*                maintained "golden" system image                             
+//*              - Update source/target volume serials as required              
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    21/08/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//RESCOPYX EXEC PGM=ADRDSSU                                                     
 //SYSPRINT DD   SYSOUT=*                                                        
 //SYSIN    DD   *                                                               
   COPY  FULL -                                                                  
@@ -11,3 +36,6 @@
         INDYN((C3RES2)) -                                                       
         OUTDYN((X3RES2))                                                        
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                         *        
+//*--------------------------------------------------------------------*        
