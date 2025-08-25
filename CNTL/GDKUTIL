@@ -1,28 +1,30 @@
-//IUMINIO JOB  (FB3),'MINIO',CLASS=A,MSGCLASS=H,                        JOB00993
+//IUGDKUT JOB  (FB3),'GDKUTIL',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
 //*--------------------------------------------------------------------*        
-//*  JOB NAME   : IUMINIO                                                       
+//*  JOB NAME   : IUGDKUT                                                       
 //*                                                                             
 //*  FUNCTION   :                                                               
-//*              - Demonstrate upload, list, and download of a dataset          
-//*                to/from a MinIO object storage bucket.                       
-//*              - Uses GDKUTIL to communicate with MinIO via an                
-//*                S3-compatible API endpoint.                                  
+//*              - Demonstrate use of GDKUTIL to interact with                  
+//*                S3-compatible object storage.                                
+//*              - Upload, list, and download a z/OS dataset using              
+//*                either IBM Cloud Object Storage or a locally                 
+//*                hosted MinIO instance.                                       
 //*                                                                             
 //*  AUTHOR     : BMT                                                           
 //*  DATE       : 26/06/2025                                                    
 //*                                                                             
 //*  NOTES      :                                                               
-//*              - Ensure network access to the MinIO endpoint.                 
-//*              - Requires GDKUTIL with S3 provider support.                   
-//*              - OBJNAME specifies the object path in MinIO.                  
-//*              - LOCAL DD specifies the z/OS dataset to upload or             
-//*                the target dataset for downloads.                            
-//*              - LOG(DEBUG) produces detailed diagnostic output from          
-//*                GDKUTIL to aid troubleshooting.                              
-//*              - WEBTOOLKITLOGU enables verbose logging of the                
-//*                z/OS Web Enablement Toolkit layer, showing low-level         
-//*                HTTP(S) requests and responses during S3 operations.         
+//*              - Two providers are supported:                                 
+//*                   PROVIDER(IBM)   -> IBM Cloud Object Storage               
+//*                   PROVIDER(MINIO) -> Local MinIO server                     
+//*              - Ensure network connectivity to the chosen endpoint.          
+//*              - GDKUTIL must be installed with S3 provider support.          
+//*              - OBJNAME identifies the object key/path in the bucket.        
+//*              - LOCAL DD refers to the z/OS dataset to be uploaded           
+//*                or the destination dataset for downloads.                    
+//*              - LOG(DEBUG) provides detailed diagnostic messages.            
+//*              - WEBTOOLKITLOGU enables verbose z/OS Web Enablement           
+//*                Toolkit logging (low-level HTTP/S traces).                   
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      

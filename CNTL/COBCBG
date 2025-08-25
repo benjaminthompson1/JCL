@@ -50,7 +50,7 @@
 //COBCBG1 EXEC IGYQCBG,                                                         
 //             LNGPRFX=IGY640,                                                  
 //             LIBPRF1=CEE,                                                     
-//             GPARM='/TEST(,,,TCPIP&10.1.1.86%8001:*)',                        
+//*            GPARM='/TEST(,,,TCPIP&10.1.1.86%8001:*)',                        
 //             GOPGM=HELLOW                                                     
 //* COBOL COPYLIB AND SOURCE                                                    
 //COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
@@ -64,7 +64,7 @@
 //* STEP 3: EXECUTE PROGRAM WITH DEBUG SUPPORT                                  
 //*--------------------------------------------------------------------*        
 //GO.STEPLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
-//             DD DISP=SHR,DSN=ISM330.SEQAMOD                                   
+//             DD DISP=SHR,DSN=ISM403.SEQAMOD                                   
 //* OPTIONAL RUNTIME DD STATEMENTS FOR PROGRAM INPUT/OUTPUT                     
 //*GO.STDNTCRS   DD DISP=SHR,DSN=IBMUSER.COBOL.STUDENT.COURSES                  
 //*GO.STCRSRPT   DD SYSOUT=*                                                    
