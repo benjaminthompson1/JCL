@@ -1,0 +1,40 @@
+//IUSMPCP JOB (FB3),'SMPE COMPARE',CLASS=A,MSGCLASS=H,                          
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMP/E COMPARE NOACCEPT                                        
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*              - Compare Target and Distribution zones                        
+//*                without applying (NOACCEPT)                                  
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 27/06/2025                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*              - This job performs an SMP/E compare between the               
+//*                Target Zone (MVST) and the Distribution Zone (MVSD).         
+//*              - The NOACCEPT option is used, meaning no changes are          
+//*                applied; it only reports differences.                        
+//*              - Review the SYSPRINT and SMPLOG outputs for results.          
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- ----------------------------------------         
+//*    27/06/2025   BMT        Initial version                                  
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: SMP/E COMPARE NOACCEPT                                              
+//*--------------------------------------------------------------------*        
+//NOACCEPT EXEC PGM=GIMSMP,TIME=NOLIMIT                                         
+//SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPLOG   DD SYSOUT=*                                                          
+//SMPCNTL  DD *                                                                 
+  SET  BDY(MVST).                                                               
+  LIST SYSMODS                                                                  
+       NOACCEPT(MVSD).                                                          
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

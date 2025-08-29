@@ -37,8 +37,8 @@
 //            DCB=(RECFM=FB,LRECL=12560,BLKSIZE=25120),                         
 //            SPACE=(TRK,(10,10))                                               
 //SYSIN    DD DATA,DLM=$$                                                       
-CSI=MVS.GLOBAL.CSI                                                              
-TARGET=MVST                                                                     
+CSI=#globalzone                                                                 
+TARGET=#target                                                                  
 $$                                                                              
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  

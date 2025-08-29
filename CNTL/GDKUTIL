@@ -18,7 +18,6 @@
 //*                   PROVIDER(IBM)   -> IBM Cloud Object Storage               
 //*                   PROVIDER(MINIO) -> Local MinIO server                     
 //*              - Ensure network connectivity to the chosen endpoint.          
-//*              - GDKUTIL must be installed with S3 provider support.          
 //*              - OBJNAME identifies the object key/path in the bucket.        
 //*              - LOCAL DD refers to the z/OS dataset to be uploaded           
 //*                or the destination dataset for downloads.                    

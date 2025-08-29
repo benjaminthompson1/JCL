@@ -31,6 +31,7 @@
 //DDIN     DD DISP=SHR,DSN=SYS1.SGRBLINK,VOL=SER=C3RES1,UNIT=3390               
 //DDOUT    DD DSN=SYS1.SGRBLINK.NEW,                                            
 //            DISP=(NEW,KEEP),                                                  
+//*           DISP=(NEW,CATLG),                                                 
 //            UNIT=3390,                                                        
 //            VOL=SER=C3RES1,                                                   
 //            SPACE=(CYL,(5,1,156)),                                            
