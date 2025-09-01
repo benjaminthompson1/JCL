@@ -1,39 +1,38 @@
-//IUSMPCP JOB (FB3),'SMPE COMPARE',CLASS=A,MSGCLASS=H,                          
+//IUSMPRS JOB (FB3),'SMPE RESTORE',CLASS=A,MSGCLASS=H,                          
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E COMPARE NOACCEPT                                        
+//*  JOB NAME   : SMP/E RESTORE SYSMODS                                         
 //*                                                                             
 //*  FUNCTION   :                                                               
-//*              - Compare Target and Distribution zones                        
-//*                without applying (NOACCEPT)                                  
+//*    - Restores target libraries to a previous level using the                
+//*      SMP/E RESTORE command.                                                 
+//*    - Typically used to back off service SYSMODs that were                   
+//*      previously applied, returning the system to an earlier state.          
 //*                                                                             
 //*  AUTHOR     : BMT                                                           
-//*  DATE       : 27/06/2025                                                    
+//*  DATE       : 29/08/2025                                                    
 //*                                                                             
 //*  NOTES      :                                                               
-//*              - This job performs an SMP/E compare between the               
-//*                Target Zone (MVST) and the Distribution Zone (MVSD).         
-//*              - The NOACCEPT option is used, meaning no changes are          
-//*                applied; it only reports differences.                        
-//*              - Review the SYSPRINT and SMPLOG outputs for results.          
+//*    - Update RESTORE SELECT() list with required SYSMOD numbers              
+//*    - Use CHECK before running without CHECK to verify actions               
+//*    - Optionally uncomment the SMPLOG DD if writing log to dataset           
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
 //*    ------------ ---------- ----------------------------------------         
-//*    27/06/2025   BMT        Initial version                                  
+//*    29/08/2025   BMT        Initial version                                  
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
-//* STEP 1: SMP/E COMPARE NOACCEPT                                              
+//* STEP 1: RESTORE SYSMODS                                                     
 //*--------------------------------------------------------------------*        
-//NOACCEPT EXEC PGM=GIMSMP                                                      
-//SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
+//RESTORE  EXEC PGM=GIMSMP                                                      
+//SMPCSI   DD DISP=SHR,DSN=MVS.GLOBAL.CSI                                       
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPLOG   DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
-  SET  BDY(MVST).                                                               
-  LIST SYSMODS                                                                  
-       NOACCEPT(MVSD).                                                          
+  SET BDY(MVST).                                                                
+  RESTORE SELECT(UO03558) CHECK.                                                
 /*                                                                              
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  

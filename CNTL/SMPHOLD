@@ -35,7 +35,7 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: GENERATE REPORTS FOR HELD SYSMODS AND HOLDDATA ENTRIES              
 //*--------------------------------------------------------------------*        
-//REPORT  EXEC PGM=GIMSMP,PARM='DATE=U',REGION=0M                               
+//REPORT  EXEC PGM=GIMSMP,PARM='DATE=U'                                         
 //SMPCSI  DD DISP=SHR,DSN=#globalzone                                           
 //SMPOUT  DD SYSOUT=*                                                           
 //SMPRPT  DD SYSOUT=*                                                           

@@ -17,7 +17,6 @@
 //*        #smpptfdsn  : Dataset containing the PTF package (SMPPTFIN)          
 //*        #fromnts    : SMPNTS package name (directory location)               
 //*        #sourceid   : Source identifier for audit tracking                   
-//*        #smplogdsn  : Optional dataset for permanent SMPLOG output           
 //*                                                                             
 //*    - Update RECEIVE SELECT() list with required SYSMOD numbers              
 //*    - Optionally uncomment the SMPLOG DD if writing log to dataset           
@@ -30,11 +29,10 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: RECEIVE SYSMODS FROM SMPPTFIN PACKAGE                               
 //*--------------------------------------------------------------------*        
-//RECNTS   EXEC PGM=GIMSMP,REGION=0M,                                           
+//RECNTS   EXEC PGM=GIMSMP                                                      
 //SMPCSI   DD DISP=OLD,DSN=#globalzone                                          
 //SMPOUT   DD SYSOUT=*                                                          
 //SMPLOG   DD SYSOUT=*                                                          
-//*SMPLOG   DD DISP=MOD,DSN=#smplogdsn                                          
 //SMPPTFIN DD DISP=SHR,DSN=#smpptfdsn                                           
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 

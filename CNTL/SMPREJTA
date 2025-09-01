@@ -17,7 +17,6 @@
 //*                                                                             
 //*    - Substitution variables:                                                
 //*        #globalzone : SMP/E Global CSI dataset name                          
-//*        #smplogdsn  : Optional log dataset (uncomment SMPLOG DD)             
 //*        #dlib       : Name of the DLIB zone to purge from                    
 //*                                                                             
 //*    - Uncomment SMPLOG DD to write log to a dataset                          
@@ -31,12 +30,10 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: REJECT SYSMODS AND PURGE FROM SMPPTS                                
 //*--------------------------------------------------------------------*        
-//RECNTS   EXEC PGM=GIMSMP,REGION=0M,                                           
+//RECNTS   EXEC PGM=GIMSMP                                                      
 //         PARM='CSI=#globalzone'                                               
 //SMPOUT   DD SYSOUT=*                                                          
 //SMPLOG   DD SYSOUT=*                                                          
-//*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
-//*SMPJHOME DD PATH='/usr/lpp/java/xxxx/',PATHDISP=KEEP                         
 //SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
 //SYSUT2   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
 //SYSUT3   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    

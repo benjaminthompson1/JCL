@@ -17,7 +17,6 @@
 //*              - Expected inputs:                                             
 //*                  - CSI: #globalzone                                         
 //*                  - Target zone: #target                                     
-//*                  - Optional SMPLOG dataset: #smplogdsn                      
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
@@ -27,7 +26,7 @@
 //*--------------------------------------------------------------------*        
 //* STEP 1: SMP/E APPLY CHECK                                                   
 //*--------------------------------------------------------------------*        
-//APPLY    EXEC PGM=GIMSMP,REGION=0M,TIME=NOLIMIT                               
+//APPLY    EXEC PGM=GIMSMP                                                      
 //SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
 //* SMP/E TEMP DATASETS (OPTIONAL)                                              
 //*SYSUT1   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
@@ -39,10 +38,7 @@
 //*SMPWRK3  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
 //*SMPWRK4  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
 //*SMPWRK6  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
-//* REPORT OUTPUT                                                               
 //SMPLOG   DD SYSOUT=*                                                          
-//* Optional dataset log output                                                 
-//*SMPLOG   DD DSN=#smplogdsn,DISP=MOD                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
   SET      BDY(#target) .                                                       
