@@ -1,0 +1,206 @@
+//IURACF JOB (FB3),'HBORACF',CLASS=A,MSGCLASS=H,                                
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//*                                                                   *         
+//* Licensed Materials - Property of IBM                              *         
+//*                                                                   *         
+//* 5698-LDA (C) Copyright IBM Corp. 2014, 2024                       *         
+//*                                                                   *         
+//* All Rights Reserved.                                              *         
+//*                                                                   *         
+//* US Government Users Restricted Rights - Use, duplication or       *         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                   *         
+//* This JCL is the sample job for the execution of RACF commands     *         
+//* required for the IBM Z Common Data Provider runtime components.   *         
+//*                                                                   *         
+//* Notes:                                                            *         
+//*                                                                   *         
+//* 1. The job must be run using a user ID that has the RACF SPECIAL  *         
+//*    attribute.                                                     *         
+//*                                                                   *         
+//* 2. This job need to be customized to be suitable for your needs   *         
+//*    and the security policies in your site. See "Customization"    *         
+//*    section below for more detailed customization instructions.    *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                   *         
+//* Customization:                                                    *         
+//*                                                                   *         
+//* Before running this job, you will have to make the following      *         
+//* modifications:                                                    *         
+//*                                                                   *         
+//* 1. Change the job card to meet your system requirements.          *         
+//*                                                                   *         
+//* 2. This job defines the basic security authorizations for the     *         
+//*    IBM Z Common Data Provider runtime components. Depending on    *         
+//*    your needs, you may not need all of the RACF authorizations.   *         
+//*    Review the comments prior to the group of RACF commands. You   *         
+//*    can remove the RACF commands which are not required.           *         
+//*                                                                   *         
+//* 3. This job assumes that the SHARED.IDS and BPX.NEXT.USER profiles*         
+//*    have been defined in the FACILITY class to enable the use of   *         
+//*    AUTOUID and AUTOGID. See the topic "Automatically assigning    *         
+//*    unique IDs through UNIX services" in z/OS Security Server RACF *         
+//*    Security Administrator's Guide for additional information      *         
+//*    about automatic UID and GID assignment. If this function has   *         
+//*    not been enabled, you must assign unique UID to the HBOLGF     *         
+//*    user ID, and unique GID to the group HBOGRP.                   *         
+//*                                                                   *         
+//* 4. Some mandatory modifications are required for some of the RACF *         
+//*    commands. The comments prior to such command are highlighted   *         
+//*    with "<Mandatory Change>".                                     *         
+//*                                                                   *         
+//* 5. This job should end with a condition code of zero. However, be *         
+//*    aware that the return code for the job will be that code for   *         
+//*    the last command issued. Therefore, it is possible for some of *         
+//*    the commands to complete successfully even if the job ends     *         
+//*    with a code = 4 or 12. Always review the output.               *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                             
+//RACF     EXEC PGM=IKJEFT01                                                    
+//SYSPRINT DD   SYSOUT=*                                                        
+//SYSTSPRT DD   SYSOUT=*                                                        
+//SYSTSIN  DD   DATA,DLM=@@                                                     
+/*********************************************************************/         
+/*                                                                   */         
+/* This commented section contains the CLASS activation commands for */         
+/* the RACF classes where profiles are created by the RACF commands. */         
+/* Ensure the following classes are active before executing this     */         
+/* script or creating profiles in these classes.                     */         
+/*                                                                   */         
+/* Activate and RACLIST the STARTED class                            */         
+/*SETROPTS CLASSACT(STARTED)                                         */         
+/*SETROPTS RACLIST(STARTED) GENERIC(STARTED)                         */         
+/*                                                                   */         
+/* Activate and RACLIST the FACILITY class                           */         
+/*SETROPTS CLASSACT(FACILITY)                                        */         
+/*SETROPTS RACLIST(FACILITY) GENERIC(FACILITY)                       */         
+/*                                                                   */         
+/* Activate and RACLIST the LOGSTRM class                            */         
+/*SETROPTS CLASSACT(LOGSTRM)                                         */         
+/*SETROPTS RACLIST(LOGSTRM) GENERIC(LOGSTRM)                         */         
+/*                                                                   */         
+/* Activate and RACLIST the OPERCMDS class                           */         
+/*SETROPTS CLASSACT(OPERCMDS)                                        */         
+/*SETROPTS RACLIST(OPERCMDS) GENERIC(OPERCMDS)                       */         
+/*                                                                   */         
+/*********************************************************************/         
+                                                                                
+/*********************************************************************/         
+/*                                                                   */         
+/* Create the security group and user id for the IBM Z Common Data   */         
+/* Provider started tasks.                                           */         
+/*                                                                   */         
+/*********************************************************************/         
+                                                                                
+ADDGROUP HBOGRP OMVS(AUTOGID)                                                   
+                                                                                
+ADDUSER HBOLGF DFLTGRP(HBOGRP) NOPASSWORD           +                           
+  OMVS(AUTOUID HOME('/u/automount/hbolgf') PROGRAM(/bin/sh))  +                 
+  NAME('ZCDP STC User')                                                         
+                                                                                
+oshell mkdir /u/automount/hbolgf                                                
+oshell chown HBOLGF:HBOGRP /u/automount/hbolgf                                  
+                                                                                
+/*********************************************************************/         
+/*                                                                   */         
+/* Create the started task profiles for the IBM Z Common Data        */         
+/* Provider started tasks.                                           */         
+/*                                                                   */         
+/*********************************************************************/         
+                                                                                
+RDEFINE STARTED HBODSPRO.* UACC(NONE) STDATA(USER(HBOLGF)  +                    
+  GROUP(HBOGRP) PRIVILEGED(NO) TRUSTED(NO) TRACE(YES))                          
+                                                                                
+RDEFINE STARTED HBOPROC.* UACC(NONE) STDATA(USER(HBOLGF)   +                    
+  GROUP(HBOGRP) PRIVILEGED(NO) TRUSTED(NO) TRACE(YES))                          
+                                                                                
+RDEFINE STARTED HBOSMF.* UACC(NONE) STDATA(USER(HBOLGF)    +                    
+  GROUP(HBOGRP) PRIVILEGED(NO) TRUSTED(NO) TRACE(YES))                          
+                                                                                
+RDEFINE STARTED HBOIMS.* UACC(NONE) STDATA(USER(HBOLGF)    +                    
+  GROUP(HBOGRP) PRIVILEGED(NO) TRUSTED(NO) TRACE(YES))                          
+                                                                                
+RDEFINE STARTED HBODCCOL.* UACC(NONE) STDATA(USER(HBOLGF)  +                    
+  GROUP(HBOGRP) PRIVILEGED(NO) TRUSTED(NO) TRACE(YES))                          
+                                                                                
+/*********************************************************************/         
+/*                                                                   */         
+/* Grant IBM Z Common Data Provider started tasks to issue messages  */         
+/* to system console.                                                */         
+/*                                                                   */         
+/*********************************************************************/         
+                                                                                
+RDEFINE FACILITY BPX.CONSOLE UACC(NONE)                                         
+PERMIT  BPX.CONSOLE CLASS(FACILITY) ID(HBOLGF) ACCESS(READ)                     
+                                                                                
+/*********************************************************************/         
+/*                                                                   */         
+/* This section contains RACF commands required for System Data      */         
+/* Engine or Data Collector to collect SMF records from an SMF       */         
+/* logstream. You can remove the commands if you do not collect      */         
+/* SMF records or you collect SMF records from other approaches.     */         
+/*                                                                   */         
+/* <Mandatory Change>                                                */         
+/*   Replace <logstream> with the SMF logstream name (without the    */         
+/*   IFASMF prefix) as defined in the SMFPRMxx PARMLIB member in     */         
+/*   your environment.                                               */         
+/*                                                                   */         
+/*********************************************************************/         
+                                                                                
+/* RDEFINE LOGSTRM IFASMF.<logstream> UACC(NONE) */                             
+/* PERMIT  IFASMF.<logstream> CLASS(LOGSTRM) +   */                             
+/*        ACCESS(READ) ID(HBOLGF)                */                             
+                                                                                
+RDEFINE OPERCMDS MVS.SWITCH.SMF UACC(NONE)                                      
+PERMIT  MVS.SWITCH.SMF CLASS(OPERCMDS) ACCESS(UPDATE) ID(HBOLGF)                
+                                                                                
+/*********************************************************************/         
+/*                                                                   */         
+/* This section contains RACF commands required for System Data      */         
+/* Engine or Data Collector to collect SMF records from an SMF       */         
+/* in-memory resource. You can remove the commands if you do not     */         
+/* collect SMF records or or you collect SMF records from other      */         
+/* approaches.                                                       */         
+/*                                                                   */         
+/* <Mandatory Change>                                                */         
+/*   Replace <inmem> with the SMF in-memory resource name (without   */         
+/*   the IFASMF prefix) as defined in the SMFPRMxx PARMLIB member    */         
+/*   in your environment.                                            */         
+/*                                                                   */         
+/*********************************************************************/         
+                                                                                
+/* RDEFINE FACILITY IFA.IFASMF.ALL UACC(NONE) */                                
+PERMIT  IFA.IFASMF.ALL CLASS(FACILITY)  +                                       
+        ACCESS(READ) ID(HBOLGF)                                                 
+                                                                                
+/*********************************************************************/         
+/*                                                                   */         
+/* This section contains RACF commands required for Log Forwarder    */         
+/* or Data Collector to collect messages from OPERLOG. You can       */         
+/* remove te commands if you do not collect messages from OPERLOG.   */         
+/*                                                                   */         
+/*********************************************************************/         
+                                                                                
+/* RDEFINE LOGSTRM SYSPLEX.OPERLOG UACC(NONE) */                                
+PERMIT  SYSPLEX.OPERLOG CLASS(LOGSTRM) ACCESS(READ) ID(HBOLGF)                  
+                                                                                
+/*********************************************************************/         
+/*                                                                   */         
+/* Refresh the RACF classes for new profiles created by the previous */         
+/* RACF commands.                                                    */         
+/*                                                                   */         
+/*********************************************************************/         
+                                                                                
+SETROPTS RACLIST(STARTED)  REFRESH                                              
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+SETROPTS RACLIST(LOGSTRM)  REFRESH                                              
+SETROPTS RACLIST(OPERCMDS) REFRESH                                              
+                                                                                
+@@                                                                              
+//                                                                              

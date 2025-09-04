@@ -1,0 +1,129 @@
+//HBOMKFS  JOB (),'HBOMKFS',MSGCLASS=X,MSGLEVEL=(1,1),                          
+//         CLASS=A,NOTIFY=&SYSUID                                               
+//*                                                                             
+//*********************************************************************         
+//*                                                                   *         
+//* Licensed Materials - Property of IBM                              *         
+//*                                                                   *         
+//* 5698-LDA (C) Copyright IBM Corp. 2023, 2024                       *         
+//*                                                                   *         
+//* All Rights Reserved.                                              *         
+//*                                                                   *         
+//* US Government Users Restricted Rights - Use, duplication or       *         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                   *         
+//* The job HBOMKFS is intended to define, format, and temporarily    *         
+//* mount the file system that is used as the working directory of    *         
+//* IBM Z Common Data Provider runtime components.                    *         
+//*                                                                   *         
+//* The user ID used to run this job must either have access to the   *         
+//* appropriate resource profiles in the UNIXPRIV class, access to    *         
+//* the BPX.SUPERUSER resource profile in the FACILITY class, or      *         
+//* UID(0).                                                           *         
+//*                                                                   *         
+//* If you choose to use UNIXPRIV, the resources for which access is  *         
+//* required are:                                                     *         
+//*                                                                   *         
+//*  - SUPERUSER.FILESYS (CONTROL)                                    *         
+//*  - SUPERUSER.FILESYS.MOUNT (UPDATE)                               *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                   *         
+//* Caution: This is neither a JCL procedure nor a complete job.      *         
+//* Before using this job step, you will have to make the following   *         
+//* modifications:                                                    *         
+//*                                                                   *         
+//*  1) Change the job card to meet your system requirements.         *         
+//*                                                                   *         
+//*  2) Change -zfsdsn- to the new file system used for the working   *         
+//*     directory of IBM Z Common Data Provider runtime components.   *         
+//*                                                                   *         
+//*  3) If you choose to SMS-manage the zFS data set, then perform    *         
+//*     the following steps:                                          *         
+//*     a. In the DEFINE job step IDCAMS SYSIN DEFINE statement       *         
+//*       - Uncomment these lines                                     *         
+//*           //*       DATACLASS(datatclas) -                        *         
+//*           //*       MANAGEMENTCLASS(mgmtclass) -                  *         
+//*           //*       STORAGECLASS(storclass) -                     *         
+//*         and move these lines between the line beginning with      *         
+//*         DEFINE and the line beginning with ZFS to form a valid    *         
+//*         DEFINE IDCAMS command.                                    *         
+//*     b. Supply valid SMS configuration values                      *         
+//*       - Change the <storclas> to a valid STORAGE CLASS            *         
+//*       - Change the <mgmtclas> to a valid MANAGEMENT CLASS         *         
+//*       - Change the <dataclas> to a valid DATA CLASS               *         
+//*       which are based on your ACS routines.                       *         
+//*                                                                   *         
+//*     The Data Class specified or assigned by your ACS routines     *         
+//*     must have Extended Format and Extended Addressability. It     *         
+//*     is required for the zFS data set to grow over 4G.             *         
+//*                                                                   *         
+//*     You do not need to specify volume serial for a SMS-managed    *         
+//*     zFS data set, because it will default to use the SMS volume   *         
+//*     based on your SMS ACS routines.                               *         
+//*                                                                   *         
+//*  4) If you choose to have NON-SMS managed but Extended Format zFS *         
+//*     data sets, then skip all steps described above in note 3.     *         
+//*     a. In the DEFINE job step IDCAMS SYSIN DEFINE statement       *         
+//*       - Uncomment this line                                       *         
+//*         //*       VOLUMES(volser )  -                             *         
+//*         and move the line between the line beginning with         *         
+//*         DEFINE and the line beginning with ZFS to form a valid    *         
+//*         DEFINE IDCAMS command.                                    *         
+//*     b. Supply a valid volumes configuration value                 *         
+//*     You must change <volser> to a valid volume serial.            *         
+//*                                                                   *         
+//*  5) Review the values specified in the MEGABYTES parameter,       *         
+//*     change to your desired size according to the storage          *         
+//*     required by the runtime components you need deploy on the     *         
+//*     LPAR.                                                         *         
+//*                                                                   *         
+//*  6) The MOUNT step uses the recommended mount point of /var/zcdp. *         
+//*     Change it if you want to use a different mount point.         *         
+//*                                                                   *         
+//*  7) When executing this job, the zFS data set being created is    *         
+//*     first deleted if it already exists.                           *         
+//*                                                                   *         
+//*  8) If re-running this job after already having mounted an zFS    *         
+//*     data set, the original zFS data set should first be           *         
+//*     unmounted.                                                    *         
+//*                                                                   *         
+//*  9) This job should end with RC=0. If not then, please check      *         
+//*     z/OS Unix System Services Messages and Codes book to          *         
+//*     help correct the problem and resubmit this job.               *         
+//*                                                                   *         
+//*********************************************************************         
+//DEFINE   EXEC PGM=IDCAMS                                                      
+//SYSPRINT DD   SYSOUT=*                                                        
+//SYSIN    DD   *                                                               
+  DELETE LDA.V5R1M0.VAR.ZFS CLUSTER                                             
+  SET MAXCC=0                                                                   
+  DEFINE CLUSTER (NAME(LDA.V5R1M0.VAR.ZFS) -                                    
+         ZFS MEGABYTES(500 50) -                                                
+         DATACLASS(DCEXTEAV))                                                   
+/*                                                                              
+//*       VOLUMES(volser)  -                                                    
+//*       DATACLASS(datatclas) -                                                
+//*       MANAGEMENTCLASS(mgmtclass) -                                          
+//*       STORAGECLASS(storclass) -                                             
+//*                                                                             
+//FORMAT   EXEC PGM=IOEFSUTL,REGION=0M,COND=(0,NE,DEFINE),                      
+// PARM=('format -aggregate LDA.V5R1M0.VAR.ZFS')                                
+//SYSPRINT DD   SYSOUT=*                                                        
+//STDOUT   DD   SYSOUT=*                                                        
+//STDERR   DD   SYSOUT=*                                                        
+//*                                                                             
+//MOUNT    EXEC PGM=IKJEFT1A,COND=((0,NE,DEFINE),(0,NE,FORMAT))                 
+//SYSTSPRT DD   SYSOUT=*                                                        
+//STDOUT   DD   SYSOUT=*                                                        
+//STDERR   DD   SYSOUT=*                                                        
+//SYSTSIN  DD   *                                                               
+  BPXBATCH SH mkdir -p /var/zcdp                                                
+                                                                                
+  MOUNT FILESYSTEM('LDA.V5R1M0.VAR.ZFS')  +                                     
+        TYPE(ZFS) MODE(RDWR) PARM('AGGRGROW') +                                 
+        MOUNTPOINT('/var/zcdp')                                                 
+/*                                                                              
+//                                                                              

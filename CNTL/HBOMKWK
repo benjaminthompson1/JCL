@@ -1,0 +1,91 @@
+//IUMKWK JOB (FB3),'HBOMKWK',CLASS=A,MSGCLASS=H,                                
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//*                                                                   *         
+//* Licensed Materials - Property of IBM                              *         
+//*                                                                   *         
+//* 5698-LDA (C) Copyright IBM Corp. 2023, 2024                       *         
+//*                                                                   *         
+//* All Rights Reserved.                                              *         
+//*                                                                   *         
+//* US Government Users Restricted Rights - Use, duplication or       *         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                   *         
+//* The job HBOMKWK is intended to create the working directories for *         
+//* the IBM Z Common Data Provider runtime components.                *         
+//*                                                                   *         
+//* The user ID used to run this job must either have access to the   *         
+//* appropriate resource profiles in the UNIXPRIV class, access to    *         
+//* the BPX.SUPERUSER resource profile in the FACILITY class, or      *         
+//* UID(0).                                                           *         
+//*                                                                   *         
+//* If you choose to use UNIXPRIV, the resources for which access is  *         
+//* required are:                                                     *         
+//*                                                                   *         
+//*  - SUPERUSER.FILESYS (CONTROL)                                    *         
+//*  - SUPERUSER.FILESYS.CHOWN (READ)                                 *         
+//*  - SUPERUSER.FILESYS.CHANGEPERMS (READ)                           *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                   *         
+//* Caution: This is neither a JCL procedure nor a complete job.      *         
+//* Before using this job step, you will have to make the following   *         
+//* modifications:                                                    *         
+//*                                                                   *         
+//*  1) Change the job card to meet your system requirements.         *         
+//*                                                                   *         
+//*  2) Set CDPDIR to the z/OS UNIX file system directory where the   *         
+//*     IBM Z Common Data Provider is installed. The default is       *         
+//*     "/usr/lpp/IBM/zcdp/v5r1m0".                                   *         
+//*                                                                   *         
+//*  3) Set WORKDIR to the z/OS UNIX file system directory where the  *         
+//*     working directories of the IBM Z Common Data Provider runtime *         
+//*     components will be created. The default is "/var/zcdp".       *         
+//*                                                                   *         
+//*  4) This job should end with RC=0. If not then, please check      *         
+//*     z/OS Unix System Services Messages and Codes book to          *         
+//*     help correct the problem and resubmit this job.               *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                             
+//         EXPORT SYMLIST=*                                                     
+//*                                                                             
+//  SET CDPDIR='/usr/lpp/IBM/zcdp/v5r1m0'                                       
+//  SET WORKDIR='/var/zcdp'                                                     
+//*                                                                             
+//STEP1    EXEC PGM=IKJEFT1A                                                    
+//SYSTSPRT DD   SYSOUT=*                                                        
+//STDOUT   DD   SYSOUT=*                                                        
+//STDERR   DD   SYSOUT=*                                                        
+//SYSTSIN  DD   *,SYMBOLS=JCLONLY                                               
+  BPXBATCH SH mkdir -p &WORKDIR/dc                                              
+  BPXBATCH SH mkdir -p &WORKDIR/ds                                              
+  BPXBATCH SH mkdir -p &WORKDIR/lf                                              
+  BPXBATCH SH mkdir -p &WORKDIR/sde                                             
+  BPXBATCH SH mkdir -p &WORKDIR/kafka                                           
+                                                                                
+  BPXBATCH SH +                                                                 
+  cp &CDPDIR/DC/samples/stream/*.properties &WORKDIR/dc                         
+                                                                                
+  BPXBATCH SH +                                                                 
+  cp &CDPDIR/DS/LIB/*.properties &WORKDIR/ds                                    
+                                                                                
+  BPXBATCH SH +                                                                 
+  cp &CDPDIR/LF/samples/*.properties &WORKDIR/lf                                
+                                                                                
+  BPXBATCH SH +                                                                 
+  cp &CDPDIR/SDE/samples/*.properties &WORKDIR/sde                              
+                                                                                
+  BPXBATCH SH chown -R HBOLGF:HBOGRP &WORKDIR                                   
+                                                                                
+  BPXBATCH SH chmod -R 775 &WORKDIR                                             
+                                                                                
+  BPXBATCH SH chmod 664 &WORKDIR/dc/*                                           
+  BPXBATCH SH chmod 664 &WORKDIR/ds/*                                           
+  BPXBATCH SH chmod 664 &WORKDIR/lf/*                                           
+  BPXBATCH SH chmod 664 &WORKDIR/sde/*                                          
+/*                                                                              
+//                                                                              
