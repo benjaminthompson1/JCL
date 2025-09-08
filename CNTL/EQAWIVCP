@@ -426,7 +426,7 @@
 //COMPILE EXEC PGM=IGYCRCTL,                                                    
 //*PARM=('APOST,NONAME,TEST(NONE,SYM,SEPARATE)'),                               
 //*PARM=('APOST,NONAME,TEST(NOHOOK,SEPARATE)'),                                 
-// PARM=('TEST(SEP)'),                                                          
+// PARM=('TEST(SEPARATE)'),                                                     
 //*PARM=('TEST(SEP(SYSDEBUG))'),                                                
 // REGION=4M                                                                    
 //STEPLIB  DD DISP=SHR,DSN=&LNGPRFX..SIGYCOMP                                   

@@ -1,0 +1,88 @@
+//IUQWTRA JOB (FB3),'QWTRACF',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//* -----------------------------------------------------------------*          
+//* FUNCTION  :                                                                 
+//*   - Define QWT-related RACF groups and users                                
+//*   - Configure STARTED Class entry for QWT STC                               
+//*   - Define digital certificates and keyrings for QWT                        
+//*                                                                             
+//* AUTHOR    : NPA                                                             
+//* DATE      : 20/08/2025                                                      
+//*                                                                             
+//* NOTES     :                                                                 
+//*   - Ensure RACF is active and the user has sufficient authority             
+//*   - Certificates assume a CERTAUTH named 'BaseCA' exists                    
+//*   - Customize IP/DNS details, certificate labels, and UID setup             
+//*   - This job affects security settings; review before running               
+//*                                                                             
+//* CHANGE LOG:                                                                 
+//*   DD/MM/YYYY   Author   Description                                         
+//*   ----------   ------   -----------                                         
+//*   20/08/2025   NPA      Initial version                                     
+//*   08/09/2025   BMT      Minor changes                                       
+//*-----------------------------------------------------------------*           
+//* STEP 1: DEFINE GROUPS AND USERS FOR QWT                                     
+//*-----------------------------------------------------------------*           
+//QWTRACF  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+ADDGROUP QWT  SUPGROUP(SYS1) OWNER(SYS1)                                        
+                                                                                
+AU TMSTEST NAME('TMSTEST') PASSWORD(TMSPASS) +                                  
+ OWNER(SYS1) DFLTGRP(QWT) UACC(READ) +                                          
+ TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) JOBCLASS(A) MSGCLASS(X) +                    
+ HOLDCLASS(X) SYSOUTCLASS(X) SIZE(4048) MAXSIZE(0))                             
+PERMIT ACCT# CLASS(ACCTNUM) ID(TMSTEST)                                         
+PERMIT ISPFPROC CLASS(TSOPROC) ID(TMSTEST)                                      
+PERMIT JCL     CLASS(TSOAUTH) ID(TMSTEST)                                       
+PERMIT OPER    CLASS(TSOAUTH) ID(TMSTEST)                                       
+PERMIT ACCT    CLASS(TSOAUTH) ID(TMSTEST)                                       
+PERMIT MOUNT   CLASS(TSOAUTH) ID(TMSTEST)                                       
+                                                                                
+ALTUSER TMSTEST NOEXPIRED PASSWORD(TMSPASS)                                     
+                                                                                
+AU TMSREPO NAME('TMSREPO') PASSWORD(TMSPASS) +                                  
+ OWNER(SYS1) DFLTGRP(QWT) UACC(READ) +                                          
+ TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) JOBCLASS(A) MSGCLASS(X) +                    
+ HOLDCLASS(X) SYSOUTCLASS(X) SIZE(4048) MAXSIZE(0))                             
+PERMIT ACCT# CLASS(ACCTNUM) ID(TMSREPO)                                         
+PERMIT ISPFPROC CLASS(TSOPROC) ID(TMSREPO)                                      
+PERMIT JCL     CLASS(TSOAUTH) ID(TMSREPO)                                       
+PERMIT OPER    CLASS(TSOAUTH) ID(TMSREPO)                                       
+PERMIT ACCT    CLASS(TSOAUTH) ID(TMSREPO)                                       
+PERMIT MOUNT   CLASS(TSOAUTH) ID(TMSREPO)                                       
+                                                                                
+ALTUSER TMSREPO NOEXPIRED PASSWORD(TMSPASS)                                     
+                                                                                
+AU TMSDBDG NAME('TMSDBDG') PASSWORD(TMSPASS) +                                  
+ OWNER(SYS1) DFLTGRP(QWT) UACC(READ) +                                          
+ TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) JOBCLASS(A) MSGCLASS(X) +                    
+ HOLDCLASS(X) SYSOUTCLASS(X) SIZE(4048) MAXSIZE(0))                             
+PERMIT ACCT# CLASS(ACCTNUM) ID(TMSDBDG)                                         
+PERMIT ISPFPROC CLASS(TSOPROC) ID(TMSDBDG)                                      
+PERMIT JCL     CLASS(TSOAUTH) ID(TMSDBDG)                                       
+PERMIT OPER    CLASS(TSOAUTH) ID(TMSDBDG)                                       
+PERMIT ACCT    CLASS(TSOAUTH) ID(TMSDBDG)                                       
+PERMIT MOUNT   CLASS(TSOAUTH) ID(TMSDBDG)                                       
+                                                                                
+ALTUSER TMSDBDG NOEXPIRED PASSWORD(TMSPASS)                                     
+                                                                                
+AU TMSSTC NAME('TMSSTC') NOPASSWORD +                                           
+ OWNER(SYS1) DFLTGRP(QWT) UACC(READ)                                            
+                                                                                
+RDEFINE STARTED DSNQWT.** LEVEL(0) OWNER(SYS1) +                                
+STDATA(USER(TMSSTC) GROUP(QWT))                                                 
+                                                                                
+SETROPTS REFRESH RACLIST(STARTED)                                               
+/*                                                                              
+//*------------------------------------------------------------------*          
+//* End of Job                                                                  
+//*------------------------------------------------------------------*          
