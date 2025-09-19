@@ -75,11 +75,11 @@ PERMIT MOUNT   CLASS(TSOAUTH) ID(TMSDBDG)
                                                                                 
 ALTUSER TMSDBDG NOEXPIRED PASSWORD(TMSPASS)                                     
                                                                                 
-AU TMSSTC NAME('TMSSTC') NOPASSWORD +                                           
+AU TMSSVR NAME('TMSSVR') NOPASSWORD +                                           
  OWNER(SYS1) DFLTGRP(QWT) UACC(READ)                                            
                                                                                 
-RDEFINE STARTED DSNQWT.** LEVEL(0) OWNER(SYS1) +                                
-STDATA(USER(TMSSTC) GROUP(QWT))                                                 
+RDEFINE STARTED TMSSVR.** LEVEL(0) OWNER(SYS1) +                                
+STDATA(USER(TMSSVR) GROUP(QWT))                                                 
                                                                                 
 SETROPTS REFRESH RACLIST(STARTED)                                               
 /*                                                                              

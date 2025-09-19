@@ -36,7 +36,7 @@
 //*--------------------------------------------------------------------*        
 //MINIO1   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
-  UPLOAD PROVIDER(MINIO) LOG(DEBUG) WEBTOOLKITLOGU                              
+  UPLOAD PROVIDER(MINIO) FORMAT(RECORD) LOG(DEBUG) WEBTOOLKITLOGU               
 /*                                                                              
 //OBJNAME  DD *                                                                 
   /z31c/z31c_SYSLOG                                                             
