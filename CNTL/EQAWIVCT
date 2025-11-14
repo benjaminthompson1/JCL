@@ -403,7 +403,8 @@
            MOVE 20 TO L1.                                                       
            MOVE  'CICIVCT STARTING' TO PRGSTART.                                
            EXEC CICS SEND FROM(PRGSTART) LENGTH(L1) END-EXEC.                   
-           MOVE ZERO TO ACCUMS                                                  
+                                                                                
+           INITIALIZE ACCUMS                                                    
                                                                                 
            PERFORM  2  TIMES                                                    
                ADD  3  TO  ACCUM-A                                              
