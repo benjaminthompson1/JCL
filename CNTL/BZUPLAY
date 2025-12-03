@@ -1,57 +1,39 @@
 //IUVTPPL JOB (FB3),'VTP PLAYBACK',CLASS=A,MSGCLASS=H,                          
 //             NOTIFY=&SYSUID,REGION=0M,TIME=1440                               
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : VTP PLAYBACK                                                  
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Replay previously recorded terminal sessions and batch I/O             
-//*      activity using the Visual Terminal Program (VTP) playback utility.     
-//*    - Assists with system and application diagnostics, debugging,            
-//*      and validation of test runs.                                           
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 26/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job runs the `BZUPLAY` utility to process and replay a              
-//*    VTP session recording. It reads the playback file, interprets            
-//*    the terminal and I/O activity, and produces a formatted output.          
-//*                                                                             
-//*    The job expects the following datasets:                                  
-//*      - Playback input: IBMUSER.VTP.TOURFILE.PLAY                            
-//*      - Load libraries:                                                      
-//*          - VTP201.SBZULLEP                                                  
-//*          - VTP201.SBZULOAD                                                  
-//*          - IBMUSER.GIT.COBOL.LOAD                                           
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Ensure the correct VTP version load libraries are available            
-//*      and authorized.                                                        
-//*    - A valid VTP playback file should be present and complete.              
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update dataset names if your environment uses different paths.         
-//*    - Review STEPLIB entries to match your installed VTP version.            
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    26/06/2025   BMT         Initial version                                 
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: EXECUTE VTP PLAYBACK UTILITY                                        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : VTP PLAYBACK                                            *           
+//* FUNC  :                                                         *           
+//*   - Replay recorded VTP terminal and batch I/O activity.        *           
+//* AUTHOR: BMT               DATE: 26/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Run BZUPLAY to process VTP recording.                      *           
+//*   2) Read playback dataset and interpret activity.              *           
+//*   3) Produce formatted playback output.                         *           
+//*                                                                 *           
+//* DATASETS :                                                      *           
+//*   - Playback : IBMUSER.VTP.TOURFILE.PLAY                        *           
+//*   - STEPLIBs : VTP201.SBZULLEP                                  *           
+//*               VTP201.SBZULOAD                                   *           
+//*               IBMUSER.GIT.COBOL.LOAD                            *           
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - Correct and authorized VTP load libraries available.        *           
+//*   - Valid and complete VTP playback file.                       *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Update dataset names for site-specific libraries.           *           
+//*   - Adjust STEPLIB entries for installed VTP version.           *           
+//*-----------------------------------------------------------------*           
+//*-- 1: EXECUTE VTP PLAYBACK UTILITY ------------------------------*           
 //VTPLAY EXEC PGM=BZUPLAY                                                       
-//* VTP AND APPLICATION LOAD LIBRARIES                                          
 //STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULLEP                                      
 //         DD DISP=SHR,DSN=VTP201.SBZULOAD                                      
 //         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
-//* VTP PLAYBACK FILE                                                           
 //BZUPLAY  DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.PLAY                            
-//* SYSTEM PRINT AND FORMATTED OUTPUT                                           
 //SYSPRINT DD SYSOUT=*                                                          
 //BZUMSG   DD SYSOUT=*                                                          
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           

@@ -1,53 +1,38 @@
 //IUBPXCL JOB (FB3),'USS CLEANUP',CLASS=A,MSGCLASS=H,                           
 //             NOTIFY=&SYSUID,REGION=0M,TIME=1440                               
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : USS CLEANUP                                                   
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Remove files older than 4 days from a specific directory in            
-//*      the z/OS UNIX filesystem to free up disk space.                        
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 26/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job runs a shell command from TSO using the `OSHELL`                
-//*    interface to invoke `find` and `rm`. It targets the directory:           
-//*      /global/zwicdata/                                                      
-//*                                                                             
-//*    Only regular files older than 4 days are deleted. The job                
-//*    provides a verbose listing of deleted files.                             
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Access to USS and BPXEXEC environment                                  
-//*    - Sufficient permissions to delete files in the target path              
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update path if cleaning a different USS directory                      
-//*    - Adjust retention period by changing `-mtime +4`                        
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    26/06/2025   BMT         Initial version.                                
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: DELETE OLD FILES IN USS FILESYSTEM                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : USS CLEANUP                                             *           
+//* FUNC  :                                                         *           
+//*   - Remove USS files older than 4 days to free disk space.      *           
+//* AUTHOR: BMT               DATE: 26/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Invoke OSHELL to run UNIX find/rm command.                 *           
+//*   2) Delete regular files older than 4 days.                    *           
+//*   3) List deleted files to output.                              *           
+//*                                                                 *           
+//* TARGET PATH :                                                   *           
+//*   - /global/zwicdata/                                          *            
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - Access to USS and BPXEXEC environment.                      *           
+//*   - Permission to delete files in target path.                  *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Update path for different USS directory.                    *           
+//*   - Adjust retention by changing -mtime +4.                     *           
+//*-----------------------------------------------------------------*           
+//*-- 1: DELETE OLD FILES IN USS FILESYSTEM ------------------------*           
 //CLEARN1 EXEC PGM=IKJEFT1A                                                     
-//* USS COMMAND EXECUTION LIBRARY                                               
 //SYSEXEC  DD DISP=SHR,DSN=SYS1.SBPXEXEC                                        
-//* BROADCAST MESSAGES                                                          
 //SYSLBC   DD DISP=SHR,DSN=SYS1.BRODCAST                                        
-//* TSO OUTPUT MESSAGES                                                         
 //SYSTSPRT DD SYSOUT=*                                                          
-//* COMMAND TO RUN                                                              
 //SYSTSIN  DD *                                                                 
  PROFILE NOPREFIX MSGID WTPMSG                                                  
  OSHELL find /global/zwicdata/ +                                                
         -type f -mtime +4 -exec rm -v {} \;                                     
 /*                                                                              
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           

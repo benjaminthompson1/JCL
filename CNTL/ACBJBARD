@@ -1,42 +1,26 @@
 //IUJBARD JOB (FB3),'DCOLLECT',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : DCOLLECT REPORT GENERATION                                    
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Create a formatted dataset report from DCOLLECT data.                  
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 27/04/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job processes DCOLLECT input data to produce a detailed             
-//*    report showing dataset attributes, space usage, and key                  
-//*    statistics. It performs the following actions:                           
-//*                                                                             
-//*    - Deletes any existing report dataset.                                   
-//*    - Allocates a new dataset for the report output.                         
-//*    - Generates the formatted report from the DCOLLECT input.                
-//*    - Prints the final report to SYSOUT.                                     
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    27/04/2025   BMT         Initial version.                                
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : DCOLLECT REPORT GENERATION                              *           
+//* FUNC  :                                                         *           
+//*   - Build a formatted DCOLLECT dataset report.                  *           
+//* AUTHOR: BMT            DATE: 27/04/2025                         *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Delete old report dataset                                  *           
+//*   2) Allocate new report dataset                                *           
+//*   3) Create formatted report from DCOLLECT data                 *           
+//*   4) Print report to SYSOUT                                     *           
+//*-----------------------------------------------------------------*           
 //MYLIB JCLLIB ORDER=SYS1.SACBCNTL                                              
-//*--------------------------------------------------------------------*        
-//* STEP 1: DELETE EXISTING REPORT DATASET                                      
-//*--------------------------------------------------------------------*        
+//*-- 1: DELETE OLD REPORT -----------------------------------------*           
 //DELREP  EXEC PGM=IDCAMS                                                       
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   DELETE IBMUSER.DATASET.REPORT                                                 
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 2: ALLOCATE NEW REPORT DATASET                                         
-//*--------------------------------------------------------------------*        
+//*-- 2: ALLOCATE NEW REPORT DSN -----------------------------------*           
 //ALCISPFL EXEC PGM=IEFBR14                                                     
 //ISPFILE  DD DSN=IBMUSER.DATASET.REPORT,DISP=(NEW,CATLG),                      
 //            BLKSIZE=0,SPACE=(TRK,(3,1)),RECFM=FBA,                            
@@ -44,9 +28,7 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 3: GENERATE FORMATTED REPORT FROM DCOLLECT DATA                        
-//*--------------------------------------------------------------------*        
+//*-- 3: BUILD REPORT FROM DCOLLECT --------------------------------*           
 //GENREP EXEC ACBJBAOB,PLIB1=SYS1.DGTPLIB,TABL2=IBMUSER.TEST.ISPTABL            
 //DCOLIN  DD DSN=IBMUSER.DCOLLECT.DATA,DISP=SHR                                 
 //ISPFILE DD DSN=IBMUSER.DATASET.REPORT,DISP=OLD                                
@@ -70,14 +52,12 @@
   USED%        /* Space Used Percentage */                                      
   STORCLAS     /* Storage Class */                                              
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 4: PRINT FINAL REPORT TO SYSOUT                                        
-//*--------------------------------------------------------------------*        
+//*-- 4: PRINT REPORT ----------------------------------------------*           
 //REPGEN EXEC PGM=IEBGENER                                                      
 //SYSUT1   DD DSN=IBMUSER.DATASET.REPORT,DISP=SHR                               
 //SYSUT2   DD SYSOUT=*                                                          
 //SYSIN    DD DUMMY                                                             
 //SYSPRINT DD SYSOUT=*                                                          
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           

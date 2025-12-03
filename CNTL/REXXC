@@ -8,7 +8,7 @@
 //********************************************************************          
 //REXX     EXEC PGM=IRXJCL,PARM='HELLOW'                                        
 //SYSTSPRT DD SYSOUT=*                                                          
-//SYSEXEC  DD DSN=IBMUSER.GIT.REXX.SYSEXEC,DISP=SHR                             
+//SYSEXEC  DD DSN=IBMUSER.GIT.REXX.CEXEC,DISP=SHR                               
 //*--------------------------------------------------------------------*        
 //* END OF JOB                                                                  
 //*--------------------------------------------------------------------*        

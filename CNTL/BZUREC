@@ -1,59 +1,40 @@
 //IUVTPRE JOB (FB3),'VTP I/O RECORD',CLASS=A,MSGCLASS=H,                        
 //             NOTIFY=&SYSUID,REGION=0M,TIME=1440                               
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : VTP I/O RECORDING                                             
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Record batch I/O and file processing activity using the                
-//*      Visual Terminal Program (VTP) TOURFILE utility.                        
-//*    - The job captures terminal-style I/O into a playback dataset            
-//*      for later review, formatting, or diagnostic analysis.                  
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 26/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job runs the `TOURFILE` program to monitor and log all              
-//*    I/O activity from a specific input source. The output is stored          
-//*    in a playback dataset suitable for use with `BZUPLAY`.                   
-//*                                                                             
-//*    The job expects the following datasets:                                  
-//*      - Input file  : IBMUSER.VTP.TOURFILE.INFILE                            
-//*      - Playback out: IBMUSER.VTP.TOURFILE.PLAY                              
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - VTP load libraries must be accessible via STEPLIB                      
-//*    - Adequate space for the playback dataset (use VB format)                
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update dataset names to match your environment                         
-//*    - Adjust playback file space allocation as required                      
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    26/06/2025   BMT         Initial version                                 
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: RECORD I/O ACTIVITY USING TOURFILE                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : VTP I/O RECORDING                                       *           
+//* FUNC  :                                                         *           
+//*   - Record batch I/O activity into a VTP TOURFILE playback.     *           
+//* AUTHOR: BMT               DATE: 26/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Run TOURFILE to monitor input I/O.                         *           
+//*   2) Log terminal-style I/O to playback dataset.                *           
+//*                                                                 *           
+//* DATASETS :                                                      *           
+//*   - Input    : IBMUSER.VTP.TOURFILE.INFILE                      *           
+//*   - Playback : IBMUSER.VTP.TOURFILE.PLAY                        *           
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - VTP load libraries available in STEPLIB.                    *           
+//*   - Sufficient space for VB playback dataset.                   *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Update dataset names for your environment.                  *           
+//*   - Adjust playback dataset space allocation as needed.         *           
+//*-----------------------------------------------------------------*           
+//*-- 1: RECORD I/O ACTIVITY USING TOURFILE ------------------------*           
 //VTPREC EXEC PGM=TOURFILE                                                      
-//* VTP AND APPLICATION LOAD LIBRARIES                                          
 //STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULLEP                                      
 //         DD DISP=SHR,DSN=VTP201.SBZULOAD                                      
 //         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
-//* VTP PLAYBACK OUTPUT DATASET                                                 
 //BZUPLAY  DD DISP=(NEW,CATLG),DSN=IBMUSER.VTP.TOURFILE.PLAY,                   
-//           SPACE=(TRK,(1,1)),UNIT=SYSDA,                                      
-//           DCB=(BLKSIZE=32760,LRECL=32756,RECFM=VB)                           
-//* LOG AND DIAGNOSTIC MESSAGES                                                 
+//         SPACE=(TRK,(1,1)),UNIT=SYSDA,                                        
+//         DCB=(BLKSIZE=32760,LRECL=32756,RECFM=VB)                             
 //SYSPRINT DD SYSOUT=*                                                          
 //BZUMSG   DD SYSOUT=*                                                          
-//* INPUT DATASET TO BE RECORDED                                                
 //INFILE   DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.INFILE                          
-//* OUTPUT TARGET (SIMULATED I/O RESULTS)                                       
 //OUTFILE  DD SYSOUT=*                                                          
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           

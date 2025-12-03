@@ -1,43 +1,30 @@
 //IUMETAC JOB (FB3),'METAL C COMPILE',CLASS=A,MSGCLASS=H,                       
 //             NOTIFY=&SYSUID,REGION=4M,TIME=1440                               
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : METAL C COMPILE                                               
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Compile and link Metal C source code using USS scripting.              
-//*    - Metal C enables low-level system programming using C syntax,           
-//*      producing assembler code suitable for z/OS environments.               
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 26/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job runs a USS shell script (via BPXBATCH) to compile               
-//*    Metal C source code. The script generates assembler code and             
-//*    builds the final load module.                                            
-//*                                                                             
-//*    The job expects the following:                                           
-//*      - Script location: IBMUSER.CNTL(BPXPARM)                               
-//*        (Points to USS script and its parameters)                            
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - z/OS XL C Compiler with Metal C support                                
-//*    - USS environment properly configured                                    
-//*    - Access to BPXBATCH and required datasets                               
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update script or parameters in BPXPARM if needed                       
-//*    - Verify USS paths used in the script                                    
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    26/06/2025   BMT         Initial version.                                
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: EXECUTE METAL C COMPILE SCRIPT IN USS                               
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : METAL C COMPILE                                         *           
+//* FUNC  :                                                         *           
+//*   - Compile and link Metal C source via USS script.             *           
+//* AUTHOR: BMT               DATE: 26/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Run BPXBATCH to invoke USS shell script.                   *           
+//*   2) Generate assembler from Metal C source.                    *           
+//*   3) Link-edit to create load module.                           *           
+//*                                                                 *           
+//* INPUT :                                                         *           
+//*   - Script member : IBMUSER.CNTL(BPXPARM)                       *           
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - z/OS XL C compiler with Metal C support.                    *           
+//*   - Configured USS environment.                                 *           
+//*   - Access to BPXBATCH and required datasets.                   *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Update script or parameters in BPXPARM if required.         *           
+//*   - Verify USS path names used in the script.                   *           
+//*-----------------------------------------------------------------*           
+//*-- 1: EXECUTE METAL C COMPILE SCRIPT IN USS ---------------------*           
 //BPXBATCH EXEC PGM=BPXBATCH                                                    
 //* USS SCRIPT PARAMETERS                                                       
 //STDPARM  DD DISP=SHR,DSN=IBMUSER.CNTL(BPXPARM)                                
@@ -48,6 +35,6 @@
 //CEEDUMP  DD SYSOUT=*                                                          
 //STDOUT   DD SYSOUT=*                                                          
 //STDERR   DD SYSOUT=*                                                          
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           

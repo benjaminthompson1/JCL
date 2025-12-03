@@ -1,49 +1,34 @@
 //IUVTPDP  JOB (FB3),'VTP PLAYBACK',CLASS=A,MSGCLASS=H,                         
 //             NOTIFY=&SYSUID,REGION=0M,TIME=1440                               
 //*       TYPRUN=HOLD                                                           
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : VTP PLAYBACK FORMATTING                                       
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Format and display the contents of a recorded VTP playback             
-//*      file using the BZUPLAY utility.                                        
-//*    - Produces a human-readable report for diagnostics and review.           
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 26/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job runs the `BZUPLAY` utility with parameter `RUN=BZUDCP`          
-//*    to interpret and format a VTP playback dataset. The formatted            
-//*    results are written to SYSOUT for analysis.                              
-//*                                                                             
-//*    The job expects the following datasets:                                  
-//*      - Playback input: IBMUSER.VTP.TOURFILE.PLAY                            
-//*      - Load library:   VTP201.SBZULOAD                                      
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - VTP software installed with access to BZUPLAY in STEPLIB               
-//*    - Valid VTP playback file captured and available                         
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update playback dataset (BZUPLAY DD) if needed                         
-//*    - Adjust STEPLIB if using a different VTP version                        
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    26/06/2025   BMT         Initial version                                 
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: FORMAT VTP PLAYBACK FILE USING BZUPLAY                              
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : VTP PLAYBACK FORMATTING                                 *           
+//* FUNC  :                                                         *           
+//*   - Format and display a VTP playback file with BZUPLAY.        *           
+//* AUTHOR: BMT               DATE: 26/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Run BZUPLAY with RUN=BZUDCP.                               *           
+//*   2) Read VTP playback dataset.                                 *           
+//*   3) Write formatted report to SYSOUT.                          *           
+//*                                                                 *           
+//* DATASETS :                                                      *           
+//*   - Playback : IBMUSER.VTP.TOURFILE.PLAY                        *           
+//*   - STEPLIB  : VTP201.SBZULOAD                                  *           
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - VTP installed and BZUPLAY available in STEPLIB.             *           
+//*   - Valid VTP playback file available.                          *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Update playback dataset (BZUPLAY DD) if required.           *           
+//*   - Adjust STEPLIB for site VTP library.                        *           
+//*-----------------------------------------------------------------*           
+//*-- 1: FORMAT VTP PLAYBACK FILE USING BZUPLAY --------------------*           
 //VTPDUMP EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                    
-//* VTP LOAD LIBRARY                                                            
 //STEPLIB DD DISP=SHR,DSN=VTP201.SBZULOAD                                       
-//* PLAYBACK FILE INPUT                                                         
 //BZUPLAY DD DISP=SHR,DSN=IBMUSER.VTP.TOURFILE.PLAY                             
-//* FORMATTED OUTPUT                                                            
 //BZUMSG  DD SYSOUT=*                                                           
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
