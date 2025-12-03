@@ -27,11 +27,12 @@
 //*    ------------ ---------- ----------------------------------------         
 //*    14/07/2025   BMT        Initial version                                  
 //*--------------------------------------------------------------------*        
+//        SET CSI=#globalzone                                                   
 //*--------------------------------------------------------------------*        
 //* STEP 1: REJECT SYSMODS AND PURGE FROM SMPPTS                                
 //*--------------------------------------------------------------------*        
 //RECNTS   EXEC PGM=GIMSMP                                                      
-//         PARM='CSI=#globalzone'                                               
+//SMPCSI   DD DISP=SHR,DSN=&CSI                                                 
 //SMPOUT   DD SYSOUT=*                                                          
 //SMPLOG   DD SYSOUT=*                                                          
 //SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    

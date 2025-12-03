@@ -1,14 +1,16 @@
-//IUREXX JOB (FB3),'REXX',CLASS=A,MSGCLASS=H,                                   
+//IUREXX JOB (FB3),'REXXCOMP',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
-//* PURPOSE: SUBMIT REXX IN BATCH                                    *          
+//* PURPOSE: COMPILE REXX                                            *          
 //*                                                                  *          
 //********************************************************************          
-//REXX     EXEC PGM=IRXJCL,PARM='MQRACF'                                        
-//SYSTSPRT DD SYSOUT=*                                                          
-//SYSEXEC  DD DSN=IBMUSER.EXEC,DISP=SHR                                         
+//COMPILE  EXEC PGM=REXXCOMP,PARM='XREF'                                        
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(1,1))                                      
+//SYSIN    DD DISP=SHR,DSN=IBMUSER.GIT.REXX.SYSEXEC(HELLOW)                     
+//SYSCEXEC DD DISP=SHR,DSN=IBMUSER.GIT.REXX.CEXEC(HELLOW)                       
 //*--------------------------------------------------------------------*        
 //* END OF JOB                                                                  
 //*--------------------------------------------------------------------*        

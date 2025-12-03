@@ -25,17 +25,23 @@
 //*    ------------ ---------- ----------------------------------------         
 //*    09/07/2025   BMT         Initial version                                 
 //*--------------------------------------------------------------------*        
+//        SET CSI=#globalzone                                                   
 //*--------------------------------------------------------------------*        
 //* STEP 1: SMP/E ACCEPT                                                        
 //*--------------------------------------------------------------------*        
 //ACCEPT   EXEC PGM=GIMSMP                                                      
 //* GLOBAL ZONE CSI                                                             
-//SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
+//SMPCSI   DD DISP=SHR,DSN=&CSI                                                 
 //* SMP/E TEMP DATASETS (OPTIONAL)                                              
-//*SYSUT1  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
-//*SYSUT2  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
-//*SYSUT3  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
-//*SYSUT4  DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                                
+//*SYSUT1   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT2   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT3   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT4   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SMPWRK1  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=6160           
+//*SMPWRK2  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=6160           
+//*SMPWRK3  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
+//*SMPWRK4  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
+//*SMPWRK6  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
 //SMPLOG   DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 

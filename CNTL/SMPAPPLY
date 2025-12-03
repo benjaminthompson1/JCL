@@ -23,11 +23,12 @@
 //*    ------------ ---------- ----------------------------------------         
 //*    27/06/2025   BMT         Initial version                                 
 //*--------------------------------------------------------------------*        
+//        SET CSI=#globalzone                                                   
 //*--------------------------------------------------------------------*        
 //* STEP 1: SMP/E APPLY CHECK                                                   
 //*--------------------------------------------------------------------*        
-//APPLY    EXEC PGM=GIMSMP                                                      
-//SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
+//APPLY   EXEC PGM=GIMSMP                                                       
+//SMPCSI  DD DISP=SHR,DSN=&CSI                                                  
 //* SMP/E TEMP DATASETS (OPTIONAL)                                              
 //*SYSUT1   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
 //*SYSUT2   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
