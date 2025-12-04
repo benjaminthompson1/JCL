@@ -1,73 +1,53 @@
 //IUCOBOL JOB (FB3),'COBOL BUILD-RUN',CLASS=A,MSGCLASS=H,                       
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : COBOL BUILD AND EXECUTE                                       
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Compile a COBOL program into object code                               
-//*    - Link the object code into an executable module                         
-//*    - Execute the program with remote debug support                          
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 17/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job performs a full build and execution cycle for a                 
-//*    COBOL program using Enterprise COBOL V6.4.0. The IGYQCBG                 
-//*    procedure supports both compilation and bind, followed by                
-//*    program execution with remote debugger integration.                      
-//*                                                                             
-//*    Remote debugging is enabled using the IBM Debug Tool,                    
-//*    configured to connect to the client debugger at:                         
-//*      - IP:   10.1.1.86                                                      
-//*      - Port: 8001                                                           
-//*                                                                             
-//*    Dataset overview:                                                        
-//*      - Source:  IBMUSER.GIT.COBOL.SOURCE                                    
-//*      - Object:  IBMUSER.GIT.COBOL.OBJECT                                    
-//*      - Load:    IBMUSER.GIT.COBOL.LOAD                                      
-//*      - Debug:   ISM330.SEQAMOD                                              
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - IGYQCBG procedure available (COBOL + GO step)                          
-//*    - IBM Debug Tool configured on host machine                              
-//*    - Program name set using GOPGM=                                          
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update GOPGM= to match program to compile                              
-//*    - Adjust TCPIP debug settings (GPARM) as needed                          
-//*    - Add any runtime datasets required for execution                        
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    17/06/2025   BMT         Initial version.                                
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1 and 2: COMPILE AND BIND PROGRAM                                      
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : COBOL BUILD AND EXECUTE                                 *           
+//* FUNC  :                                                         *           
+//*   - Compile, link, and run COBOL with remote debug.             *           
+//* AUTHOR: BMT               DATE: 17/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Use IGYQCBG to compile and link COBOL program.             *           
+//*   2) Execute program with IBM Debug Tool attached.              *           
+//*                                                                 *           
+//* DEBUG SETTINGS :                                                *           
+//*   - IP   : 10.1.1.86                                            *           
+//*   - Port : 8001                                                 *           
+//*                                                                 *           
+//* DATASETS :                                                      *           
+//*   - Source : IBMUSER.GIT.COBOL.SOURCE                           *           
+//*   - Object : IBMUSER.GIT.COBOL.OBJECT                           *           
+//*   - Load   : IBMUSER.GIT.COBOL.LOAD                             *           
+//*   - Debug  : ISM330.SEQAMOD                                     *           
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - IGYQCBG procedure available (compile + GO).                 *           
+//*   - IBM Debug Tool configured on host.                          *           
+//*   - GOPGM= set to program name.                                 *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Update GOPGM= to target program.                            *           
+//*   - Adjust TCP/IP debug parms (GPARM).                          *           
+//*   - Add any required runtime datasets.                          *           
+//*-----------------------------------------------------------------*           
+//*-- 1: COMPILE, BIND AND EXECUTE PROGRAM WITH DEBUG SUPPORT ------*           
 //COBCBG1 EXEC IGYQCBG,                                                         
 //             LNGPRFX=IGY640,                                                  
 //             LIBPRF1=CEE,                                                     
 //*            GPARM='/TEST(,,,TCPIP&10.1.1.86%8001:*)',                        
 //             GOPGM=HELLOW                                                     
-//* COBOL COPYLIB AND SOURCE                                                    
 //COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
 //COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                 
 //COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
-//* LINK-EDIT TO CREATE EXECUTABLE MODULE                                       
 //BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
 //BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
 //BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   
-//*--------------------------------------------------------------------*        
-//* STEP 3: EXECUTE PROGRAM WITH DEBUG SUPPORT                                  
-//*--------------------------------------------------------------------*        
 //GO.STEPLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
 //             DD DISP=SHR,DSN=ISM403.SEQAMOD                                   
 //* OPTIONAL RUNTIME DD STATEMENTS FOR PROGRAM INPUT/OUTPUT                     
 //*GO.STDNTCRS   DD DISP=SHR,DSN=IBMUSER.COBOL.STUDENT.COURSES                  
 //*GO.STCRSRPT   DD SYSOUT=*                                                    
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           

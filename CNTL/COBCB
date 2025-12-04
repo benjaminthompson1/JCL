@@ -1,62 +1,42 @@
 //IUCOBOL JOB (FB3),'COBOL COMP-BIND',CLASS=A,MSGCLASS=H,                       
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : COBOL COMPILE AND BIND                                        
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Compile a COBOL program and bind (link-edit) the resulting             
-//*      object code into an executable module.                                 
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 17/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job performs a complete COBOL build process using the               
-//*    IBM-supplied IGYQCB procedure. It includes both the compile              
-//*    and link-edit steps in a single execution. The job pulls                 
-//*    source and copybooks from GIT-managed datasets, and produces             
-//*    an executable module stored in the LOAD library.                         
-//*                                                                             
-//*    The job uses:                                                            
-//*      - Enterprise COBOL V6.4 compiler (prefix IGY640)                       
-//*      - Language Environment (LE) libraries (prefix CEE)                     
-//*                                                                             
-//*    Dataset overview:                                                        
-//*      - Source:   IBMUSER.GIT.COBOL.SOURCE                                   
-//*      - Copylib:  IBMUSER.GIT.COBOL.COPYLIB                                  
-//*      - Object:   IBMUSER.GIT.COBOL.OBJECT                                   
-//*      - Load:     IBMUSER.GIT.COBOL.LOAD                                     
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - IGYQCB compile-and-bind procedure available                            
-//*    - Valid &GOPGM program name                                              
-//*    - All datasets must be allocated and catalogued                          
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Set GOPGM= to the desired program name                                 
-//*    - Adjust dataset names if your structure differs                         
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    17/06/2025   BMT         Initial version.                                
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: COMPILE AND BIND COBOL PROGRAM                                      
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : COBOL COMPILE AND BIND                                  *           
+//* FUNC  :                                                         *           
+//*   - Compile and bind a COBOL program using IGYQCB.              *           
+//* AUTHOR: BMT               DATE: 17/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Run IGYQCB to compile and link-edit in one pass.           *           
+//*   2) Create load module in COBOL LOAD library.                  *           
+//*                                                                 *           
+//* DATASETS :                                                      *           
+//*   - Source   : IBMUSER.GIT.COBOL.SOURCE                         *           
+//*   - Copylib  : IBMUSER.GIT.COBOL.COPYLIB                        *           
+//*   - Object   : IBMUSER.GIT.COBOL.OBJECT                         *           
+//*   - Loadlib  : IBMUSER.GIT.COBOL.LOAD                           *           
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - IGYQCB compile-and-bind procedure available.                *           
+//*   - Enterprise COBOL V6.4 and LE libraries installed.           *           
+//*   - Valid &GOPGM program name.                                  *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Set GOPGM= to target program name.                          *           
+//*   - Adjust dataset names for your environment.                  *           
+//*-----------------------------------------------------------------*           
+//*-- 1: COMPILE AND BIND COBOL PROGRAM ----------------------------*           
 //COBCB1 EXEC IGYQCB,                                                           
 //            LNGPRFX=IGY640,                                                   
 //            LIBPRF1=CEE,                                                      
 //            GOPGM=HELLOW                                                      
-//* COMPILE STEP: COPYBOOKS AND SOURCE                                          
 //COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                        
 //COBOL.SYSIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                 
 //COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
-//* BIND STEP: OBJECT AND LOAD MODULE                                           
 //BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
 //BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
 //BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           

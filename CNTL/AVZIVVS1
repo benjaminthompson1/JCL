@@ -27,7 +27,7 @@
  SET REXXLIB='DVM110.SAVZEXEC'            * AVZ REXX Library                    
  SET SAMPLIB='DVM110.SAVZSAMP'            * AVZ Sample Library                  
 //*-- 1: EXTRACT VSAM MAP DEFINITIONS USING AVZMBTPA ---------------*           
-//DMFEXTR1 EXEC PGM=IKJEFT01,PARM=('AVZMBTPA O'),REGION=0M                      
+//DMFEXTR1 EXEC PGM=IKJEFT01,PARM=('AVZMBTPA O')                                
 //STEPLIB  DD DISP=SHR,DSN=&LOADLIB                                             
 //SYSEXEC  DD DISP=SHR,DSN=&REXXLIB                                             
 //SOURCE   DD DISP=SHR,DSN=&SAMPLIB.(AVZSTFCP)                                  

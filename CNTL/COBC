@@ -1,54 +1,38 @@
 //IUCOBOL JOB (FB3),'COBOL COMPILE',CLASS=A,MSGCLASS=H,                         
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : COBOL COMPILE                                                 
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Compile an Enterprise COBOL program using the IGY V6.4.0               
-//*      compiler.                                                              
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 17/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job compiles COBOL source code stored in a GIT-managed              
-//*    dataset and produces object code for linking. The compile                
-//*    step uses the IGY V6.4.0 compiler and Language Environment (LE)          
-//*    libraries. Source and object members share the same name.                
-//*                                                                             
-//*    The job expects the following datasets:                                  
-//*      - Source code:  IBMUSER.GIT.COBOL.SOURCE                               
-//*      - Copybooks:    IBMUSER.GIT.COBOL.COPYLIB                              
-//*      - Object code:  IBMUSER.GIT.COBOL.OBJECT                               
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Enterprise COBOL V6.4 compiler installed (prefix IGY640)               
-//*    - LE libraries available (prefix CEE)                                    
-//*    - Valid &GOPGM name (program name to compile)                            
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update GOPGM= to the desired program name                              
-//*    - Verify dataset names match your environment                            
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    17/06/2025   BMT         Initial version.                                
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: COMPILE COBOL PROGRAM USING IGY V6.4.0                              
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : COBOL COMPILE                                           *           
+//* FUNC  :                                                         *           
+//*   - Compile Enterprise COBOL program with IGY V6.4.0.           *           
+//* AUTHOR: BMT               DATE: 17/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Compile COBOL source from GIT-managed dataset.             *           
+//*   2) Create object module with same member name.                *           
+//*                                                                 *           
+//* DATASETS :                                                      *           
+//*   - Source   : IBMUSER.GIT.COBOL.SOURCE                         *           
+//*   - Copybooks: IBMUSER.GIT.COBOL.COPYLIB                        *           
+//*   - Object   : IBMUSER.GIT.COBOL.OBJECT                         *           
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - Enterprise COBOL V6.4 (IGY640) installed.                   *           
+//*   - LE libraries (CEE prefix) available.                        *           
+//*   - Valid &GOPGM program name provided.                         *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Set GOPGM= to required program name.                        *           
+//*   - Adjust dataset names for your environment.                  *           
+//*-----------------------------------------------------------------*           
+//*-- 1: COMPILE COBOL PROGRAM USING IGY V6.4.0 --------------------*           
 //COBC1 EXEC IGYQC,                                                             
 //           LNGPRFX=IGY640,                                                    
 //           LIBPRF1=CEE,                                                       
 //           GOPGM=HELLOW                                                       
-//* COBOL COPYBOOKS                                                             
 //SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                              
-//* SOURCE CODE INPUT                                                           
 //SYSIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                       
-//* COMPILED OBJECT OUTPUT                                                      
 //SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                       
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           

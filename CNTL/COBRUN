@@ -1,42 +1,30 @@
 //IUCOBOL JOB (FB3),'COBOL RUN',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : COBOL PROGRAM EXECUTION                                       
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Executes a compiled COBOL program from the LOAD library                
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 17/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job runs a previously compiled and linked COBOL program             
-//*    using the load module stored in the specified LOAD library.              
-//*    Output is directed to SYSOUT.                                            
-//*                                                                             
-//*    Dataset overview:                                                        
-//*      - Load module: IBMUSER.GIT.COBOL.LOAD(HELLOW)                          
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Load module for the program must exist in the specified LOAD           
-//*      library                                                                
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Replace PGM=HELLOW with the actual program name                        
-//*    - Add any DD statements required by the program for input/output         
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    17/06/2025   BMT         Initial version.                                
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: EXECUTE COBOL PROGRAM                                               
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : COBOL PROGRAM EXECUTION                                 *           
+//* FUNC  :                                                         *           
+//*   - Execute a COBOL load module from LOAD library.              *           
+//* AUTHOR: BMT               DATE: 17/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Run COBOL program from LOAD library.                       *           
+//*   2) Write program output to SYSOUT.                            *           
+//*                                                                 *           
+//* DATASETS :                                                      *           
+//*   - Load module : IBMUSER.GIT.COBOL.LOAD(HELLOW)                *           
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - Target load module present in specified LOAD library.       *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Change PGM=HELLOW to required program name.                 *           
+//*   - Add DD statements for program input/output as needed.       *           
+//*-----------------------------------------------------------------*           
+//*-- 1: EXECUTE COBOL PROGRAM -------------------------------------*           
 //COBOL EXEC PGM=HELLOW                                                         
 //STEPLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
 //SYSPRINT DD SYSOUT=*                                                          
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           

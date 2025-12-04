@@ -1,70 +1,51 @@
 //IUCOBOL JOB (FB3),'COBOL RUN',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : DB2 COBOL PROGRAM EXECUTION                                   
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Executes a DB2-enabled COBOL program using DSN command                 
-//*      processor under TSO (IKJEFT01).                                        
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 17/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job runs a COBOL program that has been compiled and bound           
-//*    to a DB2 plan. The program is invoked via the TSO DSN interface,         
-//*    with DB2 subsystem DBCG. Runtime debugging can be enabled via            
-//*    PARM on the RUN command.                                                 
-//*                                                                             
-//*    Dataset overview:                                                        
-//*      - Load module:  IBMUSER.GIT.COBOL.LOAD(ERIS)                           
-//*      - Plan:         BENPLAN                                                
-//*      - Input:        ERISPRM inline, plus PERSON, PROVIDER, VACCINE         
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - DB2 plan BENPLAN must be bound and available                           
-//*    - Dataset libraries must be catalogued and accessible                    
-//*    - Subsystem DBCG must be active                                          
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update PROGRAM and PLAN names as needed                                
-//*    - Adjust dataset names or add others as required                         
-//*    - Change PARM if alternate debugger settings are used                    
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    17/06/2025   BMT         Initial version.                                
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: EXECUTE DB2-ENABLED COBOL PROGRAM                                   
-//*--------------------------------------------------------------------*        
-//DB2RUN EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                                
-//* DB2, DEBUG, AND PROGRAM LIBRARIES                                           
+//*-----------------------------------------------------------------*           
+//* JOB   : DB2 COBOL PROGRAM EXECUTION                             *           
+//* FUNC  :                                                         *           
+//*   - Run a DB2-enabled COBOL program via IKJEFT01/DSN.           *           
+//* AUTHOR: BMT               DATE: 17/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Invoke DSN under IKJEFT01 for subsystem DBCG.              *           
+//*   2) Run COBOL program under DB2 plan.                          *           
+//*                                                                 *           
+//* DATASETS :                                                      *           
+//*   - Load module : IBMUSER.GIT.COBOL.LOAD(ERIS)                  *           
+//*   - Plan       : BENPLAN                                       *            
+//*   - Input      : ERISPRM inline, PERSON, PROVIDER, VACCINE      *           
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - DB2 plan BENPLAN bound and available.                       *           
+//*   - Required libraries catalogued and accessible.               *           
+//*   - DB2 subsystem DBCG active.                                  *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Update PROGRAM and PLAN names as required.                  *           
+//*   - Adjust dataset names or add DDs as needed.                  *           
+//*   - Change PARM for alternate debug settings if used.           *           
+//*-----------------------------------------------------------------*           
+//*-- 1: EXECUTE DB2-ENABLED COBOL PROGRAM -------------------------*           
+//DB2RUN EXEC PGM=IKJEFT01,DYNAMNBR=20                                          
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //         DD DISP=SHR,DSN=EQAE20.SEQAMOD                                       
 //         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
-//* OUTPUT AND DUMP SUPPORT                                                     
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
-//* DB2 COMMAND INPUT                                                           
 //SYSTSIN  DD *                                                                 
   DSN SYSTEM(DBCG)                                                              
   RUN PROGRAM(ERIS) PLAN(BENPLAN) LIBRARY('IBMUSER.GIT.COBOL.LOAD') +           
       PARM('/TEST')                                                             
   END                                                                           
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 2: PROGRAM INPUT DATASETS                                              
-//*--------------------------------------------------------------------*        
 //ERISPRM  DD *                                                                 
 00000500 00001000                                                               
 /*                                                                              
 //ERISPER  DD DISP=SHR,DSN=IBMUSER.ERIS.PERSON                                  
 //ERISPRO  DD DISP=SHR,DSN=IBMUSER.ERIS.PROVIDER                                
 //ERISVAC  DD DISP=SHR,DSN=IBMUSER.ERIS.VACCINE                                 
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
