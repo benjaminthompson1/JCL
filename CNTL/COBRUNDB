@@ -8,18 +8,17 @@
 //* AUTHOR: BMT               DATE: 17/06/2025                      *           
 //*                                                                 *           
 //* STEPS :                                                         *           
-//*   1) Invoke DSN under IKJEFT01 for subsystem DBCG.              *           
+//*   1) Invoke DSN under IKJEFT01 for subsystem DBDG.              *           
 //*   2) Run COBOL program under DB2 plan.                          *           
 //*                                                                 *           
 //* DATASETS :                                                      *           
-//*   - Load module : IBMUSER.GIT.COBOL.LOAD(ERIS)                  *           
-//*   - Plan       : BENPLAN                                       *            
-//*   - Input      : ERISPRM inline, PERSON, PROVIDER, VACCINE      *           
+//*   - Load module : IBMUSER.GIT.COBOL.LOAD(ORGREP)                *           
+//*   - Plan        : BENPLAN                                       *           
 //*                                                                 *           
 //* REQUIREMENTS :                                                  *           
 //*   - DB2 plan BENPLAN bound and available.                       *           
 //*   - Required libraries catalogued and accessible.               *           
-//*   - DB2 subsystem DBCG active.                                  *           
+//*   - DB2 subsystem DBDG active.                                  *           
 //*                                                                 *           
 //* CUSTOMIZATION :                                                 *           
 //*   - Update PROGRAM and PLAN names as required.                  *           
@@ -29,23 +28,18 @@
 //*-- 1: EXECUTE DB2-ENABLED COBOL PROGRAM -------------------------*           
 //DB2RUN EXEC PGM=IKJEFT01,DYNAMNBR=20                                          
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
-//         DD DISP=SHR,DSN=EQAE20.SEQAMOD                                       
+//         DD DISP=SHR,DSN=ISM403.SEQAMOD                                       
 //         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSTSIN  DD *                                                                 
-  DSN SYSTEM(DBCG)                                                              
-  RUN PROGRAM(ERIS) PLAN(BENPLAN) LIBRARY('IBMUSER.GIT.COBOL.LOAD') +           
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(ORGREP) PLAN(BENPLAN) +                                           
+      LIBRARY('IBMUSER.GIT.COBOL.LOAD') +                                       
       PARM('/TEST')                                                             
   END                                                                           
 /*                                                                              
-//ERISPRM  DD *                                                                 
-00000500 00001000                                                               
-/*                                                                              
-//ERISPER  DD DISP=SHR,DSN=IBMUSER.ERIS.PERSON                                  
-//ERISPRO  DD DISP=SHR,DSN=IBMUSER.ERIS.PROVIDER                                
-//ERISVAC  DD DISP=SHR,DSN=IBMUSER.ERIS.VACCINE                                 
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
 //*-----------------------------------------------------------------*           

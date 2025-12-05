@@ -29,7 +29,7 @@
 //COMPILE EXEC IGYQCB,                                                          
 //             LNGPRFX=IGY640,                                                  
 //             LIBPRF1=CEE,                                                     
-//             BPARM='DYNAM=NO,SQL',                                            
+//             BPARM='DYNAM=NO',                                                
 //             GOPGM=ORGREP                                                     
 //COBOL.STEPLIB DD DISP=SHR,DSN=DSND10.DBDG.SDSNEXIT                            
 //              DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
@@ -46,7 +46,7 @@
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN  DD *                                                                 
-  DSN SYSTEM(DBCG)                                                              
+  DSN SYSTEM(DBDG)                                                              
   BIND PACKAGE(BENCOLLECTION) MEMBER(ORGREP) +                                  
        LIBRARY('IBMUSER.GIT.COBOL.DBRMLIB') +                                   
        EXPLAIN(YES) +                                                           
