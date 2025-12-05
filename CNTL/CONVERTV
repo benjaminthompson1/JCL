@@ -1,27 +1,19 @@
 //IUCONVE JOB (FB3),'SMS CONVERT',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMS CONVERTV                                                  
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*              - Convert a non-SMS managed DASD volume                        
-//*                to SMS-managed format                                        
-//*              - Enable use of SMS storage class for allocations              
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 26/06/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*              - Ensure the volume is online and not in use                   
-//*              - Requires DFSMSdss (ADRDSSU) utility installed                
-//*              - Modify VOL=SER=USER0A for the target volume                  
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    26/06/2025   BMT       Initial version                                   
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : SMS CONVERTV                                            *           
+//* FUNC  :                                                         *           
+//*   - Convert a non-SMS DASD volume to SMS-managed.               *           
+//*   - Enable use of SMS storage classes for allocations.          *           
+//* AUTHOR: BMT               DATE: 26/06/2025                      *           
+//*                                                                 *           
+//* NOTES :                                                         *           
+//*   - Ensure target volume is online and not in use.              *           
+//*   - Requires DFSMSdss ADRDSSU utility installed.                *           
+//*   - Update VOL=SER=USER0A to target volume.                     *           
+//*-----------------------------------------------------------------*           
+//*-- 1: SMS CONVERTV DASD VOLUME ----------------------------------*           
 //STEP1 EXEC PGM=ADRDSSU                                                        
 //SYSPRINT DD SYSOUT=*                                                          
 //INVOL1   DD VOL=SER=USER0A,UNIT=3390,DISP=SHR                                 
@@ -30,6 +22,6 @@
   DDNAME(INVOL1) -                                                              
   SMS                                                                           
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* End of Job                                                         *        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

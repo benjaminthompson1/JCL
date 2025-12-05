@@ -1,39 +1,20 @@
 //IUTKDS JOB (FB3),'CSFTKDS',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : CSFTKD2 - VSAM TKDS INITIALIZATION                            
-//*                                                                             
-//*    - Define a new VSAM dataset for the Trusted Key Data Set (TKDS)          
-//*      in common record format.                                               
-//*    - Initialize the TKDS with a default static header record.               
-//*                                                                             
-//*    This job also deletes and redefines the following datasets:              
-//*                                                                             
-//*    - CSFCKDS - Clear Key Data Set                                           
-//*      Stores clear (unencrypted) operational keys used by ICSF.              
-//*      Recreating this dataset will remove all existing clear keys.           
-//*                                                                             
-//*    - CSFPKDS - Private Key Data Set                                         
-//*      Stores asymmetric private keys. Redefinition removes all               
-//*      previously stored private key material.                                
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job is intended for first-time setup only. It performs              
-//*    the initial creation and population of the TKDS, and resets the          
-//*    clear and private key datasets for a clean cryptographic setup.          
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: DEFINE VSAM CLUSTER FOR TKDS                                        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* JOB   : CSFTKD2 - VSAM TKDS INIT                                *           
+//* FUNC  :                                                         *           
+//*   - Define VSAM TKDS in common record format.                   *           
+//*   - Recreate CKDS and PKDS for clean ICSF setup.                *           
+//* AUTHOR: BMT               DATE: 10/07/2025                      *           
+//*                                                                 *           
+//* NOTES :                                                         *           
+//*   - Intended for first-time ICSF key data set setup only.       *           
+//*   - Deletes and redefines CSFCKDS (clear key data set).         *           
+//*   - Deletes and redefines CSFPKDS (private key data set).       *           
+//*   - Removes all existing clear and private key material.        *           
+//*-----------------------------------------------------------------*           
+//*-- 1: DEFINE VSAM CLUSTER FOR TKDS ------------------------------*           
 //DEFINE  EXEC PGM=IDCAMS,REGION=4M                                             
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN DD *                                                                    
@@ -50,9 +31,7 @@
                   ERASE)                     -                                  
            INDEX (NAME(CSF.SCSFTKDS.INDEX))                                     
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 2: CREATE HEADER RECORD FOR TKDS USING IEBGENER                        
-//*--------------------------------------------------------------------*        
+//*-- 2: CREATE HEADER RECORD FOR TKDS USING IEBGENER --------------*           
 //MKHEAD   EXEC PGM=IEBGENER                                                    
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD *                                                                 
@@ -73,9 +52,7 @@
         FIELD=(20,X'0000000000000000000000000000000000000000',,133),            
         FIELD=(4,X'00000200',,153)                                              
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 3: REPRO HEADER RECORD INTO THE TKDS VSAM DATASET                      
-//*--------------------------------------------------------------------*        
+//*-- 3: REPRO HEADER RECORD INTO THE TKDS VSAM DATASET ------------*           
 //REPROKSD EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSDATA  DD DSN=*.MKHEAD.SYSUT2,DISP=(OLD,DELETE)                             
@@ -83,9 +60,7 @@
    REPRO INFILE(SYSDATA) -                                                      
       OUTDATASET(CSF.SCSFTKDS)                                                  
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 4: DELETE AND REDEFINE CSFCKDS - CLEAR KEY DATA SET                    
-//*--------------------------------------------------------------------*        
+//*-- 4: DELETE AND REDEFINE CSFCKDS - CLEAR KEY DATA SET ----------*           
 //DEFINE  EXEC PGM=IDCAMS,REGION=4M                                             
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN DD *                                                                    
@@ -104,9 +79,7 @@
                   CISZ(32768))               -                                  
            INDEX (NAME(CSF.CSFCKDS.INDEX))                                      
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 5: DELETE AND REDEFINE CSFPKDS - PRIVATE KEY DATA SET                  
-//*--------------------------------------------------------------------*        
+//*-- 5: DELETE AND REDEFINE CSFPKDS - PRIVATE KEY DATA SET --------*           
 //DEFINE  EXEC PGM=IDCAMS,REGION=64M                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN DD *                                                                    
@@ -125,6 +98,6 @@
                   CISZ(32768))               -                                  
            INDEX (NAME(CSF.CSFPKDS.INDEX))                                      
 /*                                                                              
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
