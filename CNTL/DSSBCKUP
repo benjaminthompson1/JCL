@@ -1,0 +1,17 @@
+//IUDSSBK JOB (FB3),'DSSBCKUP',CLASS=A,MSGCLASS=H,                      00000100
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00000200
+//*      TYPRUN=HOLD                                                    00000300
+//*****************************************************************/    00011600
+//* DFSMSDSS FULL VOLUME DUMP                                     */    00011700
+//*****************************************************************/    00011800
+//BACKUP   EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                         00012100
+//SYSPRINT DD SYSOUT=*                                                  00012200
+//DUMPDD   DD DSN=IBMUSER.VSAM.BACKUP.INCR(+1),                         00032001
+//            DISP=(NEW,CATLG,DELETE),                                  00033000
+//            UNIT=TAPE,SPACE=(CYL,(1,1))                               00034001
+//SYSIN    DD *                                                         00035000
+  DUMP OUTDD(DUMPDD) -                                                  00036000
+       DS(INCL(APP.EXMPLAPP.**) -                                       00037002
+       BY(DSCHA EQ 1)) -                                                00038002
+       TOL(ENQF) RESET                                                  00039000
+/*                                                                      00039100
