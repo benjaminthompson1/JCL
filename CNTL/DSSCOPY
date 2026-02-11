@@ -1,14 +1,28 @@
-//IUDSSCPY JOB  (FB3),'DSS MOVE',CLASS=A,MSGCLASS=H,                            
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: COPY DATASET FROM SELECTED VOLUME                       *          
-//*                                                                  *          
-//* NOTES: PARM='TYPRUN=NORUN' <== TEST JOB                          *          
-//*                                                                  *          
-//********************************************************************          
-//COPY     EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
-//FROMVOL  DD  UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                               
+//IUDSSCP JOB (FB3),'DSSCOPY',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*------------------------------------------------------------------*          
+//*  JOB NAME   : IUDSSCPY                                                      
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*              - COPY DATA SETS FROM A SPECIFIC SOURCE VOLUME                 
+//*              - RENAME TARGET DATA SETS DURING COPY                          
+//*              - CATALOG OUTPUT WITH STANDARD SMS CLASSES                     
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 11/02/2026                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*              RUNS WITH TYPRUN=NORUN FOR VALIDATION.                         
+//*              REMOVE NORUN TO PERFORM THE COPY.                              
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   AUTHOR     DESCRIPTION                                      
+//*    ------------ ---------- --------------------------------------           
+//*    11/02/2026   BMT        INITIAL VERSION                                  
+//*------------------------------------------------------------------*          
+//DSSCOPY  EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
+//FROMVOL  DD UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                                
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
  COPY DATASET(INC(HSMMGRS.V7101.**))                         -                  

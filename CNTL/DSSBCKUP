@@ -1,17 +1,33 @@
 //IUDSSBK JOB (FB3),'DSSBCKUP',CLASS=A,MSGCLASS=H,                      00000100
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00000200
 //*      TYPRUN=HOLD                                                    00000300
-//*****************************************************************/    00011600
-//* DFSMSDSS FULL VOLUME DUMP                                     */    00011700
-//*****************************************************************/    00011800
-//BACKUP   EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                         00012100
-//SYSPRINT DD SYSOUT=*                                                  00012200
-//DUMPDD   DD DSN=IBMUSER.VSAM.BACKUP.INCR(+1),                         00032001
+//*--------------------------------------------------------------------*00000401
+//*  JOB NAME   : IUDSSBK                                               00000501
+//*                                                                     00000601
+//*  FUNCTION   :                                                       00000701
+//*              - INCREMENTAL VSAM BACKUP USING ADRDSSU                00000801
+//*              - SELECT CHANGED DATA SETS (DSCHA = 1)                 00000901
+//*                                                                     00001001
+//*  AUTHOR     : BMT                                                   00002001
+//*  DATE       : 11/02/2026                                            00003001
+//*                                                                     00004001
+//*  NOTES      :                                                       00005001
+//*              RUNS WITH TYPRUN=NORUN FOR VALIDATION.                 00006001
+//*              REMOVE NORUN TO PERFORM THE BACKUP.                    00007001
+//*                                                                     00008001
+//*  CHANGE LOG :                                                       00009001
+//*    DD/MM/YYYY   AUTHOR     DESCRIPTION                              00010001
+//*    ------------ ---------- ---------------------------------------- 00011001
+//*    11/02/2026   BMT        INITIAL VERSION                          00012001
+//*--------------------------------------------------------------------*00012101
+//DSSINCR  EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                         00012201
+//SYSPRINT DD SYSOUT=*                                                  00012300
+//DUMPDD   DD DSN=IBMUSER.VSAM.BACKUP.INCR(+1),                         00032000
 //            DISP=(NEW,CATLG,DELETE),                                  00033000
-//            UNIT=TAPE,SPACE=(CYL,(1,1))                               00034001
+//            UNIT=TAPE,SPACE=(CYL,(1,1))                               00034000
 //SYSIN    DD *                                                         00035000
   DUMP OUTDD(DUMPDD) -                                                  00036000
-       DS(INCL(APP.EXMPLAPP.**) -                                       00037002
-       BY(DSCHA EQ 1)) -                                                00038002
+       DS(INCL(APP.EXMPLAPP.**) -                                       00037000
+       BY(DSCHA EQ 1)) -                                                00038000
        TOL(ENQF) RESET                                                  00039000
 /*                                                                      00039100

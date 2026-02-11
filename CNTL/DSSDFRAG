@@ -1,13 +1,26 @@
-//IUDFRAG JOB  (FB3),'DSS DEFRAG',CLASS=A,MSGCLASS=H,                           
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: RELOCATES DATA SET EXTENTS ON A DASD VOLUME             *          
-//*                                                                  *          
-//* NOTES: PARM='TYPRUN=NORUN' <== TEST JOB                          *          
-//*                                                                  *          
-//********************************************************************          
-//DEFRAG  EXEC PGM=ADRDSSU,REGION=0M PARM='TYPRUN=NORUN'                        
+//IUDFRAG JOB (FB3),'DSSDFRAG',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*------------------------------------------------------------------*          
+//*  JOB NAME   : IUDFRAG                                                       
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*              - DEFRAGMENT DASD VOLUMES USING ADRDSSU                        
+//*              - RELOCATE DATA SET EXTENTS TO IMPROVE SPACE USAGE             
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 11/02/2026                                                    
+//*                                                                             
+//*  NOTES      :                                                               
+//*              RUNS WITH TYPRUN=NORUN FOR VALIDATION.                         
+//*              REMOVE NORUN TO PERFORM THE DEFRAGMENTATION.                   
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   AUTHOR     DESCRIPTION                                      
+//*    ------------ ---------- --------------------------------------           
+//*    11/02/2026   BMT        INITIAL VERSION                                  
+//*------------------------------------------------------------------*          
+//DSSDFRAG EXEC PGM=ADRDSSU,REGION=0M PARM='TYPRUN=NORUN'                       
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
    DEFRAG DYNAM(A3USR1) WRC                                                     
