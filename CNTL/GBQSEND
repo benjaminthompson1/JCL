@@ -1,0 +1,58 @@
+//IUSEND JOB (FB3),'GBQSEND',CLASS=A,MSGCLASS=H,                                
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//*                                                                   *         
+//* (C) Copyright Teracloud ApS 2024                                  *         
+//* All rights reserved.                                              *         
+//*                                                                   *         
+//* Licensed Materials - Property of Teracloud                        *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                             
+//*  +------------------------------------------------------------+             
+//*  |  This sample job issues a CDMSEND command to copy data     |             
+//*  |  sets from z/OS to the cloud.  This does not include all   |             
+//*  |  of the allowed CDMSEND parameters.                        |             
+//*  +------------------------------------------------------------+             
+//*                                                                             
+//* Requires these modifications:                                               
+//*                                                                             
+//* - Modify //SYSEXEC to use the name of the DFSMScdm REXX library             
+//* - If the DFSMScdm load library has not been added to the                    
+//*   system linklist, then specify the library name in the                     
+//*   //STEPLIB statement.  If it is added to the linklist, then                
+//*   //STEPLIB may be omitted.                                                 
+//* - Specify the arguments for the CDMSEND TSO command.                        
+//*    - data-set-mask  -- name or mask of the data set(s) to send              
+//*                        to the cloud                                         
+//*    - cloud-name     -- name of destination cloud                            
+//*    - bucket-name    -- name of destination bucket (container)               
+//*    - object-mask    -- mask used to form object name, which                 
+//*                        may include CDM variables such as &DSN               
+//*    - task-id        -- the ID of the DFSMScdm started task                  
+//*                                                                             
+//*   In addition, choose YES or NO for the optional CHECK,                     
+//*   DELETE, and WAIT keywords.  See the DFSMScdm Guide and                    
+//*   Reference for details on these keywords, and for a complete               
+//*   complete list of the keywords for this command.                           
+//*                                                                             
+//TSOBATCH EXEC PGM=IKJEFT01,REGION=0M                                          
+//STEPLIB  DD  DSN=CDM.V1R2M0.SGBQLLIB,DISP=SHR                                 
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSABEND DD  SYSOUT=*                                                         
+//SYSEXEC  DD  DSN=CDM.V1R2M0.SGBQELIB,DISP=SHR                                 
+//SYSTSIN  DD  *                                                                
+ %CDMSEND +                                                                     
+ DSN(IBMUSER.SYSLOG.OUTPUTD) +                                                  
+ CLOUD(MINIO) +                                                                 
+ CONTAINER(z31c) +                                                              
+ OBJECT(LLAMA) +                                                                
+ STCID(GBQ1) +                                                                  
+ CHECK(no) +                                                                    
+ DELETE(no) +                                                                   
+ WAIT(yes) +                                                                    
+ DEBUG(yes)                                                                     
+/*                                                                              
+//*                                                                             
