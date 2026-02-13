@@ -1,0 +1,30 @@
+//IUCOBOL JOB (FB3),'COBOL RUN',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB   : COBOL PROGRAM EXECUTION                                 *           
+//* FUNC  :                                                         *           
+//*   - Execute a COBOL load module from LOAD library.              *           
+//* AUTHOR: BMT               DATE: 17/06/2025                      *           
+//*                                                                 *           
+//* STEPS :                                                         *           
+//*   1) Run COBOL program from LOAD library.                       *           
+//*   2) Write program output to SYSOUT.                            *           
+//*                                                                 *           
+//* DATASETS :                                                      *           
+//*   - Load module : IBMUSER.GIT.COBOL.LOAD(HELLOW)                *           
+//*                                                                 *           
+//* REQUIREMENTS :                                                  *           
+//*   - Target load module present in specified LOAD library.       *           
+//*                                                                 *           
+//* CUSTOMIZATION :                                                 *           
+//*   - Change PGM=HELLOW to required program name.                 *           
+//*   - Add DD statements for program input/output as needed.       *           
+//*-----------------------------------------------------------------*           
+//*-- 1: EXECUTE COBOL PROGRAM -------------------------------------*           
+//COBOL EXEC PGM=HELLOW                                                         
+//STEPLIB  DD DISP=SHR,DSN=IBMUSER.COBOLPI.MAIN.BLD.LOAD                        
+//SYSPRINT DD SYSOUT=*                                                          
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           
