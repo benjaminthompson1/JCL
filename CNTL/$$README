@@ -1,188 +1,190 @@
-$$README contents of IBMUSER.GIT.JCL.CNTL                                       
-=======================================================================         
-Last updated: 2025-08-25                                                        
-                                                                                
-This library contains sample and utility JCL.                                   
-Members are grouped by category for easier navigation.                          
-                                                                                
-=======================================================================         
-== DOCUMENTATION & CONTROL                                                      
-=======================================================================         
-$$DOCJCL  - JCL header documentation block                                      
-$$README  - This index                                                          
-$SDSF     - Issue SDSF commands                                                 
-$VS       - Issue CONSOLE commands                                              
-                                                                                
-=======================================================================         
-== DATASETS, STORAGE & DFSMS                                                    
-=======================================================================         
-ACBJBARD  - Generate dataset report from DCOLLECT data                          
-CONVERTV  - SMS CONVERTV                                                        
-DCOLLECT  - Collect dataset, volume, policy values                              
-DSSCOPY   - Copy datasets                                                       
-DSSDFRAG  - Defragment a volume                                                 
-DSSDIAG   - Check VVRs and Catalog entries on volume                            
-DSSDUMPF  - DSS volume-level backup                                             
-DSSDUMPL  - DSS logical dataset backup                                          
-DSSMOVE   - Move datasets between volumes                                       
-DSSREST   - DSS Backup restore                                                  
-GBQALTRC  - IBM z/OS DFSMS Cloud Data Manager: define trace datasets            
-GDKUTIL   - Upload, list, and download z/OS datasets to S3 storage              
-HBOJBDCO  - CDP z Batch DCOLLECT processor                                      
-HBOJBDC2  - CDP z Batch DCOLLECT to Data Streamer                               
-ICKDSF01  - 3390 Initialize Volume                                              
-IDCAMCPY  - Copy VSAM data                                                      
-IDCAMDIA  - Diagnose VTOC and Catalog                                           
-IDCAMGDG  - Create GDG base                                                     
-IDCAMS    - LISTCAT/DEFINE ALIAS                                                
-IDCAMSMS  - Define backup SCDS for SMS                                          
-IDCAMSVS  - Define VSAM with alternate index                                    
-IDCAMZFS  - Define ZFS dataset and mount directory                              
-LIKECOPY  - Create dataset using attributes of base                             
-LOGREC    - Clear/init hardware event recorder dataset                          
-RESCOPYX  - Clone GOLDEN images to IPL RESVOL volumes using DFSMSdss            
-RESCOPYY  - Clone GOLDEN images to IPL RESVOL volumes using DFSMSdss            
-VSAM      - IDCAMS create a VSAM file                                           
-VSAMAIX   - IDCAMS create alternate index                                       
-VTAMUSSN  - Assemble/link USSN table                                            
-                                                                                
-=======================================================================         
-== SMP/E (SOFTWARE MAINTENANCE)                                                 
-=======================================================================         
-SMPCOMP   - SMP/E Complare Target and Distribution Zones                        
-SMPCRZNA  - SMP/E Create Global Zone                                            
-SMPCRZNB  - SMP/E Allocate datasets and DDDEFs                                  
-SMPREC    - SMP/E Receive from Shopz Download                                   
-SMPAPPLY  - SMP/E Apply                                                         
-SMPACCPT  - SMP/E Accept                                                        
-SMPHOLD   - SMP/E HOLD listing                                                  
-SMPLIST   - SMP/E List DDDEFs and maintenance                                   
-SMPRPT    - SMP/E Target report for Shopz                                       
-SMPREJTA  - SMP/E Reject after ACCEPTED                                         
-SMPREJTG  - SMP/E Reject received-only                                          
-                                                                                
-=======================================================================         
-== COMPILERS & PROGRAM RUNS                                                     
-=======================================================================         
-AMBLIST   - Display info on load and object modules                             
-COBC      - COBOL compile                                                       
-COBCB     - COBOL compile and bind                                              
-COBCBDB   - COBOL compile and bind with Db2                                     
-COBCBG    - COBOL compile, bind, and go (run)                                   
-COBCBGDB  - COBOL compile, bind, and go with Db2                                
-COBCBMQ   - COBOL compile and bind with MQ                                      
-COBRUN    - COBOL run program                                                   
-COBRUNDB  - COBOL run program with Db2                                          
-COBSORT   - COBOL with DFSORT                                                   
-CICSCSD   - Define base app - EGUI CICS CSD entry                               
-PLIC      - PL/I compile                                                        
-HLASM     - Compile and link HLASM                                              
-REXX      - Submit REXX in batch                                                
-JVMJCL17  - JZOS V17 batch Java                                                 
-PYTHON    - IVP Batch Python                                                    
-PICSCALC  - PL/I bit offsets for DVM DFAT EXIT                                  
-                                                                                
-=======================================================================         
-== DATABASES (DB2, DVM)                                                         
-=======================================================================         
-AVZGNSTF  - DVM Create the sample VSAM file                                     
-AVZIVVS1  - DVM IVP                                                             
-DVMSQL    - Create sample DB/TB for DVM                                         
-CRDB2ARC  - COBOL RUN DB2ARCH                                                   
-DSNBIND   - Db2 BIND                                                            
-DSNREST   - Enable Db2 native REST services for ZCEE                            
-DSNTIJAI  - SQLDI Pseudo Catalog                                                
-DSNTIJAV  - SQLDI IVP                                                           
-DSNTIJRS  - Enable Db2 REST services                                            
-DSNTIJR2  - Enable Db2 REST service versioning                                  
-DSNTIJTC  - Activate function level needing catalog                             
-                                                                                
-=======================================================================         
-== MESSAGING (MQ & ANSIBLE EXAMPLES)                                            
-=======================================================================         
-CSQ4BCLR  - MQ print messages from queue (sample)                               
-CSQ4BVJR  - MQ PUT/GET sample programs                                          
-CSQLOGP1  - MQ CSQ LOG PRINT                                                    
-CSQLOGP2  - MQ CSQ LOG PRINT committed messages                                 
-CSQUTIL   - MQ CSQ Utility                                                      
-KMQCBVJ1  - Ansible zForum COBOL GET compile                                    
-KMQCBVK1  - Ansible zForum COBOL PUT compile                                    
-KMQGBVJ1  - Ansible zForum COBOL GET                                            
-KMQPBVK1  - Ansible zForum COBOL PUT                                            
-                                                                                
-=======================================================================         
-== SECURITY, RACF & MFA                                                         
-=======================================================================         
-CSFTKDS   - Initializes TKDS and recreates ICSF key datasets                    
-MAKECER2  - Create/manage digital certificates                                  
-MFAENB    - Enable MFA users                                                    
-MFARACF   - Create MFA RACF definitions                                         
-MFAUSER   - Create TSO MFA users                                                
-RACFCERT  - Create signed personal cert on keyring                              
-RACFHLQ   - RACF to implement HLQ profiles                                      
-RACFJCLX  - RACF to implement JCL Expert                                        
-RACFSTC   - Create STC USERID and STARTED profile                               
-RACFZCX   - RACF to implement zCX                                               
-IZUNASEC  - ZERT RACF                                                           
-UJ04501   - UJ04501 zSecure Admin V2.4                                          
-                                                                                
-=======================================================================         
-== SYSTEM, MONITORING & LOGS                                                    
-=======================================================================         
-AMAPDUPL  - IBM Problem Documentation Upload Utility                            
-BZUDUMP   - VTP Playback Dump Utility                                           
-BZUPLAY   - VTP Play recording from batch/file I/O                              
-BZUREC    - VTP Record batch/file I/O                                           
-EREP      - Process LOGREC dataset into reports                                 
-HBOJBCOL  - CDP z Batch collect SMF data                                        
-IFASMFDL  - SMF logstream dump                                                  
-IFASMFDP  - SMF validate signature records                                      
-IPCS      - Interactive Problem Control System                                  
-IPCSVSAM  - IPCS for VSAM                                                       
-ISCJCL86  - SCRT Report                                                         
-IXCMIAPU  - Define LOGSTREAM name (IFASMF.SMFALL)                               
-RMFCPU    - RMF post-process CPU utilization                                    
-SMFZERT   - SMF dump TYPE 119 for zERT                                          
-IZUDUUID  - z/OS UUID (zOSMF support)                                           
-OMEGCRT   - OMEGAMON Create - STEP 1                                            
-OMEGDIS   - OMEGAMON Discover - STEP 3                                          
-OMEGGEN   - OMEGAMON Generate - STEP 4                                          
-                                                                                
-=======================================================================         
-== UNIX SYSTEM SERVICES (USS)                                                   
-=======================================================================         
-BPXBATCH  - Issue OMVS commands using BPXBATCH                                  
-BPXCLEAN  - Delete files from ZFS older than 4 days                             
-BPXPARM   - STDPARM DD for BPXBATCH                                             
-                                                                                
-=======================================================================         
-== UTILITIES (SORT, COPY, PACK, ETC.)                                           
-=======================================================================         
-DFSORT    - DFSORT Utility                                                      
-ICETOOL   - ZSORT new feature on z15 hardware                                   
-ICEGENER  - IEBGENER replacement for VSAM/sequential                            
-IEBCOPY   - Copy PDS members                                                    
-IEBDG     - Generate test data                                                  
-IEFBR14   - Test allocations (IEFBR14)                                          
-TERSE     - AMATERSE Pack and Unpack datasets                                   
-XMITPACK  - XMIT and TERSE a load library                                       
-XMITREST  - TERSE unpack and XMIT receive library                               
-RFNJOBH   - Pull service from IBM and RECEIVE to GZONE                          
-                                                                                
-=======================================================================         
-== CICS & OTHER PRODUCT SAMPLES                                                 
-=======================================================================         
-DFH$ECAT  - Copy from CICS SDFHINST                                             
-DFH$ECNF  - Copy from CICS SDFHINST                                             
-DFHAUX    - [desc TBD]                                                          
-CXPS0200  - [desc TBD]                                                          
-CXPS0201  - [desc TBD]                                                          
-EQAPRFSU  - [desc TBD]                                                          
-EQARMTSU  - [desc TBD]                                                          
-EQAWCCSD  - [desc TBD]                                                          
-EQAWCRVS  - [desc TBD]                                                          
-EQAWISVC  - [desc TBD]                                                          
-EQAWIVCP  - [desc TBD]                                                          
-EQAWIVPT  - [desc TBD]                                                          
-JES2CKPT  - Create JES2 checkpoint datasets                                     
-JES2VFY   - Verify JES2 PARM                                                    
+$$README contents of IBMUSER.GIT.JCL.CNTL
+=======================================================================
+Last updated: 2025-08-25
+
+This library contains sample and utility JCL.
+Members are grouped by category for easier navigation.
+
+=======================================================================
+== DOCUMENTATION & CONTROL
+=======================================================================
+$$DOCJCL  - JCL header documentation block
+$$README  - This index
+$SDSF     - Issue SDSF commands
+$VS       - Issue CONSOLE commands
+
+=======================================================================
+== DATASETS, STORAGE & DFSMS
+=======================================================================
+ACBJBARD  - Generate dataset report from DCOLLECT data
+CONVERTV  - SMS CONVERTV
+DCOLLECT  - Collect dataset, volume, policy values
+DSSCOPY   - Copy datasets
+DSSDFRAG  - Defragment a volume
+DSSDIAG   - Check VVRs and Catalog entries on volume
+DSSDUMPF  - DSS volume-level backup
+DSSDUMPL  - DSS logical dataset backup
+DSSMOVE   - Move datasets between volumes
+DSSREST   - DSS Backup restore
+GBQALTRC  - IBM z/OS DFSMS Cloud Data Manager: define trace datasets
+GDKUTIL   - Upload, list, and download z/OS datasets to S3 storage
+HBOJBDCO  - CDP z Batch DCOLLECT processor
+HBOJBDC2  - CDP z Batch DCOLLECT to Data Streamer
+ICKDSF01  - 3390 Initialize Volume
+IDCAMCPY  - Copy VSAM data
+IDCAMDIA  - Diagnose VTOC and Catalog
+IDCAMGDG  - Create GDG base
+IDCAMS    - LISTCAT/DEFINE ALIAS
+IDCAMSMS  - Define backup SCDS for SMS
+IDCAMSVS  - Define VSAM with alternate index
+IDCAMZFS  - Define ZFS dataset and mount directory
+LIKECOPY  - Create dataset using attributes of base
+LOGREC    - Clear/init hardware event recorder dataset
+RESCOPYX  - Clone GOLDEN images to IPL RESVOL volumes using DFSMSdss
+RESCOPYY  - Clone GOLDEN images to IPL RESVOL volumes using DFSMSdss
+VSAM      - IDCAMS create a VSAM file
+VSAMAIX   - IDCAMS create alternate index
+VTAMUSSN  - Assemble/link USSN table
+
+=======================================================================
+== SMP/E (SOFTWARE MAINTENANCE)
+=======================================================================
+SMPCOMP   - SMP/E Complare Target and Distribution Zones
+SMPCRZNA  - SMP/E Create Global Zone
+SMPCRZNB  - SMP/E Allocate datasets and DDDEFs
+SMPREC    - SMP/E Receive from Shopz Download
+SMPAPPLY  - SMP/E Apply
+SMPACCPT  - SMP/E Accept
+SMPHOLD   - SMP/E HOLD listing
+SMPLIST   - SMP/E List DDDEFs and maintenance
+SMPRPT    - SMP/E Target report for Shopz
+SMPREJTA  - SMP/E Reject after ACCEPTED
+SMPREJTG  - SMP/E Reject received-only
+SMPREST   - SMP/E Restore
+
+=======================================================================
+== COMPILERS & PROGRAM RUNS
+=======================================================================
+AMBLIST   - Display info on load and object modules
+COBC      - COBOL compile
+COBCB     - COBOL compile and bind
+COBCBDB   - COBOL compile and bind with Db2
+COBCBG    - COBOL compile, bind, and go (run)
+COBCBGDB  - COBOL compile, bind, and go with Db2
+COBCBMQ   - COBOL compile and bind with MQ
+COBRUN    - COBOL run program
+COBRUNDB  - COBOL run program with Db2
+COBSORT   - COBOL with DFSORT
+CICSCSD   - Define base app - EGUI CICS CSD entry
+PLIC      - PL/I compile
+HLASM     - Compile and link HLASM
+REXX      - Submit REXX in batch
+JVMJCL17  - JZOS V17 batch Java
+PYTHON    - IVP Batch Python
+PICSCALC  - PL/I bit offsets for DVM DFAT EXIT
+
+=======================================================================
+== DATABASES (DB2, DVM)
+=======================================================================
+AVZGNSTF  - DVM Create the sample VSAM file
+AVZIVVS1  - DVM IVP
+DVMSQL    - Create sample DB/TB for DVM
+CRDB2ARC  - COBOL RUN DB2ARCH
+DSNBIND   - Db2 BIND
+DSNREST   - Enable Db2 native REST services for ZCEE
+DSNTIJAI  - SQLDI Pseudo Catalog
+DSNTIJAV  - SQLDI IVP
+DSNTIJRS  - Enable Db2 REST services
+DSNTIJR2  - Enable Db2 REST service versioning
+DSNTIJTC  - Activate function level needing catalog
+
+=======================================================================
+== MESSAGING (MQ & ANSIBLE EXAMPLES)
+=======================================================================
+CSQ4BCLR  - MQ print messages from queue (sample)
+CSQ4BVJR  - MQ PUT/GET sample programs
+CSQLOGP1  - MQ CSQ LOG PRINT
+CSQLOGP2  - MQ CSQ LOG PRINT committed messages
+CSQUTIL   - MQ CSQ Utility
+KMQCBVJ1  - Ansible zForum COBOL GET compile
+KMQCBVK1  - Ansible zForum COBOL PUT compile
+KMQGBVJ1  - Ansible zForum COBOL GET
+KMQPBVK1  - Ansible zForum COBOL PUT
+
+=======================================================================
+== SECURITY, RACF & MFA
+=======================================================================
+CSFTKDS   - Initializes TKDS and recreates ICSF key datasets
+MAKECER2  - Create/manage digital certificates
+MFAENB    - Enable MFA users
+MFARACF   - Create MFA RACF definitions
+MFAUSER   - Create TSO MFA users
+RACFCERT  - Create signed personal cert on keyring
+RACFHLQ   - RACF to implement HLQ profiles
+RACFJCLX  - RACF to implement JCL Expert
+RACFSTC   - Create STC USERID and STARTED profile
+RACFZCX   - RACF to implement zCX
+IZUNASEC  - ZERT RACF
+UJ04501   - UJ04501 zSecure Admin V2.4
+
+=======================================================================
+== SYSTEM, MONITORING & LOGS
+=======================================================================
+AMAPDUPL  - IBM Problem Documentation Upload Utility
+BZUDUMP   - VTP Playback Dump Utility
+BZUPLAY   - VTP Play recording from batch/file I/O
+BZUREC    - VTP Record batch/file I/O
+EREP      - Process LOGREC dataset into reports
+HBOJBCOL  - CDP z Batch collect SMF data
+IFASMFDL  - SMF logstream dump
+IFASMFDP  - SMF validate signature records
+IPCS      - Interactive Problem Control System
+IPCSVSAM  - IPCS for VSAM
+ISCJCL86  - SCRT Report
+IXCMIAPU  - Define LOGSTREAM name (IFASMF.SMFALL)
+RMFCPU    - RMF post-process CPU utilization
+SMFZERT   - SMF dump TYPE 119 for zERT
+IZUDUUID  - z/OS UUID (zOSMF support)
+OMEGCRT   - OMEGAMON Create - STEP 1
+OMEGDIS   - OMEGAMON Discover - STEP 3
+OMEGGEN   - OMEGAMON Generate - STEP 4
+
+=======================================================================
+== UNIX SYSTEM SERVICES (USS)
+=======================================================================
+BPXBATCH  - Issue OMVS commands using BPXBATCH
+BPXCLEAN  - Delete files from ZFS older than 4 days
+BPXPARM   - STDPARM DD for BPXBATCH
+
+=======================================================================
+== UTILITIES (SORT, COPY, PACK, ETC.)
+=======================================================================
+DFSORT    - DFSORT Utility
+ICETOOL   - ZSORT new feature on z15 hardware
+ICEGENER  - IEBGENER replacement for VSAM/sequential
+IEBCOPY   - Copy PDS members
+IEBDG     - Generate test data
+IEFBR14   - Test allocations (IEFBR14)
+TERSE     - AMATERSE Pack and Unpack datasets
+XMITPACK  - XMIT and TERSE a load library
+XMITREST  - TERSE unpack and XMIT receive library
+RFNJOBH   - Pull service from IBM and RECEIVE to GZONE
+IEBUPDTE  - Copies member from source PDS/PDSE to new library
+
+=======================================================================
+== CICS & OTHER PRODUCT SAMPLES
+=======================================================================
+DFH$ECAT  - Copy from CICS SDFHINST
+DFH$ECNF  - Copy from CICS SDFHINST
+DFHAUX    - [desc TBD]
+CXPS0200  - [desc TBD]
+CXPS0201  - [desc TBD]
+EQAPRFSU  - [desc TBD]
+EQARMTSU  - [desc TBD]
+EQAWCCSD  - [desc TBD]
+EQAWCRVS  - [desc TBD]
+EQAWISVC  - [desc TBD]
+EQAWIVCP  - [desc TBD]
+EQAWIVPT  - [desc TBD]
+JES2CKPT  - Create JES2 checkpoint datasets
+JES2VFY   - Verify JES2 PARM
