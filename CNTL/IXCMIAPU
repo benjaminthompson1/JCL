@@ -5,37 +5,25 @@
 //*  JOB NAME   : SMF LOGSTREAM DEFINITION                                      
 //*                                                                             
 //*  FUNCTION   :                                                               
-//*    - Define a new SMF log stream (IFASMF.SMFALL.S0W1) for use in            
-//*      logstream mode recording on system S0W1.                               
+//*    - Define SMF log stream IFASMF.SMFALL.S0W1 for system S0W1.              
 //*                                                                             
 //*  AUTHOR     : BMT                                                           
 //*  DATE       : 17/06/2025                                                    
 //*                                                                             
 //*  DESCRIPTION :                                                              
-//*    This job defines a log stream using the IXCMIAPU utility, which          
-//*    allows SMF records to be written directly to a log stream rather         
-//*    than to traditional datasets. This supports enhanced collection,         
-//*    management, and offload of SMF data.                                     
-//*                                                                             
-//*    Key parameters include:                                                  
-//*      - DASD-only logstream                                                  
-//*      - Autodeletion enabled after 2 days                                    
-//*      - Storage and logstream size defined                                   
-//*      - High and low offload thresholds specified                            
+//*    - IXCMIAPU DEFINE for DASD-only SMF logstream.                           
+//*    - Autodelete after 2 days, sized STG/LS with offload thresholds.         
 //*                                                                             
 //*  REQUIREMENTS :                                                             
-//*    - Coupling Facility configuration (if applicable)                        
-//*    - Sufficient DASD space for staging and logstream                        
-//*    - IXCMIAPU utility available                                             
+//*    - IXCMIAPU available, adequate DASD, CF if required.                     
 //*                                                                             
 //*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update system name in logstream (S0W1)                                 
-//*    - Adjust size and retention values based on requirements                 
+//*    - Update system name (S0W1), sizes, and retention as needed.             
 //*                                                                             
 //*  CHANGE LOG :                                                               
 //*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    17/06/2025   BMT         Initial version.                                
+//*    ------------ ---------- -----------------------------                    
+//*    17/06/2025   BMT        Initial version.                                 
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP 1: DEFINE LOGSTREAM USING IXCMIAPU                                     

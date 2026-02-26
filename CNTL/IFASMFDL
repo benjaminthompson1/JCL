@@ -1,11 +1,33 @@
 //IUSMFDL JOB (FB3),'IFASMFDL',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: SMF logstream dump program                              *          
-//*                                                                  *          
-//********************************************************************          
+//*--------------------------------------------------------------------*        
+//*  JOB NAME   : SMF LOGSTREAM DUMP                                            
+//*                                                                             
+//*  FUNCTION   :                                                               
+//*    - Dump SMF logstream data for system S0W1.                               
+//*                                                                             
+//*  AUTHOR     : BMT                                                           
+//*  DATE       : 17/06/2025                                                    
+//*                                                                             
+//*  DESCRIPTION :                                                              
+//*    - Uses IFASMFDL to dump SMF records from logstream                       
+//*      IFASMF.SMFALL.S0W1 to a backup data set.                               
+//*                                                                             
+//*  REQUIREMENTS :                                                             
+//*    - Adequate DASD for output backup data set.                              
+//*                                                                             
+//*  CUSTOMIZATION REQUIRED :                                                   
+//*    - Update system name (S0W1) and logstream name if required.              
+//*                                                                             
+//*  CHANGE LOG :                                                               
+//*    DD/MM/YYYY   Author     Description                                      
+//*    ------------ ---------- -----------------------------                    
+//*    17/06/2025   BMT        Initial version.                                 
+//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*        
+//* STEP 1: DUMP LOGSTREAM USING IFASMFDL                                       
+//*--------------------------------------------------------------------*        
 //IFASMFDL EXEC PGM=IFASMFDL,REGION=0M                                          
 //OUTDD1   DD DSN=ARCH.SMF.S0W1.BACKUP(+1),                                     
 //            DISP=(NEW,CATLG,DELETE),UNIT=DASD,                                
@@ -17,3 +39,6 @@
  NOSIGSTRIP                                                                     
  RELATIVEDATE(BYDAY,1,1)                                                        
 /*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of SMF Logstream Dump Job                                               
+//*--------------------------------------------------------------------*        
