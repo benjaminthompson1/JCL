@@ -1,35 +1,6 @@
 //IUPDUPL JOB (FB3),'AMAPDUPL',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : VSAM STAFF DATASET CREATION                             *           
-//* FUNC  :                                                         *           
-//*   - Create and load a VSAM KSDS for ODBC RPC demo.              *           
-//* AUTHOR: BMT               DATE: 27/04/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Delete existing 'prefix.STAFF.VSAM' dataset.               *           
-//*   2) Define new KSDS cluster with required attributes.          *           
-//*   3) Load sample staff records from input PDS member.           *           
-//*                                                                 *           
-//* DATASETS :                                                      *           
-//*   - VSAM KSDS     : IBMUSER.STAFF.VSAM                          *           
-//*   - Input Member  : DVM110.SAVZSAMP(AVZSTFVS)                   *           
-//*                                                                 *           
-//* NOTES :                                                         *           
-//*   - Record size   : 80 bytes (fixed).                           *           
-//*   - Key length    : 2 bytes at offset 0.                        *           
-//*   - Allocation    : 1 cyl primary, 1 cyl secondary.             *           
-//*   - CI size       : 512 bytes.                                  *           
-//*   - Freespace     : 10% per CI and CA.                          *           
-//*   - Share options : (2,3) cross-system sharing.                 *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Change HLQ from IBMUSER if required.                        *           
-//*   - Update DVM110 prefix as per environment.                    *           
-//*   - Adjust VOL=SER (currently A3USR4) as needed.                *           
-//*-----------------------------------------------------------------*           
-//*-- 1: EXECUTE PDUU TO UPLOAD FILES ------------------------------*           
 //HTTPS EXEC PGM=AMAPDUPL                                                       
 //SYSUDUMP DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
