@@ -3,37 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*--------------------------------------------------------------------*        
 //*  JOB NAME   : CSQLOGP1 - MQ LOG PRINT UTILITY                               
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Runs the IBM MQ utility CSQ1LOGP to extract log data                   
-//*    - Reads archive logs and outputs categorized datasets                    
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job analyzes IBM MQ archive logs and extracts transaction           
-//*    data into categorized output files. You can optionally filter            
-//*    by RBA range, URID, or data contents.                                    
-//*                                                                             
-//*    Environment details:                                                     
-//*      - MQ archive log: CSQARC1.CSQ9.A0000019                                
-//*      - Load libraries: CSQ911.SCSQLOAD, SCSQANLE                            
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Ensure archive log DSNs are available and not in use                   
-//*    - Output datasets must not already exist unless REUSE is added           
-//*    - Optionally uncomment and configure RBA/PAGESET/URID filters            
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Replace ARCHIVE DD with your actual log dataset                        
-//*    - Adjust output dataset HLQs and space settings as required              
-//*    - Uncomment and tune SYSIN filtering parameters if needed                
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Initial version                                  
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP: RUN MQ LOG PRINT UTILITY                                              

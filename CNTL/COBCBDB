@@ -3,27 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : DB2 COBOL BUILD                                         *           
-//* FUNC  :                                                         *           
-//*   - Compile DB2-enabled COBOL and bind package/plan.            *           
-//* AUTHOR: BMT               DATE: 17/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Precompile and compile COBOL to create object and DBRM.    *           
-//*   2) Link-edit to create executable load module.                *           
-//*   3) Run DB2 BIND for package and plan.                         *           
-//*                                                                 *           
-//* ENVIRONMENT :                                                   *           
-//*   - COBOL : Enterprise COBOL V6.4.0                             *           
-//*   - DB2   : Subsystem DBCG (DB2 V13)                            *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - IGYQCB procedure and DB2 SDSNLOAD libraries available.      *           
-//*   - GOPGM= set to program name.                                 *           
-//*   - COBOL and DB2 datasets allocated and catalogued.            *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Replace GOPGM=ORGREP with target program name.              *           
-//*   - Adjust dataset names for local standards.                   *           
 //*-----------------------------------------------------------------*           
 //*-- 1: COMPILE COBOL PROGRAM WITH DB2 SUPPORT --------------------*           
 //COMPILE EXEC IGYQCB,                                                          

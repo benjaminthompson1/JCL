@@ -3,36 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*--------------------------------------------------------------------*        
 //*  JOB NAME   : CSQLOGP2 - MQ LOG EXTRACT AND FILTER                          
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Extract committed messages from MQ archive logs                        
-//*    - Filter messages for specific queue using DFSORT                        
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job uses CSQ1LOGP to extract log data from an MQ archive            
-//*    log dataset and writes committed messages to a temporary file.           
-//*    It then runs DFSORT to filter messages from queue                        
-//*    'IBMUSER.TEST' and writes them to a permanent dataset.                   
-//*                                                                             
-//*    Key filtering logic:                                                     
-//*      - INCLUDE COND=(112,12,CH,EQ,C'IBMUSER.TEST')                          
-//*      - OUTREC converts ASCII data to EBCDIC                                 
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Archive log must exist and be accessible                               
-//*    - Ensure DFSORT is installed and available                               
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update ARCHIVE and SORTOUT DSNs as needed                              
-//*    - Adjust queue name filter in DFSORT SYSIN                               
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Initial version                                  
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP 1: EXTRACT COMMITTED MESSAGES FROM MQ ARCHIVE LOG                      

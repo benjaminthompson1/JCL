@@ -12,22 +12,22 @@
   HEAP(32768,32768,ANYWHERE,FREE,8192,4096)                                     
 /*                                                                              
 //* INPUT DATASET CONTAINING PROBLEM DOCUMENTATION                              
-//SYSUT1   DD DISP=SHR,DSN=IBMUSER.SYSLOG.OUTPUTD                               
+//SYSUT1   DD DISP=SHR,DSN=IBMUSER.AVZ1.OUTPUTD                                 
 //* PRIMARY CONTROL PARAMETERS FOR UPLOAD                                       
 //SYSIN    DD *                                                                 
-  USERID=E-WMJ0IhNnks                                                           
-  PASSWORD=rRTg-l36n-dCqS-t3E1-LN6p                                             
-  TARGET_SYS=www.ecurep.ibm.com                                                 
-  TARGET_DSN=wessamp.bigfile                                                    
-  CC_HTTPS=03                                                                   
-  WORK_SIZE=100                                                                 
-  DIRECTORY=/toibm/mvs/                                                         
-  CASE=TS018924773                                                              
-  USE_HTTPS=Y                                                                   
-  HTTPS_TLS12=Y                                                                 
-  SSL_4CIPHER=C030                                                              
-  HTTPS_KEYRING=TCPIP/ECuRepAP                                                  
-  HTTPS_VERBOSE=Y                                                               
+USERID=anonymous                                                                
+PASSWORD=benjamin.thompson1@ibm.com                                             
+TARGET_SYS=www.ecurep.ibm.com                                                   
+TARGET_DSN=wessamp.bigfile                                                      
+CC_HTTPS=03                                                                     
+WORK_SIZE=100                                                                   
+DIRECTORY=/toibm/mvs/                                                           
+CASE=TS021553683                                                                
+USE_HTTPS=Y                                                                     
+SSL_4CIPHER=C030                                                                
+HTTPS_TLS12=Y                                                                   
+HTTPS_KEYRING=TCPIP/ECuRepAP                                                    
+HTTPS_VERBOSE=Y                                                                 
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  

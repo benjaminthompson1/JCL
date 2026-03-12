@@ -3,16 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : CSFTKD2 - VSAM TKDS INIT                                *           
-//* FUNC  :                                                         *           
-//*   - Define VSAM TKDS in common record format.                   *           
-//*   - Recreate CKDS and PKDS for clean ICSF setup.                *           
-//* AUTHOR: BMT               DATE: 10/07/2025                      *           
-//*                                                                 *           
-//* NOTES :                                                         *           
-//*   - Intended for first-time ICSF key data set setup only.       *           
-//*   - Deletes and redefines CSFCKDS (clear key data set).         *           
-//*   - Deletes and redefines CSFPKDS (private key data set).       *           
-//*   - Removes all existing clear and private key material.        *           
 //*-----------------------------------------------------------------*           
 //*-- 1: DEFINE VSAM CLUSTER FOR TKDS ------------------------------*           
 //DEFINE  EXEC PGM=IDCAMS,REGION=4M                                             

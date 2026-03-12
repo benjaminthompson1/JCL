@@ -3,27 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : DB2 COBOL PROGRAM EXECUTION                             *           
-//* FUNC  :                                                         *           
-//*   - Run a DB2-enabled COBOL program via IKJEFT01/DSN.           *           
-//* AUTHOR: BMT               DATE: 17/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Invoke DSN under IKJEFT01 for subsystem DBDG.              *           
-//*   2) Run COBOL program under DB2 plan.                          *           
-//*                                                                 *           
-//* DATASETS :                                                      *           
-//*   - Load module : IBMUSER.GIT.COBOL.LOAD(ORGREP)                *           
-//*   - Plan        : BENPLAN                                       *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - DB2 plan BENPLAN bound and available.                       *           
-//*   - Required libraries catalogued and accessible.               *           
-//*   - DB2 subsystem DBDG active.                                  *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Update PROGRAM and PLAN names as required.                  *           
-//*   - Adjust dataset names or add DDs as needed.                  *           
-//*   - Change PARM for alternate debug settings if used.           *           
 //*-----------------------------------------------------------------*           
 //*-- 1: EXECUTE DB2-ENABLED COBOL PROGRAM -------------------------*           
 //DB2RUN EXEC PGM=IKJEFT01,DYNAMNBR=20                                          

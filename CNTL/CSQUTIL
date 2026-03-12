@@ -3,37 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*--------------------------------------------------------------------*        
 //*  JOB NAME   : CSQUTIL - MQSC COMMAND EXECUTION UTILITY                      
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Executes IBM MQ commands via CSQUTIL                                   
-//*    - Supports CLEAR, DISPLAY, DEFINE, DELETE, ALTER, and MOVE               
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job runs the MQ CSQUTIL utility to issue command sets               
-//*    against a queue manager (CSQ9). It can be used for viewing,              
-//*    modifying, or migrating MQ objects.                                      
-//*                                                                             
-//*    Example use cases include:                                               
-//*      - CLEAR queue                                                          
-//*      - DISPLAY attributes for all objects                                   
-//*      - MOVE queues between pagesets                                         
-//*      - Generate DEFINE statements for backup or replication                 
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Ensure MQ load libraries are available in STEPLIB                      
-//*    - Replace QUEUE, STGCLASS, or DATASET names as required                  
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update queue names, filters, and target STGCLASS                       
-//*    - Uncomment OUTPUT1 and MAKEALT/MAKEDEF logic if needed                  
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Initial version                                  
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP: EXECUTE MQSC COMMANDS VIA CSQUTIL                                     

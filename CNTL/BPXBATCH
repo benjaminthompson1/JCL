@@ -3,26 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : METAL C COMPILE                                         *           
-//* FUNC  :                                                         *           
-//*   - Compile and link Metal C source via USS script.             *           
-//* AUTHOR: BMT               DATE: 26/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Run BPXBATCH to invoke USS shell script.                   *           
-//*   2) Generate assembler from Metal C source.                    *           
-//*   3) Link-edit to create load module.                           *           
-//*                                                                 *           
-//* INPUT :                                                         *           
-//*   - Script member : IBMUSER.CNTL(BPXPARM)                       *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - z/OS XL C compiler with Metal C support.                    *           
-//*   - Configured USS environment.                                 *           
-//*   - Access to BPXBATCH and required datasets.                   *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Update script or parameters in BPXPARM if required.         *           
-//*   - Verify USS path names used in the script.                   *           
 //*-----------------------------------------------------------------*           
 //*-- 1: EXECUTE METAL C COMPILE SCRIPT IN USS ---------------------*           
 //BPXBATCH EXEC PGM=BPXBATCH                                                    

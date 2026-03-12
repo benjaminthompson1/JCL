@@ -3,26 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : COBOL RUN                                               *           
-//* FUNC  :                                                         *           
-//*   - Run DB2-enabled COBOL program via IKJEFT01/TSO.             *           
-//*   - Pass runtime parameters through DD IMMUN.                   *           
-//* AUTHOR: BMT               DATE: 10/07/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Invoke DB2ARCH under DB2 subsystem DBCG and plan BENPLAN.  *           
-//*   2) Read parameters from IMMUN DD and execute program.         *           
-//*                                                                 *           
-//* ENVIRONMENT :                                                   *           
-//*   - DB2 subsystem : DBCG                                        *           
-//*   - Load library  : IBMUSER.COBOL.LOAD                          *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - DB2ARCH compiled and bound into plan BENPLAN.               *           
-//*   - Load modules available in STEPLIB datasets.                 *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Change program name DB2ARCH and plan BENPLAN if required.   *           
-//*   - Update IMMUN DD with appropriate runtime parameters.        *           
 //*-----------------------------------------------------------------*           
 //*-- 1: EXECUTE COBOL PROGRAM UNDER DB2/TSO ENVIRONMENT -----------*           
 //DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              

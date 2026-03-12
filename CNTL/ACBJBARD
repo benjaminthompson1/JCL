@@ -1,18 +1,6 @@
 //IUJBARD JOB (FB3),'DCOLLECT',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : DCOLLECT REPORT GENERATION                              *           
-//* FUNC  :                                                         *           
-//*   - Build a formatted DCOLLECT dataset report.                  *           
-//* AUTHOR: BMT            DATE: 27/04/2025                         *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Delete old report dataset                                  *           
-//*   2) Allocate new report dataset                                *           
-//*   3) Create formatted report from DCOLLECT data                 *           
-//*   4) Print report to SYSOUT                                     *           
-//*-----------------------------------------------------------------*           
 //MYLIB JCLLIB ORDER=SYS1.SACBCNTL                                              
 //*-- 1: DELETE OLD REPORT -----------------------------------------*           
 //DELREP  EXEC PGM=IDCAMS                                                       

@@ -3,33 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : COBOL BUILD AND EXECUTE                                 *           
-//* FUNC  :                                                         *           
-//*   - Compile, link, and run COBOL with remote debug.             *           
-//* AUTHOR: BMT               DATE: 17/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Use IGYQCBG to compile and link COBOL program.             *           
-//*   2) Execute program with IBM Debug Tool attached.              *           
-//*                                                                 *           
-//* DEBUG SETTINGS :                                                *           
-//*   - IP   : 10.1.1.86                                            *           
-//*   - Port : 8001                                                 *           
-//*                                                                 *           
-//* DATASETS :                                                      *           
-//*   - Source : IBMUSER.GIT.COBOL.SOURCE                           *           
-//*   - Object : IBMUSER.GIT.COBOL.OBJECT                           *           
-//*   - Load   : IBMUSER.GIT.COBOL.LOAD                             *           
-//*   - Debug  : ISM330.SEQAMOD                                     *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - IGYQCBG procedure available (compile + GO).                 *           
-//*   - IBM Debug Tool configured on host.                          *           
-//*   - GOPGM= set to program name.                                 *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Update GOPGM= to target program.                            *           
-//*   - Adjust TCP/IP debug parms (GPARM).                          *           
-//*   - Add any required runtime datasets.                          *           
 //*-----------------------------------------------------------------*           
 //*-- 1: COMPILE, BIND AND EXECUTE PROGRAM WITH DEBUG SUPPORT ------*           
 //COBCBG1 EXEC IGYQCBG,                                                         

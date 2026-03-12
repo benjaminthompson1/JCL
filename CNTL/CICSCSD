@@ -3,33 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : CICS CSD UPDATE - ZOFFICE                               *           
-//* FUNC  :                                                         *           
-//*   - Define ZOFFICE resources into the CICS System Definition.   *           
-//* AUTHOR: BMT               DATE: 26/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Run DFHCSDUP against target CSD file.                      *           
-//*   2) Add file, mapset, program, and transaction definitions.    *           
-//*                                                                 *           
-//* DATASETS :                                                      *           
-//*   - CSD file : DFH620.CICS.DFHCSD                               *           
-//*   - LOADLIB  : DFH620.CICS.SDFHLOAD                             *           
-//*                                                                 *           
-//* RESOURCES :                                                     *           
-//*   - Files      : EXMPCAT, EXMPCONF                              *           
-//*   - Mapsets    : DFH0XS1, DFH0XS2, DFH0XS3                      *           
-//*   - Programs   : DFH0XCFG, DFH0XCMN, DFH0XGUI, DFH0XODE,        *           
-//*                  DFH0XSDS, DFH0XSOD, DFH0XSSM, DFH0XVDS,        *           
-//*                  DFH0XWOD                                       *           
-//*   - Transacts  : ECFG, EGUI                                     *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - CICS TS 6.2.0 libraries installed and available.            *           
-//*   - CSD file allocated and open for update.                     *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Adjust dataset names for local standards.                   *           
-//*   - Modify resource names if application layout differs.        *           
 //*-----------------------------------------------------------------*           
 //*-- 1: EXECUTE DFHCSDUP TO DEFINE ZOFFICE RESOURCES --------------*           
 //STEP1 EXEC PGM=DFHCSDUP,                                                      

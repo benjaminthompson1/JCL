@@ -19,17 +19,17 @@
 //*                WHICH IS USED IN CONJUNCTION WITH THE             */ 00170000
 //*                SAMPLE ODBC CALL REMOTE PROCEDURE.                */ 00180000
 //*                                                                  */ 00190000
-//*      THE FOLLOWING MODIFICATIONS SHOULD BE MADE PRIOR TO         */ 00200000
-//*      EXECUTING THIS JOB:                                         */ 00210000
+//*     THE FOLLOWING MODIFICATIONS SHOULD BE MADE PRIOR TO          */ 00200000
+//*     EXECUTING THIS JOB:                                          */ 00210000
 //*                                                                  */ 00220000
-//*      0) SPECIFY VALID JOBCARD                                    */ 00230000
-//*         SEE "== 0 ==>" ABOVE.                                    */ 00240000
+//*     0) SPECIFY VALID JOBCARD                                     */ 00230000
+//*        SEE "== 0 ==>" ABOVE.                                     */ 00240000
 //*                                                                  */ 00250000
-//*      1) CHANGE IBMUSER TO THE HIGH LEVEL QUALIFIER TO USE FOR THE */00260000
-//*         SAMPLE VSAM FILE.                                        */ 00270000
+//*     1) CHANGE IBMUSER TO THE HIGH LEVEL QUALIFIER TO USE FOR THE */ 00260000
+//*        SAMPLE VSAM FILE.                                         */ 00270000
 //*                                                                  */ 00280000
-//*      2) CHANGE HLQ2 TO THE HIGH LEVEL QUALIFIER OF PRODUCT       */ 00290000
-//*         SERVER INSTALLATION DATA SETS.                           */ 00300000
+//*     2) CHANGE HLQ2 TO THE HIGH LEVEL QUALIFIER OF PRODUCT        */ 00290000
+//*        SERVER INSTALLATION DATA SETS.                            */ 00300000
 //*                                                                  */ 00310000
 //********************************************************************/ 00320000
 //DEFSTAFF  EXEC PGM=IDCAMS                                             00330000

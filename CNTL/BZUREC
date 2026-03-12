@@ -3,25 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : VTP I/O RECORDING                                       *           
-//* FUNC  :                                                         *           
-//*   - Record batch I/O activity into a VTP TOURFILE playback.     *           
-//* AUTHOR: BMT               DATE: 26/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Run TOURFILE to monitor input I/O.                         *           
-//*   2) Log terminal-style I/O to playback dataset.                *           
-//*                                                                 *           
-//* DATASETS :                                                      *           
-//*   - Input    : IBMUSER.VTP.TOURFILE.INFILE                      *           
-//*   - Playback : IBMUSER.VTP.TOURFILE.PLAY                        *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - VTP load libraries available in STEPLIB.                    *           
-//*   - Sufficient space for VB playback dataset.                   *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Update dataset names for your environment.                  *           
-//*   - Adjust playback dataset space allocation as needed.         *           
 //*-----------------------------------------------------------------*           
 //*-- 1: RECORD I/O ACTIVITY USING TOURFILE ------------------------*           
 //VTPREC EXEC PGM=TOURFILE                                                      

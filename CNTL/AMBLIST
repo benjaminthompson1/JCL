@@ -1,25 +1,6 @@
 //IUAMBLT JOB (FB3),'AMBLIST',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : AMBLIST MODULE ANALYSIS                                 *           
-//* FUNC  :                                                         *           
-//*   - Generate a detailed report of a load module using AMBLIST.  *           
-//* AUTHOR: BMT               DATE: 27/04/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) List module attributes and entry point information.        *           
-//*   2) Display CSECT details and cross-referenced sections.       *           
-//*                                                                 *           
-//* INPUT :                                                         *           
-//*   - Load module : IBMUSER.GIT.COBOL.LOAD(HELLOW)                *           
-//*                                                                 *           
-//* OUTPUT :                                                        *           
-//*   - SYSPRINT dataset containing the AMBLIST report.             *           
-//*                                                                 *           
-//* NOTES :                                                         *           
-//*   - Update the SYSLIB dataset name and MEMBER as required.      *           
-//*-----------------------------------------------------------------*           
 //*-- 1: RUN AMBLIST TO ANALYSE LOAD MODULE ------------------------*           
 //STEP1  EXEC PGM=AMBLIST                                                       
 //SYSPRINT DD SYSOUT=*                                                          

@@ -3,27 +3,6 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB   : VTP PLAYBACK FORMATTING                                 *           
-//* FUNC  :                                                         *           
-//*   - Format and display a VTP playback file with BZUPLAY.        *           
-//* AUTHOR: BMT               DATE: 26/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Run BZUPLAY with RUN=BZUDCP.                               *           
-//*   2) Read VTP playback dataset.                                 *           
-//*   3) Write formatted report to SYSOUT.                          *           
-//*                                                                 *           
-//* DATASETS :                                                      *           
-//*   - Playback : IBMUSER.VTP.TOURFILE.PLAY                        *           
-//*   - STEPLIB  : VTP201.SBZULOAD                                  *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - VTP installed and BZUPLAY available in STEPLIB.             *           
-//*   - Valid VTP playback file available.                          *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Update playback dataset (BZUPLAY DD) if required.           *           
-//*   - Adjust STEPLIB for site VTP library.                        *           
-//*-----------------------------------------------------------------*           
 //*-- 1: FORMAT VTP PLAYBACK FILE USING BZUPLAY --------------------*           
 //VTPDUMP EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                    
 //STEPLIB DD DISP=SHR,DSN=VTP201.SBZULOAD                                       

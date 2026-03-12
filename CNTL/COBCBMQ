@@ -3,33 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : MQ COBOL COMPILE AND BIND                               *           
-//* FUNC  :                                                         *           
-//*   - Compile COBOL with IBM MQ APIs and bind load module.        *           
-//* AUTHOR: BMT               DATE: 17/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Compile COBOL source with MQ copybooks.                    *           
-//*   2) Link-edit with MQ stub and libraries.                      *           
-//*                                                                 *           
-//* DATASETS :                                                      *           
-//*   - Source   : CSQ911.SCSQCOBS                                  *           
-//*   - Copylibs : IBMUSER.GIT.COBOL.COPYLIB                        *           
-//*                CSQ911.SCSQCOBC                                  *           
-//*   - Object   : IBMUSER.GIT.COBOL.OBJECT                         *           
-//*   - Loadlib  : IBMUSER.GIT.COBOL.LOAD                           *           
-//*                                                                 *           
-//* MQ COMPONENTS :                                                 *           
-//*   - Copybooks : CSQ911.SCSQCOBC                                 *           
-//*   - Stub      : CSQBSTUB (in CSQ911.SCSQLOAD)                   *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - Enterprise COBOL V6.3 (IGY630) installed.                   *           
-//*   - IBM MQ libraries CSQ911.* available.                        *           
-//*   - GOPGM= set to program name.                                 *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Replace GOPGM=CSQ4BVK1 with target program.                 *           
-//*   - Adjust dataset names for local standards.                   *           
 //*-----------------------------------------------------------------*           
 //*-- 1: COMPILE, BIND AND LINK-EDIT WITH MQ STUBS------------------*           
 //COBCB1 EXEC IGYQCB,                                                           

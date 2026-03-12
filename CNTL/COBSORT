@@ -3,34 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : DFSORT + COBOL CBG EXEC                                 *           
-//* FUNC  :                                                         *           
-//*   - Sort input data with DFSORT, then compile, bind, and run    *           
-//*     COBOL program CNTRLBRK.                                     *           
-//* AUTHOR: BMT               DATE: 17/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Sort account data with DFSORT (key 15 bytes at 107).       *           
-//*   2) Compile, link, and execute CNTRLBRK via IGYQCBG.           *           
-//*                                                                 *           
-//* DEBUG SETTINGS :                                                *           
-//*   - IP   : 10.1.1.36                                            *           
-//*   - Port : 8001                                                 *           
-//*                                                                 *           
-//* DATASETS :                                                      *           
-//*   - Input   : IBMUSER.LEARN.ACCT.DATA                           *           
-//*   - Copylib : IBMUSER.LEARN.COPYLIB                             *           
-//*   - Source  : IBMUSER.LEARN.COBOL                               *           
-//*   - Object  : IBMUSER.LEARN.OBJECT                              *           
-//*   - Load    : IBMUSER.LEARN.LOAD                                *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - DFSORT installed and configured.                            *           
-//*   - Enterprise COBOL V6.3 (IGY630) environment.                 *           
-//*   - Debug Tool set for remote debugging.                        *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Change GOPGM=CNTRLBRK if using another program.             *           
-//*   - Adjust DFSORT control cards (fields, keys) as required.     *           
 //*-----------------------------------------------------------------*           
 //*-- 1: SORT ACCOUNT DATA USING DFSORT ----------------------------*           
 //DFSORT EXEC PGM=SORT                                                          

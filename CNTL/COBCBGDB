@@ -3,40 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : DB2 COBOL CBG BUILD/RUN                                 *           
-//* FUNC  :                                                         *           
-//*   - Compile, bind, and run DB2-enabled COBOL with debug.        *           
-//* AUTHOR: BMT               DATE: 17/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Precompile and compile COBOL to object and DBRM.           *           
-//*   2) Link-edit to create executable load module.                *           
-//*   3) Bind DBRM to DB2 package and plan.                         *           
-//*   4) Run program with Debug Tool enabled.                       *           
-//*                                                                 *           
-//* ENVIRONMENT :                                                   *           
-//*   - COBOL : Enterprise COBOL V6.4                               *           
-//*   - DB2   : Subsystem DBCG (DB2 V13)                            *           
-//*                                                                 *           
-//* DATASETS :                                                      *           
-//*   - Source : IBMUSER.GIT.COBOL.SOURCE                           *           
-//*   - Copylib: IBMUSER.GIT.COBOL.COPYLIB                          *           
-//*   - Object : IBMUSER.GIT.COBOL.OBJECT                           *           
-//*   - Load   : IBMUSER.GIT.COBOL.LOAD                             *           
-//*   - DBRM   : IBMUSER.GIT.COBOL.DBRMLIB                          *           
-//*   - Debug  : EQAE20.SEQAMOD                                     *           
-//*                                                                 *           
-//* DEBUG SETTINGS :                                                *           
-//*   - IP   : 10.1.1.36                                            *           
-//*   - Port : 8001                                                 *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - COBOL V6.4 and DB2 V13 libraries available.                 *           
-//*   - Debug Tool configured for remote TCP/IP session.            *           
-//*   - GOPGM= set to program name (for example ORGREP).            *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Update GOPGM= and dataset names as required.                *           
-//*   - Adjust Debug Tool IP and port values.                       *           
 //*-----------------------------------------------------------------*           
 //*-- 1: COMPILE AND BIND PROGRAM WITH DB2 SUPPORT -----------------*           
 //COMPILE EXEC IGYQCB,                                                          

@@ -3,26 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : USS CLEANUP                                             *           
-//* FUNC  :                                                         *           
-//*   - Remove USS files older than 4 days to free disk space.      *           
-//* AUTHOR: BMT               DATE: 26/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Invoke OSHELL to run UNIX find/rm command.                 *           
-//*   2) Delete regular files older than 4 days.                    *           
-//*   3) List deleted files to output.                              *           
-//*                                                                 *           
-//* TARGET PATH :                                                   *           
-//*   - /global/zwicdata/                                          *            
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - Access to USS and BPXEXEC environment.                      *           
-//*   - Permission to delete files in target path.                  *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Update path for different USS directory.                    *           
-//*   - Adjust retention by changing -mtime +4.                     *           
-//*-----------------------------------------------------------------*           
 //*-- 1: DELETE OLD FILES IN USS FILESYSTEM ------------------------*           
 //CLEARN1 EXEC PGM=IKJEFT1A                                                     
 //SYSEXEC  DD DISP=SHR,DSN=SYS1.SBPXEXEC                                        

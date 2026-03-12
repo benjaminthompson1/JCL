@@ -3,28 +3,6 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB   : VTP PLAYBACK                                            *           
-//* FUNC  :                                                         *           
-//*   - Replay recorded VTP terminal and batch I/O activity.        *           
-//* AUTHOR: BMT               DATE: 26/06/2025                      *           
-//*                                                                 *           
-//* STEPS :                                                         *           
-//*   1) Run BZUPLAY to process VTP recording.                      *           
-//*   2) Read playback dataset and interpret activity.              *           
-//*   3) Produce formatted playback output.                         *           
-//*                                                                 *           
-//* DATASETS :                                                      *           
-//*   - Playback : IBMUSER.VTP.TOURFILE.PLAY                        *           
-//*   - STEPLIBs : VTP201.SBZULLEP                                  *           
-//*               VTP201.SBZULOAD                                   *           
-//*               IBMUSER.GIT.COBOL.LOAD                            *           
-//*                                                                 *           
-//* REQUIREMENTS :                                                  *           
-//*   - Correct and authorized VTP load libraries available.        *           
-//*   - Valid and complete VTP playback file.                       *           
-//*                                                                 *           
-//* CUSTOMIZATION :                                                 *           
-//*   - Update dataset names for site-specific libraries.           *           
-//*   - Adjust STEPLIB entries for installed VTP version.           *           
 //*-----------------------------------------------------------------*           
 //*-- 1: EXECUTE VTP PLAYBACK UTILITY ------------------------------*           
 //VTPLAY EXEC PGM=BZUPLAY                                                       
