@@ -1,43 +1,33 @@
 # z/OS JCL Job Repository
 
-This repository contains a collection of JCL (Job Control Language) jobs for z/OS.  
-These jobs cover a wide range of tasks, including compiling programs, managing datasets, and interacting with subsystems like Db2, MQ, and CICS.
-
-## Table of Contents
-
-- [Usage](#usage)  
-- [Job Descriptions](#job-descriptions)  
-- [Contributing](#contributing)  
-- [Contact](#contact)
+This repository contains a personal collection of JCL (Job Control Language) jobs for z/OS.
+These jobs cover a wide range of tasks including compiling programs, managing datasets, and
+working with subsystems like Db2, MQ, CICS, and USS.
 
 ## Usage
 
-To use a JCL job from this repository:
-
-1. Download or copy the JCL file you need into your z/OS environment.
-2. Update any required parameters, dataset names, or user IDs to match your setup.
-3. Submit the job through your preferred method (such as TSO, SDSF, or your site’s job scheduler).
+1. Copy the JCL member you need into your z/OS environment.
+2. Update dataset names, HLQs, and user IDs to match your setup.
+3. Submit via TSO, SDSF, or your site's job scheduler.
 
 ## Job Descriptions
 
-Below is a brief description of each JCL job available in this repository:
-
 - `$$DOCJCL` - JCL header documentation block
-- `$SDSF` - Issue SDSF commands
-- `$VS` - Issue CONSOLE commands
+- `$SDSF` - Issue SDSF commands in batch
+- `$VS` - Issue z/OS console commands
 - `ACBJBARD` - Generate dataset report from DCOLLECT data
 - `AMAPDUPL` - IBM Problem Documentation Upload Utility
-- `AMBLIST` - Information on load and object modules
+- `AMBLIST` - Display information on load and object modules
+- `AVZBINDD` - Bind AVZ Server Db2 packages for DRDA connections
 - `AVZGNSTF` - DVM: Create sample VSAM file
-- `AVZIVVS1` - DVM: Installation Verification Procedure (IVP)
-- `BFGTRCRS` - MQ FTE: Create file transfer
-- `BPXBATCH` - Submit OMVS (UNIX System Services) commands
+- `AVZIVVS1` - DVM: Installation Verification Procedure
+- `AVZRADB2` - RACF permissions for DVM access to Db2 resources
+- `BPXBATCH` - Submit OMVS (UNIX System Services) commands in batch
 - `BPXCLEAN` - Delete files from ZFS older than a set number of days
-- `BPXPARM` - Standard parameters for BPXBATCH jobs
+- `BPXPARM` - Standard parameters DD for BPXBATCH jobs
 - `BZUDUMP` - VTP Playback Dump Utility
 - `BZUPLAY` - Play recording of batch/file I/O calls
 - `BZUREC` - Record batch/file I/O calls
-- `CCBERIS` - COBOL compile and bind with Db2 ERIS
 - `CICSCSD` - Define base CICS application (CSD entry)
 - `COBC` - COBOL compile
 - `COBCB` - COBOL compile and bind
@@ -47,26 +37,31 @@ Below is a brief description of each JCL job available in this repository:
 - `COBCBMQ` - COBOL compile and bind with MQ
 - `COBRUN` - Run COBOL program
 - `COBRUNDB` - Run COBOL program with Db2
-- `COBSORT` - COBOL with DFSORT
+- `COBRUNGH` - Run COBOL program (alternate execution template)
+- `COBSORT` - COBOL program execution with DFSORT
 - `CONVERTV` - SMS CONVERTV operation
 - `CRDB2ARC` - COBOL run program accessing DB2ARCH
-- `CSFTKD2` - Create and initialize TKDS VSAM dataset
-- `CSQ4BCLR` - MQ sample program: Print queue messages
+- `CSFTKDS` - Initialize TKDS and recreate ICSF key datasets
+- `CSQ4BCLR` - MQ sample program: print messages from queue
 - `CSQ4BVJR` - MQ sample programs: PUT/GET operations
 - `CSQLOGP1` - MQ log print
 - `CSQLOGP2` - MQ log print (committed messages and specific selections)
 - `CSQUTIL` - MQ CSQ Utility
+- `CXPS0200` - JCL Expert: scan a single JCL member
+- `CXPS0201` - JCL Expert: scan an entire JCL library
 - `DCOLLECT` - Collect dataset, volume, and policy information
 - `DFH$ECAT` - Copy from CICS sample library SDFHINST
 - `DFH$ECNF` - Copy from CICS sample library SDFHINST
+- `DFHAUX` - Format CICS auxiliary temporary storage datasets
 - `DFSORT` - DFSORT Utility
 - `DSNBIND` - Db2 Bind
 - `DSNREST` - Create and enable Db2 native REST services
 - `DSNTIJAI` - SQL Data Insights (SQLDI) Pseudo Catalog
 - `DSNTIJAV` - SQL Data Insights (SQLDI) IVP
-- `DSNTIJRS` - Enable Db2 REST services
 - `DSNTIJR2` - Enable Db2 REST service versioning
+- `DSNTIJRS` - Enable Db2 REST services
 - `DSNTIJTC` - Activate Db2 function level (new catalog level)
+- `DSSBCKUP` - DSS incremental VSAM backup
 - `DSSCOPY` - Copy datasets
 - `DSSDFRAG` - Defragment a volume
 - `DSSDIAG` - Diagnose VVRs and catalog entries
@@ -74,11 +69,24 @@ Below is a brief description of each JCL job available in this repository:
 - `DSSDUMPL` - Dataset-level backup
 - `DSSMOVE` - Move datasets
 - `DSSREST` - Restore datasets
-- `DVMSQL` - Create sample DB and table for DVM
+- `DVMSQL` - Create sample database and table for DVM
+- `EQAPRFSU` - z/OS Debugger: configure Debug Profile Service
+- `EQARMTSU` - z/OS Debugger: configure Remote Debug Service
+- `EQAWCCSD` - z/OS Debugger: define CICS programs and transactions
+- `EQAWCRVS` - z/OS Debugger: create VSAM file for DTCN debug profiles
+- `EQAWISVC` - z/OS Debugger: install SVCs in running z/OS
+- `EQAWIVCT` - z/OS Debugger: Dynamic Debug and COBOL TEST CICS IVP
+- `EQAWIVPT` - z/OS Debugger: Dynamic Debug and COBOL TEST batch IVP
 - `EREP` - Generate EREP reports from LOGREC data
+- `GBQALTRC` - DFSMS Cloud Data Manager: define trace datasets
+- `GBQSEND` - DFSMS Cloud Data Manager: send datasets to the cloud
+- `GDKUTIL` - Upload, list, and download z/OS datasets to S3 storage
 - `HBOJBCOL` - Collect SMF data for CDP z/Batch
-- `HBOJBDCO` - Process DCOLLECT for CDP z/Batch
 - `HBOJBDC2` - Send DCOLLECT data to Data Streamer
+- `HBOJBDCO` - Process DCOLLECT for CDP z/Batch
+- `HBOMKFS` - Create and mount IBM Z Common Data Provider file system
+- `HBOMKWK` - Create IBM Z Common Data Provider working directories
+- `HBORACF` - RACF setup for IBM Z Common Data Provider
 - `HLASM` - Assemble and link using HLASM
 - `ICEGENER` - IEBGENER replacement for VSAM and sequential files
 - `ICETOOL` - Advanced DFSORT operations
@@ -90,16 +98,18 @@ Below is a brief description of each JCL job available in this repository:
 - `IDCAMSMS` - Define backup SCDS for SMS
 - `IDCAMSVS` - Define VSAM with alternate index
 - `IDCAMZFS` - Define and mount ZFS datasets
-- `IEBCOPY` - Copy PDS members
+- `IEBCOPY` - Copy PDS/PDSE members
 - `IEBDG` - Generate test data
+- `IEBUPDTE` - Copy members from source PDS/PDSE to new library
 - `IEFBR14` - Allocate and delete datasets
 - `IFASMFDL` - Dump SMF logstreams
 - `IFASMFDP` - Validate SMF signature records
+- `IPCS` - Interactive Problem Control System
+- `IPCSVSAM` - IPCS for VSAM analysis
 - `ISCJCL86` - Generate SCRT report
 - `IXCMIAPU` - Define SMF logstream
-- `IZUNASEC` - zERT RACF extraction
 - `IZUDUUID` - z/OS UUID services
-- `JAVA` - Batch Java IVP
+- `IZUNASEC` - zERT RACF extraction
 - `JES2CKPT` - Create JES2 checkpoint datasets
 - `JES2VFY` - Verify JES2 parameter datasets
 - `JVMJCL17` - JZOS batch Java job (version 17)
@@ -107,7 +117,7 @@ Below is a brief description of each JCL job available in this repository:
 - `KMQCBVK1` - Ansible z/Forum COBOL PUT compile
 - `KMQGBVJ1` - Ansible z/Forum COBOL GET sample
 - `KMQPBVK1` - Ansible z/Forum COBOL PUT sample
-- `LIKECOPY` - Create dataset from existing attributes
+- `LIKECOPY` - Create dataset using attributes of an existing dataset
 - `LOGREC` - Clear and initialize hardware event logs
 - `MAKECER2` - Create and manage digital certificates
 - `MFAENB` - Enable MFA users
@@ -119,17 +129,23 @@ Below is a brief description of each JCL job available in this repository:
 - `PICSCALC` - PL/I bit offsets for DVM DFAT exit
 - `PLIC` - PL/I compile
 - `PYTHON` - Batch Python IVP
-- `RACFCERT` - Create signed personal certificate
-- `RACFHLQ` - Implement HLQ dataset profiles
+- `QWTRACF` - RACF setup for QWT (groups, users, STCs, and certificates)
+- `RACFCERT` - Create signed personal certificate on keyring
+- `RACFHLQ` - Implement HLQ dataset profiles in RACF
 - `RACFJCLX` - Implement JCL Expert security rules
 - `RACFSTC` - Create started task profiles
 - `RACFZCX` - RACF setup for zCX
+- `RESCOPYX` - Clone GOLDEN images to IPL RESVOL volumes using DFSMSdss
+- `RESCOPYY` - Clone GOLDEN images to IPL RESVOL volumes using DFSMSdss
 - `REXX` - Submit REXX execs in batch
+- `REXXC` - Run compiled REXX exec in batch
+- `REXXCOMP` - Compile REXX exec using the REXX compiler
 - `RFNJOBH` - Pull and RECEIVE service from IBM
 - `RMFCPU` - CPU usage post-processor report
 - `SMFZERT` - Dump SMF Type 119 records for zERT
 - `SMPACCPT` - SMP/E Accept processing
 - `SMPAPPLY` - SMP/E Apply processing
+- `SMPCOMP` - SMP/E Compare Target and Distribution Zones
 - `SMPCRZNA` - SMP/E: Create Global Zone
 - `SMPCRZNB` - SMP/E: Allocate datasets and DDDEFs
 - `SMPHOLD` - SMP/E list held elements
@@ -137,6 +153,7 @@ Below is a brief description of each JCL job available in this repository:
 - `SMPREC` - SMP/E Receive (Shopz download)
 - `SMPREJTA` - SMP/E Reject after Accept
 - `SMPREJTG` - SMP/E Reject received-only elements
+- `SMPREST` - SMP/E Restore
 - `SMPRPT` - SMP/E Target system report
 - `SYSLOG` - Dump SYSLOG to a dataset
 - `TERSE` - Pack and unpack datasets (AMATERSE)
@@ -145,35 +162,24 @@ Below is a brief description of each JCL job available in this repository:
 - `VSAMAIX` - Create alternate index for VSAM
 - `VTAMUSSN` - Assemble and link VTAM USSN table
 - `XMITPACK` - XMIT and TERSE a load library
-- `XMITREST` - TERSE and RECEIVE a load library
+- `XMITREST` - TERSE unpack and RECEIVE a load library
 
 ---
 
 ## Jobs by Category
 
-| Category          | Examples                                  | Description                                        |
-|-------------------|-------------------------------------------|----------------------------------------------------|
-| **Compilation**   | `COBC`, `PLIC`, `HLASM`, `JAVA`, `PYTHON`  | Compile COBOL, PL/I, Assembler, Java, and Python programs |
-| **Database (Db2)** | `DSNBIND`, `DSNREST`, `COBCBDB`, `COBRUNDB` | Work with Db2 programs, binds, and REST services   |
-| **Dataset Management** | `IEBCOPY`, `DSSCOPY`, `IDCAMS`, `LIKECOPY` | Copy, move, define, and manage datasets            |
-| **MQ Operations** | `CSQUTIL`, `CSQLOGP1`, `BFGTRCRS`          | Work with IBM MQ queues and logs                  |
-| **Security (RACF & Certificates)** | `RACFCERT`, `RACFHLQ`, `MAKECER2`, `MFAUSER` | Manage certificates, RACF profiles, and MFA       |
-| **System Utilities** | `BPXBATCH`, `ICEGENER`, `TERSE`, `SYSLOG` | Submit UNIX commands, copy datasets, manage logs  |
-| **SMP/E Operations** | `SMPACCPT`, `SMPAPPLY`, `SMPRPT`, `SMPREC` | SMP/E software installation and maintenance tasks |
-| **Backup and Restore** | `DSSDUMPF`, `DSSREST`, `SMFZERT`       | Backup and restore datasets and logs              |
-| **CICS Setup**    | `CICSCSD`, `DFH$ECAT`, `DFH$ECNF`          | Define and configure CICS environments            |
-| **OMEGAMON Setup** | `OMEGCRT`, `OMEGDIS`, `OMEGGEN`           | Setup for OMEGAMON monitoring tools                |
-| **VSAM Management** | `VSAM`, `VSAMAIX`, `IDCAMCPY`             | Create and manage VSAM datasets                   |
-| **Other Special Tasks** | `EREP`, `RMFCPU`, `RFNJOBH`             | SMF reporting, performance monitoring, and maintenance |
-
----
-
-## Contributing
-
-We welcome contributions!  
-If you have useful JCL jobs or improvements, feel free to open a pull request.
-
-## Contact
-
-If you have any questions, issues, or suggestions, please open an issue on this repository.
-
+| Category | Members |
+|---|---|
+| **Compilation** | `COBC`, `COBCB`, `COBCBG`, `PLIC`, `HLASM`, `REXX`, `REXXC`, `REXXCOMP`, `JVMJCL17`, `PYTHON` |
+| **Database (Db2 & DVM)** | `DSNBIND`, `DSNREST`, `COBCBDB`, `COBRUNDB`, `AVZBINDD`, `AVZRADB2`, `DVMSQL` |
+| **Dataset Management** | `IEBCOPY`, `DSSCOPY`, `DSSBCKUP`, `IDCAMS`, `LIKECOPY`, `RESCOPYX`, `RESCOPYY` |
+| **MQ Operations** | `CSQUTIL`, `CSQ4BCLR`, `CSQ4BVJR`, `CSQLOGP1`, `CSQLOGP2` |
+| **Security (RACF & Certs)** | `RACFCERT`, `RACFHLQ`, `RACFSTC`, `MAKECER2`, `MFAUSER`, `QWTRACF`, `CSFTKDS` |
+| **SMP/E** | `SMPACCPT`, `SMPAPPLY`, `SMPCOMP`, `SMPREC`, `SMPRPT`, `SMPREST` |
+| **Backup & Restore** | `DSSDUMPF`, `DSSDUMPL`, `DSSBCKUP`, `DSSREST`, `SMFZERT` |
+| **System & Monitoring** | `SYSLOG`, `RMFCPU`, `EREP`, `IPCS`, `IFASMFDL`, `OMEGCRT`, `OMEGDIS`, `OMEGGEN` |
+| **CICS** | `CICSCSD`, `DFH$ECAT`, `DFH$ECNF`, `DFHAUX` |
+| **z/OS Debugger** | `EQAPRFSU`, `EQARMTSU`, `EQAWCCSD`, `EQAWCRVS`, `EQAWISVC`, `EQAWIVCT`, `EQAWIVPT` |
+| **USS** | `BPXBATCH`, `BPXCLEAN`, `BPXPARM` |
+| **Utilities** | `DFSORT`, `ICETOOL`, `ICEGENER`, `TERSE`, `XMITPACK`, `XMITREST` |
+| **Cloud & Storage** | `GBQALTRC`, `GBQSEND`, `GDKUTIL` |
