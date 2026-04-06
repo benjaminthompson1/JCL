@@ -1,6 +1,6 @@
 //IUSMPLI JOB (FB3),'SMPE LIST',CLASS=A,MSGCLASS=H,                             
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUSMPLI
 //* DESC:  SMP/E LIST DDDEF DEFINITIONS

@@ -1,6 +1,6 @@
 //IUSMPRS JOB (FB3),'SMPE RESTORE',CLASS=A,MSGCLASS=H,                          
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUSMPRS
 //* DESC:  SMP/E RESTORE

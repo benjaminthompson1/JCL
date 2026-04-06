@@ -1,6 +1,6 @@
 //IULIKEC JOB (FB3),'LIKECOPY',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IULIKEC
 //* DESC:  CREATE DATASET USING ATTRIBUTES OF BASE

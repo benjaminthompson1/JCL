@@ -1,11 +1,11 @@
 //IUAMBLT JOB (FB3),'AMBLIST',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUAMBLT
 //* DESC:  DISPLAY INFO ON LOAD AND OBJECT MODULES
 //* STEPS: <NONE>
-//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* AUTH:  BMT                DATE: 2026-04-06
 //* NOTE:  SET MEMBER= IN SYSIN TO THE LOAD MODULE TO ANALYSE
 //*-----------------------------------------------------------------*
 //*-- 1: RUN AMBLIST TO ANALYSE LOAD MODULE ------------------------*           

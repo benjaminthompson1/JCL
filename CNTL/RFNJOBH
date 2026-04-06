@@ -1,6 +1,6 @@
 //IURFNJB JOB (FB3),'RFNJOBH',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IURFNJB
 //* DESC:  PULL SERVICE FROM IBM AND RECEIVE TO GZONE

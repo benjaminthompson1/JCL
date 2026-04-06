@@ -1,6 +1,6 @@
 //IUIEBUP JOB (FB3),'IEBUPDTE',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUIEBUP
 //* DESC:  COPIES MEMBER FROM SOURCE PDS/PDSE TO NEW LIBRARY

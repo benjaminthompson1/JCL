@@ -1,6 +1,6 @@
 //IUALTRC JOB (FB3),'GBQALTRC',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUALTRC
 //* DESC:  IBM Z/OS DFSMS CLOUD DATA MANAGER: DEFINE TRACE DATASETS

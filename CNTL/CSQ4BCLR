@@ -1,6 +1,6 @@
 //IU4BCLR JOB (FB3),'CSQ4BCLR',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IU4BCLR
 //* DESC:  MQ PRINT MESSAGES FROM QUEUE (SAMPLE)

@@ -1,6 +1,6 @@
 //IUSMPRE JOB (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                           
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUSMPRE
 //* DESC:  SMP/E REJECT AFTER ACCEPT (PURGE PROCESSED SYSMODS)

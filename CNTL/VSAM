@@ -1,5 +1,5 @@
 //IUIDCAMS JOB  (FB3),'IDCAMS CATALOG',CLASS=A,MSGCLASS=H,              00010000
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                            00020000
+//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                            00020000
 //********************************************************************  00030000
 //*                                                                  *  00040000
 //* PURPOSE: IDCAMS                                                  *  00050000

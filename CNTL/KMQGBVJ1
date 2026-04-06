@@ -1,11 +1,11 @@
-//IUQGET JOB (FB3),'CSQ4BVJR',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//IUQGET  JOB (FB3),'CSQ4BVJR',CLASS=A,MSGCLASS=H,                               
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUQGET
 //* DESC:  ANSIBLE ZFORUM COBOL GET
 //* STEPS: <NONE>
-//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* AUTH:  IBM / BMT          DATE: 2026-04-06
 //* NOTE:  <Key prerequisite or caution (optional)>
 //*-----------------------------------------------------------------*          
 //JOBLIB   DD   DSN=IBMUSER.COBOL.LOAD,DISP=SHR                                 

@@ -1,11 +1,11 @@
 //IUTIJRS JOB (FB3),'DSNTIJRS',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUTIJRS
 //* DESC:  ENABLE DB2 REST SERVICES
 //* STEPS: 1-DSNTICU, 2-DSNTIAC
-//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* AUTH:  IBM / BMT          DATE: 2026-04-06
 //* NOTE:  RUN BEFORE DSNTIJR2; CUSTOMIZE SSID, DSND10, PLAN NAME
 //*-----------------------------------------------------------------*         
 //JOBLIB  DD  DISP=SHR,                                                         

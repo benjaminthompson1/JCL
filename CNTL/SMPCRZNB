@@ -1,6 +1,6 @@
 //IUSMPCB JOB (FB3),'CREATE ZONE',CLASS=A,MSGCLASS=H,                           
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUSMPCB
 //* DESC:  SMP/E ALLOCATE DATASETS AND DEFINE ZONES

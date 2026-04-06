@@ -1,10 +1,10 @@
 //IUOMVSA JOB (FB3),'OMVS TEMP',CLASS=A,MSGCLASS=H,                             
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*-----------------------------------------------------------------*
 //* JOB:   IUOMVSA
 //* DESC:  CREATE TEMP DATASET AND TEST DCAT CATALOG ACCESS
 //* STEPS: 1-STEP1, 2-STEP2
-//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* AUTH:  BMT                DATE: 2026-04-06
 //* NOTE:  REQUIRES DCAT CONFIGURED AND ACCESSIBLE ON THE SYSTEM
 //*-----------------------------------------------------------------*
 //*--------------------------------------------------

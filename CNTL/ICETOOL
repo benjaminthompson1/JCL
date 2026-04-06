@@ -1,11 +1,11 @@
 //IUICETL JOB (FB3),'ICETOOL',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUICETL
 //* DESC:  ZSORT NEW FEATURE ON Z15 HARDWARE
 //* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06
 //* NOTE:  <Key prerequisite or caution (optional)>
 //*-----------------------------------------------------------------*          
 //ZSORT1   EXEC PGM=ICETOOL                                                     

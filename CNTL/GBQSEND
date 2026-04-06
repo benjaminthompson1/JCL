@@ -1,11 +1,11 @@
-//IUSEND JOB (FB3),'GBQSEND',CLASS=A,MSGCLASS=H,                                
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//IUSEND  JOB (FB3),'GBQSEND',CLASS=A,MSGCLASS=H,                                
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUSEND
 //* DESC:  IBM Z/OS DFSMS CLOUD DATA MANAGER: SEND DATASETS TO CLOUD
 //* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06
 //* NOTE:  MODIFY SYSEXEC AND STEPLIB BEFORE USE; CUSTOMIZE CDMSEND
 //*-----------------------------------------------------------------*
 //*********************************************************************

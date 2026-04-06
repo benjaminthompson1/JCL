@@ -1,6 +1,6 @@
 //IUDSSCP JOB (FB3),'DSSCOPY',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUDSSCP
 //* DESC:  COPY DATASETS

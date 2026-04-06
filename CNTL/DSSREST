@@ -1,11 +1,11 @@
 //IUDSSRE JOB (FB3),'DSSREST',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUDSSRE
 //* DESC:  DSS BACKUP RESTORE
 //* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL RESTORE
 //*-----------------------------------------------------------------*            
 //STEP1    EXEC PGM=ADRDSSU,PARM='TYPRUN=NORUN'                                 

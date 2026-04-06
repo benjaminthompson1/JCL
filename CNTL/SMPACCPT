@@ -1,6 +1,6 @@
 //IUSMPAC JOB (FB3),'SMPE ACCEPT',CLASS=A,MSGCLASS=H,                           
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUSMPAC
 //* DESC:  SMP/E ACCEPT

@@ -1,5 +1,5 @@
 //IUDCOLL1 JOB  (FB3),'DCOLLECT',CLASS=A,MSGCLASS=H,                            
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
+//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
 //*-----------------------------------------------------------------*
 //* JOB:   IUDCOLL1
 //* DESC:  COLLECT DATASET, VOLUME, POLICY VALUES

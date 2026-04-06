@@ -1,11 +1,11 @@
 //IUPDUPL JOB (FB3),'AMAPDUPL',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUPDUPL
 //* DESC:  IBM PROBLEM DOCUMENTATION UPLOAD UTILITY
 //* STEPS: <NONE>
-//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* AUTH:  BMT                DATE: 2026-04-06
 //* NOTE:  UPDATE USERID, PASSWORD, CASE AND TARGET_DSN BEFORE RUN
 //*-----------------------------------------------------------------*
 //HTTPS EXEC PGM=AMAPDUPL                                                       

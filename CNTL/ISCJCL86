@@ -1,11 +1,11 @@
 //IUSCRTJ JOB (FB3),'SCRT JCL',CLASS=A,MSGCLASS=H,                      JOB05077
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUSCRTJ
 //* DESC:  SCRT REPORT
 //* STEPS: 1-DELETE, 2-SCRT
-//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* AUTH:  IBM / BMT          DATE: 2026-04-06
 //* NOTE:  UPDATE JAVA_HOME, APP_HOME, CLASSPATH AND SMF DD BEFORE RUN
 //*-----------------------------------------------------------------*                                                                             
 //***PROPRIETARY_STATEMENT********************************************          

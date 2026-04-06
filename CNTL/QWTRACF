@@ -1,6 +1,6 @@
 //IUQWTRA JOB (FB3),'QWTRACF',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUQWTRA
 //* DESC:  RACF SETUP FOR QWT

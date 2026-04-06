@@ -1,11 +1,11 @@
 //IUTIJAV JOB (FB3),'DSNTIJAV',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUTIJAV
 //* DESC:  SQLDI IVP
 //* STEPS: 1-DSNTIAV0, 2-DSNTIAV1, 3-DSNTIAV2
-//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* AUTH:  IBM / BMT          DATE: 2026-04-06
 //* NOTE:  CHANGE DBDG, DSND10, DSNTIA13 TO SITE VALUES BEFORE RUN
 //*-----------------------------------------------------------------*
 //JOBLIB  DD  DISP=SHR,                                                         

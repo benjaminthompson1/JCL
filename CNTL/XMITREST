@@ -1,6 +1,6 @@
-//IUXMIT JOB (FB3),'XMIT',CLASS=A,MSGCLASS=H,                                   
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//IUXMIT  JOB (FB3),'XMIT',CLASS=A,MSGCLASS=H,                                   
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: TERSE (UNPACK) AND XMIT (RECEIVE) A LOAD LIBRARY        *          

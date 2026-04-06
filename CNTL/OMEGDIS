@@ -1,11 +1,11 @@
 //IUOMEGD JOB (FB3),'OMEG DISCOVER',CLASS=A,MSGCLASS=H,                         
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUOMEGD
 //* DESC:  OMEGAMON DISCOVER - STEP 3
 //* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06
 //* NOTE:  <Key prerequisite or caution (optional)>
 //*-----------------------------------------------------------------*          
 //OMEGCRT  EXEC PGM=KCIALPHA,REGION=0M,DYNAMNBR=256                             

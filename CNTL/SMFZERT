@@ -4,7 +4,7 @@
 //* JOB:   IUSMFDMP
 //* DESC:  SMF DUMP TYPE 119 FOR ZERT
 //* STEPS: 1-DELETE, 2-DUMP
-//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06
 //* NOTE:  <Key prerequisite or caution (optional)>
 //*-----------------------------------------------------------------*          
 //DELETE   EXEC PGM=IDCAMS                                                      

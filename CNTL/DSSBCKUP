@@ -1,6 +1,6 @@
 //IUDSSBK JOB (FB3),'DSSBCKUP',CLASS=A,MSGCLASS=H,                      00000100
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00000200
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00000200
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUDSSBK
 //* DESC:  DSS INCREMENTAL VSAM BACKUP

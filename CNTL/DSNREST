@@ -1,6 +1,6 @@
-//IUREST JOB (FB3),'DSNREST',CLASS=A,MSGCLASS=H,                       JOB08034 
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//IUREST  JOB (FB3),'DSNREST',CLASS=A,MSGCLASS=H,                       JOB08034 
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUREST
 //* DESC:  ENABLE DB2 NATIVE REST SERVICES FOR ZCEE

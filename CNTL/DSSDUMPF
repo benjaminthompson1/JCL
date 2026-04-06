@@ -1,11 +1,11 @@
-//XBTC4 JOB (STG,1206),'EXT 97693',                                     00000110
+//XBTC4   JOB (STG,1206),'EXT 97693',                                     00000110
 //      CLASS=A,MSGCLASS=X,REGION=0M,TIME=1440,                         00000210
 //      NOTIFY=XBT,USER=XBT TYPRUN=HOLD                                 00000314
 //*-----------------------------------------------------------------*
 //* JOB:   XBTC4
 //* DESC:  DSS VOLUME-LEVEL BACKUP
 //* STEPS: 1-BACKUP, 2-VERIFY
-//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL BACKUP
 //*-----------------------------------------------------------------*
 //BACKUP   EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                         00012113

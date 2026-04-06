@@ -1,6 +1,6 @@
 //IUMFA03 JOB (FB3),'MFA ENABLE',CLASS=A,MSGCLASS=H,                            
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUMFA03
 //* DESC:  ENABLE MFA USERS

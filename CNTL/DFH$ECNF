@@ -1,5 +1,5 @@
-//IUECNF JOB  (FB3),'DFH$ECNF',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//IUECNF  JOB  (FB3),'DFH$ECNF',CLASS=A,MSGCLASS=H,                              
+//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
 //*-----------------------------------------------------------------*
 //* JOB:   IUECNF
 //* DESC:  COPY FROM CICS SDFHINST

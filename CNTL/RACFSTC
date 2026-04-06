@@ -1,6 +1,6 @@
 //IURACFS JOB (FB3),'RACF STC',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IURACFS
 //* DESC:  CREATE STC USERID AND STARTED PROFILE

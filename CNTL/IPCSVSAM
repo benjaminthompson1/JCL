@@ -1,6 +1,6 @@
-//IUVSAM JOB (FB3),'IPCSVSAM',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//IUVSAM  JOB (FB3),'IPCSVSAM',CLASS=A,MSGCLASS=H,                               
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUVSAM
 //* DESC:  IPCS FOR VSAM

@@ -1,6 +1,6 @@
 //IUSMPCP JOB (FB3),'SMPE COMPARE',CLASS=A,MSGCLASS=H,                          
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUSMPCP
 //* DESC:  SMP/E COMPARE TARGET AND DISTRIBUTION ZONES

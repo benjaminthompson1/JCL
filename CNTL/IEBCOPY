@@ -1,6 +1,6 @@
 //IUIEBCP JOB (FB3),'IEBCOPY',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUIEBCP
 //* DESC:  COPY PDS MEMBERS

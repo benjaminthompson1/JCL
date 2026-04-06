@@ -1,6 +1,6 @@
 //IUJZOSA JOB (FB3),'JZOS SAMP',CLASS=A,MSGCLASS=H,                     JOB03020
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUJZOSA
 //* DESC:  JZOS V17 BATCH JAVA

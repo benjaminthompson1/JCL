@@ -1,11 +1,11 @@
-//IUZERT JOB (FB3),'ZERT SEC',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//IUZERT  JOB (FB3),'ZERT SEC',CLASS=A,MSGCLASS=H,                               
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUZERT
 //* DESC:  ZERT RACF
 //* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06
 //* NOTE:  <Key prerequisite or caution (optional)>
 //*-----------------------------------------------------------------*
 //STEP1  EXEC PGM=IKJEFT01,DYNAMNBR=99                                          

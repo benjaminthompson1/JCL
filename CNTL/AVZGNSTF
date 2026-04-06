@@ -1,11 +1,11 @@
 //IUGNSTF JOB (FB3),'AVZGNSTF',CLASS=A,MSGCLASS=H,                      00001000
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00002000
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00002000
 //*      TYPRUN=HOLD                                                    00003000
 //*-----------------------------------------------------------------*
 //* JOB:   IUGNSTF
 //* DESC:  DVM CREATE THE SAMPLE VSAM FILE
 //* STEPS: 1-DEFSTAFF, 2-LOADSTAFF
-//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* AUTH:  IBM / BMT          DATE: 2026-04-06
 //* NOTE:  CHANGE IBMUSER AND HLQ2 TO SITE HIGH-LEVEL QUALIFIERS
 //*-----------------------------------------------------------------*
 //DEFSTAFF  EXEC PGM=IDCAMS                                             00330000

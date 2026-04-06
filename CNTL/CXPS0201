@@ -1,6 +1,6 @@
 //IUCX201 JOB (FB3),'CXPS0201',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUCX201
 //* DESC:  JCL EXPERT: SCAN AN ENTIRE JCL LIBRARY

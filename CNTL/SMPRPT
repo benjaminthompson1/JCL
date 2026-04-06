@@ -1,6 +1,6 @@
 //IUSMPRE JOB (FB3),'SMPE REPORT',CLASS=A,MSGCLASS=H,                           
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUSMPRE
 //* DESC:  SMP/E TARGET SYSTEM REPORT

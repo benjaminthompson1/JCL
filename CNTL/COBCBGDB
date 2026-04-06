@@ -1,11 +1,11 @@
 //IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUCOBOL
 //* DESC:  COBOL COMPILE, BIND, AND GO WITH DB2
 //* STEPS: 1-COMPILE, 2-DB2BIND, 3-GO
-//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* AUTH:  BMT                DATE: 2026-04-06
 //* NOTE:  SET GOPGM= AND VERIFY DB2 SUBSYSTEM BEFORE RUN
 //*-----------------------------------------------------------------*
 //*-- 1: COMPILE AND BIND PROGRAM WITH DB2 SUPPORT -----------------*           

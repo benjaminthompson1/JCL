@@ -1,6 +1,6 @@
 //IU04501 JOB (FB3),'UJ04501',CLASS=A,MSGCLASS=H,                               
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //********************************************************************          
 //* UJ04501 ZSECURE ADMINISTRATION V2.4                                         
 //********************************************************************          

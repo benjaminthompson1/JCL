@@ -1,6 +1,6 @@
-//IUIPCS JOB (FB3),'IPCS',CLASS=A,MSGCLASS=H,                                   
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//IUIPCS  JOB (FB3),'IPCS',CLASS=A,MSGCLASS=H,                                   
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUIPCS
 //* DESC:  INTERACTIVE PROBLEM CONTROL SYSTEM

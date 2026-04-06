@@ -1,6 +1,6 @@
 //IUSYSLG JOB (FB3),'SYSLOG EXTRACT',CLASS=A,MSGCLASS=H,                        
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUSYSLG
 //* DESC:  DUMP SYSLOG TO A DATASET

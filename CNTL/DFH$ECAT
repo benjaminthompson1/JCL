@@ -1,5 +1,5 @@
-//IUECAT JOB  (FB3),'DFH$ECAT',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//IUECAT  JOB  (FB3),'DFH$ECAT',CLASS=A,MSGCLASS=H,                              
+//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
 //*-----------------------------------------------------------------*
 //* JOB:   IUECAT
 //* DESC:  COPY FROM CICS SDFHINST

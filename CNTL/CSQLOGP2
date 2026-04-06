@@ -1,11 +1,11 @@
 //IULOGP2 JOB (FB3),'CSQLOGP2',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IULOGP2
 //* DESC:  MQ CSQ LOG PRINT COMMITTED MESSAGES
 //* STEPS: 1-PRTLOG, 2-FILTER
-//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* AUTH:  BMT                DATE: 2026-04-06
 //* NOTE:  UPDATE ARCHIVE DD DSN TO TARGET MQ ARCHIVE LOG DATASET
 //*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*

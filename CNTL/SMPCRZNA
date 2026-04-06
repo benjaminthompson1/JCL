@@ -1,6 +1,6 @@
 //IUSMPCA JOB (FB3),'CREATE ZONE A',CLASS=A,MSGCLASS=H,                         
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUSMPCA
 //* DESC:  SMP/E CREATE GLOBAL ZONE (ALLOCATE CSI)

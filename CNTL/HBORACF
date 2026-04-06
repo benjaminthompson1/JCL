@@ -1,11 +1,11 @@
-//IURACF JOB (FB3),'HBORACF',CLASS=A,MSGCLASS=H,                                
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//IURACF  JOB (FB3),'HBORACF',CLASS=A,MSGCLASS=H,                                
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IURACF
 //* DESC:  RACF SETUP FOR IBM Z COMMON DATA PROVIDER
 //* STEPS: <NONE>
-//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* AUTH:  IBM / BMT          DATE: 2026-04-06
 //* NOTE:  MUST RUN WITH RACF SPECIAL ATTRIBUTE; REVIEW BEFORE USE
 //*-----------------------------------------------------------------*
 //*

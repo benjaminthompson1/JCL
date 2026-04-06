@@ -1,11 +1,11 @@
 //IUWIVPT JOB (FB3),'EQAWIVPT',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD
 //*-----------------------------------------------------------------*
 //* JOB:   IUWIVPT
 //* DESC:  Z/OS DEBUGGER: DYNAMIC DEBUG AND COBOL TEST BATCH IVP
 //* STEPS: 1-ALLOC, 2-COMPILE, 3-BIND, 4-RUN
-//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* AUTH:  IBM / BMT          DATE: 2026-04-06
 //* NOTE:  REQUIRES ENTERPRISE COBOL V5 OR V6 AND DEBUGGER SVCS
 //*-----------------------------------------------------------------*
 //*********************************************************************

@@ -1,6 +1,6 @@
 //IUCX200 JOB (FB3),'CXPS0200',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUCX200
 //* DESC:  JCL EXPERT: SCAN A SINGLE JCL MEMBER

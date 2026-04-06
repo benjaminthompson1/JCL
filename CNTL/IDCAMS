@@ -1,10 +1,10 @@
 //IUIDCAMS JOB  (FB3),'IDCAMS CATALOG',CLASS=A,MSGCLASS=H,                      
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)
+//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)
 //*-----------------------------------------------------------------*
 //* JOB:   IUIDCAMS
 //* DESC:  LISTCAT/DEFINE ALIAS
 //* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06
 //* NOTE:  <Key prerequisite or caution (optional)>
 //*-----------------------------------------------------------------*          
 //IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            

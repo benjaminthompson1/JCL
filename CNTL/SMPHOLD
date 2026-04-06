@@ -1,6 +1,6 @@
 //IUSMPHO JOB (FB3),'SMPE HOLD',CLASS=A,MSGCLASS=H,                             
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUSMPHO
 //* DESC:  SMP/E LIST HELD ELEMENTS

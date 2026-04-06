@@ -1,5 +1,5 @@
 //IUGDKUT JOB  (FB3),'GDKUTIL',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
+//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
 //*-----------------------------------------------------------------*
 //* JOB:   IUGDKUT
 //* DESC:  UPLOAD, LIST, AND DOWNLOAD Z/OS DATASETS TO S3 STORAGE

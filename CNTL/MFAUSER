@@ -1,6 +1,6 @@
 //IUMFA02 JOB (FB3),'MFA USER',CLASS=A,MSGCLASS=H,                              
-//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*
 //* JOB:   IUMFA02
 //* DESC:  CREATE TSO MFA USERS
