@@ -1,30 +1,13 @@
 //IUALTRC JOB (FB3),'GBQALTRC',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//*  JOB NAME   : IUALTRC                                                       
-//*                                                                             
-//*  FUNCTION   : Allocate internal trace data sets required by                 
-//*               GBQ (Teracloud trace utilities).                              
-//*                                                                             
-//*  COPYRIGHT  : (C) TERACLOUD APS 2023. All rights reserved.                  
-//*               Licensed materials - property of Teracloud.                   
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 25/08/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*              - Change HLQ (CDM.V1R2M0.GBQS0W1) and STORCLAS                 
-//*                as required for your installation.                           
-//*              - Allocates two trace data sets TRACE1 and TRACE2              
-//*                with LRECL=4096, RECFM=VB, DSORG=PS, SPACE=(100 CYL)         
-//*              - Uses IEFBR14 to allocate the data sets.                      
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    25/08/2025   BMT       Initial version                                   
-//*********************************************************************         
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUALTRC
+//* DESC:  IBM Z/OS DFSMS CLOUD DATA MANAGER: DEFINE TRACE DATASETS
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-08-25
+//* NOTE:  UPDATE HLQ CDM.V1R2M0.GBQS0W1 AND STORCLAS AS REQUIRED
+//*-----------------------------------------------------------------*         
 //* STEP 1: Allocate internal trace datasets                                    
 //*********************************************************************         
 //ALLOC    EXEC  PGM=IEFBR14                                                    

@@ -1,19 +1,27 @@
 //IUMKWK JOB (FB3),'HBOMKWK',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//*                                                                   *         
-//* Licensed Materials - Property of IBM                              *         
-//*                                                                   *         
-//* 5698-LDA (C) Copyright IBM Corp. 2023, 2024                       *         
-//*                                                                   *         
-//* All Rights Reserved.                                              *         
-//*                                                                   *         
-//* US Government Users Restricted Rights - Use, duplication or       *         
-//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
-//*                                                                   *         
-//*********************************************************************         
-//*                                                                   *         
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUMKWK
+//* DESC:  CREATE IBM Z COMMON DATA PROVIDER WORKING DIRECTORIES
+//* STEPS: <NONE>
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  USER MUST HAVE SUPERUSER.FILESYS.CHOWN RACF ACCESS
+//*-----------------------------------------------------------------*
+//*
+//*********************************************************************
+//*
+//* Licensed Materials - Property of IBM
+//*
+//* 5698-LDA (C) Copyright IBM Corp. 2023, 2024
+//*
+//* All Rights Reserved.
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*********************************************************************
+//*
 //* The job HBOMKWK is intended to create the working directories for *         
 //* the IBM Z Common Data Provider runtime components.                *         
 //*                                                                   *         
@@ -88,4 +96,6 @@
   BPXBATCH SH chmod 664 &WORKDIR/lf/*                                           
   BPXBATCH SH chmod 664 &WORKDIR/sde/*                                          
 /*                                                                              
-//                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

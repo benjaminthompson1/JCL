@@ -1,25 +1,13 @@
 //IUIPCS JOB (FB3),'IPCS',CLASS=A,MSGCLASS=H,                                   
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : IPCS                                                          
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*   Use IPCS to analyse GTF trace data and manage the IPCS                    
-//*   dump directory. This job runs an IPCS session in batch mode,              
-//*   defining input trace data and updating the dump directory.                
-//*                                                                             
-//*   The IPCS dump directory is a VSAM KSDS defined separately                 
-//*   and allocated via the IPCSDDIR DD statement.                              
-//*                                                                             
-//*  AUTHOR     : IBM (formatted by BMT)                                        
-//*  DATE       : 05/08/2025                                                    
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    05/08/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUIPCS
+//* DESC:  INTERACTIVE PROBLEM CONTROL SYSTEM
+//* STEPS: <NONE>
+//* AUTH:  IBM / BMT          DATE: 2025-08-05
+//* NOTE:  IPCS DUMP DIRECTORY (VSAM KSDS) MUST BE DEFINED FIRST
+//*-----------------------------------------------------------------*        
 //* STEP 1: RUN IPCS IN BATCH TO ANALYSE GTF TRACE                              
 //*--------------------------------------------------------------------*        
 //IPCS   EXEC PGM=IKJEFT01                                                      

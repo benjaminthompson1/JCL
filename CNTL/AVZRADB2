@@ -1,56 +1,13 @@
 //IURADB2 JOB (FB3),'AVZRADB3',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//*                                                                   *         
-//*   © Copyright Rocket Software, Inc. 1991, 2017.                   *         
-//*                                                                   *         
-//*   Name       - AVZRADB2 (was RACFDB2)                             *         
-//*   Purpose    - Permit access to protected DB2 resource.           *         
-//*   Related    - None                                               *         
-//*   Parms      - None                                               *         
-//*   Language   - JCL                                                *         
-//*   Future     - None                                               *         
-//*   History    - None                                               *         
-//*                                                                   *         
-//*   Notes      -                                                    *         
-//*  Descriptions of Job Steps:                                       *         
-//*    PERMIT1:                                                       *         
-//*          This step permits userids access to DB2 via CAF or       *         
-//*          via RRSAF. This permit is only required if the resource  *         
-//*          is defined to the sites security product. All AVZ        *         
-//*          DB2 Interface users accessing the specific subsystem     *         
-//*          require READ authority to DBDG.RRSAF.                    *         
-//*                                                                   *         
-//*    PERMIT2:                                                       *         
-//*          This step defines a PTKTDATA resource to RACF to         *         
-//*          enable AVZ passticket logon processing. This is only     *         
-//*          needed for AVZ's DB2 DRDA support for Services,          *         
-//*          AVZ DB2 Logging over DRDA, TLS over DRDA to DB2 and      *         
-//*          DvClient transactions.                                   *         
-//*                                                                   *         
-//*      The following modifications should be made prior to          *         
-//*      executing this job:                                          *         
-//*                                                                   *         
-//*      0) Specify valid JOBCARD                                     *         
-//*         See "== 0 ==>" above.                                     *         
-//*                                                                   *         
-//*      1) Change DBDG to the DB2 subsystem name.                    *         
-//*                                                                   *         
-//*      2) Change ID(*) to the desired IDs or RACF group names if    *         
-//*         universal access is not desired.                          *         
-//*                                                                   *         
-//*      3) Change DBDGLU1 to the DB2 APPLID for the DB2 subsystem.   *         
-//*         This should match the DBDGLU1 parameter in the            *         
-//*         AVZ IN00 DEFINED DATABASE statement for the DB2           *         
-//*         DRDA connection.                                          *         
-//*                                                                   *         
-//*      4) Change UACC(READ) to the desired default. If not set to   *         
-//*         READ then a PERMIT must be issued for each userid or Group*         
-//*         that will be using the passticket support. Most likely    *         
-//*         this will be the server's default userid, AVZS.           *         
-//*                                                                   *         
-//**********************************************************************        
+//*-----------------------------------------------------------------*
+//* JOB:   IURADB2
+//* DESC:  RACF PERMISSIONS FOR DVM ACCESS TO DB2 RESOURCES
+//* STEPS: 1-PERMIT1, 2-PERMIT2
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  CHANGE DBDG, ID(*), AND DBDGLU1 TO SITE VALUES BEFORE RUN
+//*-----------------------------------------------------------------*
 //PERMIT1  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -67,7 +24,7 @@
   PERMIT DBDG.DIST CLASS(DSNR)  ID(*) ACCESS(READ)  << use for DRDA             
                                                                                 
   SETROPTS REFRESH RACLIST(DSNR)                                                
-                                                                                
+/*                                                                                
 //PERMIT2  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -84,3 +41,6 @@ PERMIT DBDGLU1 CLASS(PTKTDATA)   ID(AVZS) ACCESS(READ)
                                                                                 
   SETROPTS REFRESH RACLIST(PTKTDATA)                                            
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

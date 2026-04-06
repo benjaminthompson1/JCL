@@ -1,25 +1,13 @@
 //IUDFRAG JOB (FB3),'DSSDFRAG',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*------------------------------------------------------------------*          
-//*  JOB NAME   : IUDFRAG                                                       
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*              - DEFRAGMENT DASD VOLUMES USING ADRDSSU                        
-//*              - RELOCATE DATA SET EXTENTS TO IMPROVE SPACE USAGE             
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 11/02/2026                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*              RUNS WITH TYPRUN=NORUN FOR VALIDATION.                         
-//*              REMOVE NORUN TO PERFORM THE DEFRAGMENTATION.                   
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   AUTHOR     DESCRIPTION                                      
-//*    ------------ ---------- --------------------------------------           
-//*    11/02/2026   BMT        INITIAL VERSION                                  
-//*------------------------------------------------------------------*          
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUDFRAG
+//* DESC:  DEFRAGMENT A VOLUME
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2026-02-11
+//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM DEFRAGMENTATION
+//*-----------------------------------------------------------------*          
 //DSSDFRAG EXEC PGM=ADRDSSU,REGION=0M PARM='TYPRUN=NORUN'                       
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
@@ -28,3 +16,6 @@
    DEFRAG DYNAM(A3USR3) WRC                                                     
    DEFRAG DYNAM(A3USR4) WRC                                                     
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

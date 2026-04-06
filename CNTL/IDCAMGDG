@@ -1,24 +1,13 @@
 //IUIDCAM JOB (FB3),'IDCAMS GDG',CLASS=A,MSGCLASS=H,                            
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : CREATE AND MANAGE GDG BASE USING IDCAMS                       
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Defines a Generation Data Group (GDG) base.                            
-//*    - Sets a generation limit and scratch behavior.                          
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 25/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - Adjust the GDG name to suit your system standards.                     
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    25/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUIDCAM
+//* DESC:  CREATE GDG BASE
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-07-25
+//* NOTE:  ADJUST GDG NAME TO SUIT YOUR SYSTEM STANDARDS
+//*-----------------------------------------------------------------*        
 //* STEP 1: DEFINE GDG BASE                                                     
 //*--------------------------------------------------------------------*        
 //IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
@@ -27,6 +16,6 @@
   DEFINE GDG(NAME(ARCH.LOGREC.S0W1.BACKUP) +                                    
   LIMIT(2) SCRATCH NOEMPTY)                                                     
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* END OF JOB                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*         

@@ -1,32 +1,13 @@
 //IUSMPRE JOB (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E REJECT PURGE PROCESSED SYSMODS                          
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Rejects and purges SYSMODs that were not automatically                 
-//*      deleted after successful ACCEPT processing                             
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 14/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - This job uses the PURGE option to remove processed SYSMODs             
-//*      from the DLIB zone and free associated space in SMPPTS                 
-//*                                                                             
-//*    - Substitution variables:                                                
-//*        #globalzone : SMP/E Global CSI dataset name                          
-//*        #dlib       : Name of the DLIB zone to purge from                    
-//*                                                                             
-//*    - Uncomment SMPLOG DD to write log to a dataset                          
-//*    - SMPJHOME is only needed if Java services are invoked                   
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    14/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMPRE
+//* DESC:  SMP/E REJECT AFTER ACCEPT (PURGE PROCESSED SYSMODS)
+//* STEPS: 1-RECNTS
+//* AUTH:  BMT                  DATE: 2025-07-14
+//* NOTE:  SUBSTITUTE #globalzone AND #dlib; USES PURGE TO FREE SMPPTS SPACE
+//*-----------------------------------------------------------------*
 //        SET CSI=#globalzone                                                   
 //*--------------------------------------------------------------------*        
 //* STEP 1: REJECT SYSMODS AND PURGE FROM SMPPTS                                

@@ -1,46 +1,13 @@
 //IUBINDD JOB (FB3),'AVZBINDD',CLASS=A,MSGCLASS=H,                      00001000
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00002000
 //*      TYPRUN=HOLD                                                    00003000
-//********************************************************************* 00020000
-//*                                                                   * 00030000
-//*   © COPYRIGHT ROCKET SOFTWARE, INC. 1991, 2017.                   * 00040000
-//*                                                                   * 00050000
-//*   NAME       - AVZBINDD                                           * 00060000
-//*   PURPOSE    - BIND AVZ SERVER DB2 PACKAGES FOR DRDA              * 00070000
-//*                CONNECTIONS.                                       * 00080000
-//*   RELATED    - NONE                                               * 00090000
-//*   PARMS      - NONE                                               * 00100000
-//*   LANGUAGE   - JCL                                                * 00110000
-//*   FUTURE     - UPDATED AS NEEDED                                  * 00120000
-//*   HISTORY    - NONE                                               * 00130000
-//*                                                                   * 00140000
-//*   NOTES      -                                                    * 00150000
-//*                                                                   * 00160000
-//*      THE FOLLOWING MODIFICATIONS SHOULD BE MADE PRIOR TO          * 00170000
-//*      EXECUTING THIS JOB:                                          * 00180000
-//*                                                                   * 00190000
-//*      0) SPECIFY VALID JOBCARD                                     * 00200000
-//*         SEE "== 0 ==>" ABOVE.                                     * 00210000
-//*                                                                   * 00220000
-//*      1) CHANGE DVM.V2R1M0 TO THE HIGH LEVEL QUALIFIER FOR AVZ     * 00230000
-//*                                                                   * 00240000
-//*      2) CHANGE DSND10 TO THE DB2 HIGH LEVEL QUALIFIER             * 00250000
-//*                                                                   * 00260000
-//*      3) CHANGE DBDG TO THE DB2 SUBSYSTEM WHERE YOU WISH TO        * 00270000
-//*         BIND THE PLANS.                                           * 00280000
-//*                                                                   * 00290000
-//*      4) REVIEW PLAN(DSNTIA13) IN STEP GRNT0001 TO ENSURE IT POINTS *00300000
-//*         TO THE CORRECT DB2 VERSION OF THE DSNTIAD PLANNAME.       * 00310000
-//*                                                                   * 00320000
-//*      5) IF YOU DESIRE, CHANGE THE VALUE "NULLID" TO ANY OTHER     * 00330000
-//*         1-TO-18 CHARACTER COLLECTION NAME.  YOU MUST ALSO UPDATE  * 00340000
-//*         THE SERVER STARTUP PARAMETER DRDACOLLECTIONID.            * 00350000
-//*                                                                   * 00360000
-//*      IF DSNTIAD IS NOT AVAILABLE AT YOUR INSTALLATION,            * 00370000
-//*      THE STEP GRNT0001 WILL FAIL.  IN WHICH CASE YOU SHOULD       * 00380000
-//*      USE SPUFI TO ISSUE THE SPECIFIC GRANTS.                      * 00390000
-//*                                                                   * 00400000
-//********************************************************************* 00410000
+//*-----------------------------------------------------------------*
+//* JOB:   IUBINDD
+//* DESC:  BIND AVZ SERVER DB2 PACKAGES FOR DRDA CONNECTIONS
+//* STEPS: 1-COPY0001, 2-BIND0001, 3-GRNT0001
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  CHANGE DVM.V2R1M0, DSND10, AND DBDG TO SITE VALUES
+//*-----------------------------------------------------------------*
 //JOBLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                              00420000
 //         DD DISP=SHR,DSN=DSND10.DBDG.RUNLIB.LOAD                      00430000
 //*                                                                     00440000

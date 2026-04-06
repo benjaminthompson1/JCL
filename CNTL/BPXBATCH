@@ -1,9 +1,13 @@
 //IUMETAC JOB (FB3),'METAL C COMPILE',CLASS=A,MSGCLASS=H,                       
 //             NOTIFY=&SYSUID,REGION=4M,TIME=1440                               
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : METAL C COMPILE                                         *           
-//*-----------------------------------------------------------------*           
+//*-----------------------------------------------------------------*
+//* JOB:   IUMETAC
+//* DESC:  ISSUE OMVS COMMANDS USING BPXBATCH
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  STDPARM DD REFERENCES BPXPARM MEMBER FOR USS COMMANDS
+//*-----------------------------------------------------------------*
 //*-- 1: EXECUTE METAL C COMPILE SCRIPT IN USS ---------------------*           
 //BPXBATCH EXEC PGM=BPXBATCH                                                    
 //* USS SCRIPT PARAMETERS                                                       

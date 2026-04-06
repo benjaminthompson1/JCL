@@ -1,9 +1,13 @@
 //IUTKDS JOB (FB3),'CSFTKDS',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : CSFTKD2 - VSAM TKDS INIT                                *           
-//*-----------------------------------------------------------------*           
+//*-----------------------------------------------------------------*
+//* JOB:   IUTKDS
+//* DESC:  INITIALIZES TKDS AND RECREATES ICSF KEY DATASETS
+//* STEPS: 1-DEFINE, 2-MKHEAD, 3-MKDATA
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  CHANGE VOLUME AND DSN PREFIX TO MATCH SITE ICSF CONFIG
+//*-----------------------------------------------------------------*
 //*-- 1: DEFINE VSAM CLUSTER FOR TKDS ------------------------------*           
 //DEFINE  EXEC PGM=IDCAMS,REGION=4M                                             
 //SYSPRINT DD SYSOUT=*                                                          

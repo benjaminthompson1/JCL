@@ -1,9 +1,13 @@
 //IUCOBOL JOB (FB3),'COBOL COMP-BIND',CLASS=A,MSGCLASS=H,                       
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : COBOL COMPILE AND BIND                                  *           
-//*-----------------------------------------------------------------*           
+//*-----------------------------------------------------------------*
+//* JOB:   IUCOBOL
+//* DESC:  COBOL COMPILE AND BIND
+//* STEPS: 1-COMPILE, 2-BIND
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  SET GOPGM= TO TARGET COBOL PROGRAM NAME BEFORE RUN
+//*-----------------------------------------------------------------*
 //*-- 1: COMPILE AND BIND COBOL PROGRAM ----------------------------*           
 //COBCB1 EXEC IGYQCB,                                                           
 //            LNGPRFX=IGY640,                                                   

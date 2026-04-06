@@ -1,9 +1,13 @@
 //IUCOBOL JOB (FB3),'COBOL RUN',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : COBOL PROGRAM EXECUTION                                 *           
-//*-----------------------------------------------------------------*           
+//*-----------------------------------------------------------------*
+//* JOB:   IUCOBOL
+//* DESC:  COBOL RUN PROGRAM (ALTERNATE EXECUTION TEMPLATE)
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  UPDATE PGM= AND STEPLIB DSN TO TARGET LOAD MODULE
+//*-----------------------------------------------------------------*
 //*-- 1: EXECUTE COBOL PROGRAM -------------------------------------*           
 //COBOL EXEC PGM=HELLOW                                                         
 //STEPLIB  DD DISP=SHR,DSN=IBMUSER.COBOLPI.MAIN.BLD.LOAD                        

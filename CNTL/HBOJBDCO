@@ -1,20 +1,27 @@
 //IUJBDCO JOB (FB3),'HBOJBDCO',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*                                                                             
-//*********************************************************************         
-//*                                                                   *         
-//* Licensed Materials - Property of IBM                              *         
-//*                                                                   *         
-//* 5698-LDA (C) Copyright IBM Corp. 2019, 2022                       *         
-//*                                                                   *         
-//* All Rights Reserved.                                              *         
-//*                                                                   *         
-//* US Government Users Restricted Rights - Use, duplication or       *         
-//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
-//*                                                                   *         
-//*********************************************************************         
-//*                                                                   *         
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUJBDCO
+//* DESC:  CDP Z BATCH DCOLLECT PROCESSOR
+//* STEPS: 1-HBOTCAFF, 2-HBODCOCB
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  ADD DD STATEMENTS FOR ANY NEW DCOLLECT RECORD TYPES ADDED
+//*-----------------------------------------------------------------*
+//*
+//*********************************************************************
+//*
+//* Licensed Materials - Property of IBM
+//*
+//* 5698-LDA (C) Copyright IBM Corp. 2019, 2022
+//*
+//* All Rights Reserved.
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*********************************************************************
+//*
 //* NAME: HBOJBDCO                                                    *         
 //*                                                                   *         
 //* STATUS: IBM Z Common Data Provider                                *         
@@ -85,3 +92,6 @@ COLLECT DCOLLECT
 //DCOLLB   DD SYSOUT=*,RECFM=V,LRECL=32756                                      
 //DCOLCN   DD SYSOUT=*,RECFM=V,LRECL=32756                                      
 //DCOLAI   DD SYSOUT=*,RECFM=V,LRECL=32756                                      
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

@@ -1,36 +1,12 @@
 //IUGDKUT JOB  (FB3),'GDKUTIL',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : IUGDKUT                                                       
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*              - Demonstrate use of GDKUTIL to interact with                  
-//*                S3-compatible object storage.                                
-//*              - Upload, list, and download a z/OS dataset using              
-//*                either IBM Cloud Object Storage or a locally                 
-//*                hosted MinIO instance.                                       
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 26/06/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*              - Two providers are supported:                                 
-//*                   PROVIDER(IBM)   -> IBM Cloud Object Storage               
-//*                   PROVIDER(MINIO) -> Local MinIO server                     
-//*              - Ensure network connectivity to the chosen endpoint.          
-//*              - OBJNAME identifies the object key/path in the bucket.        
-//*              - LOCAL DD refers to the z/OS dataset to be uploaded           
-//*                or the destination dataset for downloads.                    
-//*              - LOG(DEBUG) provides detailed diagnostic messages.            
-//*              - WEBTOOLKITLOGU enables verbose z/OS Web Enablement           
-//*                Toolkit logging (low-level HTTP/S traces).                   
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    26/06/2025   BMT       Initial version                                   
-//*    09/08/2025   BMT       LIST and DOWNLOAD steps added                     
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUGDKUT
+//* DESC:  UPLOAD, LIST, AND DOWNLOAD Z/OS DATASETS TO S3 STORAGE
+//* STEPS: 1-MINIO1, 2-MINIO2, 3-MINIO3
+//* AUTH:  BMT               DATE: 2025-06-26
+//* NOTE:  ENSURE NETWORK CONNECTIVITY TO CHOSEN ENDPOINT BEFORE RUN
+//*-----------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP 1: Upload dataset to MinIO via GDKUTIL                                 
 //*--------------------------------------------------------------------*        

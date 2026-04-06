@@ -1,11 +1,13 @@
 //IUPLIC JOB (FB3),'PLIC',CLASS=A,MSGCLASS=H,                                   
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: PL/I COMPILE                                            *          
-//*                                                                  *          
-//********************************************************************          
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUPLIC
+//* DESC:  PL/I COMPILE
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 // EXPORT SYMLIST=(COPYBK)                                                      
 // SET COPYBK=PLIZPER                                                           
 //PLI      EXEC IBMZC,REGION=0M,PARM='AGGREGATE'                                
@@ -15,3 +17,6 @@
  %INCLUDE SYSLIB(&COPYBK);                                                      
  END;                                                                           
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

@@ -1,6 +1,13 @@
 //IUIEBDG JOB (FB3),'IEBDG',CLASS=A,MSGCLASS=H,                                 
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUIEBDG
+//* DESC:  GENERATE TEST DATA
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*
 //CREATE   EXEC PGM=IEBDG                                                       
 //SYSPRINT DD SYSOUT=*                                                          
 //OUT    DD DISP=(NEW,CATLG),DSN=IBMUSER.TEST.DATA,UNIT=3390,                   
@@ -14,3 +21,6 @@
   CREATE QUANTITY=90000,NAME=(FIELD1,FIELD2,FIELD3)                             
   END                                                                           
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

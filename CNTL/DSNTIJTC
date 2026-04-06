@@ -1,39 +1,13 @@
 //IUTIJTC JOB (FB3),'DSNTIJTC',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//* JOB NAME = DSNTIJTC                                                         
-//*                                                                             
-//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                                  
-//*                                                                             
-//*    LICENSED MATERIALS - PROPERTY OF IBM                                     
-//*    5698-DB2                                                                 
-//*    COPYRIGHT IBM CORP 1982, 2022                                            
-//*                                                                             
-//*    STATUS = VERSION 13                                                      
-//*                                                                             
-//* FUNCTION = TAILOR CATALOG BY ADDING TABLE SPACES, TABLES,                   
-//*            INDEXES, COLUMNS, TABLE CHECK CONSTRAINTS,                       
-//*            REFERENTIAL INTEGRITY, etc.                                      
-//*                                                                             
-//* PSEUDOCODE =                                                                
-//*   DSNTITC  STEP      INVOKE CATMAINT TO TAILOR CATALOG (DDL)                
-//*   CHKTITC  STEP      CHECK CATMAINT RETURN CODE AND DO ADDITIONAL           
-//*                      PROCESSING IF NOT SUCCESSFUL                           
-//*   DSNTIRI  STEP      CLEAN UP AFTER ABNORMAL TERMINATION                    
-//*   DSNTITD  STEP      RUN DISPLAY BLOCKERS COMMAND                           
-//*                                                                             
-//* NOTES =                                                                     
-//*   STEP DSNTITC  CANNOT BE RERUN AFTER A SUCCESSFUL RUN (RC=0).              
-//*                                                                             
-//* CHANGE LOG =                                                                
-//*   06/17/2013 Add job step DSNTIRI                   166811 / DN1767         
-//*   04/28/2016 Add CATMAINT UPDATE LEVEL keyword               183579         
-//*              s27418 - f184263                                183791         
-//*   08/01/2019 Add DISPLAY BLOCKERS command for error situations.             
-//*   03/09/2021 V13 install and migration changes                e6837         
-//*                                                                             
-//*********************************************************************         
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUTIJTC
+//* DESC:  ACTIVATE FUNCTION LEVEL NEEDING CATALOG
+//* STEPS: 1-DSNTITC, 2-CHKTITC, 3-DSNTIRI, 4-DSNTITD
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  STEP DSNTITC CANNOT BE RERUN AFTER SUCCESSFUL RC=0
+//*-----------------------------------------------------------------*         
 //JOBLIB  DD  DISP=SHR,                                                         
 //            DSN=DSND10.SDSNLOAD                                               
 //*                                                                             
@@ -80,3 +54,6 @@
 //*                                                                             
 //CHKTITC ENDIF                                                                 
 //*                                                                             
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

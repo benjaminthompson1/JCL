@@ -1,10 +1,12 @@
 //IUIDCAMS JOB  (FB3),'IDCAMS CATALOG',CLASS=A,MSGCLASS=H,                      
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: IDCAMS                                                  *          
-//*                                                                  *          
-//********************************************************************          
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)
+//*-----------------------------------------------------------------*
+//* JOB:   IUIDCAMS
+//* DESC:  DEFINE VSAM WITH ALTERNATE INDEX
+//* STEPS: 1-CREATE, 2-REPRO, 3-CREATEAX
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 //CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
@@ -60,3 +62,6 @@
   BLDINDEX INDATASET (IBMUSER.DFAT.FSCN) -                                      
   OUTDATASET (IBMUSER.DFAT.FSCN.AIX.PATH)                                       
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

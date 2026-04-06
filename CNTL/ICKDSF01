@@ -1,20 +1,13 @@
 //IUDSF01 JOB (FB3),'ICKDSF01',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: 3390 INITIALIZE VOLUME                                  *          
-//*                                                                  *          
-//* NOTES: VARY DEVICE ONLINE/OFFLINE AT LEAST ONCE BEFORE           *          
-//*        RUNNING THIS JOB, OR I/O ERROR WILL OCCURAND NOT          *          
-//*        INITIALIZE                                                *          
-//*                                                                  *          
-//* CHANGE: VVVV - TO CUA ADDRESS OF DASD                            *          
-//*         NEWNNN - TO NEW DASD VOLID                               *          
-//*                                                                  *          
-//* THEN PLACE A VVDS AT CYL 0 TRK 10-14 WITH JOB IDCDEFVV           *          
-//*                                                                  *          
-//********************************************************************          
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUDSF01
+//* DESC:  3390 INITIALIZE VOLUME
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  VARY DEVICE ONLINE/OFFLINE ONCE BEFORE RUNNING OR I/O ERR
+//*-----------------------------------------------------------------*          
 //STEP01  EXEC PGM=ICKDSF,REGION=0M                                             
 //SYSPRINT  DD SYSOUT=*                                                         
 //SYSIN     DD *                                                                
@@ -29,3 +22,6 @@
       OWNERID('IBMUSER') -                                                      
       VOLID(NEWNNN)      /*  NEW VOLID             */                           
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

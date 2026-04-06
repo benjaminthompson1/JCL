@@ -1,35 +1,13 @@
 //IUCX200 JOB (FB3),'CXPS0200',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : CXPS0200 - RUN JCL EXPERT ON A SINGLE MEMBER                  
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Executes Teracloud JCL Expert to scan one JCL member                   
-//*    - Produces a text-based compliance report to SYSOUT                      
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job runs the CXPJCLB program to analyze a JCL member                
-//*    using JCL Expert. Results are written to SYSPRINT in text form.          
-//*                                                                             
-//*    Required variables:                                                      
-//*      - CXPHLQ   : HLQ of JCL Expert install libraries                       
-//*      - CXPPATH  : zFS path to JCL Expert installation                       
-//*      - JCLMEMB  : Fully qualified PDS(member) to scan                       
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - JCL Expert must be installed and accessible                            
-//*    - If CEE.SCEERUN is not in the LNKLST, add it to STEPLIB                 
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUCX200
+//* DESC:  JCL EXPERT: SCAN A SINGLE JCL MEMBER
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: 2025-07-10
+//* NOTE:  SET JCLMEMB= TO THE FULLY QUALIFIED PDS(MEMBER) TO SCAN
+//*-----------------------------------------------------------------*
 //* SET JCL VARIABLES                                                           
 //*--------------------------------------------------------------------*        
 //         SET CXPHLQ=JCL.V2R1M0                                                

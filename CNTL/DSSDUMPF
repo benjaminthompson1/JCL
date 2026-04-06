@@ -1,9 +1,13 @@
 //XBTC4 JOB (STG,1206),'EXT 97693',                                     00000110
 //      CLASS=A,MSGCLASS=X,REGION=0M,TIME=1440,                         00000210
 //      NOTIFY=XBT,USER=XBT TYPRUN=HOLD                                 00000314
-//*****************************************************************/    00011614
-//* DFSMSDSS FULL VOLUME DUMP                                     */    00011714
-//*****************************************************************/    00011814
+//*-----------------------------------------------------------------*
+//* JOB:   XBTC4
+//* DESC:  DSS VOLUME-LEVEL BACKUP
+//* STEPS: 1-BACKUP, 2-VERIFY
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL BACKUP
+//*-----------------------------------------------------------------*
 //BACKUP   EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                         00012113
 //SYSPRINT DD SYSOUT=*                                                  00012205
 //INDD     DD VOL=SER=DRPAK1,UNIT=SYSDA,DISP=OLD                        00012312
@@ -27,3 +31,6 @@
 //SYSIN    DD  *                                                        00170009
  COPYDUMP INDD(TAPE) OUTDD(DUMMY)                                       00180009
 /*                                                                      00190009
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

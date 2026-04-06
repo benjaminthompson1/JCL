@@ -1,28 +1,13 @@
 //IUMFA02 JOB (FB3),'MFA USER',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : CREATE MFA TSO USERS                                          
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Define and configure TSO user IDs for MFA testing                      
-//*    - Associate MFA factors and policies                                     
-//*    - Clean up and recreate ISPF profile datasets                            
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 26/05/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - Deletes and recreates user IDs MFAUSR1 to MFAUSR3                      
-//*    - Assumes MFADEF and FACILITY classes are already active                 
-//*    - IZUACCT must be a valid ACCTNUM resource                               
-//*    - Adjust UID, DFLTGRP, or POLICY references if needed                    
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    26/05/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUMFA02
+//* DESC:  CREATE TSO MFA USERS
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-05-26
+//* NOTE:  DELETES AND RECREATES MFAUSR1-MFAUSR3; IZUACCT NEEDED
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* STEP 1: DELETE & CREATE USERS WITH TSO SEGMENTS AND MFA SETTINGS            
 //*--------------------------------------------------------------------*        
@@ -132,3 +117,6 @@ LISTUSER MFAUSR3 MFA
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
 //            DSNTYPE=LIBRARY,                                                  
 //            SPACE=(TRK,(1,1,1))                                               
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

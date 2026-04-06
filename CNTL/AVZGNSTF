@@ -1,37 +1,13 @@
 //IUGNSTF JOB (FB3),'AVZGNSTF',CLASS=A,MSGCLASS=H,                      00001000
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00002000
 //*      TYPRUN=HOLD                                                    00003000
-//********************************************************************/ 00020000
-//*                                                                  */ 00030000
-//*   © COPYRIGHT ROCKET SOFTWARE, INC. 1991, 2017.                  */ 00040000
-//*                                                                  */ 00050000
-//*   NAME       - AVZGNSTF                                          */ 00060000
-//*   PURPOSE    - DEFINE AND POPULATE THE SAMPLE VSAM DATA SET      */ 00070000
-//*   RELATED    - ODBC CALL RPC SAMPLE TO ACCESS VSAM               */ 00080000
-//*   PARMS      - NONE                                              */ 00090000
-//*   KEYWORDS   - NONE                                              */ 00100000
-//*   LANGUAGE   - CLIST OR IDCAMS CONTROL CARDS                     */ 00110000
-//*   FUTURE     - NONE                                              */ 00120000
-//*   HISTORY    -                                                   */ 00130000
-//*                                                                  */ 00140000
-//*   NOTES      - THIS MEMBER IS USED TO CREATE AND                 */ 00150000
-//*                POPULATE THE PRODUCT SAMPLE VSAM DATA SET         */ 00160000
-//*                WHICH IS USED IN CONJUNCTION WITH THE             */ 00170000
-//*                SAMPLE ODBC CALL REMOTE PROCEDURE.                */ 00180000
-//*                                                                  */ 00190000
-//*     THE FOLLOWING MODIFICATIONS SHOULD BE MADE PRIOR TO          */ 00200000
-//*     EXECUTING THIS JOB:                                          */ 00210000
-//*                                                                  */ 00220000
-//*     0) SPECIFY VALID JOBCARD                                     */ 00230000
-//*        SEE "== 0 ==>" ABOVE.                                     */ 00240000
-//*                                                                  */ 00250000
-//*     1) CHANGE IBMUSER TO THE HIGH LEVEL QUALIFIER TO USE FOR THE */ 00260000
-//*        SAMPLE VSAM FILE.                                         */ 00270000
-//*                                                                  */ 00280000
-//*     2) CHANGE HLQ2 TO THE HIGH LEVEL QUALIFIER OF PRODUCT        */ 00290000
-//*        SERVER INSTALLATION DATA SETS.                            */ 00300000
-//*                                                                  */ 00310000
-//********************************************************************/ 00320000
+//*-----------------------------------------------------------------*
+//* JOB:   IUGNSTF
+//* DESC:  DVM CREATE THE SAMPLE VSAM FILE
+//* STEPS: 1-DEFSTAFF, 2-LOADSTAFF
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  CHANGE IBMUSER AND HLQ2 TO SITE HIGH-LEVEL QUALIFIERS
+//*-----------------------------------------------------------------*
 //DEFSTAFF  EXEC PGM=IDCAMS                                             00330000
 //SYSPRINT  DD SYSOUT=*                                                 00340000
 //SYSIN     DD *                                                        00350000
@@ -53,3 +29,7 @@
                                                                         00520000
   REPRO INDATASET('DVM.V2R1M0.SAVZSAMP(AVZSTFVS)') -                    00530000
         OUTDATASET('APP.STAFF.VSAM')                                    00540000
+/*
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

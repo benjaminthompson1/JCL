@@ -1,42 +1,13 @@
 //IUTIJAV JOB (FB3),'DSNTIJAV',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//* JOB NAME = DSNTIJAV                                                         
-//*                                                                             
-//* DESCRIPTIVE NAME = SQL DATA INSIGHTS INSTALL VERIFICATION SAMPLE            
-//*                                                                             
-//*    Licensed Materials - Property of IBM                                     
-//*    5698-DB2                                                                 
-//*    COPYRIGHT IBM CORP 2022.                                                 
-//*                                                                             
-//*    STATUS = Version 13                                                      
-//*                                                                             
-//* FUNCTION = CREATE SQL DATA INSIGHTS INSTALL VERIFICATION SAMPLE             
-//*                                                                             
-//* PSEUDOCODE =                                                                
-//*   DSNTIAV0 STEP     Optional: DROP objects created in this job              
-//*   DSNTIAV1 STEP     Create the sample objects                               
-//*   DSNTIAV2 STEP     Insert data into the sample objects                     
-//*                                                                             
-//* DEPENDENCIES = None                                                         
-//*                                                                             
-//* NOTES =                                                                     
-//*    PRIOR TO RUNNING THIS JOB, customize it for your system:                 
-//*    (1) Add a valid job card.                                                
-//*    (2) Change all occurrences of the following strings:                     
-//*        (A) Change the subsystem name 'DBDG' to the SSID of your             
-//*            DB2.                                                             
-//*        (B) Change 'DSND10' to the prefix of the target library              
-//*            for DB2.                                                         
-//*        (C) Change 'DSNTIA13' to the plan name for DSNTIAD on your           
-//*            DB2.                                                             
-//*    (3) Review the bufferpool and storage group settings for the             
-//*        SQL Data Insights sample in step DSNTIAV1.                           
-//*        The objects will be created to use BP0 and SYSDEFLT.                 
-//*        Please customize this as needed.                                     
-//*                                                                             
-//********************************************************************          
+//*-----------------------------------------------------------------*
+//* JOB:   IUTIJAV
+//* DESC:  SQLDI IVP
+//* STEPS: 1-DSNTIAV0, 2-DSNTIAV1, 3-DSNTIAV2
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  CHANGE DBDG, DSND10, DSNTIA13 TO SITE VALUES BEFORE RUN
+//*-----------------------------------------------------------------*
 //JOBLIB  DD  DISP=SHR,                                                         
 //            DSN=DSND10.SDSNLOAD                                               
 //*                                                                             
@@ -45014,4 +44985,7 @@ INSERT INTO CHURN VALUES('3186-AJIEK', 'Male',
 'Yes', 'No', 'Yes', 'Yes', 'Yes', 'Yes',                                        
 'Two year', 'Yes', 'Bank transfer (automatic)',                                 
 105.65, 6844.5, 'No');                                                          
-                                                                                
+/*
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*                                                                                 

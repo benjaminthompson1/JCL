@@ -1,15 +1,19 @@
 //IUICEGE JOB (FB3),'ICEGENER',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: ICEGENER                                                *          
-//* IEBGENER REPLACEMENT FOR VSAM AND SEQUENTIAL FILES               *          
-//*                                                                  *          
-//********************************************************************          
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUICEGE
+//* DESC:  IEBGENER REPLACEMENT FOR VSAM/SEQUENTIAL
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 //SCOPY EXEC PGM=ICEGENER                                                       
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1 DD DISP=OLD,DSN=IBMUSER.ERIS.VACCINE                                   
 //SYSUT2 DD DSN=IBMUSER.ERIS.VACCINE.BCK,                                       
 //          SPACE=(CYL,(1,1)),DISP=(NEW,CATLG)                                  
 //SYSIN DD DUMMY                                                                
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

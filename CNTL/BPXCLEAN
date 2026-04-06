@@ -1,8 +1,13 @@
 //IUBPXCL JOB (FB3),'USS CLEANUP',CLASS=A,MSGCLASS=H,                           
 //             NOTIFY=&SYSUID,REGION=0M,TIME=1440                               
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : USS CLEANUP                                             *           
+//*-----------------------------------------------------------------*
+//* JOB:   IUBPXCL
+//* DESC:  DELETE FILES FROM ZFS OLDER THAN 4 DAYS
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  UPDATE FIND PATH IN SYSTSIN TO MATCH SITE ZFS DIRECTORY
+//*-----------------------------------------------------------------*
 //*-- 1: DELETE OLD FILES IN USS FILESYSTEM ------------------------*           
 //CLEARN1 EXEC PGM=IKJEFT1A                                                     
 //SYSEXEC  DD DISP=SHR,DSN=SYS1.SBPXEXEC                                        

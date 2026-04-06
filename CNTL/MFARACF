@@ -1,31 +1,13 @@
 //IUMFA01 JOB (FB3),'MFA RACF',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : MFA RACF DEFINITIONS                                          
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Define MFA-related RACF groups and users                               
-//*    - Set up MFADEF and FACILITY class profiles                              
-//*    - Configure STARTED class entries for MFA STCs                           
-//*    - Permit access for MFA components to required resources                 
-//*    - Define digital certificates and keyrings for MFA                       
-//*    - Activate RACF options needed for MFA to function                       
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 26/05/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - Ensure RACF is active and the user has sufficient authority            
-//*    - Certificates assume a CERTAUTH named 'BaseCA' exists                   
-//*    - Customize IP/DNS details, certificate labels, and UID setup            
-//*    - This job affects security settings review before running               
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    26/05/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUMFA01
+//* DESC:  CREATE MFA RACF DEFINITIONS
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-05-26
+//* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* STEP 1: DEFINE GROUPS AND USERS FOR MFA                                     
 //*--------------------------------------------------------------------*        
@@ -144,3 +126,6 @@ SETROPTS RACLIST(FACILITY, CRYPTOZ) REFRESH
                                                                                 
 RACDCERT ADDTOKEN(MFA.SERVER.PKCS)                                              
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

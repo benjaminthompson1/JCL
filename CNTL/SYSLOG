@@ -1,32 +1,13 @@
 //IUSYSLG JOB (FB3),'SYSLOG EXTRACT',CLASS=A,MSGCLASS=H,                        
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SYSLOG EXTRACT                                                
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Dumps a portion of the system log (SYSLOG) to a specified              
-//*      dataset using SDSF batch interface (ISFAFD)                            
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 14/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - This job uses SDSF's ISFAFD utility to extract SYSLOG output           
-//*                                                                             
-//*    - The following parameters must be customized as needed:                 
-//*        - Output dataset: IBMUSER.SYSLOG.TEMP                                
-//*        - Time range:                                                        
-//*            PT hh.mm.ss mm/dd/yyyy hh.mm.ss mm/dd/yyyy                       
-//*                                                                             
-//*    - Ensure appropriate SDSF access is in place (user ID must               
-//*      have authority to issue LOG and PT commands)                           
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    14/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUSYSLG
+//* DESC:  DUMP SYSLOG TO A DATASET
+//* STEPS: 1-DUMPLOG
+//* AUTH:  BMT                  DATE: 2025-07-14
+//* NOTE:  CUSTOMIZE OUTPUT DSN AND TIME RANGE; REQUIRES SDSF LOG/PT AUTHORITY
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* STEP 1: DUMP SYSLOG TO TEMPORARY DATASET                                    
 //*--------------------------------------------------------------------*        

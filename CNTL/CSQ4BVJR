@@ -1,50 +1,13 @@
 //IUBVJR JOB (FB3),'CSQ4BVJR',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : CSQ4BVJR - MQ PUT/GET SAMPLE PROGRAMS                         
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Executes CSQ4BVK1 to put messages on a queue                           
-//*    - Optionally executes CSQ4BVJ1 to get messages from a queue              
-//*                                                                             
-//*  AUTHOR     : IBM (Customized by BMT)                                       
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job demonstrates IBM MQ message put/get functions using             
-//*    the CSQ4BVK1 and CSQ4BVJ1 sample programs.                               
-//*                                                                             
-//*    CSQ4BVK1 Parameters:                                                     
-//*      - QMGR   : Queue Manager name (e.g. CSQ9)                              
-//*      - QUEUE  : Queue name (e.g. KMQ.ANSIBLE.TEST)                          
-//*      - MSGS   : Number of messages to put (e.g. 99)                         
-//*      - PAD    : Padding character (e.g. Z)                                  
-//*      - LEN    : Length of each message (e.g. 80)                            
-//*      - PERS   : P=Persistent, N=Non-persistent                              
-//*                                                                             
-//*    CSQ4BVJ1 Parameters (commented out):                                     
-//*      - QMGR   : Queue Manager name                                          
-//*      - QUEUE  : Queue name                                                  
-//*      - MSGS   : Number of messages to get                                   
-//*      - GET    : B=Browse, D=Destructive                                     
-//*      - SYNC   : S=Syncpoint, N=No syncpoint                                 
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - IBM MQ libraries defined in JOBLIB                                     
-//*    - LE SCEERUN must be in the LNKLST or JOBLIB                             
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Replace PARM values with local queue manager and queue                 
-//*    - Uncomment GETMSGS step if MQGET operation is required                  
-//*    - Adjust MSGS, PAD, LEN, PERS, GET, and SYNC as needed                   
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Customized MQ sample job                         
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUBVJR
+//* DESC:  MQ PUT/GET SAMPLE PROGRAMS
+//* STEPS: 1-PUTMSGS, 2-GETMSGS
+//* AUTH:  IBM / BMT          DATE: 2025-07-10
+//* NOTE:  UPDATE PARM VALUES WITH QUEUE MANAGER AND QUEUE NAME
+//*-----------------------------------------------------------------*
 //* STEP: DEFINE LIBRARIES FOR PROGRAM EXECUTION                                
 //*--------------------------------------------------------------------*        
 //JOBLIB   DD DSN=CSQ911.SCSQLOAD,DISP=SHR                                      

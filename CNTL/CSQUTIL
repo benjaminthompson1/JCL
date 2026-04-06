@@ -1,10 +1,14 @@
 //IUCSQUT JOB (FB3),'CSQUTIL',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : CSQUTIL - MQSC COMMAND EXECUTION UTILITY                      
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUCSQUT
+//* DESC:  MQ CSQ UTILITY
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  UPDATE PARM WITH QUEUE MANAGER NAME AND SYSIN COMMANDS
+//*-----------------------------------------------------------------*
+//*--------------------------------------------------------------------*
 //* STEP: EXECUTE MQSC COMMANDS VIA CSQUTIL                                     
 //*--------------------------------------------------------------------*        
 //CQSUTIL  EXEC PGM=CSQUTIL,PARM='CSQ9'                                         

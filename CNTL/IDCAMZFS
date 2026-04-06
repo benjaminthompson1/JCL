@@ -1,21 +1,13 @@
 //IUIDCAM JOB (FB3),'CREATE ZFS',CLASS=A,MSGCLASS=H,                            
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: CREATE ZFS DATASET AND MOUNTPOINT                       *          
-//*                                                                  *          
-//* NOTES: Modify the JOB statement as appropriate and change        *          
-//*        the following to suit your installation requirements      *          
-//*                                                                  *          
-//* @pathprefix@ - Directory path to prefix /usr/lpp/IBM             *          
-//*                                                                  *          
-//* @zfsdsn@ - Name of the 'common' ZFS dataset to be created        *          
-//*                and mounted at @pathprefix@                       *          
-//*                                                                  *          
-//* @volume@ - Volume on which tocreate ZFS dataset                  *          
-//*                                                                  *          
-//********************************************************************          
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUIDCAM
+//* DESC:  DEFINE ZFS DATASET AND MOUNT DIRECTORY
+//* STEPS: 1-CREATE, 2-FORMAT, 3-MKDIR, 4-MOUNT
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  SUBSTITUTE @zfsdsn@, @pathprefix@, @volume@ BEFORE RUN
+//*-----------------------------------------------------------------*          
 //CREATE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
@@ -59,3 +51,6 @@ mkdir -p @pathprefix@ && chmod 777 @pathprefix@
     MOUNTPOINT('@pathprefix@') +                                                
     FILESYSTEM('@zfsdsn@')                                                      
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

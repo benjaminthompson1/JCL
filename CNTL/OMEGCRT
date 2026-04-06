@@ -1,11 +1,13 @@
 //IUOMEGC JOB (FB3),'OMEG CREATE',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: OMEGAMON CREATE - STEP 1                                *          
-//*                                                                  *          
-//********************************************************************          
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUOMEGC
+//* DESC:  OMEGAMON CREATE - STEP 1
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 //OMEGCRT  EXEC PGM=KCIOMEGA,REGION=0M,DYNAMNBR=256                             
 //STEPLIB  DD DISP=SHR,DSN=ZMS210.TKANMOD                                       
 //KCIFLOW  DD DISP=SHR,DSN=ZMS210.TKANCUS(KFJOMEGA)                             
@@ -14,3 +16,6 @@ ACTION            CREATE
 RTE_NAME          Z31A                                                          
 RTE_PLIB_HILEV    OMEG                                                          
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

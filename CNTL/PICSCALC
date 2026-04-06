@@ -1,11 +1,13 @@
 //IUCALC JOB (FB3),'PICSCALS',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: PL/I BIT OFFSETS FOR DVM DFAT EXIT                      *          
-//*                                                                  *          
-//********************************************************************          
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUCALC
+//* DESC:  PL/I BIT OFFSETS FOR DVM DFAT EXIT
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 // EXPORT SYMLIST=(EXITNAM)                                                     
 // SET EXITNAM=AVZXZPER                                                         
 //RUNREXX  EXEC PGM=IRXJCL,                                                     
@@ -39,3 +41,6 @@
 215 116 8                                                                       
 1 1 1 1 4                                                                       
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

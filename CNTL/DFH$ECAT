@@ -1,21 +1,12 @@
 //IUECAT JOB  (FB3),'DFH$ECAT',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : DFH$ECAT - BUILD CATALOG DATASET FOR SAMPLE APP               
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Defines and loads a KSDS dataset with sample catalog data              
-//*    - Used by CICS Web Services example application                          
-//*                                                                             
-//*  AUTHOR     : IBM (formatted by BMT)                                        
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUECAT
+//* DESC:  COPY FROM CICS SDFHINST
+//* STEPS: 1-DEFKSDS, 2-LOADDATA
+//* AUTH:  IBM / BMT          DATE: 2025-07-10
+//* NOTE:  UPDATE DATASET PREFIX TO MATCH CICS INSTALLATION
+//*-----------------------------------------------------------------*
 //* STEP 1: DELETE AND DEFINE CATALOG KSDS                                      
 //*--------------------------------------------------------------------*        
 //DEFKSDS EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                                

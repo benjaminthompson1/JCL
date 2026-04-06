@@ -1,51 +1,13 @@
 //IUTIJRS JOB (FB3),'DSNTIJRS',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//* JOB NAME = DSNTIJRS                                                         
-//*                                                                             
-//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                                  
-//*                                                                             
-//*    Licensed Materials - Property of IBM                                     
-//*    5650-DB2                                                                 
-//*    (C) COPYRIGHT 2016 IBM Corp.  All Rights Reserved.                       
-//*                                                                             
-//*    STATUS = Version 12                                                      
-//*                                                                             
-//* FUNCTION = CREATE RESTful SERVICES DATABASE OBJECTS.                        
-//*            NOTE THAT IN ORDER TO ENABLE RESTful SERVICES                    
-//*            VERSIONING SUPPORT, JOB DSNTIJR2 MUST ALSO BE                    
-//*            RUN AFTER SUCCESSFUL EXECUTION OF THIS JOB.                      
-//*                                                                             
-//* PSEUDOCODE =                                                                
-//*   DSNTICU  STEP     Optional: DROP the RESTful services database            
-//*   DSNTIAC  STEP     Create the RESTful services database                    
-//*                                                                             
-//* DEPENDENCIES =                                                              
-//*                                                                             
-//* NOTES =                                                                     
-//*    PRIOR TO RUNNING THIS JOB, customize it for your system:                 
-//*    (1) Review the buffer pool settings in the CREATE TABLESPACE             
-//*        statements processed by this job.  Update the values as              
-//*        necessary.                                                           
-//*    (2) Add a valid job card.                                                
-//*    (3) Change all occurrences of the following strings:                     
-//*        (A) Change the subsystem name 'DBDG' to the SSID of your             
-//*            DB2.                                                             
-//*        (B) Change 'DSND10' to the prefix of the target library              
-//*            for DB2.                                                         
-//*        (C) Change 'DSNTIA13' to the plan name for DSNTIAD on your           
-//*            DB2.                                                             
-//*    (4) This job must run successfully before REST service                   
-//*        versioning support can be enabled.  REST service versioning          
-//*        is enabled by running install job DSNTIJR2.  See DSNTIJR2            
-//*        for additional information.                                          
-//*                                                                             
-//* CHANGE LOG =                                                                
-//*   07/20/16 Added                                                            
-//*   05/01/18 Added REST service versioning support comments                   
-//*                                                                             
-//*********************************************************************         
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUTIJRS
+//* DESC:  ENABLE DB2 REST SERVICES
+//* STEPS: 1-DSNTICU, 2-DSNTIAC
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  RUN BEFORE DSNTIJR2; CUSTOMIZE SSID, DSND10, PLAN NAME
+//*-----------------------------------------------------------------*         
 //JOBLIB  DD  DISP=SHR,                                                         
 //            DSN=DSND10.SDSNLOAD                                               
 //*                                                                             
@@ -116,3 +78,6 @@
          CLUSTER BUFFERPOOL BP0                                                 
          CLOSE NO;                                                              
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

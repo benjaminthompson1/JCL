@@ -1,17 +1,23 @@
 //IUPRFSU JOB (FB3),'EQAPRFSU',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//* Licensed Materials - Property of IBM                              *         
-//*                                                                   *         
-//* 5724-T07: IBM z/OS Debugger                                       *         
-//* Copyright IBM Corp. 2019, 2022 All Rights Reserved                *         
-//*                                                                   *         
-//* US Government Users Restricted Rights - Use, duplication or       *         
-//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
-//*                                                                   *         
-//*                                                                   *         
-//* This JCL creates the directories and populates them with samples  *         
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUPRFSU
+//* DESC:  Z/OS DEBUGGER: CONFIGURE DEBUG PROFILE SERVICE
+//* STEPS: <NONE>
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  JOB ID RUNNING THIS MUST HAVE SUFFICIENT Z/OS UNIX AUTH
+//*-----------------------------------------------------------------*
+//* Licensed Materials - Property of IBM                              *
+//*                                                                   *
+//* 5724-T07: IBM z/OS Debugger                                       *
+//* Copyright IBM Corp. 2019, 2022 All Rights Reserved                *
+//*                                                                   *
+//* US Government Users Restricted Rights - Use, duplication or       *
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *
+//*                                                                   *
+//*                                                                   *
+//* This JCL creates the directories and populates them with samples  *
 //* needed for the configuration of the Debug Profile Service.        *         
 //*                                                                   *         
 //*                                                                   *         

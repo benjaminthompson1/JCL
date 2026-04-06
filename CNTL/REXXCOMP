@@ -1,11 +1,13 @@
 //IUREXX JOB (FB3),'REXXCOMP',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: COMPILE REXX                                            *          
-//*                                                                  *          
-//********************************************************************          
+//*-----------------------------------------------------------------*
+//* JOB:   IUREXX
+//* DESC:  COMPILE REXX EXEC USING THE REXX COMPILER
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*
 //COMPILE  EXEC PGM=REXXCOMP,PARM='XREF'                                        
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(1,1))                                      

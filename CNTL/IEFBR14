@@ -1,8 +1,18 @@
 //IUIEFBR JOB (FB3),'IEFBR14',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUIEFBR
+//* DESC:  TEST ALLOCATIONS (IEFBR14)
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*
 //IEFBR14  EXEC PGM=IEFBR14                                                     
 //SYSPRINT DD SYSOUT=*                                                          
 //TEMPDS   DD DISP=(NEW),DSN=&&TEMP,UNIT=3390,                                  
 //   VOL=SER=WORK01,SPACE=(CYL,(900,1)),                                        
 //   DCB=(RECFM=FB,LRECL=80,BLKSIZE=8000)                                       
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

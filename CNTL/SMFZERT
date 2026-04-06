@@ -1,10 +1,12 @@
 //IUSMFDMP JOB (FB3),'SMF DUMP',CLASS=A,MSGCLASS=H,                             
-//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                        
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: EXTRACT SMF 119 FOR ZERT REPORTING                      *          
-//*                                                                  *          
-//********************************************************************          
+//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMFDMP
+//* DESC:  SMF DUMP TYPE 119 FOR ZERT
+//* STEPS: 1-DELETE, 2-DUMP
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 //DELETE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
@@ -20,3 +22,6 @@
   INDD(INDD1,OPTIONS(DUMP))                                                     
   OUTDD(OUTD1,TYPE(119(12)))                                                    
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

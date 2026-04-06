@@ -1,33 +1,13 @@
 //IULOGRC JOB (FB3),'CLEAR LOGREC',CLASS=A,MSGCLASS=H,                          
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : CLEAR AND INITIALIZE LOGREC DATASET                           
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Prints current LOGREC entries to SYSOUT using IFCEREP1.                
-//*    - Generates a summary report.                                            
-//*    - Clears and reinitializes the LOGREC dataset using IFCDIP00.            
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 14/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - This job **DESTROYS** all existing LOGREC records.                     
-//*    - Use with caution. Ensure that critical LOGREC data has been            
-//*      reviewed, archived, or is no longer required.                          
-//*                                                                             
-//*    - Update the following parameters to suit your environment:              
-//*        - DSN  = SYS1.S0W1.LOGREC                                            
-//*        - VOL  = C3SYS1                                                      
-//*        - UNIT = SYSDA                                                       
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    14/07/2025   BMT        Initial version                                  
-//*    24/07/2025   BMT        Print LOGREC and create summary report           
-//*--------------------------------------------------------------------*        
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IULOGRC
+//* DESC:  CLEAR/INIT HARDWARE EVENT RECORDER DATASET
+//* STEPS: 1-STEP1, 2-STEP2, 3-STEP3
+//* AUTH:  BMT               DATE: 2025-07-14
+//* NOTE:  DESTROYS ALL EXISTING LOGREC RECORDS; REVIEW BEFORE USE
+//*-----------------------------------------------------------------*        
 //* STEP 1: PRINT CURRENT LOGREC CONTENTS TO SYSOUT                             
 //*--------------------------------------------------------------------*        
 //STEP1   EXEC PGM=IFCEREP1,PARM='EVENT=Y,ACC=N',REGION=256K                    
@@ -50,6 +30,6 @@
 //STEP3   EXEC PGM=IFCDIP00                                                     
 //SERERDS DD DSN=SYS1.S0W1.LOGREC,DISP=OLD,                                     
 //           VOL=SER=C3SYS1,UNIT=SYSALLDA                                       
-//*--------------------------------------------------------------------*        
-//* END OF JOB                                                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* *        

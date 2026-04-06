@@ -1,19 +1,27 @@
 //IURACF JOB (FB3),'HBORACF',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//*                                                                   *         
-//* Licensed Materials - Property of IBM                              *         
-//*                                                                   *         
-//* 5698-LDA (C) Copyright IBM Corp. 2014, 2024                       *         
-//*                                                                   *         
-//* All Rights Reserved.                                              *         
-//*                                                                   *         
-//* US Government Users Restricted Rights - Use, duplication or       *         
-//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
-//*                                                                   *         
-//*********************************************************************         
-//*                                                                   *         
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IURACF
+//* DESC:  RACF SETUP FOR IBM Z COMMON DATA PROVIDER
+//* STEPS: <NONE>
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  MUST RUN WITH RACF SPECIAL ATTRIBUTE; REVIEW BEFORE USE
+//*-----------------------------------------------------------------*
+//*
+//*********************************************************************
+//*
+//* Licensed Materials - Property of IBM
+//*
+//* 5698-LDA (C) Copyright IBM Corp. 2014, 2024
+//*
+//* All Rights Reserved.
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*********************************************************************
+//*
 //* This JCL is the sample job for the execution of RACF commands     *         
 //* required for the IBM Z Common Data Provider runtime components.   *         
 //*                                                                   *         
@@ -203,4 +211,6 @@ SETROPTS RACLIST(LOGSTRM)  REFRESH
 SETROPTS RACLIST(OPERCMDS) REFRESH                                              
                                                                                 
 @@                                                                              
-//                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*                                                                              

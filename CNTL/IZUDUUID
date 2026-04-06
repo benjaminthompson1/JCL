@@ -1,10 +1,13 @@
 //IZUWFJB JOB (ACCTINFO),CLASS=A,MSGCLASS=0,                            JOB08085
 //             MSGLEVEL=(1,1),REGION=0M,NOTIFY=IBMUSER                          
-/*JOBPARM SYSAFF=S0W1                                                           
-//*                                                                             
-//* RECEIVE AND APPLY THE USERMOD WHICH CREATES MODULE IZUSIUI                  
-//* CONTAINING THE UUID FOR THE Z/OS SOFTWARE INSTANCE.                         
-//*                                                                             
+/*JOBPARM SYSAFF=S0W1
+//*-----------------------------------------------------------------*
+//* JOB:   IZUWFJB
+//* DESC:  Z/OS UUID (ZOSMF SUPPORT)
+//* STEPS: <NONE>
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  RECEIVE AND APPLY SMP/E USERMOD TO CREATE MODULE IZUSIUI
+//*-----------------------------------------------------------------*
 //RECAPP   EXEC PGM=GIMSMP                                                      
 //SMPCSI   DD DISP=SHR,                                                         
 //            DSN=MVS.GLOBAL.CSI                                                
@@ -48,3 +51,6 @@ $$
     APPLY S(UUIDUMD) REDO CHECK.                                                
     APPLY S(UUIDUMD) REDO.                                                      
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

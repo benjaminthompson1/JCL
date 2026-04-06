@@ -1,10 +1,12 @@
 //IUIDCAM JOB  (FB3),'IDCAM COPY',CLASS=A,MSGCLASS=H,                           
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: IDCAMS COPY                                             *          
-//*                                                                  *          
-//********************************************************************          
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)
+//*-----------------------------------------------------------------*
+//* JOB:   IUIDCAM
+//* DESC:  COPY VSAM DATA
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 //IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
 //INDD    DD DSN=SYS2.HSM.BCDS,DISP=SHR                                         
 //OUTDD   DD DSN=IBMUSER.HSM.BCDS,DISP=(NEW,CATLG),                             
@@ -13,3 +15,7 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   REPRO INFILE(INDD) OUTFILE(OUTDD)                                             
+/*
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

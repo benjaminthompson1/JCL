@@ -1,6 +1,12 @@
 //IUDVMS JOB  (FB3),'DVM SQL',CLASS=A,MSGCLASS=H,                       JOB01593
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
-//*                                                                             
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)
+//*-----------------------------------------------------------------*
+//* JOB:   IUDVMS
+//* DESC:  CREATE SAMPLE DB/TB FOR DVM
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  REQUIRES DB2 SUBSYSTEM DBCG AND PLAN DSNTEP13
+//*-----------------------------------------------------------------*
 //DBPLANS  EXEC PGM=IKJEFT01,REGION=0M                                          
 //*        DB2 Runtime Libraries                                                
 //STEPLIB  DD DISP=SHR,DSN=DSND10.DBCG.SDSNEXIT                                 

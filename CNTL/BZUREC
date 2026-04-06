@@ -1,9 +1,13 @@
 //IUVTPRE JOB (FB3),'VTP I/O RECORD',CLASS=A,MSGCLASS=H,                        
 //             NOTIFY=&SYSUID,REGION=0M,TIME=1440                               
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : VTP I/O RECORDING                                       *           
-//*-----------------------------------------------------------------*           
+//*-----------------------------------------------------------------*
+//* JOB:   IUVTPRE
+//* DESC:  VTP RECORD BATCH/FILE I/O
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  INFILE AND BZUPLAY DD DATASETS MUST BE ALLOCATED BEFORE RUN
+//*-----------------------------------------------------------------*
 //*-- 1: RECORD I/O ACTIVITY USING TOURFILE ------------------------*           
 //VTPREC EXEC PGM=TOURFILE                                                      
 //STEPLIB  DD DISP=SHR,DSN=VTP201.SBZULLEP                                      

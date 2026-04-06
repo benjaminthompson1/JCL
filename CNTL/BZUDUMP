@@ -1,8 +1,13 @@
 //IUVTPDP  JOB (FB3),'VTP PLAYBACK',CLASS=A,MSGCLASS=H,                         
 //             NOTIFY=&SYSUID,REGION=0M,TIME=1440                               
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
-//* JOB   : VTP PLAYBACK FORMATTING                                 *           
+//*-----------------------------------------------------------------*
+//* JOB:   IUVTPDP
+//* DESC:  VTP PLAYBACK DUMP UTILITY
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  REQUIRES VTP TOURFILE IN IBMUSER.VTP.TOURFILE.PLAY
+//*-----------------------------------------------------------------*
 //*-- 1: FORMAT VTP PLAYBACK FILE USING BZUPLAY --------------------*           
 //VTPDUMP EXEC PGM=BZUPLAY,PARM='RUN=BZUDCP'                                    
 //STEPLIB DD DISP=SHR,DSN=VTP201.SBZULOAD                                       

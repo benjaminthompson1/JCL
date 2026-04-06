@@ -1,19 +1,26 @@
 //HBOMKFS  JOB (),'HBOMKFS',MSGCLASS=X,MSGLEVEL=(1,1),                          
 //         CLASS=A,NOTIFY=&SYSUID                                               
-//*                                                                             
-//*********************************************************************         
-//*                                                                   *         
-//* Licensed Materials - Property of IBM                              *         
-//*                                                                   *         
-//* 5698-LDA (C) Copyright IBM Corp. 2023, 2024                       *         
-//*                                                                   *         
-//* All Rights Reserved.                                              *         
-//*                                                                   *         
-//* US Government Users Restricted Rights - Use, duplication or       *         
-//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
-//*                                                                   *         
-//*********************************************************************         
-//*                                                                   *         
+//*-----------------------------------------------------------------*
+//* JOB:   HBOMKFS
+//* DESC:  CREATE AND MOUNT IBM Z COMMON DATA PROVIDER FILE SYSTEM
+//* STEPS: 1-DEFINE, 2-FORMAT, 3-MKDIR, 4-MOUNT
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  USER MUST HAVE SUPERUSER.FILESYS OR BPX.SUPERUSER RACF
+//*-----------------------------------------------------------------*
+//*
+//*********************************************************************
+//*
+//* Licensed Materials - Property of IBM
+//*
+//* 5698-LDA (C) Copyright IBM Corp. 2023, 2024
+//*
+//* All Rights Reserved.
+//*
+//* US Government Users Restricted Rights - Use, duplication or
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+//*
+//*********************************************************************
+//*
 //* The job HBOMKFS is intended to define, format, and temporarily    *         
 //* mount the file system that is used as the working directory of    *         
 //* IBM Z Common Data Provider runtime components.                    *         
@@ -126,4 +133,6 @@
         TYPE(ZFS) MODE(RDWR) PARM('AGGRGROW') +                                 
         MOUNTPOINT('/var/zcdp')                                                 
 /*                                                                              
-//                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*                                                                           

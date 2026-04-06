@@ -1,32 +1,13 @@
 //IUDFSRT JOB (FB3),'DFSORT',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : DFSORT - SORT AND FILTER SYSLOG RECORDS                       
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Sorts and filters daily SYSLOG data using DFSORT                       
-//*    - Includes substring search and handles VB records safely                
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job sorts SYSLOG data first by a 4-digit field at byte              
-//*    124, then by a 3-digit field at byte 129 (both ascending).               
-//*    It filters for records containing '18TK' at byte 103, and                
-//*    'COPY' anywhere in positions 5-104 using substring search.               
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Input dataset must use RECFM=VB                                        
-//*    - DFSORT VLSHRT option required to prevent termination                   
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUDFSRT
+//* DESC:  DFSORT UTILITY
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: 2025-07-10
+//* NOTE:  INPUT DATASET MUST USE RECFM=VB; VLSHRT OPTION IS REQUIRED
+//*-----------------------------------------------------------------*
 //* STEP: DFSORT                                                                
 //*--------------------------------------------------------------------*        
 //DFSORT   EXEC PGM=SORT,REGION=0M                                              

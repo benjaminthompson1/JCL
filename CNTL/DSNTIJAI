@@ -1,29 +1,14 @@
 //IUTIJAI JOB (FB3),'DSNTIJAI',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//* JOB NAME = DSNTIJAI                                                         
-//*                                                                             
-//* DESCRIPTIVE NAME = INSTALLATION JOB STREAM                                  
-//*                                                                             
-//*    Licensed Materials - Property of IBM                                     
-//*    5698-DB2                                                                 
-//*    COPYRIGHT IBM Corp 2022                                                  
-//*                                                                             
-//*    STATUS = Version 13                                                      
-//*                                                                             
-//* FUNCTION = CREATE AI-POWERED SQL PSEUDOCATALOG AND PROCEDURES               
-//*                                                                             
-//* PSEUDOCODE =                                                                
-//*   DSNTICU  STEP     Optional: DROP all objects created in this job          
-//*   DSNTIAI1 STEP     Create the SQL Data Insights pseudo-catalog             
-//*   DSNTIAI2 STEP     Create the database for model tables                    
-//*   DSNTIAI3 STEP     Create procedures used by SQL Data Insights             
-//*   DSNTIAI4 STEP     Grant authorities to users of SQL Data Insights         
-//*                                                                             
-//* DEPENDENCIES = None                                                         
-//*                                                                             
-//* NOTES =                                                                     
+//*-----------------------------------------------------------------*
+//* JOB:   IUTIJAI
+//* DESC:  SQLDI PSEUDO CATALOG
+//* STEPS: 1-DSNTICU, 2-DSNTIAI1, 3-DSNTIAI2, 4-DSNTIAI3, 5-DSNTIAI4
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  REVIEW BUFFER POOL AND STORAGE GROUP SETTINGS BEFORE RUN
+//*-----------------------------------------------------------------*
+//* NOTES =
 //*    PRIOR TO RUNNING THIS JOB, customize it for your system:                 
 //*    (1) Review the bufferpool and storage group settings for the             
 //*        SQL Data Insights pseudo-catalog in step DSNTIAI1.                   
@@ -1184,4 +1169,7 @@ GRANT EXECUTE ON PROCEDURE
 DSNAIDB.GET_MODEL_TABLE TO AIDBADM;                                             
 GRANT EXECUTE ON PROCEDURE                                                      
 DSNAIDB.GET_CONFIGURATION TO AIDBADM;                                           
-//*                                                                             
+/*                                                                             
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

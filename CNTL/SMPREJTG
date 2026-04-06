@@ -1,33 +1,13 @@
 //IUSMPRE JOB (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E REJECT RECEIVED-ONLY SYSMODS                            
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Rejects all SYSMODs that have been RECEIVED but not                    
-//*      applied or accepted in the Global Zone                                 
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 14/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - This job identifies and lists all eligible SYSMODs that                
-//*      remain in 'RECEIVED' status and are no longer required.                
-//*                                                                             
-//*    - Substitution variables:                                                
-//*        #globalzone : SMP/E Global CSI dataset name                          
-//*                                                                             
-//*    - This job uses the CHECK operand, so no SYSMODs are removed             
-//*      unless the job is modified to omit CHECK.                              
-//*                                                                             
-//*    - SMPJHOME is only needed if Java-dependent FMIDs are involved           
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    14/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMPRE
+//* DESC:  SMP/E REJECT RECEIVED-ONLY ELEMENTS
+//* STEPS: 1-RECNTS
+//* AUTH:  BMT                  DATE: 2025-07-14
+//* NOTE:  USES CHECK BY DEFAULT; REMOVE CHECK TO ACTUALLY REJECT
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* STEP 1: REJECT RECEIVED-ONLY SYSMODS (DRY RUN MODE)                         
 //*--------------------------------------------------------------------*        

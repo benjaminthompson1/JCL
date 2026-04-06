@@ -1,12 +1,12 @@
 //IURACFS JOB  (FB3),'RACF STC',CLASS=A,MSGCLASS=H,                             
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
-//*                                                                             
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: Define USERID STC and PERMIT required resources         *          
-//*          rules in RACF                                           *          
-//*                                                                  *          
-//********************************************************************          
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)
+//*-----------------------------------------------------------------*
+//* JOB:   IURACFS
+//* DESC:  RACF TO IMPLEMENT HLQ PROFILES
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -25,3 +25,6 @@ ADDSD 'LDA510.*' OWNER(LDA510) UACC(NONE) -
                                                                                 
 PERMIT 'LDA510.*' ID(IBMUSER) ACCESS(ALTER)                                     
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

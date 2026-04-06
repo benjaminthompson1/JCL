@@ -1,27 +1,13 @@
 //IUSMPLI JOB (FB3),'SMPE LIST',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E LIST GLOBAL ZONE DEFINITIONS                            
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Display current SMP/E Global Zone definitions, including:              
-//*        - All DDDEF entries                                                  
-//*        - All SOURCEIDs                                                      
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 14/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - Ensure the correct CSI dataset name is supplied by                     
-//*      substituting #globalzone with the desired SMP/E GLOBAL CSI             
-//*    - This job is non-destructive; it only produces output reports           
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    14/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMPLI
+//* DESC:  SMP/E LIST DDDEF DEFINITIONS
+//* STEPS: 1-LISTSMPE
+//* AUTH:  BMT                  DATE: 2025-07-14
+//* NOTE:  SUBSTITUTE #globalzone; NON-DESTRUCTIVE, REPORT OUTPUT ONLY
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* STEP 1: LIST DDDEF AND SOURCEID ENTRIES FROM GLOBAL ZONE                    
 //*--------------------------------------------------------------------*        

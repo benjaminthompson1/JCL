@@ -1,28 +1,13 @@
 //IUSMPAP JOB (FB3),'SMPE APPLY',CLASS=A,MSGCLASS=H,                            
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E APPLY                                                   
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*              - Apply installed service from the SMP/E global zone           
-//*              - Run in CHECK mode with default bypass options                
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 27/06/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*              - Uses the APPLY CHECK function to simulate APPLY              
-//*              - Can optionally direct SMPLOG to a dataset                    
-//*              - Expected inputs:                                             
-//*                  - CSI: #globalzone                                         
-//*                  - Target zone: #target                                     
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    27/06/2025   BMT         Initial version                                 
-//*--------------------------------------------------------------------*        
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMPAP
+//* DESC:  SMP/E APPLY
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-06-27
+//* NOTE:  SUBSTITUTE #globalzone AND #target BEFORE RUNNING
+//*-----------------------------------------------------------------*        
 //        SET CSI=#globalzone                                                   
 //*--------------------------------------------------------------------*        
 //* STEP 1: SMP/E APPLY CHECK                                                   

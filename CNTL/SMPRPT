@@ -1,32 +1,13 @@
 //IUSMPRE JOB (FB3),'SMPE REPORT',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E INVENTORY REPORT                                        
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Generates a full SMP/E inventory report of products and                
-//*      service for a given Target Zone using the GIMXSID utility              
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 14/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - Substitution variables:                                                
-//*        #globalzone : SMP/E Global CSI dataset name                          
-//*        #target     : SMP/E Target Zone name                                 
-//*                                                                             
-//*    - Output is written to a sequential dataset in report format             
-//*                                                                             
-//*    - Customize the output DSN as required (SMPXTOUT DD)                     
-//*                                                                             
-//*    - ENU language used for report (can be adjusted in PARM)                 
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    14/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMPRE
+//* DESC:  SMP/E TARGET SYSTEM REPORT
+//* STEPS: 1-STEP1
+//* AUTH:  BMT                  DATE: 2025-07-14
+//* NOTE:  SUBSTITUTE #globalzone AND #target; OUTPUT TO SEQUENTIAL DATASET
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* STEP 1: GENERATE PRODUCT AND SERVICE INVENTORY REPORT                       
 //*--------------------------------------------------------------------*        

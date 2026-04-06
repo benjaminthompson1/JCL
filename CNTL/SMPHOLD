@@ -1,37 +1,13 @@
 //IUSMPHO JOB (FB3),'SMPE HOLD',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E LIST HOLDDATA                                           
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Reports on outstanding HOLDDATA in the Global Zone                     
-//*    - Generates listings of SYSMODs with SYSTEM and ERROR holds              
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 14/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - Substitution variable:                                                 
-//*        #globalzone : SMP/E Global CSI dataset name                          
-//*                                                                             
-//*    - You can limit the HOLDDATA listings using the following:               
-//*        - HOLDERROR                                                          
-//*        - HOLDSYSTEM                                                         
-//*        - HOLDUSER                                                           
-//*                                                                             
-//*    - When multiple types are coded, only entries containing **all**         
-//*      specified hold types are listed.                                       
-//*                                                                             
-//*    Example:                                                                 
-//*      SET BDY(GLOBAL).                                                       
-//*      LIST HOLDDATA HOLDERROR HOLDSYSTEM.                                    
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    14/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMPHO
+//* DESC:  SMP/E LIST HELD ELEMENTS
+//* STEPS: 1-REPORT
+//* AUTH:  BMT                  DATE: 2025-07-14
+//* NOTE:  SUBSTITUTE #globalzone WITH SMP/E GLOBAL CSI DATASET NAME
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* STEP 1: GENERATE REPORTS FOR HELD SYSMODS AND HOLDDATA ENTRIES              
 //*--------------------------------------------------------------------*        

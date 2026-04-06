@@ -1,8 +1,15 @@
 //IUOMVSA JOB (FB3),'OMVS TEMP',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*--------------------------------------------------                           
-//* STEP1 - CREATE CATALOGED DATASET IBMUSER.DCAT.TEMP                          
-//*--------------------------------------------------                           
+//*-----------------------------------------------------------------*
+//* JOB:   IUOMVSA
+//* DESC:  CREATE TEMP DATASET AND TEST DCAT CATALOG ACCESS
+//* STEPS: 1-STEP1, 2-STEP2
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  REQUIRES DCAT CONFIGURED AND ACCESSIBLE ON THE SYSTEM
+//*-----------------------------------------------------------------*
+//*--------------------------------------------------
+//* STEP1 - CREATE CATALOGED DATASET IBMUSER.DCAT.TEMP
+//*--------------------------------------------------
 //STEP1    EXEC PGM=IEBGENER                                                    
 //SYSOUT   DD  SYSOUT=*                                                         
 //SYSPRINT DD  SYSOUT=*                                                         
@@ -28,3 +35,6 @@
 //STDPARM  DD  *                                                                
 SH dcat "IBMUSER.DCAT.TEMP"                                                     
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

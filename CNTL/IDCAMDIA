@@ -1,14 +1,13 @@
 //IUIDCAMS JOB (FB3),'DIAGNOSE',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: IDCAMS DIAGNOSE VTOC and CATALOG                        *          
-//*                                                                  *          
-//* @volser@  - Volume to chatch VTOC agaist catalog                 *          
-//* @catalog@ - User catalog name                                    *          
-//*                                                                  *          
-//********************************************************************          
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUIDCAMS
+//* DESC:  DIAGNOSE VTOC AND CATALOG
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  SUBSTITUTE @volser@ AND @catalog@ BEFORE RUNNING
+//*-----------------------------------------------------------------*          
 //DIAGNOSE EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //VVDS01   DD DISP=SHR,DSN=SYS1.VVDS.V@volser@,UNIT=SYSDA,                      
@@ -17,3 +16,6 @@
 //SYSIN    DD *                                                                 
   DIAGNOSE VVDS INFILE(VVDS01) COMPAREDD(CATL01)                                
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

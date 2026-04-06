@@ -1,9 +1,13 @@
 //IUCICSD JOB (FB3),'CICS CSD',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : CICS CSD UPDATE - ZOFFICE                               *           
-//*-----------------------------------------------------------------*           
+//*-----------------------------------------------------------------*
+//* JOB:   IUCICSD
+//* DESC:  DEFINE BASE CICS APPLICATION CSD ENTRY
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  UPDATE DFHCSD DSN AND STEPLIB TO MATCH CICS INSTALLATION
+//*-----------------------------------------------------------------*
 //*-- 1: EXECUTE DFHCSDUP TO DEFINE ZOFFICE RESOURCES --------------*           
 //STEP1 EXEC PGM=DFHCSDUP,                                                      
 //           PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                        

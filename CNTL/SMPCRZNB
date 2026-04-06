@@ -1,42 +1,13 @@
 //IUSMPCB JOB (FB3),'CREATE ZONE',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E CREATE ZONES AND DEFINE ENVIRONMENT                     
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - This job is part of a two-step process used during CBPDO               
-//*      installation. It performs the following:                               
-//*        - Initializes the SMP/E Global CSI                                   
-//*        - Allocates required SMP/E datasets using a cataloged PROC           
-//*        - Defines the Global, Target, and DLIB zones                         
-//*        - Creates DDDEF entries for all SMP/E zones                          
-//*                                                                             
-//*    Related Jobs:                                                            
-//*      - SMPCRZNA : previous job (create CSI dataset)                         
-//*      - SMPCRZNB : this job (define zones and environments)                  
-//*                                                                             
-//*    Cataloged PROC:                                                          
-//*      - AVZALB : Allocates and catalogs the SMP/E datasets                   
-//*                (can be modified to match site standards)                    
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 09/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - Run this job **only** after the CSI has been created                   
-//*    - Review the AVZALB PROC for dataset naming and allocations              
-//*    - Update HLQ, zone names, and system parameters as needed:               
-//*        - SMPE.CDM.V1R2M0   (HLQ)                                            
-//*        - C3USR4            (volume)                                         
-//*        - CYG310T, CYG310D  (zone names)                                     
-//*        - ZOSOPT            (options name)                                   
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    09/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMPCB
+//* DESC:  SMP/E ALLOCATE DATASETS AND DEFINE ZONES
+//* STEPS: 1-INITSMP (VIA AVZALB PROC)
+//* AUTH:  BMT                  DATE: 2025-07-09
+//* NOTE:  RUN AFTER SMPCRZNA; UPDATE HLQ, ZONE NAMES, AND SYSTEM PARAMETERS
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* PROC DEFINITION: AVZALB                                                     
 //* - Defines all datasets required by SMP/E                                    

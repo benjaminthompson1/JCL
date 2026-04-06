@@ -1,32 +1,12 @@
 //IUDCOLL1 JOB  (FB3),'DCOLLECT',CLASS=A,MSGCLASS=H,                            
 //             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : DCOLLECT - DFSMS DATA COLLECTION UTILITY                      
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Executes IDCAMS with DCOLLECT to gather storage metadata               
-//*    - Captures data for all online DASD volumes                              
-//*    - Writes output to a sequential dataset                                  
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job collects DFSMS-managed system information from all              
-//*    online volumes using DCOLLECT and writes it to a VB-format               
-//*    dataset for analysis or reporting.                                       
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - IDCAMS must be available                                               
-//*    - Catalog must support generation datasets (e.g. GDG base)               
-//*    - Ensure SPACE and DCB values suit your expected data volume             
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUDCOLL1
+//* DESC:  COLLECT DATASET, VOLUME, POLICY VALUES
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: 2025-07-10
+//* NOTE:  ENSURE SPACE AND DCB VALUES SUIT EXPECTED DATA VOLUME
+//*-----------------------------------------------------------------*
 //* STEP: EXECUTE DCOLLECT TO CAPTURE VOLUME METADATA                           
 //*--------------------------------------------------------------------*        
 //DCOLLECT EXEC PGM=IDCAMS                                                      

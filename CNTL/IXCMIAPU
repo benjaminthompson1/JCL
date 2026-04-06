@@ -1,30 +1,13 @@
 //IUMIAPU JOB (FB3),'IXCMIAPU',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMF LOGSTREAM DEFINITION                                      
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Define SMF log stream IFASMF.SMFALL.S0W1 for system S0W1.              
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 17/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    - IXCMIAPU DEFINE for DASD-only SMF logstream.                           
-//*    - Autodelete after 2 days, sized STG/LS with offload thresholds.         
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - IXCMIAPU available, adequate DASD, CF if required.                     
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update system name (S0W1), sizes, and retention as needed.             
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- -----------------------------                    
-//*    17/06/2025   BMT        Initial version.                                 
-//*--------------------------------------------------------------------*        
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUMIAPU
+//* DESC:  DEFINE LOGSTREAM NAME (IFASMF.SMFALL)
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-06-17
+//* NOTE:  UPDATE SYSTEM NAME S0W1 AND RETENTION SETTINGS AS NEEDED
+//*-----------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP 1: DEFINE LOGSTREAM USING IXCMIAPU                                     
 //*--------------------------------------------------------------------*        
@@ -41,6 +24,6 @@
   HIGHOFFLOAD(60)                                                               
   LOWOFFLOAD(35)                                                                
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* End of SMF Logstream Definition Job                                         
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*     

@@ -1,34 +1,13 @@
 //IUTERSE JOB (FB3),'TERSE',CLASS=A,MSGCLASS=H,                                 
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : TERSE / UNTERSE DATASETS USING AMATERSE                       
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Uses AMATERSE utility to SPACK (compress), PACK, or                    
-//*      UNPACK datasets for efficient storage or transfer                      
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 14/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - AMATERSE PARM values:                                                  
-//*        SPACK : Compress sequential dataset using standard method            
-//*        PACK  : Compress using old terse format                              
-//*        UNPACK: Expand a tersed dataset                                      
-//*                                                                             
-//*    - Customize dataset names as needed:                                     
-//*        SYSUT1 : Input dataset (original file)                               
-//*        SYSUT2 : Output compressed or expanded dataset                       
-//*                                                                             
-//*    - Ensure only one SYSUT2 DD statement is active:                         
-//*        - Comment out unused SYSUT2 definitions                              
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    14/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUTERSE
+//* DESC:  PACK AND UNPACK DATASETS (AMATERSE)
+//* STEPS: 1-AMATERSE
+//* AUTH:  BMT                  DATE: 2025-07-14
+//* NOTE:  SET PARM TO SPACK, PACK, OR UNPACK; CUSTOMIZE SYSUT1/SYSUT2 NAMES
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* STEP 1: EXECUTE AMATERSE TO PACK / SPACK / UNPACK DATASET                   
 //*--------------------------------------------------------------------*        

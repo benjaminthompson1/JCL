@@ -1,18 +1,13 @@
 //IURMFPP JOB (FB3),'RMF POST',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=4M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//******************************************************************            
-//*                                                                             
-//* PURPOSE: SORTS SMF DATA THEN USING RMF POSTPROCESSOR                        
-//*          ERBRMFPP TO GENERATE CPU UTILIZATION REPORTS                       
-//*                                                                             
-//******************************************************************            
-//*                                                                             
-//******************************************************************            
-//*                                                                             
-//*        RMF SORT PROCESSING                                                  
-//*                                                                             
-//******************************************************************            
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IURMFPP
+//* DESC:  RMF POST-PROCESS CPU UTILIZATION
+//* STEPS: 1-RMFSORT, 2-RMFPP
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*            
 //RMFSORT  EXEC PGM=SORT                                                        
 //SORTIN   DD DISP=SHR,DSN=SMF.S0W1.DATA(0)                                     
 //SORTOUT  DD DISP=(NEW,PASS),UNIT=SYSDA,SPACE=(CYL,(50,50))                    
@@ -43,4 +38,6 @@ REPORTS(CPU)
   DINTV(0002)                                                                   
   SYSID(S0W1)                                                                   
 /*                                                                              
-                                                                                
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*                                                                                 

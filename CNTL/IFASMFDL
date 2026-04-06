@@ -1,30 +1,13 @@
 //IUSMFDL JOB (FB3),'IFASMFDL',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMF LOGSTREAM DUMP                                            
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Dump SMF logstream data for system S0W1.                               
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 17/06/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    - Uses IFASMFDL to dump SMF records from logstream                       
-//*      IFASMF.SMFALL.S0W1 to a backup data set.                               
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Adequate DASD for output backup data set.                              
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Update system name (S0W1) and logstream name if required.              
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- -----------------------------                    
-//*    17/06/2025   BMT        Initial version.                                 
-//*--------------------------------------------------------------------*        
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMFDL
+//* DESC:  SMF LOGSTREAM DUMP
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-06-17
+//* NOTE:  UPDATE SYSTEM NAME S0W1 AND LOGSTREAM NAME IF REQUIRED
+//*-----------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP 1: DUMP LOGSTREAM USING IFASMFDL                                       
 //*--------------------------------------------------------------------*        
@@ -39,6 +22,6 @@
  NOSIGSTRIP                                                                     
  RELATIVEDATE(BYDAY,1,1)                                                        
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* End of SMF Logstream Dump Job                                               
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*        

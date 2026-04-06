@@ -1,10 +1,13 @@
 //IUSCRTJ JOB (FB3),'SCRT JCL',CLASS=A,MSGCLASS=H,                      JOB05077
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                             
-//* SUBCAPACITY REPORTING TOOL V27 (SCRT)                                       
-//*                                                                             
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUSCRTJ
+//* DESC:  SCRT REPORT
+//* STEPS: 1-DELETE, 2-SCRT
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  UPDATE JAVA_HOME, APP_HOME, CLASSPATH AND SMF DD BEFORE RUN
+//*-----------------------------------------------------------------*                                                                             
 //***PROPRIETARY_STATEMENT********************************************          
 //*                                                                  *          
 //* LICENSED MATERIALS - PROPERTY OF IBM                             *          
@@ -522,4 +525,8 @@ Contact_Phone=0439032104
 * -------------------------- Z/VSE NO89S -----------------------------          
 *                                                                               
 *   DELETE THE FOLLOWING STMTS IF Z/VSE IS *NOT* RUNNING ON THE CPC             
-*                                                                               
+*    
+/*                                                                           
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

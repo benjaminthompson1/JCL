@@ -20,5 +20,8 @@
 //SYSTSIN  DD *                                                                 
   RECEIVE INFILE(INPUT) NONAMES                                                 
      DSNAME('IBMUSER.COBOL.LOAD') RELEASE                                       
+/*
 //SYSTSPRT DD SYSOUT=*                                                          
-//*                                                                             
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*                                                                              

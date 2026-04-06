@@ -1,31 +1,13 @@
 //IURSCPX JOB (FB3),'RESCOPYX',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : RESCOPYX                                                      
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*              - Clone the "golden" RESVOL image (C3RESn)                     
-//*                which has maintenance applied                                
-//*              - Copy the updated images to the IPL RESVOL volumes            
-//*                (X3RESn)                                                     
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 21/08/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*              - Requires DFSMSdss (ADRDSSU) utility installed                
-//*              - Ensure target IPL RESVOL volumes are not in use              
-//*                before running this job                                      
-//*              - Source volumes (C3RESn) should contain the                   
-//*                maintained "golden" system image                             
-//*              - Update source/target volume serials as required              
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    21/08/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IURSCPX
+//* DESC:  CLONE GOLDEN IMAGES TO IPL RESVOL USING DFSMSDSS
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-08-21
+//* NOTE:  ENSURE TARGET IPL RESVOL VOLUMES ARE NOT IN USE BEFORE RUN
+//*-----------------------------------------------------------------*        
 //RESCOPYX EXEC PGM=ADRDSSU                                                     
 //SYSPRINT DD   SYSOUT=*                                                        
 //SYSIN    DD   *                                                               

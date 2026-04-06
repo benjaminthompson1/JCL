@@ -1,11 +1,13 @@
 //IUHLASM JOB (FB3),'HLASM',CLASS=A,MSGCLASS=H,                                 
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: COMPILE AND LINK HLASM                                  *          
-//*                                                                  *          
-//********************************************************************          
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUHLASM
+//* DESC:  COMPILE AND LINK HLASM
+//* STEPS: 1-ASM, 2-LKED
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 //ASM      EXEC PGM=ASMA90,REGION=1024K,PARM='NODECK,OBJECT'                    
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSLIB   DD DSN=SYS1.MACLIB,DISP=SHR                                          
@@ -29,3 +31,6 @@
   ENTRY AVZFORME                                                                
   NAME AVZFORME(R)                                                              
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

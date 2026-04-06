@@ -1,9 +1,13 @@
 //IUCOBOL JOB (FB3),'COBOL RUN',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : DB2 COBOL PROGRAM EXECUTION                             *           
-//*-----------------------------------------------------------------*           
+//*-----------------------------------------------------------------*
+//* JOB:   IUCOBOL
+//* DESC:  COBOL RUN PROGRAM WITH DB2
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  UPDATE PROGRAM AND PLAN NAMES IN SYSTSIN BEFORE RUN
+//*-----------------------------------------------------------------*
 //*-- 1: EXECUTE DB2-ENABLED COBOL PROGRAM -------------------------*           
 //DB2RUN EXEC PGM=IKJEFT01,DYNAMNBR=20                                          
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      

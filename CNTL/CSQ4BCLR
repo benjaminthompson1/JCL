@@ -1,46 +1,13 @@
 //IU4BCLR JOB (FB3),'CSQ4BCLR',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : CSQ4BCLR - BROWSE MQ QUEUE SAMPLE                             
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Executes the CSQ4BCL1 sample program to browse and print               
-//*      messages from an IBM MQ queue                                          
-//*    - Uses MQGET with browse option to read all messages                     
-//*    - Messages are written to SYSPRINT                                       
-//*                                                                             
-//*  AUTHOR     : IBM (Customized by BMT)                                       
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    This job invokes the CSQ4BCL1 sample provided with IBM MQ                
-//*    for z/OS. It reads and prints all messages from a specified              
-//*    queue using browse mode without deleting them.                           
-//*                                                                             
-//*    Execution Parameters:                                                    
-//*      - PARM=('CSQ9 IBMUSER.TEST')                                           
-//*        CSQ9         = Queue Manager name                                    
-//*        IBMUSER.TEST = Queue name                                            
-//*                                                                             
-//*    Environment details:                                                     
-//*      - MQ load libraries must be available in STEPLIB                       
-//*      - LE SCEERUN must be in LNKLST or STEPLIB                              
-//*                                                                             
-//*  REQUIREMENTS :                                                             
-//*    - Replace queue manager and queue names as needed                        
-//*    - Update STEPLIB datasets for your environment                           
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Replace CSQ9 and IBMUSER.TEST with valid names                         
-//*    - Adjust HLQ (e.g., CSQ911) in STEPLIB for your MQ install               
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Customized IBM sample for local use              
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IU4BCLR
+//* DESC:  MQ PRINT MESSAGES FROM QUEUE (SAMPLE)
+//* STEPS: <NONE>
+//* AUTH:  IBM / BMT          DATE: 2025-07-10
+//* NOTE:  UPDATE PARM WITH QUEUE MANAGER AND QUEUE NAME BEFORE RUN
+//*-----------------------------------------------------------------*
 //* STEP: EXECUTE CSQ4BCL1 TO BROWSE AND PRINT QUEUE MESSAGES                   
 //*--------------------------------------------------------------------*        
 //READQ    EXEC PGM=CSQ4BCL1,REGION=1024K,                                      

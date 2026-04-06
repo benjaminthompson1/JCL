@@ -1,12 +1,12 @@
 //IUDSSMVE JOB  (FB3),'DSS MOVE',CLASS=A,MSGCLASS=H,                            
 //             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: MOVE DATASET FROM SELECTED VOLUME                       *          
-//*                                                                  *          
-//* NOTES: PARM='TYPRUN=NORUN' <== TEST JOB                          *          
-//*                                                                  *          
-//********************************************************************          
+//*-----------------------------------------------------------------*
+//* JOB:   IUDSSMVE
+//* DESC:  MOVE DATASETS BETWEEN VOLUMES
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL MOVE
+//*-----------------------------------------------------------------*          
 //MOVE     EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
 //FROMVOL  DD  UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                               
 //SYSPRINT DD SYSOUT=*                                                          
@@ -27,7 +27,10 @@
   OPT(4) TOL(ENQF) -                                                            
   WAIT(10,10) -                                                                 
   ADMINISTRATOR                                                                 
-/*                                                                              
+/* 
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*                                                                              
 //                                                                              
   STORCLAS(STGMGMT) -                                                           
   OUTDYNAM((TMM201)) -                                                          

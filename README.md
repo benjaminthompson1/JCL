@@ -49,6 +49,7 @@ working with subsystems like Db2, MQ, CICS, and USS.
 - `CSQUTIL` - MQ CSQ Utility
 - `CXPS0200` - JCL Expert: scan a single JCL member
 - `CXPS0201` - JCL Expert: scan an entire JCL library
+- `DCATTEST` - Create a temporary dataset and verify catalog access using DCAT
 - `DCOLLECT` - Collect dataset, volume, and policy information
 - `DFH$ECAT` - Copy from CICS sample library SDFHINST
 - `DFH$ECNF` - Copy from CICS sample library SDFHINST
@@ -172,7 +173,7 @@ working with subsystems like Db2, MQ, CICS, and USS.
 |---|---|
 | **Compilation** | `COBC`, `COBCB`, `COBCBG`, `PLIC`, `HLASM`, `REXX`, `REXXC`, `REXXCOMP`, `JVMJCL17`, `PYTHON` |
 | **Database (Db2 & DVM)** | `DSNBIND`, `DSNREST`, `COBCBDB`, `COBRUNDB`, `AVZBINDD`, `AVZRADB2`, `DVMSQL` |
-| **Dataset Management** | `IEBCOPY`, `DSSCOPY`, `DSSBCKUP`, `IDCAMS`, `LIKECOPY`, `RESCOPYX`, `RESCOPYY` |
+| **Dataset Management** | `IEBCOPY`, `DSSCOPY`, `DSSBCKUP`, `IDCAMS`, `LIKECOPY`, `RESCOPYX`, `RESCOPYY`, `DCATTEST` |
 | **MQ Operations** | `CSQUTIL`, `CSQ4BCLR`, `CSQ4BVJR`, `CSQLOGP1`, `CSQLOGP2` |
 | **Security (RACF & Certs)** | `RACFCERT`, `RACFHLQ`, `RACFSTC`, `MAKECER2`, `MFAUSER`, `QWTRACF`, `CSFTKDS` |
 | **SMP/E** | `SMPACCPT`, `SMPAPPLY`, `SMPCOMP`, `SMPREC`, `SMPRPT`, `SMPREST` |

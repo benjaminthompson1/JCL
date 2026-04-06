@@ -1,9 +1,13 @@
 //IUCONVE JOB (FB3),'SMS CONVERT',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : SMS CONVERTV                                            *           
-//*-----------------------------------------------------------------*           
+//*-----------------------------------------------------------------*
+//* JOB:   IUCONVE
+//* DESC:  SMS CONVERTV
+//* STEPS: <NONE>
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  CHANGE VOL=SER= IN INVOL1 DD TO TARGET VOLUME BEFORE RUN
+//*-----------------------------------------------------------------*
 //*-- 1: SMS CONVERTV DASD VOLUME ----------------------------------*           
 //STEP1 EXEC PGM=ADRDSSU                                                        
 //SYSPRINT DD SYSOUT=*                                                          

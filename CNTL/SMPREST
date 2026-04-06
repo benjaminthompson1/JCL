@@ -1,28 +1,13 @@
 //IUSMPRS JOB (FB3),'SMPE RESTORE',CLASS=A,MSGCLASS=H,                          
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E RESTORE SYSMODS                                         
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Restores target libraries to a previous level using the                
-//*      SMP/E RESTORE command.                                                 
-//*    - Typically used to back off service SYSMODs that were                   
-//*      previously applied, returning the system to an earlier state.          
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 29/08/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - Update RESTORE SELECT() list with required SYSMOD numbers              
-//*    - Use CHECK before running without CHECK to verify actions               
-//*    - Optionally uncomment the SMPLOG DD if writing log to dataset           
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    29/08/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMPRS
+//* DESC:  SMP/E RESTORE
+//* STEPS: 1-RESTORE
+//* AUTH:  BMT                  DATE: 2025-08-29
+//* NOTE:  UPDATE RESTORE SELECT() LIST; USE CHECK BEFORE FINAL RUN
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* STEP 1: RESTORE SYSMODS                                                     
 //*--------------------------------------------------------------------*        

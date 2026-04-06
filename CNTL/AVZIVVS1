@@ -1,36 +1,13 @@
 //IUIVVS1 JOB (FB3),'AVZIVVS1',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//*                                                                   *         
-//*   © COPYRIGHT ROCKET SOFTWARE, INC. 1991, 2017.                   *         
-//*                                                                   *         
-//*   NAME       - AVZIVVS1 (WAS AVZIVVS1)                            *         
-//*   PURPOSE    - TO EXTRACT COBOL,PL/1 AND VSAM MAPS IN BATCH       *         
-//*   RELATED    - IVP FOR INSTALLATION OF VSAM INTERFACE             *         
-//*   PARMS      - SEE BELOW                                          *         
-//*   LANGUAGE   - JCL                                                *         
-//*   FUTURE     - NONE                                               *         
-//*   HISTORY    - NONE                                               *         
-//*                                                                   *         
-//*   NOTES      -                                                    *         
-//*                                                                   *         
-//*      THE FOLLOWING MODIFICATIONS SHOULD BE MADE PRIOR TO          *         
-//*      EXECUTING THIS JOB:                                          *         
-//*                                                                   *         
-//*      1) SPECIFY VALID JOBCARD                                     *         
-//*                                                                   *         
-//*      2) CHANGE HLQ1 TO THE HIGH LEVEL QUALIFIER TO USE FOR THE    *         
-//*         SAMPLE VSAM FILE.                                         *         
-//*                                                                   *         
-//*      3) CUSTOMIZE THE JCL SET STATEMENTS BELOW WITH THE NAMES     *         
-//*         OF THE DATA SETS CREATED DURING THE AVZ                   *         
-//*         INSTALLATION.                                             *         
-//*                                                                   *         
-//*      4) CHANGE AVZS TO THE AVZ SUBSYSTEM NAME WHERE THE MAP IS    *         
-//*         TO BE DEFINED.                                            *         
-//*                                                                   *         
-//*********************************************************************         
+//*-----------------------------------------------------------------*
+//* JOB:   IUIVVS1
+//* DESC:  DVM IVP
+//* STEPS: 1-DMFEXTR1, 2-DMFEXTR2
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  CUSTOMIZE SET STATEMENTS WITH AVZ INSTALLATION DATASET NAMES
+//*-----------------------------------------------------------------*
 //*                                                                             
 //* CUSTOMIZE THE FOLLOWING:                                                    
 //*                                                                             
@@ -69,4 +46,7 @@
 ++SET SSMU=6;                                                                   
 ++SET NUMROWS=-1   ;                                                            
 SELECT * FROM STAFFVS                                                           
-//                                                                              
+/*
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*                                                                              

@@ -1,10 +1,14 @@
 //IULOGP2 JOB (FB3),'CSQLOGP2',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : CSQLOGP2 - MQ LOG EXTRACT AND FILTER                          
-//*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IULOGP2
+//* DESC:  MQ CSQ LOG PRINT COMMITTED MESSAGES
+//* STEPS: 1-PRTLOG, 2-FILTER
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  UPDATE ARCHIVE DD DSN TO TARGET MQ ARCHIVE LOG DATASET
+//*-----------------------------------------------------------------*
+//*--------------------------------------------------------------------*
 //* STEP 1: EXTRACT COMMITTED MESSAGES FROM MQ ARCHIVE LOG                      
 //*--------------------------------------------------------------------*        
 //PRTLOG   EXEC PGM=CSQ1LOGP                                                    

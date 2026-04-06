@@ -1,11 +1,13 @@
 //IUCBVJ1 JOB (FB3),'KMQCBVJ1',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: MQ COBOL COMPILE AND BIND - CSQ4BVJ1                    *          
-//*                                                                  *          
-//********************************************************************          
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUCBVJ1
+//* DESC:  ANSIBLE ZFORUM COBOL GET COMPILE
+//* STEPS: 1-COBCB1
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 //COBCB1  EXEC IGYQCB,LNGPRFX=IGY630,LIBPRF1=CEE,                               
 //             CPARM=TEST,                                                      
 //             BPARM='XREF,MAP,DYNAM=DLL',                                      
@@ -20,3 +22,6 @@
 //BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
 //             DD DISP=SHR,DSN=CSQ911.SCSQLOAD(CSQBSTUB)                        
 //BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD(&GOPGM)                       
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

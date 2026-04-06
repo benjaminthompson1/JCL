@@ -18,6 +18,7 @@ $VS       - Issue CONSOLE commands
 =======================================================================
 ACBJBARD  - Generate dataset report from DCOLLECT data
 CONVERTV  - SMS CONVERTV
+DCATTEST  - Create temp dataset and test DCAT catalog access
 DCOLLECT  - Collect dataset, volume, policy values
 DSSBCKUP  - DSS incremental VSAM backup
 DSSCOPY   - Copy datasets

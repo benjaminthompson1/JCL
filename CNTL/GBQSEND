@@ -1,8 +1,15 @@
 //IUSEND JOB (FB3),'GBQSEND',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*********************************************************************         
-//*                                                                   *         
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUSEND
+//* DESC:  IBM Z/OS DFSMS CLOUD DATA MANAGER: SEND DATASETS TO CLOUD
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  MODIFY SYSEXEC AND STEPLIB BEFORE USE; CUSTOMIZE CDMSEND
+//*-----------------------------------------------------------------*
+//*********************************************************************
+//*                                                                   *
 //* (C) Copyright Teracloud ApS 2024                                  *         
 //* All rights reserved.                                              *         
 //*                                                                   *         
@@ -55,4 +62,6 @@
  WAIT(yes) +                                                                    
  DEBUG(yes)                                                                     
 /*                                                                              
-//*                                                                             
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*                                                                              

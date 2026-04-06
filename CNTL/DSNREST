@@ -1,22 +1,13 @@
 //IUREST JOB (FB3),'DSNREST',CLASS=A,MSGCLASS=H,                       JOB08034 
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : DB2 REST BIND - EMPLOYEE SERVICE DEPLOYMENT                   
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Frees existing REST services                                           
-//*    - Binds SQL statements to Db2 native REST services                       
-//*    - Services target table IBMUSER.EMP                                      
-//*                                                                             
-//*  AUTHOR     : NA (formatted by BMT)                                         
-//*  DATE       : 10/07/2025                                                    
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    10/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUREST
+//* DESC:  ENABLE DB2 NATIVE REST SERVICES FOR ZCEE
+//* STEPS: 1-FREE1, 2-BIND1, 3-BIND2
+//* AUTH:  IBM / BMT          DATE: 2025-07-10
+//* NOTE:  UPDATE SERVICE NAMES AND TARGET TABLE BEFORE RUN
+//*-----------------------------------------------------------------*
 //* STEP 1: FREE 'employeeList' SERVICE                                         
 //*--------------------------------------------------------------------*        
 //FREE1    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        

@@ -1,11 +1,12 @@
 //IURACFZ JOB  (FB3),'RACF CERT',CLASS=A,MSGCLASS=H,                            
-//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
-//*                                                                             
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: Create signed personal cert attached to a keyring       *          
-//*                                                                  *          
-//********************************************************************          
+//       NOTIFY=&SYSUID,MSGLEVEL=(1,1)
+//*-----------------------------------------------------------------*
+//* JOB:   IURACFZ
+//* DESC:  CREATE SIGNED PERSONAL CERT ON KEYRING
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          

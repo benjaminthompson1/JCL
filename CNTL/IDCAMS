@@ -1,17 +1,22 @@
 //IUIDCAMS JOB  (FB3),'IDCAMS CATALOG',CLASS=A,MSGCLASS=H,                      
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: IDCAMS                                                  *          
-//*                                                                  *          
-//********************************************************************          
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)
+//*-----------------------------------------------------------------*
+//* JOB:   IUIDCAMS
+//* DESC:  LISTCAT/DEFINE ALIAS
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*          
 //IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   LISTCAT -                                                                     
   ENTRIES(DSND10.DBCG.SDSNEXIT) -                                               
   ALL                                                                           
-/*                                                                              
+/*   
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*                                                                            
 //                                                                              
 //* CREATE DATASET ALIAS                                                        
  DEFINE ALIAS (NAME(IBMUSER.CNTL) -                                             

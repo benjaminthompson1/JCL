@@ -1,12 +1,12 @@
 //IUIDCAMS JOB  (FB3),'IDCAMS',CLASS=A,MSGCLASS=H,                              
-//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: Define backup SCDS for SMS                              *          
-//*                                                                  *          
-//* NOTES: SETSMS SAVESCDS(SYS1.S0W1.BACKUP.SCDS)                    *          
-//*                                                                  *          
-//********************************************************************          
+//             NOTIFY=&SYSUID,MSGLEVEL=(1,1)
+//*-----------------------------------------------------------------*
+//* JOB:   IUIDCAMS
+//* DESC:  DEFINE BACKUP SCDS FOR SMS
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  USE SETSMS SAVESCDS(SYS1.S0W1.BACKUP.SCDS) AFTER DEFINE
+//*-----------------------------------------------------------------*          
 //CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
@@ -15,3 +15,6 @@
   TRK(6 6) SHAREOPTIONS(3,3)) -                                                 
   DATA(NAME(SYS1.S0W1.BACKUP.SCDS.DATA)REUSE)                                   
 /*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

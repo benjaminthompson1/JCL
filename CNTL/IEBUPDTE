@@ -1,16 +1,13 @@
 //IUIEBUP JOB (FB3),'IEBUPDTE',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*---------------------------------------------------------------*             
-//* JOB:         COPY MEMBER FROM SOURCE PDS/PDSE TO NEW LIBRARY  *             
-//* UTILITY:     IEBUPDTE                                         *             
-//* DESCRIPTION:                                                  *             
-//*   - COPIES MEMBER OTTO# FROM THE SOURCE DATASET               *             
-//*     (CBT.V509.FILE332.PDS) TO A NEW PARTITIONED LIBRARY       *             
-//*     (OTTO.INSTALL) USING FIXED BLOCK RECORDS (FB, 80).        *             
-//*                                                               *             
-//*                  LAST UPDATED: 2025-10-26                     *             
-//*---------------------------------------------------------------*             
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUIEBUP
+//* DESC:  COPIES MEMBER FROM SOURCE PDS/PDSE TO NEW LIBRARY
+//* STEPS: <NONE>
+//* AUTH:  <Name / Initials>   DATE: 2025-10-26
+//* NOTE:  <Key prerequisite or caution (optional)>
+//*-----------------------------------------------------------------*             
 //STEP1    EXEC PGM=IEBUPDTE,PARM=NEW                                           
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD DSN=CBT.V509.FILE332.PDS(OTTO#),DISP=SHR                          
@@ -20,3 +17,6 @@
 //            SPACE=(CYL,(1,1)),                                                
 //            DCB=(DSORG=PO,RECFM=FB,LRECL=80),                                 
 //            DSNTYPE=LIBRARY                                                   
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

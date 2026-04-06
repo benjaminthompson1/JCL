@@ -1,32 +1,13 @@
 //IUSMPCA JOB (FB3),'CREATE ZONE A',CLASS=A,MSGCLASS=H,                         
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E CREATE GLOBAL ZONE                                      
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - This job is part of a two-step process used during CBPDO               
-//*      installation. It performs the following:                               
-//*        - Allocates a new VSAM dataset for the SMP/E Global CSI              
-//*        - Optionally primes the CSI using SYS1.MACLIB(GIMZPOOL)              
-//*                                                                             
-//*    Related Jobs:                                                            
-//*      - SMPCRZNA : this job (create the CSI)                                 
-//*      - SMPCRZNB : next job (define zones and environments)                  
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 09/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*    - Run this job only to create a **new** SMP/E CSI                        
-//*    - Update dataset name, VOLSER, and UNIT as needed                        
-//*    - Optional Step 2 copies GIMZPOOL contents into new CSI                  
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- --------------------------------------           
-//*    09/07/2025   BMT        Initial version                                  
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMPCA
+//* DESC:  SMP/E CREATE GLOBAL ZONE (ALLOCATE CSI)
+//* STEPS: 1-DEFINE, 2-PRIMEIT (OPTIONAL)
+//* AUTH:  BMT                  DATE: 2025-07-09
+//* NOTE:  RUN ONLY TO CREATE A NEW SMP/E CSI; FOLLOW WITH SMPCRZNB
+//*-----------------------------------------------------------------*
 //*--------------------------------------------------------------------*        
 //* STEP 1: DEFINE SMP/E GLOBAL CSI                                             
 //*--------------------------------------------------------------------*        

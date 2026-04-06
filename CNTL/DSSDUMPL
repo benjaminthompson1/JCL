@@ -1,11 +1,13 @@
 //IUDSSBK JOB (FB3),'DSS DUMP',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//******************************************************************            
-//*                                                                *            
-//* DSS DUMP DATASETS                                              *            
-//*                                                                *            
-//******************************************************************            
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUDSSBK
+//* DESC:  DSS LOGICAL DATASET BACKUP
+//* STEPS: 1-BACKUP, 2-VERIFY
+//* AUTH:  <Name / Initials>   DATE: <YYYY-MM-DD>
+//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL DUMP
+//*-----------------------------------------------------------------*            
 //BACKUP  EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                                  
 //DUMPOUT DD DSN=IBMUSER.BACKUP.D040820,                                        
 //        DISP=(NEW,CATLG,DELETE),UNIT=DASD,                                    
@@ -27,4 +29,6 @@
 //SYSIN    DD  *                                                                
  COPYDUMP INDD(TAPE) OUTDD(DUMMY)                                               
 /*                                                                              
-//                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*                                                                              

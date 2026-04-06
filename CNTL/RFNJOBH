@@ -1,32 +1,13 @@
 //IURFNJB JOB (FB3),'RFNJOBH',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E RECEIVE FROMNETWORK                                     
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*              - Pull IBM service content from an IBM server                  
-//*              - RECEIVE into the SMP/E global zone                           
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 26/06/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*              - Uses the SMP/E RECEIVE FROMNETWORK function                  
-//*              - Downloads a service package directly from IBM                
-//*              - To transfer only (no RECEIVE), uncomment                     
-//*                the TRANSFERONLY parameter                                   
-//*              - Expected inputs:                                             
-//*                  - CSI: #globalzone                                         
-//*                  - SMPNTS path: /u/smpe/smpnts/                             
-//*                  - SERVINFO DD: customized for your order                   
-//*                  - Java 11 installed and trusted for HTTPS                  
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    26/06/2025   BMT         Initial version                                 
-//*--------------------------------------------------------------------*        
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IURFNJB
+//* DESC:  PULL SERVICE FROM IBM AND RECEIVE TO GZONE
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-06-26
+//* NOTE:  JAVA 11 MUST BE INSTALLED AND TRUSTED FOR HTTPS ACCESS
+//*-----------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP 1: SMP/E RECEIVE FROMNETWORK                                           
 //*--------------------------------------------------------------------*        

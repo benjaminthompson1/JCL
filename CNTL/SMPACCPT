@@ -1,30 +1,13 @@
 //IUSMPAC JOB (FB3),'SMPE ACCEPT',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : SMP/E ACCEPT                                                  
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*              - Accept SYSMODs into the DLIB zone                            
-//*              - Perform a CHECK of the ACCEPT process                        
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 09/07/2025                                                    
-//*                                                                             
-//*  NOTES      :                                                               
-//*              - Operates on the specified DLIB zone                          
-//*              - Assumes a valid SMP/E environment                            
-//*              - BYPASS(HOLDSYS) will skip system hold checks                 
-//*              - SMPLOG DD can be SYSOUT or a dataset                         
-//*              - Expected inputs:                                             
-//*                  - CSI: #globalzone                                         
-//*                  - DLIB zone: #dlib                                         
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    09/07/2025   BMT         Initial version                                 
-//*--------------------------------------------------------------------*        
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMPAC
+//* DESC:  SMP/E ACCEPT
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-07-09
+//* NOTE:  SUBSTITUTE #globalzone AND #dlib BEFORE RUNNING
+//*-----------------------------------------------------------------*        
 //        SET CSI=#globalzone                                                   
 //*--------------------------------------------------------------------*        
 //* STEP 1: SMP/E ACCEPT                                                        

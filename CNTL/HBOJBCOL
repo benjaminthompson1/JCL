@@ -1,9 +1,16 @@
 //IUSMFCB JOB (FB3),'HBOSMFCB',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*                                                                             
-//***************************************************************               
-//*                                                             *               
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUSMFCB
+//* DESC:  CDP Z BATCH COLLECT SMF DATA
+//* STEPS: 1-HBOTCAFF, 2-HBOSMFCB
+//* AUTH:  IBM / BMT          DATE: <YYYY-MM-DD>
+//* NOTE:  CHANGE HBOvrm HLQ TO YOUR SMP/E-INSTALLED TARGET LIBRARY
+//*-----------------------------------------------------------------*
+//*
+//***************************************************************
+//*
 //*  Licensed Materials - Property of IBM                       *               
 //*                                                             *               
 //*  5698-ABN (C) Copyright IBM Corporation 2016, 2019          *               
@@ -71,3 +78,6 @@ COLLECT SMF
 //HBODUMP  DD SYSOUT=*                                                          
 //HBODEBUG DD SYSOUT=*                                                          
 //SMFnnn   DD SYSOUT=*,RECFM=V,LRECL=32756                                      
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------* 

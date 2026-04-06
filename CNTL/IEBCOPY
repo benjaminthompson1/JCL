@@ -1,28 +1,13 @@
 //IUIEBCP JOB (FB3),'IEBCOPY',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
-//*--------------------------------------------------------------------*        
-//*  JOB NAME   : COPY PDS MEMBERS WITH IEBCOPY                                 
-//*                                                                             
-//*  FUNCTION   :                                                               
-//*    - Copies members from one PDS/PDSE to another using IEBCOPY.             
-//*                                                                             
-//*  AUTHOR     : BMT                                                           
-//*  DATE       : 19/08/2025                                                    
-//*                                                                             
-//*  DESCRIPTION :                                                              
-//*    Copies all members from SYS1.MIGLIB to SYS1.MIGLIB.NEW. The new          
-//*    library is allocated as a PDSE.                                          
-//*                                                                             
-//*  CUSTOMIZATION REQUIRED :                                                   
-//*    - Change DDIN DSN= to your source library                                
-//*    - Change DDOUT DSN= to your target library                               
-//*                                                                             
-//*  CHANGE LOG :                                                               
-//*    DD/MM/YYYY   Author     Description                                      
-//*    ------------ ---------- ----------------------------------------         
-//*    19/08/2025   BMT        Initial documented version.                      
-//*--------------------------------------------------------------------*        
+//*      TYPRUN=HOLD
+//*-----------------------------------------------------------------*
+//* JOB:   IUIEBCP
+//* DESC:  COPY PDS MEMBERS
+//* STEPS: <NONE>
+//* AUTH:  BMT               DATE: 2025-08-19
+//* NOTE:  UPDATE DDIN AND DDOUT DSN TO YOUR SOURCE/TARGET LIBRARIES
+//*-----------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP 1: COPY MEMBERS FROM SOURCE TO TARGET WITH IEBCOPY                     
 //*--------------------------------------------------------------------*        

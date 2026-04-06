@@ -1,9 +1,13 @@
 //IUCOBOL JOB (FB3),'COBOL BUILD-RUN',CLASS=A,MSGCLASS=H,                       
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
-//* JOB   : COBOL BUILD AND EXECUTE                                 *           
-//*-----------------------------------------------------------------*           
+//*-----------------------------------------------------------------*
+//* JOB:   IUCOBOL
+//* DESC:  COBOL COMPILE, BIND, AND GO (RUN)
+//* STEPS: 1-COMPILE, 2-BIND, 3-GO
+//* AUTH:  BMT                DATE: <YYYY-MM-DD>
+//* NOTE:  SET GOPGM= TO TARGET COBOL PROGRAM NAME BEFORE RUN
+//*-----------------------------------------------------------------*
 //*-- 1: COMPILE, BIND AND EXECUTE PROGRAM WITH DEBUG SUPPORT ------*           
 //COBCBG1 EXEC IGYQCBG,                                                         
 //             LNGPRFX=IGY640,                                                  
