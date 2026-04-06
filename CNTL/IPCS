@@ -1,13 +1,13 @@
-//IUIPCS  JOB (FB3),'IPCS',CLASS=A,MSGCLASS=H,                                   
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUIPCS
-//* DESC:  INTERACTIVE PROBLEM CONTROL SYSTEM
-//* STEPS: <NONE>
-//* AUTH:  IBM / BMT          DATE: 2025-08-05
-//* NOTE:  IPCS DUMP DIRECTORY (VSAM KSDS) MUST BE DEFINED FIRST
-//*-----------------------------------------------------------------*        
+//IUIPCS JOB (FB3),'IPCS',CLASS=A,MSGCLASS=H,                                   
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIPCS                                                               
+//* DESC:  INTERACTIVE PROBLEM CONTROL SYSTEM                                   
+//* STEPS: <NONE>                                                               
+//* AUTH:  IBM / BMT          DATE: 2025-08-05                                  
+//* NOTE:  IPCS DUMP DIRECTORY (VSAM KSDS) MUST BE DEFINED FIRST                
+//*-----------------------------------------------------------------*           
 //* STEP 1: RUN IPCS IN BATCH TO ANALYSE GTF TRACE                              
 //*--------------------------------------------------------------------*        
 //IPCS   EXEC PGM=IKJEFT01                                                      

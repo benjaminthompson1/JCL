@@ -1,12 +1,13 @@
-//IUDCOLL1 JOB  (FB3),'DCOLLECT',CLASS=A,MSGCLASS=H,                            
-//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                    
-//*-----------------------------------------------------------------*
-//* JOB:   IUDCOLL1
-//* DESC:  COLLECT DATASET, VOLUME, POLICY VALUES
-//* STEPS: <NONE>
-//* AUTH:  BMT                DATE: 2025-07-10
-//* NOTE:  ENSURE SPACE AND DCB VALUES SUIT EXPECTED DATA VOLUME
-//*-----------------------------------------------------------------*
+//IUDCOLL JOB (FB3),'DCOLLECT',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUDCOLL                                                              
+//* DESC:  COLLECT DATASET, VOLUME, POLICY VALUES                               
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT                DATE: 2025-07-10                                  
+//* NOTE:  ENSURE SPACE AND DCB VALUES SUIT EXPECTED DATA VOLUME                
+//*-----------------------------------------------------------------*           
 //* STEP: EXECUTE DCOLLECT TO CAPTURE VOLUME METADATA                           
 //*--------------------------------------------------------------------*        
 //DCOLLECT EXEC PGM=IDCAMS                                                      

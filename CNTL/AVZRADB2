@@ -1,13 +1,13 @@
 //IURADB2 JOB (FB3),'AVZRADB3',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IURADB2
-//* DESC:  RACF PERMISSIONS FOR DVM ACCESS TO DB2 RESOURCES
-//* STEPS: 1-PERMIT1, 2-PERMIT2
-//* AUTH:  IBM / BMT          DATE: 2026-04-06
-//* NOTE:  CHANGE DBDG, ID(*), AND DBDGLU1 TO SITE VALUES BEFORE RUN
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IURADB2                                                              
+//* DESC:  RACF PERMISSIONS FOR DVM ACCESS TO DB2 RESOURCES                     
+//* STEPS: 1-PERMIT1, 2-PERMIT2                                                 
+//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* NOTE:  CHANGE DBDG, ID(*), AND DBDGLU1 TO SITE VALUES BEFORE RUN            
+//*-----------------------------------------------------------------*           
 //PERMIT1  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -24,7 +24,8 @@
   PERMIT DBDG.DIST CLASS(DSNR)  ID(*) ACCESS(READ)  << use for DRDA             
                                                                                 
   SETROPTS REFRESH RACLIST(DSNR)                                                
-/*                                                                                
+/*                                                                              
+                                                                                
 //PERMIT2  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -43,4 +44,4 @@ PERMIT DBDGLU1 CLASS(PTKTDATA)   ID(AVZS) ACCESS(READ)
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

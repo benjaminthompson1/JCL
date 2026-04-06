@@ -1,13 +1,13 @@
 //IUIEFBR JOB (FB3),'IEFBR14',CLASS=A,MSGCLASS=H,                               
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUIEFBR
-//* DESC:  TEST ALLOCATIONS (IEFBR14)
-//* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06
-//* NOTE:  <Key prerequisite or caution (optional)>
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIEFBR                                                              
+//* DESC:  TEST ALLOCATIONS (IEFBR14)                                           
+//* STEPS: <NONE>                                                               
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
 //IEFBR14  EXEC PGM=IEFBR14                                                     
 //SYSPRINT DD SYSOUT=*                                                          
 //TEMPDS   DD DISP=(NEW),DSN=&&TEMP,UNIT=3390,                                  
@@ -15,4 +15,4 @@
 //   DCB=(RECFM=FB,LRECL=80,BLKSIZE=8000)                                       
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

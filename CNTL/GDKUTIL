@@ -1,12 +1,13 @@
-//IUGDKUT JOB  (FB3),'GDKUTIL',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
-//*-----------------------------------------------------------------*
-//* JOB:   IUGDKUT
-//* DESC:  UPLOAD, LIST, AND DOWNLOAD Z/OS DATASETS TO S3 STORAGE
-//* STEPS: 1-MINIO1, 2-MINIO2, 3-MINIO3
-//* AUTH:  BMT               DATE: 2025-06-26
-//* NOTE:  ENSURE NETWORK CONNECTIVITY TO CHOSEN ENDPOINT BEFORE RUN
-//*-----------------------------------------------------------------*        
+//IUGDKUT JOB (FB3),'GDKUTIL',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUGDKUT                                                              
+//* DESC:  UPLOAD, LIST, AND DOWNLOAD Z/OS DATASETS TO S3 STORAGE               
+//* STEPS: 1-MINIO1, 2-MINIO2, 3-MINIO3                                         
+//* AUTH:  BMT               DATE: 2025-06-26                                   
+//* NOTE:  ENSURE NETWORK CONNECTIVITY TO CHOSEN ENDPOINT BEFORE RUN            
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: Upload dataset to MinIO via GDKUTIL                                 
 //*--------------------------------------------------------------------*        

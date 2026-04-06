@@ -1,13 +1,13 @@
 //IUMIAPU JOB (FB3),'IXCMIAPU',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUMIAPU
-//* DESC:  DEFINE LOGSTREAM NAME (IFASMF.SMFALL)
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2025-06-17
-//* NOTE:  UPDATE SYSTEM NAME S0W1 AND RETENTION SETTINGS AS NEEDED
-//*-----------------------------------------------------------------*        
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUMIAPU                                                              
+//* DESC:  DEFINE LOGSTREAM NAME (IFASMF.SMFALL)                                
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2025-06-17                                   
+//* NOTE:  UPDATE SYSTEM NAME S0W1 AND RETENTION SETTINGS AS NEEDED             
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: DEFINE LOGSTREAM USING IXCMIAPU                                     
 //*--------------------------------------------------------------------*        
@@ -26,4 +26,4 @@
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*     
+//*-----------------------------------------------------------------*           

@@ -1,29 +1,29 @@
 //IUWIVPT JOB (FB3),'EQAWIVPT',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUWIVPT
-//* DESC:  Z/OS DEBUGGER: DYNAMIC DEBUG AND COBOL TEST BATCH IVP
-//* STEPS: 1-ALLOC, 2-COMPILE, 3-BIND, 4-RUN
-//* AUTH:  IBM / BMT          DATE: 2026-04-06
-//* NOTE:  REQUIRES ENTERPRISE COBOL V5 OR V6 AND DEBUGGER SVCS
-//*-----------------------------------------------------------------*
-//*********************************************************************
-//*
-//*  IBM z/OS Debugger
-//*               16.0
-//*
-//*********************************************************************
-//* Licensed Materials - Property of IBM
-//*
-//* 5724-T07: IBM z/OS Debugger
-//* Copyright IBM Corp. 2013, 2022 All Rights Reserved
-//*
-//* US Government Users Restricted Rights - Use, duplication or
-//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
-//*
-//*********************************************************************
-//*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUWIVPT                                                              
+//* DESC:  Z/OS DEBUGGER: DYNAMIC DEBUG AND COBOL TEST BATCH IVP                
+//* STEPS: 1-ALLOC, 2-COMPILE, 3-BIND, 4-RUN                                    
+//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* NOTE:  REQUIRES ENTERPRISE COBOL V5 OR V6 AND DEBUGGER SVCS                 
+//*-----------------------------------------------------------------*           
+//*********************************************************************         
+//*                                                                             
+//*  IBM z/OS Debugger                                                          
+//*               16.0                                                          
+//*                                                                             
+//*********************************************************************         
+//* Licensed Materials - Property of IBM                                        
+//*                                                                             
+//* 5724-T07: IBM z/OS Debugger                                                 
+//* Copyright IBM Corp. 2013, 2022 All Rights Reserved                          
+//*                                                                             
+//* US Government Users Restricted Rights - Use, duplication or                 
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.           
+//*                                                                             
+//*********************************************************************         
+//*                                                                             
 //*  Dynamic Debug facility and COBOL TEST IVP for Ent COBOL z/OS V5  *         
 //*                                                               V6  *         
 //*                                                                   *         

@@ -1,13 +1,13 @@
 //IUMFA01 JOB (FB3),'MFA RACF',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUMFA01
-//* DESC:  CREATE MFA RACF DEFINITIONS
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2025-05-26
-//* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUMFA01                                                              
+//* DESC:  CREATE MFA RACF DEFINITIONS                                          
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2025-05-26                                   
+//* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING              
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: DEFINE GROUPS AND USERS FOR MFA                                     
 //*--------------------------------------------------------------------*        
@@ -128,4 +128,4 @@ RACDCERT ADDTOKEN(MFA.SERVER.PKCS)
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

@@ -1,13 +1,13 @@
-//IUDFHA  JOB (FB3),'DFHAUX',CLASS=A,MSGCLASS=H,                                 
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUDFHA
-//* DESC:  FORMAT CICS AUXILIARY TEMPORARY STORAGE DATASETS
-//* STEPS: <NONE>
-//* AUTH:  IBM / BMT          DATE: 2025-07-25
-//* NOTE:  UPDATE DFHAUXT AND DFHBUXT DSN TO MATCH CICS INSTALLATION
-//*-----------------------------------------------------------------*
+//IUDFHA JOB (FB3),'DFHAUX',CLASS=A,MSGCLASS=H,                                 
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUDFHA                                                               
+//* DESC:  FORMAT CICS AUXILIARY TEMPORARY STORAGE DATASETS                     
+//* STEPS: <NONE>                                                               
+//* AUTH:  IBM / BMT          DATE: 2025-07-25                                  
+//* NOTE:  UPDATE DFHAUXT AND DFHBUXT DSN TO MATCH CICS INSTALLATION            
+//*-----------------------------------------------------------------*           
 //* STEP 1: RUN DFHTU750 TO FORMAT AUXILIARY TS FILES                           
 //*--------------------------------------------------------------------*        
 //DFHTU660 EXEC PGM=DFHTU750,REGION=5M                                          

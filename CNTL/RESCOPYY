@@ -1,13 +1,13 @@
 //IURSCPY JOB (FB3),'RESCOPYX',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IURSCPY
-//* DESC:  CLONE GOLDEN IMAGES TO IPL RESVOL USING DFSMSDSS
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2025-08-21
-//* NOTE:  ENSURE TARGET IPL RESVOL VOLUMES ARE NOT IN USE BEFORE RUN
-//*-----------------------------------------------------------------*         
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IURSCPY                                                              
+//* DESC:  CLONE GOLDEN IMAGES TO IPL RESVOL USING DFSMSDSS                     
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2025-08-21                                   
+//* NOTE:  ENSURE TARGET IPL RESVOL VOLUMES ARE NOT IN USE BEFORE RUN           
+//*-----------------------------------------------------------------*           
 //RESCOPYY EXEC PGM=ADRDSSU                                                     
 //SYSPRINT DD   SYSOUT=*                                                        
 //SYSIN    DD   *                                                               

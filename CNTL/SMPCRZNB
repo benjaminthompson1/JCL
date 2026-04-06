@@ -1,13 +1,13 @@
 //IUSMPCB JOB (FB3),'CREATE ZONE',CLASS=A,MSGCLASS=H,                           
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUSMPCB
-//* DESC:  SMP/E ALLOCATE DATASETS AND DEFINE ZONES
-//* STEPS: 1-INITSMP (VIA AVZALB PROC)
-//* AUTH:  BMT                  DATE: 2025-07-09
-//* NOTE:  RUN AFTER SMPCRZNA; UPDATE HLQ, ZONE NAMES, AND SYSTEM PARAMETERS
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPCB                                                              
+//* DESC:  SMP/E ALLOCATE DATASETS AND DEFINE ZONES                             
+//* STEPS: 1-INITSMP (VIA AVZALB PROC)                                          
+//* AUTH:  BMT                  DATE: 2025-07-09                                
+//* NOTE:  RUN AFTER SMPCRZNA; UPDATE HLQ, ZONE NAMES, AND SYSTEM PARAMETERS    
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* PROC DEFINITION: AVZALB                                                     
 //* - Defines all datasets required by SMP/E                                    

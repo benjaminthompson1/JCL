@@ -1,13 +1,13 @@
 //IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUCOBOL
-//* DESC:  COBOL COMPILE AND BIND WITH MQ
-//* STEPS: 1-COMPILE, 2-BIND
-//* AUTH:  BMT                DATE: 2026-04-06
-//* NOTE:  SET GOPGM= AND VERIFY MQ LIBRARY PREFIX BEFORE RUN
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUCOBOL                                                              
+//* DESC:  COBOL COMPILE AND BIND WITH MQ                                       
+//* STEPS: 1-COMPILE, 2-BIND                                                    
+//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* NOTE:  SET GOPGM= AND VERIFY MQ LIBRARY PREFIX BEFORE RUN                   
+//*-----------------------------------------------------------------*           
 //*-- 1: COMPILE, BIND AND LINK-EDIT WITH MQ STUBS------------------*           
 //COBCB1 EXEC IGYQCB,                                                           
 //            LNGPRFX=IGY640,                                                   

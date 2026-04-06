@@ -1,36 +1,36 @@
-//XBTC4   JOB (STG,1206),'EXT 97693',                                     00000110
-//      CLASS=A,MSGCLASS=X,REGION=0M,TIME=1440,                         00000210
-//      NOTIFY=XBT,USER=XBT TYPRUN=HOLD                                 00000314
-//*-----------------------------------------------------------------*
-//* JOB:   XBTC4
-//* DESC:  DSS VOLUME-LEVEL BACKUP
-//* STEPS: 1-BACKUP, 2-VERIFY
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06
-//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL BACKUP
-//*-----------------------------------------------------------------*
-//BACKUP   EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                         00012113
-//SYSPRINT DD SYSOUT=*                                                  00012205
-//INDD     DD VOL=SER=DRPAK1,UNIT=SYSDA,DISP=OLD                        00012312
-//OUTDD    DD DSN=XBT.DRPAK1.MAINT.BACKUP,DISP=(,CATLG),                00018012
-//         DCB=TRTCH=COMP,                                              00019014
-//         UNIT=TAPE,RETPD=30                                           00020014
-//SYSIN DD *                                                            00030005
- DUMP FULL OPT(4) -                                                     00040007
-      ALLD(*) ALLX -                                                    00050005
-      INDD(INDD) -                                                      00060008
-      OUTDD(OUTDD) -                                                    00070015
-      CONCURRENT                                                        00071015
-/*                                                                      00080005
-//*****************************************************************/    00090014
-//* VERIFY BACKUP TAPE                                            */    00100014
-//*****************************************************************/    00110014
-//VERIFY  EXEC PGM=ADRDSSU,COND=(5,LT),REGION=4096K                     00130009
-//SYSPRINT DD  SYSOUT=*                                                 00140009
-//DUMMY    DD  DUMMY                                                    00150009
-//TAPE     DD  DSN=*.BACKUP.OUTDD,DISP=(OLD,KEEP),UNIT=TAPE             00160009
-//SYSIN    DD  *                                                        00170009
- COPYDUMP INDD(TAPE) OUTDD(DUMMY)                                       00180009
-/*                                                                      00190009
-//*-----------------------------------------------------------------*           
-//* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//IUDSSDF JOB (FB3),'DSS DUMPF',CLASS=A,MSGCLASS=H,                     00001000
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00002000
+//*      TYPRUN=HOLD                                                    00003000
+//*-----------------------------------------------------------------*   00010400
+//* JOB:   XBTC4                                                        00010500
+//* DESC:  DSS VOLUME-LEVEL BACKUP                                      00010600
+//* STEPS: 1-BACKUP, 2-VERIFY                                           00010700
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06                         00010800
+//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL BACKUP            00010900
+//*-----------------------------------------------------------------*   00011000
+//BACKUP   EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                         00012100
+//SYSPRINT DD SYSOUT=*                                                  00012200
+//INDD     DD VOL=SER=DRPAK1,UNIT=SYSDA,DISP=OLD                        00012300
+//OUTDD    DD DSN=XBT.DRPAK1.MAINT.BACKUP,DISP=(,CATLG),                00018000
+//         DCB=TRTCH=COMP,                                              00019000
+//         UNIT=TAPE,RETPD=30                                           00020000
+//SYSIN DD *                                                            00030000
+ DUMP FULL OPT(4) -                                                     00040000
+      ALLD(*) ALLX -                                                    00050000
+      INDD(INDD) -                                                      00060000
+      OUTDD(OUTDD) -                                                    00070000
+      CONCURRENT                                                        00071000
+/*                                                                      00080000
+//*****************************************************************/    00090000
+//* VERIFY BACKUP TAPE                                            */    00100000
+//*****************************************************************/    00110000
+//VERIFY  EXEC PGM=ADRDSSU,COND=(5,LT),REGION=4096K                     00130000
+//SYSPRINT DD  SYSOUT=*                                                 00140000
+//DUMMY    DD  DUMMY                                                    00150000
+//TAPE     DD  DSN=*.BACKUP.OUTDD,DISP=(OLD,KEEP),UNIT=TAPE             00160000
+//SYSIN    DD  *                                                        00170000
+ COPYDUMP INDD(TAPE) OUTDD(DUMMY)                                       00180000
+/*                                                                      00190000
+//*-----------------------------------------------------------------*   00200000
+//* End of Job                                                          00210000
+//*-----------------------------------------------------------------*   00220000

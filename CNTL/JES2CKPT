@@ -1,13 +1,13 @@
 //IUJCKTP JOB (FB3),'JES2CKPT',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUJCKTP
-//* DESC:  CREATE JES2 CHECKPOINT DATASETS
-//* STEPS: 1-CKPT, 2-JES2PARM, 3-JES2
-//* AUTH:  BMT               DATE: 2025-04-24
-//* NOTE:  ENSURE TARGET VOLUMES C3SYS1 AND C3CFG1 ARE ONLINE
-//*-----------------------------------------------------------------*        
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUJCKTP                                                              
+//* DESC:  CREATE JES2 CHECKPOINT DATASETS                                      
+//* STEPS: 1-CKPT, 2-JES2PARM, 3-JES2                                           
+//* AUTH:  BMT               DATE: 2025-04-24                                   
+//* NOTE:  ENSURE TARGET VOLUMES C3SYS1 AND C3CFG1 ARE ONLINE                   
+//*-----------------------------------------------------------------*           
 //CKPT  EXEC PGM=IEFBR14                                                        
 //CKPT1 DD DSN=SYS1.Z31C.CKPT1,UNIT=SYSDA,                                      
 //         VOLUME=SER=C3SYS1,DISP=(NEW,CATLG),                                  
@@ -36,4 +36,4 @@
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

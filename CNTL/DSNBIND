@@ -1,13 +1,13 @@
-//IUBIND  JOB (FB3),'DB2 BIND',CLASS=A,MSGCLASS=H,                     JOB09516  
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUBIND
-//* DESC:  DB2 BIND
-//* STEPS: 1-BINDPKG, 2-BINDPLAN, 3-GRANT
-//* AUTH:  BMT                DATE: 2025-07-10
-//* NOTE:  UPDATE COLLECTION, MEMBER, PLAN AND DB2 SUBSYSTEM NAMES
-//*-----------------------------------------------------------------*
+//IUBIND JOB (FB3),'DB2 BIND',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUBIND                                                               
+//* DESC:  DB2 BIND                                                             
+//* STEPS: 1-BINDPKG, 2-BINDPLAN, 3-GRANT                                       
+//* AUTH:  BMT                DATE: 2025-07-10                                  
+//* NOTE:  UPDATE COLLECTION, MEMBER, PLAN AND DB2 SUBSYSTEM NAMES              
+//*-----------------------------------------------------------------*           
 //* STEP 1: BIND DB2 PACKAGE                                                    
 //*--------------------------------------------------------------------*        
 //BINDPKG  EXEC PGM=IKJEFT01,DYNAMNBR=20                                        

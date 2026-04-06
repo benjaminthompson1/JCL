@@ -1,16 +1,16 @@
 //IURMTSU JOB (FB3),'EQARMTSU',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IURMTSU
-//* DESC:  Z/OS DEBUGGER: CONFIGURE REMOTE DEBUG SERVICE
-//* STEPS: <NONE>
-//* AUTH:  IBM / BMT          DATE: 2026-04-06
-//* NOTE:  JOB ID RUNNING THIS MUST HAVE SUFFICIENT Z/OS UNIX AUTH
-//*-----------------------------------------------------------------*
-//* Licensed Materials - Property of IBM                              *
-//*                                                                   *
-//* 5724-T07: IBM z/OS Debugger                                       *
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IURMTSU                                                              
+//* DESC:  Z/OS DEBUGGER: CONFIGURE REMOTE DEBUG SERVICE                        
+//* STEPS: <NONE>                                                               
+//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* NOTE:  JOB ID RUNNING THIS MUST HAVE SUFFICIENT Z/OS UNIX AUTH              
+//*-----------------------------------------------------------------*           
+//* Licensed Materials - Property of IBM                              *         
+//*                                                                   *         
+//* 5724-T07: IBM z/OS Debugger                                       *         
 //* Copyright IBM Corp. 2020, 2022 All Rights Reserved                *         
 //*                                                                   *         
 //* US Government Users Restricted Rights - Use, duplication or       *         

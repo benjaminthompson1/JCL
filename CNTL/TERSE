@@ -1,13 +1,13 @@
 //IUTERSE JOB (FB3),'TERSE',CLASS=A,MSGCLASS=H,                                 
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUTERSE
-//* DESC:  PACK AND UNPACK DATASETS (AMATERSE)
-//* STEPS: 1-AMATERSE
-//* AUTH:  BMT                  DATE: 2025-07-14
-//* NOTE:  SET PARM TO SPACK, PACK, OR UNPACK; CUSTOMIZE SYSUT1/SYSUT2 NAMES
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUTERSE                                                              
+//* DESC:  PACK AND UNPACK DATASETS (AMATERSE)                                  
+//* STEPS: 1-AMATERSE                                                           
+//* AUTH:  BMT                  DATE: 2025-07-14                                
+//* NOTE:  SET PARM TO SPACK, PACK, OR UNPACK; CUSTOMIZE SYSUT1/SYSUT2 NAMES    
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: EXECUTE AMATERSE TO PACK / SPACK / UNPACK DATASET                   
 //*--------------------------------------------------------------------*        

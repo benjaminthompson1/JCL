@@ -1,13 +1,13 @@
 //IUHLASM JOB (FB3),'HLASM',CLASS=A,MSGCLASS=H,                                 
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUHLASM
-//* DESC:  COMPILE AND LINK HLASM
-//* STEPS: 1-ASM, 2-LKED
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06
-//* NOTE:  <Key prerequisite or caution (optional)>
-//*-----------------------------------------------------------------*          
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUHLASM                                                              
+//* DESC:  COMPILE AND LINK HLASM                                               
+//* STEPS: 1-ASM, 2-LKED                                                        
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
 //ASM      EXEC PGM=ASMA90,REGION=1024K,PARM='NODECK,OBJECT'                    
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSLIB   DD DSN=SYS1.MACLIB,DISP=SHR                                          
@@ -33,4 +33,4 @@
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

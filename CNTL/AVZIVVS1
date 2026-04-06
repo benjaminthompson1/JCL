@@ -1,13 +1,13 @@
 //IUIVVS1 JOB (FB3),'AVZIVVS1',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUIVVS1
-//* DESC:  DVM IVP
-//* STEPS: 1-DMFEXTR1, 2-DMFEXTR2
-//* AUTH:  IBM / BMT          DATE: 2026-04-06
-//* NOTE:  CUSTOMIZE SET STATEMENTS WITH AVZ INSTALLATION DATASET NAMES
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIVVS1                                                              
+//* DESC:  DVM IVP                                                              
+//* STEPS: 1-DMFEXTR1, 2-DMFEXTR2                                               
+//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* NOTE:  CUSTOMIZE SET STATEMENTS WITH AVZ INSTALLATION DATASET NAMES         
+//*-----------------------------------------------------------------*           
 //*                                                                             
 //* CUSTOMIZE THE FOLLOWING:                                                    
 //*                                                                             
@@ -46,7 +46,8 @@
 ++SET SSMU=6;                                                                   
 ++SET NUMROWS=-1   ;                                                            
 SELECT * FROM STAFFVS                                                           
-/*
+/*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*                                                                              
+//*-----------------------------------------------------------------*           
+                                                                                

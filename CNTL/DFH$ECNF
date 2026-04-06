@@ -1,12 +1,13 @@
-//IUECNF  JOB  (FB3),'DFH$ECNF',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                                          
-//*-----------------------------------------------------------------*
-//* JOB:   IUECNF
-//* DESC:  COPY FROM CICS SDFHINST
-//* STEPS: 1-DEFKSDS, 2-LOADDATA
-//* AUTH:  IBM / BMT          DATE: 2025-07-10
-//* NOTE:  UPDATE DATASET PREFIX TO MATCH CICS INSTALLATION
-//*-----------------------------------------------------------------*
+//IUEGUIF JOB (FB3),'DFH$ECNF',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUECNF                                                               
+//* DESC:  COPY FROM CICS SDFHINST                                              
+//* STEPS: 1-DEFKSDS, 2-LOADDATA                                                
+//* AUTH:  IBM / BMT          DATE: 2025-07-10                                  
+//* NOTE:  UPDATE DATASET PREFIX TO MATCH CICS INSTALLATION                     
+//*-----------------------------------------------------------------*           
 //* STEP 1: DELETE AND DEFINE CONFIGURATION KSDS                                
 //*--------------------------------------------------------------------*        
 //DEFKSDS EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                                

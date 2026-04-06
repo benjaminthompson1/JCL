@@ -1,13 +1,13 @@
 //IUDSSCP JOB (FB3),'DSSCOPY',CLASS=A,MSGCLASS=H,                               
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUDSSCP
-//* DESC:  COPY DATASETS
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2026-02-11
-//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL COPY
-//*-----------------------------------------------------------------*          
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUDSSCP                                                              
+//* DESC:  COPY DATASETS                                                        
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2026-02-11                                   
+//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL COPY                      
+//*-----------------------------------------------------------------*           
 //DSSCOPY  EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
 //FROMVOL  DD UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                                
 //SYSPRINT DD SYSOUT=*                                                          
@@ -23,10 +23,10 @@
       ADMIN                                                  -                  
       ALLEXCP                                                -                  
       SHARE                                                                     
-/* 
+/*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
-//                                                                             
+//*-----------------------------------------------------------------*           
+//                                                                              
       REPLACEU -                                                                
       OUTDYNAM((TMM201)) -                                                      

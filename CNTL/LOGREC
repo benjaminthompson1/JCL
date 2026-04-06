@@ -1,13 +1,13 @@
 //IULOGRC JOB (FB3),'CLEAR LOGREC',CLASS=A,MSGCLASS=H,                          
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IULOGRC
-//* DESC:  CLEAR/INIT HARDWARE EVENT RECORDER DATASET
-//* STEPS: 1-STEP1, 2-STEP2, 3-STEP3
-//* AUTH:  BMT               DATE: 2025-07-14
-//* NOTE:  DESTROYS ALL EXISTING LOGREC RECORDS; REVIEW BEFORE USE
-//*-----------------------------------------------------------------*        
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IULOGRC                                                              
+//* DESC:  CLEAR/INIT HARDWARE EVENT RECORDER DATASET                           
+//* STEPS: 1-STEP1, 2-STEP2, 3-STEP3                                            
+//* AUTH:  BMT               DATE: 2025-07-14                                   
+//* NOTE:  DESTROYS ALL EXISTING LOGREC RECORDS; REVIEW BEFORE USE              
+//*-----------------------------------------------------------------*           
 //* STEP 1: PRINT CURRENT LOGREC CONTENTS TO SYSOUT                             
 //*--------------------------------------------------------------------*        
 //STEP1   EXEC PGM=IFCEREP1,PARM='EVENT=Y,ACC=N',REGION=256K                    
@@ -32,4 +32,4 @@
 //           VOL=SER=C3SYS1,UNIT=SYSALLDA                                       
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* *        
+//*-----------------------------------------------------------------* *         

@@ -1,13 +1,13 @@
 //IUWCCSD JOB (FB3),'EQAWCCSD',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUWCCSD
-//* DESC:  Z/OS DEBUGGER: DEFINE CICS PROGRAMS AND TRANSACTIONS
-//* STEPS: <NONE>
-//* AUTH:  IBM / BMT          DATE: 2026-04-06
-//* NOTE:  THIS JOB WILL COMPLETE WITH RETURN CODE 4 (NORMAL)
-//*-----------------------------------------------------------------*          
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUWCCSD                                                              
+//* DESC:  Z/OS DEBUGGER: DEFINE CICS PROGRAMS AND TRANSACTIONS                 
+//* STEPS: <NONE>                                                               
+//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* NOTE:  THIS JOB WILL COMPLETE WITH RETURN CODE 4 (NORMAL)                   
+//*-----------------------------------------------------------------*           
 //        SET DFHPRFX=DFH620.CICS                     <<<<<                     
 //        SET CSDPRFX=DFH620                          <<<<<                     
 //        SET DTPRFX=ISM403                           <<<<<                     

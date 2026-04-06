@@ -1,13 +1,13 @@
 //IUSMPCA JOB (FB3),'CREATE ZONE A',CLASS=A,MSGCLASS=H,                         
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUSMPCA
-//* DESC:  SMP/E CREATE GLOBAL ZONE (ALLOCATE CSI)
-//* STEPS: 1-DEFINE, 2-PRIMEIT (OPTIONAL)
-//* AUTH:  BMT                  DATE: 2025-07-09
-//* NOTE:  RUN ONLY TO CREATE A NEW SMP/E CSI; FOLLOW WITH SMPCRZNB
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPCA                                                              
+//* DESC:  SMP/E CREATE GLOBAL ZONE (ALLOCATE CSI)                              
+//* STEPS: 1-DEFINE, 2-PRIMEIT (OPTIONAL)                                       
+//* AUTH:  BMT                  DATE: 2025-07-09                                
+//* NOTE:  RUN ONLY TO CREATE A NEW SMP/E CSI; FOLLOW WITH SMPCRZNB             
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: DEFINE SMP/E GLOBAL CSI                                             
 //*--------------------------------------------------------------------*        

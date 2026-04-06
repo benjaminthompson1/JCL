@@ -1,6 +1,6 @@
-//IUXMIT  JOB (FB3),'XMIT TERSE',CLASS=A,MSGCLASS=H,                             
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
+//IUXMIT JOB (FB3),'XMIT TERSE',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************          
 //*                                                                  *          
 //* PURPOSE: XMIT AND TERSE (PACK) A LOAD LIBRARY                    *          
@@ -30,4 +30,4 @@
 //            SPACE=(TRK,(1,1),RLSE)                                            
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

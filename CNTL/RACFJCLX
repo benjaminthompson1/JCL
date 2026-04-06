@@ -1,12 +1,13 @@
-//IURACFX JOB  (FB3),'RACF ZCX',CLASS=A,MSGCLASS=H,                             
-//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)
-//*-----------------------------------------------------------------*
-//* JOB:   IURACFX
-//* DESC:  RACF TO IMPLEMENT JCL EXPERT
-//* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06
-//* NOTE:  <Key prerequisite or caution (optional)>
-//*-----------------------------------------------------------------*          
+//IURACFJ JOB (FB3),'RACF JCLX',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IURACFJ                                                              
+//* DESC:  RACF TO IMPLEMENT JCL EXPERT                                         
+//* STEPS: <NONE>                                                               
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -129,8 +130,9 @@ RDEFINE FACILITY IRR.DIGTCERT.LISTRING UACC(NONE)
 PERMIT IRR.DIGTCERT.LIST CLASS(FACILITY) ID(CXPSRV) ACCESS(READ)                
 PERMIT IRR.DIGTCERT.LISTRING CLASS(FACILITY) ID(CXPSRV) ACCESS(READ)            
                                                                                 
-SETROPTS RACLIST(FACILITY) REFRESH   
-/*
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*                                           
+//*-----------------------------------------------------------------*           
+                                                                                

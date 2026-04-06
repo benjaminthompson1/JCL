@@ -1,13 +1,13 @@
-//IURACFZ JOB (FB3),'RACF ZCX',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IURACFZ
-//* DESC:  RACF TO IMPLEMENT ZCX
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2025-08-21
-//* NOTE:  CHANGE PASSWORDS AFTER INITIAL SETUP
-//*-----------------------------------------------------------------*          
+//IURACFX JOB (FB3),'RACF ZCX',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IURACFZ                                                              
+//* DESC:  RACF TO IMPLEMENT ZCX                                                
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2025-08-21                                   
+//* NOTE:  CHANGE PASSWORDS AFTER INITIAL SETUP                                 
+//*-----------------------------------------------------------------*           
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          

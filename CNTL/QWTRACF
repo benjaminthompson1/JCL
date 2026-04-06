@@ -1,12 +1,12 @@
 //IUQWTRA JOB (FB3),'QWTRACF',CLASS=A,MSGCLASS=H,                               
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUQWTRA
-//* DESC:  RACF SETUP FOR QWT
-//* STEPS: <NONE>
-//* AUTH:  NPA / BMT          DATE: 2025-08-20
-//* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUQWTRA                                                              
+//* DESC:  RACF SETUP FOR QWT                                                   
+//* STEPS: <NONE>                                                               
+//* AUTH:  NPA / BMT          DATE: 2025-08-20                                  
+//* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING              
 //*-----------------------------------------------------------------*           
 //* STEP 1: DEFINE GROUPS AND USERS FOR QWT                                     
 //*-----------------------------------------------------------------*           

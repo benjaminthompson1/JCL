@@ -1,12 +1,13 @@
-//IUSMFDMP JOB (FB3),'SMF DUMP',CLASS=A,MSGCLASS=H,                             
-//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)
-//*-----------------------------------------------------------------*
-//* JOB:   IUSMFDMP
-//* DESC:  SMF DUMP TYPE 119 FOR ZERT
-//* STEPS: 1-DELETE, 2-DUMP
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06
-//* NOTE:  <Key prerequisite or caution (optional)>
-//*-----------------------------------------------------------------*          
+//IUSMFDM JOB (FB3),'SMF DUMP',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMFDMP                                                             
+//* DESC:  SMF DUMP TYPE 119 FOR ZERT                                           
+//* STEPS: 1-DELETE, 2-DUMP                                                     
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
 //DELETE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
@@ -24,4 +25,4 @@
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

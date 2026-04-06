@@ -1,13 +1,13 @@
 //IUSMPAP JOB (FB3),'SMPE APPLY',CLASS=A,MSGCLASS=H,                            
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUSMPAP
-//* DESC:  SMP/E APPLY
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2025-06-27
-//* NOTE:  SUBSTITUTE #globalzone AND #target BEFORE RUNNING
-//*-----------------------------------------------------------------*        
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPAP                                                              
+//* DESC:  SMP/E APPLY                                                          
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2025-06-27                                   
+//* NOTE:  SUBSTITUTE #globalzone AND #target BEFORE RUNNING                    
+//*-----------------------------------------------------------------*           
 //        SET CSI=#globalzone                                                   
 //*--------------------------------------------------------------------*        
 //* STEP 1: SMP/E APPLY CHECK                                                   

@@ -1,13 +1,13 @@
 //IULOGRC JOB (FB3),'CLEAR LOGREC',CLASS=A,MSGCLASS=H,                          
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IULOGRC
-//* DESC:  PROCESS LOGREC DATASET INTO REPORTS
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2025-08-04
-//* NOTE:  CODE ONLY ONE OF SERLOG (LIVE) OR ACCIN (HISTORICAL)
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IULOGRC                                                              
+//* DESC:  PROCESS LOGREC DATASET INTO REPORTS                                  
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2025-08-04                                   
+//* NOTE:  CODE ONLY ONE OF SERLOG (LIVE) OR ACCIN (HISTORICAL)                 
+//*-----------------------------------------------------------------*           
 //* STEP 1: RUN IFCEREP1 TO REPORT ON LOGREC DATA                               
 //*------------------------------------------------------------------*          
 //ERIP EXEC PGM=IFCEREP1,PARM='CARD'                                            

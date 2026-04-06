@@ -1,13 +1,13 @@
 //IUSMPRS JOB (FB3),'SMPE RESTORE',CLASS=A,MSGCLASS=H,                          
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUSMPRS
-//* DESC:  SMP/E RESTORE
-//* STEPS: 1-RESTORE
-//* AUTH:  BMT                  DATE: 2025-08-29
-//* NOTE:  UPDATE RESTORE SELECT() LIST; USE CHECK BEFORE FINAL RUN
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPRS                                                              
+//* DESC:  SMP/E RESTORE                                                        
+//* STEPS: 1-RESTORE                                                            
+//* AUTH:  BMT                  DATE: 2025-08-29                                
+//* NOTE:  UPDATE RESTORE SELECT() LIST; USE CHECK BEFORE FINAL RUN             
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: RESTORE SYSMODS                                                     
 //*--------------------------------------------------------------------*        

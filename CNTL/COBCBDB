@@ -1,13 +1,13 @@
 //IUCOBOL JOB (FB3),'DB2 COBOL BUILD',CLASS=A,MSGCLASS=H,                       
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUCOBOL
-//* DESC:  COBOL COMPILE AND BIND WITH DB2
-//* STEPS: 1-COMPILE, 2-DB2BIND
-//* AUTH:  BMT                DATE: 2026-04-06
-//* NOTE:  SET GOPGM= AND VERIFY DB2 SUBSYSTEM BEFORE RUN
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUCOBOL                                                              
+//* DESC:  COBOL COMPILE AND BIND WITH DB2                                      
+//* STEPS: 1-COMPILE, 2-DB2BIND                                                 
+//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* NOTE:  SET GOPGM= AND VERIFY DB2 SUBSYSTEM BEFORE RUN                       
+//*-----------------------------------------------------------------*           
 //*-- 1: COMPILE COBOL PROGRAM WITH DB2 SUPPORT --------------------*           
 //COMPILE EXEC IGYQCB,                                                          
 //             LNGPRFX=IGY640,                                                  

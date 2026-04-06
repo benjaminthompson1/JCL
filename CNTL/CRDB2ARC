@@ -1,13 +1,13 @@
 //IUCOBOL JOB (FB3),'COBOL RUN',CLASS=A,MSGCLASS=H,                             
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUCOBOL
-//* DESC:  COBOL RUN DB2ARCH
-//* STEPS: <NONE>
-//* AUTH:  BMT                DATE: 2026-04-06
-//* NOTE:  UPDATE PROGRAM, PLAN AND LIBRARY NAMES IN SYSTSIN BEFORE RUN
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUCOBOL                                                              
+//* DESC:  COBOL RUN DB2ARCH                                                    
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* NOTE:  UPDATE PROGRAM, PLAN AND LIBRARY NAMES IN SYSTSIN BEFORE RUN         
+//*-----------------------------------------------------------------*           
 //*-- 1: EXECUTE COBOL PROGRAM UNDER DB2/TSO ENVIRONMENT -----------*           
 //DB2RUN   EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                              
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      

@@ -1,13 +1,13 @@
 //IUSMFDP JOB (FB3),'IFASMFDP',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUSMFDP
-//* DESC:  SMF VALIDATE SIGNATURE RECORDS
-//* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06
-//* NOTE:  <Key prerequisite or caution (optional)>
-//*-----------------------------------------------------------------*          
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMFDP                                                              
+//* DESC:  SMF VALIDATE SIGNATURE RECORDS                                       
+//* STEPS: <NONE>                                                               
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
 //IFASMSDP EXEC PGM=IFASMFDP,REGION=0M                                          
 //DUMPIN   DD DSN=ARCH.SMF.S0W1.BACKUP(0),DISP=SHR                              
 //DDSMF1   DD DUMMY                                                             
@@ -26,4 +26,4 @@
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

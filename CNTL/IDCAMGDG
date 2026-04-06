@@ -1,13 +1,13 @@
 //IUIDCAM JOB (FB3),'IDCAMS GDG',CLASS=A,MSGCLASS=H,                            
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUIDCAM
-//* DESC:  CREATE GDG BASE
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2025-07-25
-//* NOTE:  ADJUST GDG NAME TO SUIT YOUR SYSTEM STANDARDS
-//*-----------------------------------------------------------------*        
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIDCAM                                                              
+//* DESC:  CREATE GDG BASE                                                      
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2025-07-25                                   
+//* NOTE:  ADJUST GDG NAME TO SUIT YOUR SYSTEM STANDARDS                        
+//*-----------------------------------------------------------------*           
 //* STEP 1: DEFINE GDG BASE                                                     
 //*--------------------------------------------------------------------*        
 //IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
@@ -18,4 +18,4 @@
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*         
+//*-----------------------------------------------------------------*           

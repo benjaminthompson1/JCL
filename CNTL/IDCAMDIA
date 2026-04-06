@@ -1,13 +1,13 @@
-//IUIDCAMS JOB (FB3),'DIAGNOSE',CLASS=A,MSGCLASS=H,                             
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUIDCAMS
-//* DESC:  DIAGNOSE VTOC AND CATALOG
-//* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06
-//* NOTE:  SUBSTITUTE @volser@ AND @catalog@ BEFORE RUNNING
-//*-----------------------------------------------------------------*          
+//IUIDCAM JOB (FB3),'DIAGNOSE',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIDCAM                                                              
+//* DESC:  DIAGNOSE VTOC AND CATALOG                                            
+//* STEPS: <NONE>                                                               
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* NOTE:  SUBSTITUTE @volser@ AND @catalog@ BEFORE RUNNING                     
+//*-----------------------------------------------------------------*           
 //DIAGNOSE EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //VVDS01   DD DISP=SHR,DSN=SYS1.VVDS.V@volser@,UNIT=SYSDA,                      
@@ -18,4 +18,4 @@
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

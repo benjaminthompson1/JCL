@@ -1,13 +1,13 @@
 //IUWCRVS JOB (FB3),'EQAWCRVS',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUWCRVS
-//* DESC:  Z/OS DEBUGGER: CREATE VSAM FILE FOR DTCN DEBUG PROFILES
-//* STEPS: 1-DELETE, 2-DEFINE
-//* AUTH:  IBM / BMT          DATE: 2026-04-06
-//* NOTE:  V15+ RECORD SIZE INCREASED; FILES NOT COMPATIBLE WITH PRIOR
-//*-----------------------------------------------------------------*         
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUWCRVS                                                              
+//* DESC:  Z/OS DEBUGGER: CREATE VSAM FILE FOR DTCN DEBUG PROFILES              
+//* STEPS: 1-DELETE, 2-DEFINE                                                   
+//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* NOTE:  V15+ RECORD SIZE INCREASED; FILES NOT COMPATIBLE WITH PRIOR          
+//*-----------------------------------------------------------------*           
 //*        DELETE THE EXISTING FILE                                   *         
 //*********************************************************************         
 //DELETE    EXEC PGM=IDCAMS,REGION=1M                                           

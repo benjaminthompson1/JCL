@@ -1,14 +1,14 @@
 //IUTIJAI JOB (FB3),'DSNTIJAI',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUTIJAI
-//* DESC:  SQLDI PSEUDO CATALOG
-//* STEPS: 1-DSNTICU, 2-DSNTIAI1, 3-DSNTIAI2, 4-DSNTIAI3, 5-DSNTIAI4
-//* AUTH:  IBM / BMT          DATE: 2026-04-06
-//* NOTE:  REVIEW BUFFER POOL AND STORAGE GROUP SETTINGS BEFORE RUN
-//*-----------------------------------------------------------------*
-//* NOTES =
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUTIJAI                                                              
+//* DESC:  SQLDI PSEUDO CATALOG                                                 
+//* STEPS: 1-DSNTICU, 2-DSNTIAI1, 3-DSNTIAI2, 4-DSNTIAI3, 5-DSNTIAI4            
+//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* NOTE:  REVIEW BUFFER POOL AND STORAGE GROUP SETTINGS BEFORE RUN             
+//*-----------------------------------------------------------------*           
+//* NOTES =                                                                     
 //*    PRIOR TO RUNNING THIS JOB, customize it for your system:                 
 //*    (1) Review the bufferpool and storage group settings for the             
 //*        SQL Data Insights pseudo-catalog in step DSNTIAI1.                   
@@ -1169,7 +1169,7 @@ GRANT EXECUTE ON PROCEDURE
 DSNAIDB.GET_MODEL_TABLE TO AIDBADM;                                             
 GRANT EXECUTE ON PROCEDURE                                                      
 DSNAIDB.GET_CONFIGURATION TO AIDBADM;                                           
-/*                                                                             
+/*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

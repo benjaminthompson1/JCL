@@ -1,13 +1,13 @@
 //IUMFA02 JOB (FB3),'MFA USER',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUMFA02
-//* DESC:  CREATE TSO MFA USERS
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2025-05-26
-//* NOTE:  DELETES AND RECREATES MFAUSR1-MFAUSR3; IZUACCT NEEDED
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUMFA02                                                              
+//* DESC:  CREATE TSO MFA USERS                                                 
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2025-05-26                                   
+//* NOTE:  DELETES AND RECREATES MFAUSR1-MFAUSR3; IZUACCT NEEDED                
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: DELETE & CREATE USERS WITH TSO SEGMENTS AND MFA SETTINGS            
 //*--------------------------------------------------------------------*        
@@ -119,4 +119,4 @@ LISTUSER MFAUSR3 MFA
 //            SPACE=(TRK,(1,1,1))                                               
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

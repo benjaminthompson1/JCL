@@ -1,5 +1,6 @@
-//IUIDCAMS JOB  (FB3),'IDCAMS CATALOG',CLASS=A,MSGCLASS=H,              00010000
-//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)                            00011000
+//IUVSAIX JOB (FB3),'IDCAMS',CLASS=A,MSGCLASS=H,                                
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
 //********************************************************************  00012000
 //*                                                                  *  00013000
 //* PURPOSE: IDCAMS                                                  *  00014000
@@ -34,7 +35,7 @@
                     UPDATE)                                             00260000
     BLDINDEX        INDATASET  (IBMUSER.DFAT.FSCN) -                    00270000
                     OUTDATASET (IBMUSER.DFAT.FSCN.AIX.PATH)             00280000
-/*
+/*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

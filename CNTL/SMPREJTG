@@ -1,13 +1,13 @@
 //IUSMPRE JOB (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                           
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUSMPRE
-//* DESC:  SMP/E REJECT RECEIVED-ONLY ELEMENTS
-//* STEPS: 1-RECNTS
-//* AUTH:  BMT                  DATE: 2025-07-14
-//* NOTE:  USES CHECK BY DEFAULT; REMOVE CHECK TO ACTUALLY REJECT
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPRE                                                              
+//* DESC:  SMP/E REJECT RECEIVED-ONLY ELEMENTS                                  
+//* STEPS: 1-RECNTS                                                             
+//* AUTH:  BMT                  DATE: 2025-07-14                                
+//* NOTE:  USES CHECK BY DEFAULT; REMOVE CHECK TO ACTUALLY REJECT               
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: REJECT RECEIVED-ONLY SYSMODS (DRY RUN MODE)                         
 //*--------------------------------------------------------------------*        

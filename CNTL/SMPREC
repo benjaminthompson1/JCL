@@ -1,13 +1,13 @@
 //IUSMPRE JOB (FB3),'SMPE RECEIVE',CLASS=A,MSGCLASS=H,                          
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUSMPRE
-//* DESC:  SMP/E RECEIVE (SHOPZ DOWNLOAD)
-//* STEPS: 1-RECEIVE
-//* AUTH:  BMT                  DATE: 2025-07-14
-//* NOTE:  SUBSTITUTE #globalzone, #smpptfdsn, #fromnts, #sourceid
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPRE                                                              
+//* DESC:  SMP/E RECEIVE (SHOPZ DOWNLOAD)                                       
+//* STEPS: 1-RECEIVE                                                            
+//* AUTH:  BMT                  DATE: 2025-07-14                                
+//* NOTE:  SUBSTITUTE #globalzone, #smpptfdsn, #fromnts, #sourceid              
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: RECEIVE SYSMODS FROM SMPPTFIN PACKAGE                               
 //*--------------------------------------------------------------------*        

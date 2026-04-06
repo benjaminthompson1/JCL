@@ -1,12 +1,13 @@
-//IURACFS JOB  (FB3),'RACF STC',CLASS=A,MSGCLASS=H,                             
-//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)
-//*-----------------------------------------------------------------*
-//* JOB:   IURACFS
-//* DESC:  RACF TO IMPLEMENT HLQ PROFILES
-//* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06
-//* NOTE:  <Key prerequisite or caution (optional)>
-//*-----------------------------------------------------------------*          
+//IURACFQ JOB (FB3),'RACF HLQ',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IURACFS                                                              
+//* DESC:  RACF TO IMPLEMENT HLQ PROFILES                                       
+//* STEPS: <NONE>                                                               
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -27,4 +28,4 @@ PERMIT 'LDA510.*' ID(IBMUSER) ACCESS(ALTER)
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

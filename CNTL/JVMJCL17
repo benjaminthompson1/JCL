@@ -1,13 +1,13 @@
 //IUJZOSA JOB (FB3),'JZOS SAMP',CLASS=A,MSGCLASS=H,                     JOB03020
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUJZOSA
-//* DESC:  JZOS V17 BATCH JAVA
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2025-08-04
-//* NOTE:  ENSURE PROC=JVMPRC17 IS AVAILABLE AND JAVA 17 IS INSTALLED
-//*-----------------------------------------------------------------*          
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUJZOSA                                                              
+//* DESC:  JZOS V17 BATCH JAVA                                                  
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2025-08-04                                   
+//* NOTE:  ENSURE PROC=JVMPRC17 IS AVAILABLE AND JAVA 17 IS INSTALLED           
+//*-----------------------------------------------------------------*           
 //* STEP 1: EXECUTE JAVA CLASS VIA JZOS LAUNCHER                                
 //*------------------------------------------------------------------*          
 //JAVA EXEC PROC=JVMPRC17,                                                      
@@ -54,4 +54,4 @@ export IBM_JAVA_OPTIONS="$IJO "
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           

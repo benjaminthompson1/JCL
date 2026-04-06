@@ -1,13 +1,13 @@
 //IUSMPRE JOB (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                           
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUSMPRE
-//* DESC:  SMP/E REJECT AFTER ACCEPT (PURGE PROCESSED SYSMODS)
-//* STEPS: 1-RECNTS
-//* AUTH:  BMT                  DATE: 2025-07-14
-//* NOTE:  SUBSTITUTE #globalzone AND #dlib; USES PURGE TO FREE SMPPTS SPACE
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPRE                                                              
+//* DESC:  SMP/E REJECT AFTER ACCEPT (PURGE PROCESSED SYSMODS)                  
+//* STEPS: 1-RECNTS                                                             
+//* AUTH:  BMT                  DATE: 2025-07-14                                
+//* NOTE:  SUBSTITUTE #globalzone AND #dlib; USES PURGE TO FREE SMPPTS SPACE    
+//*-----------------------------------------------------------------*           
 //        SET CSI=#globalzone                                                   
 //*--------------------------------------------------------------------*        
 //* STEP 1: REJECT SYSMODS AND PURGE FROM SMPPTS                                

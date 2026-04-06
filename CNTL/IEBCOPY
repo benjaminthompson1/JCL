@@ -1,13 +1,13 @@
 //IUIEBCP JOB (FB3),'IEBCOPY',CLASS=A,MSGCLASS=H,                               
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUIEBCP
-//* DESC:  COPY PDS MEMBERS
-//* STEPS: <NONE>
-//* AUTH:  BMT               DATE: 2025-08-19
-//* NOTE:  UPDATE DDIN AND DDOUT DSN TO YOUR SOURCE/TARGET LIBRARIES
-//*-----------------------------------------------------------------*        
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIEBCP                                                              
+//* DESC:  COPY PDS MEMBERS                                                     
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT               DATE: 2025-08-19                                   
+//* NOTE:  UPDATE DDIN AND DDOUT DSN TO YOUR SOURCE/TARGET LIBRARIES            
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: COPY MEMBERS FROM SOURCE TO TARGET WITH IEBCOPY                     
 //*--------------------------------------------------------------------*        

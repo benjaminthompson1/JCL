@@ -1,12 +1,13 @@
-//IUIDCAM JOB  (FB3),'IDCAM COPY',CLASS=A,MSGCLASS=H,                           
-//         NOTIFY=&SYSUID,MSGLEVEL=(1,1)
-//*-----------------------------------------------------------------*
-//* JOB:   IUIDCAM
-//* DESC:  COPY VSAM DATA
-//* STEPS: <NONE>
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06
-//* NOTE:  <Key prerequisite or caution (optional)>
-//*-----------------------------------------------------------------*          
+//IUIDCAM JOB (FB3),'IDCAM COPY',CLASS=A,MSGCLASS=H,                            
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIDCAM                                                              
+//* DESC:  COPY VSAM DATA                                                       
+//* STEPS: <NONE>                                                               
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
 //IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
 //INDD    DD DSN=SYS2.HSM.BCDS,DISP=SHR                                         
 //OUTDD   DD DSN=IBMUSER.HSM.BCDS,DISP=(NEW,CATLG),                             
@@ -15,7 +16,7 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   REPRO INFILE(INDD) OUTFILE(OUTDD)                                             
-/*
+/*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------* 
+//*-----------------------------------------------------------------*           

@@ -1,13 +1,13 @@
 //IUDFSRT JOB (FB3),'DFSORT',CLASS=A,MSGCLASS=H,                                
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUDFSRT
-//* DESC:  DFSORT UTILITY
-//* STEPS: <NONE>
-//* AUTH:  BMT                DATE: 2025-07-10
-//* NOTE:  INPUT DATASET MUST USE RECFM=VB; VLSHRT OPTION IS REQUIRED
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUDFSRT                                                              
+//* DESC:  DFSORT UTILITY                                                       
+//* STEPS: <NONE>                                                               
+//* AUTH:  BMT                DATE: 2025-07-10                                  
+//* NOTE:  INPUT DATASET MUST USE RECFM=VB; VLSHRT OPTION IS REQUIRED           
+//*-----------------------------------------------------------------*           
 //* STEP: DFSORT                                                                
 //*--------------------------------------------------------------------*        
 //DFSORT   EXEC PGM=SORT,REGION=0M                                              

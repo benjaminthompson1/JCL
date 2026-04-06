@@ -1,13 +1,13 @@
 //IUSMPCP JOB (FB3),'SMPE COMPARE',CLASS=A,MSGCLASS=H,                          
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUSMPCP
-//* DESC:  SMP/E COMPARE TARGET AND DISTRIBUTION ZONES
-//* STEPS: 1-NOACCEPT
-//* AUTH:  BMT                  DATE: 2025-06-27
-//* NOTE:  NOACCEPT ONLY; REPORTS DIFFERENCES, NO CHANGES APPLIED
-//*-----------------------------------------------------------------*
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPCP                                                              
+//* DESC:  SMP/E COMPARE TARGET AND DISTRIBUTION ZONES                          
+//* STEPS: 1-NOACCEPT                                                           
+//* AUTH:  BMT                  DATE: 2025-06-27                                
+//* NOTE:  NOACCEPT ONLY; REPORTS DIFFERENCES, NO CHANGES APPLIED               
+//*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        
 //* STEP 1: SMP/E COMPARE NOACCEPT                                              
 //*--------------------------------------------------------------------*        

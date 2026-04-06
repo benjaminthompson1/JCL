@@ -1,13 +1,13 @@
-//IUDSSBK JOB (FB3),'DSS DUMP',CLASS=A,MSGCLASS=H,                              
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD
-//*-----------------------------------------------------------------*
-//* JOB:   IUDSSBK
-//* DESC:  DSS LOGICAL DATASET BACKUP
-//* STEPS: 1-BACKUP, 2-VERIFY
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06
-//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL DUMP
-//*-----------------------------------------------------------------*            
+//IUDSSDL JOB (FB3),'DSS DUMPL',CLASS=A,MSGCLASS=H,                             
+//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                   
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUDSSBK                                                              
+//* DESC:  DSS LOGICAL DATASET BACKUP                                           
+//* STEPS: 1-BACKUP, 2-VERIFY                                                   
+//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL DUMP                      
+//*-----------------------------------------------------------------*           
 //BACKUP  EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                                  
 //DUMPOUT DD DSN=IBMUSER.BACKUP.D040820,                                        
 //        DISP=(NEW,CATLG,DELETE),UNIT=DASD,                                    
@@ -21,7 +21,6 @@
 //**********************************************************************        
 //* VERIFY BACKUP TAPE                                                          
 //**********************************************************************        
-//*                                                                             
 //VERIFY  EXEC PGM=ADRDSSU,COND=(5,LT),REGION=4096K                             
 //SYSPRINT DD  SYSOUT=*                                                         
 //DUMMY    DD  DUMMY                                                            
@@ -31,4 +30,4 @@
 /*                                                                              
 //*-----------------------------------------------------------------*           
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*                                                                              
+//*-----------------------------------------------------------------*           

@@ -1,13 +1,13 @@
-//IUBVJR  JOB (FB3),'CSQ4BVJR',CLASS=A,MSGCLASS=H,                               
-//         NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*       TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*
-//* JOB:   IUBVJR
-//* DESC:  MQ PUT/GET SAMPLE PROGRAMS
-//* STEPS: 1-PUTMSGS, 2-GETMSGS
-//* AUTH:  IBM / BMT          DATE: 2025-07-10
-//* NOTE:  UPDATE PARM VALUES WITH QUEUE MANAGER AND QUEUE NAME
-//*-----------------------------------------------------------------*
+//IUBVJR  JOB (FB3),'CSQ4BVJR',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUBVJR                                                               
+//* DESC:  MQ PUT/GET SAMPLE PROGRAMS                                           
+//* STEPS: 1-PUTMSGS, 2-GETMSGS                                                 
+//* AUTH:  IBM / BMT          DATE: 2025-07-10                                  
+//* NOTE:  UPDATE PARM VALUES WITH QUEUE MANAGER AND QUEUE NAME                 
+//*-----------------------------------------------------------------*           
 //* STEP: DEFINE LIBRARIES FOR PROGRAM EXECUTION                                
 //*--------------------------------------------------------------------*        
 //JOBLIB   DD DSN=CSQ911.SCSQLOAD,DISP=SHR                                      
