@@ -5,7 +5,7 @@
 //* JOB:   IULIKEC                                                              
 //* DESC:  CREATE DATASET USING ATTRIBUTES OF BASE                              
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT               DATE: 2025-08-04                                   
+//* AUTH:  Ben               DATE: 2025-08-04                                   
 //* NOTE:  ENSURE SOURCE DATASET EXISTS AND IS CATALOGED                        
 //*-----------------------------------------------------------------*           
 //* STEP 1: ALLOCATE NEW DATASET USING LIKE PARAMETER                           

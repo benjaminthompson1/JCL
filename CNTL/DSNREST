@@ -5,7 +5,7 @@
 //* JOB:   IUREST                                                               
 //* DESC:  ENABLE DB2 NATIVE REST SERVICES FOR ZCEE                             
 //* STEPS: 1-FREE1, 2-BIND1, 3-BIND2                                            
-//* AUTH:  IBM / BMT          DATE: 2025-07-10                                  
+//* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  UPDATE SERVICE NAMES AND TARGET TABLE BEFORE RUN                     
 //*-----------------------------------------------------------------*           
 //* STEP 1: FREE 'employeeList' SERVICE                                         

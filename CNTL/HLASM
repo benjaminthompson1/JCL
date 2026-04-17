@@ -5,7 +5,7 @@
 //* JOB:   IUHLASM                                                              
 //* DESC:  COMPILE AND LINK HLASM                                               
 //* STEPS: 1-ASM, 2-LKED                                                        
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
 //ASM      EXEC PGM=ASMA90,REGION=1024K,PARM='NODECK,OBJECT'                    

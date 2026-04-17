@@ -1,6 +1,13 @@
 //IUVSAIX JOB (FB3),'IDCAMS',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUVSAIX                                                              
+//* DESC:  <One-line purpose>                                                   
+//* STEPS: <Very brief step summary, if needed>                                 
+//* AUTH:  Ben               DATE: 2026-04-17                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
 //********************************************************************  00012000
 //*                                                                  *  00013000
 //* PURPOSE: IDCAMS                                                  *  00014000

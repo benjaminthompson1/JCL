@@ -1,6 +1,13 @@
 //IUIDCAM JOB (FB3),'IDCAMS',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIDCAM                                                              
+//* DESC:  <One-line purpose>                                                   
+//* STEPS: <Very brief step summary, if needed>                                 
+//* AUTH:  Ben               DATE: 2026-04-17                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
 //********************************************************************  00030000
 //*                                                                  *  00040000
 //* PURPOSE: IDCAMS                                                  *  00050000

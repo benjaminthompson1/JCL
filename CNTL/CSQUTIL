@@ -5,7 +5,7 @@
 //* JOB:   IUCSQUT                                                              
 //* DESC:  MQ CSQ UTILITY                                                       
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE PARM WITH QUEUE MANAGER NAME AND SYSIN COMMANDS               
 //*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        

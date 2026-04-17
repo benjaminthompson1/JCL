@@ -5,7 +5,7 @@
 //* JOB:   IUSMPAP                                                              
 //* DESC:  SMP/E APPLY                                                          
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT               DATE: 2025-06-27                                   
+//* AUTH:  Ben               DATE: 2025-06-27                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #target BEFORE RUNNING                    
 //*-----------------------------------------------------------------*           
 //        SET CSI=#globalzone                                                   

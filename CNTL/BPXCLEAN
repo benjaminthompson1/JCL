@@ -5,7 +5,7 @@
 //* JOB:   IUBPXCL                                                              
 //* DESC:  DELETE FILES FROM ZFS OLDER THAN 4 DAYS                              
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE FIND PATH IN SYSTSIN TO MATCH SITE ZFS DIRECTORY              
 //*-----------------------------------------------------------------*           
 //*-- 1: DELETE OLD FILES IN USS FILESYSTEM ------------------------*           

@@ -5,7 +5,7 @@
 //* JOB:   IUIDCAM                                                              
 //* DESC:  DIAGNOSE VTOC AND CATALOG                                            
 //* STEPS: <NONE>                                                               
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  SUBSTITUTE @volser@ AND @catalog@ BEFORE RUNNING                     
 //*-----------------------------------------------------------------*           
 //DIAGNOSE EXEC PGM=IDCAMS                                                      

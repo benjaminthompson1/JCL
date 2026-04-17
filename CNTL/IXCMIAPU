@@ -5,7 +5,7 @@
 //* JOB:   IUMIAPU                                                              
 //* DESC:  DEFINE LOGSTREAM NAME (IFASMF.SMFALL)                                
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT               DATE: 2025-06-17                                   
+//* AUTH:  Ben               DATE: 2025-06-17                                   
 //* NOTE:  UPDATE SYSTEM NAME S0W1 AND RETENTION SETTINGS AS NEEDED             
 //*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        

@@ -5,7 +5,7 @@
 //* JOB:   IUCOBOL                                                              
 //* DESC:  COBOL WITH DFSORT                                                    
 //* STEPS: 1-DFSORT, 2-COBCBG1                                                  
-//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE SORTIN DSN AND GOPGM BEFORE RUN                               
 //*-----------------------------------------------------------------*           
 //*-- 1: SORT ACCOUNT DATA USING DFSORT ----------------------------*           

@@ -5,7 +5,7 @@
 //* JOB:   IUDSSMVE                                                             
 //* DESC:  MOVE DATASETS BETWEEN VOLUMES                                        
 //* STEPS: <NONE>                                                               
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL MOVE                      
 //*-----------------------------------------------------------------*           
 //MOVE     EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       

@@ -5,7 +5,7 @@
 //* JOB:   IURACFZ                                                              
 //* DESC:  RACF TO IMPLEMENT ZCX                                                
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT               DATE: 2025-08-21                                   
+//* AUTH:  Ben               DATE: 2025-08-21                                   
 //* NOTE:  CHANGE PASSWORDS AFTER INITIAL SETUP                                 
 //*-----------------------------------------------------------------*           
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               

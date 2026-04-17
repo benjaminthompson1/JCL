@@ -5,7 +5,7 @@
 //* JOB:   IUIEBUP                                                              
 //* DESC:  COPIES MEMBER FROM SOURCE PDS/PDSE TO NEW LIBRARY                    
 //* STEPS: <NONE>                                                               
-//* AUTH:  <Name / Initials>   DATE: 2025-10-26                                 
+//* AUTH:  Ben               DATE: 2025-10-26                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
 //STEP1    EXEC PGM=IEBUPDTE,PARM=NEW                                           

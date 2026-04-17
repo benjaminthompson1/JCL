@@ -5,7 +5,7 @@
 //* JOB:   IURACFS                                                              
 //* DESC:  RACF TO IMPLEMENT HLQ PROFILES                                       
 //* STEPS: <NONE>                                                               
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     

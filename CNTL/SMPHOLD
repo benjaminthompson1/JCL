@@ -5,7 +5,7 @@
 //* JOB:   IUSMPHO                                                              
 //* DESC:  SMP/E LIST HELD ELEMENTS                                             
 //* STEPS: 1-REPORT                                                             
-//* AUTH:  BMT                  DATE: 2025-07-14                                
+//* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone WITH SMP/E GLOBAL CSI DATASET NAME            
 //*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        

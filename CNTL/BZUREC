@@ -5,7 +5,7 @@
 //* JOB:   IUVTPRE                                                              
 //* DESC:  VTP RECORD BATCH/FILE I/O                                            
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  INFILE AND BZUPLAY DD DATASETS MUST BE ALLOCATED BEFORE RUN          
 //*-----------------------------------------------------------------*           
 //*-- 1: RECORD I/O ACTIVITY USING TOURFILE ------------------------*           

@@ -1,6 +1,13 @@
 //IU04501 JOB (FB3),'UJ04501',CLASS=A,MSGCLASS=H,                               
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IU04501                                                              
+//* DESC:  <One-line purpose>                                                   
+//* STEPS: <Very brief step summary, if needed>                                 
+//* AUTH:  Ben               DATE: 2026-04-17                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
 //********************************************************************          
 //* UJ04501 ZSECURE ADMINISTRATION V2.4                                         
 //********************************************************************          

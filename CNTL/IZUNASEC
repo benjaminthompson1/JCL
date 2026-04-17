@@ -5,7 +5,7 @@
 //* JOB:   IUZERT                                                               
 //* DESC:  ZERT RACF                                                            
 //* STEPS: <NONE>                                                               
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
 //STEP1  EXEC PGM=IKJEFT01,DYNAMNBR=99                                          

@@ -5,7 +5,7 @@
 //* JOB:   IULOGRC                                                              
 //* DESC:  CLEAR/INIT HARDWARE EVENT RECORDER DATASET                           
 //* STEPS: 1-STEP1, 2-STEP2, 3-STEP3                                            
-//* AUTH:  BMT               DATE: 2025-07-14                                   
+//* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  DESTROYS ALL EXISTING LOGREC RECORDS; REVIEW BEFORE USE              
 //*-----------------------------------------------------------------*           
 //* STEP 1: PRINT CURRENT LOGREC CONTENTS TO SYSOUT                             

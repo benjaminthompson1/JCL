@@ -5,7 +5,7 @@
 //* JOB:   IUBIND                                                               
 //* DESC:  DB2 BIND                                                             
 //* STEPS: 1-BINDPKG, 2-BINDPLAN, 3-GRANT                                       
-//* AUTH:  BMT                DATE: 2025-07-10                                  
+//* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  UPDATE COLLECTION, MEMBER, PLAN AND DB2 SUBSYSTEM NAMES              
 //*-----------------------------------------------------------------*           
 //* STEP 1: BIND DB2 PACKAGE                                                    

@@ -5,7 +5,7 @@
 //* JOB:   IUSMPRE                                                              
 //* DESC:  SMP/E REJECT AFTER ACCEPT (PURGE PROCESSED SYSMODS)                  
 //* STEPS: 1-RECNTS                                                             
-//* AUTH:  BMT                  DATE: 2025-07-14                                
+//* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #dlib; USES PURGE TO FREE SMPPTS SPACE    
 //*-----------------------------------------------------------------*           
 //        SET CSI=#globalzone                                                   

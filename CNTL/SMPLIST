@@ -5,7 +5,7 @@
 //* JOB:   IUSMPLI                                                              
 //* DESC:  SMP/E LIST DDDEF DEFINITIONS                                         
 //* STEPS: 1-LISTSMPE                                                           
-//* AUTH:  BMT                  DATE: 2025-07-14                                
+//* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone; NON-DESTRUCTIVE, REPORT OUTPUT ONLY          
 //*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        

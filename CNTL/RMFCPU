@@ -5,7 +5,7 @@
 //* JOB:   IURMFPP                                                              
 //* DESC:  RMF POST-PROCESS CPU UTILIZATION                                     
 //* STEPS: 1-RMFSORT, 2-RMFPP                                                   
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
 //RMFSORT  EXEC PGM=SORT                                                        

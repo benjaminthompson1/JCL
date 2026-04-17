@@ -5,7 +5,7 @@
 //* JOB:   IUCOBOL                                                              
 //* DESC:  COBOL RUN DB2ARCH                                                    
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE PROGRAM, PLAN AND LIBRARY NAMES IN SYSTSIN BEFORE RUN         
 //*-----------------------------------------------------------------*           
 //*-- 1: EXECUTE COBOL PROGRAM UNDER DB2/TSO ENVIRONMENT -----------*           

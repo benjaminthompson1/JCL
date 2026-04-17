@@ -5,7 +5,7 @@
 //* JOB:   IURADB2                                                              
 //* DESC:  RACF PERMISSIONS FOR DVM ACCESS TO DB2 RESOURCES                     
 //* STEPS: 1-PERMIT1, 2-PERMIT2                                                 
-//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CHANGE DBDG, ID(*), AND DBDGLU1 TO SITE VALUES BEFORE RUN            
 //*-----------------------------------------------------------------*           
 //PERMIT1  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     

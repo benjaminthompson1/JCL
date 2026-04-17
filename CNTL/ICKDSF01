@@ -5,7 +5,7 @@
 //* JOB:   IUDSF01                                                              
 //* DESC:  3390 INITIALIZE VOLUME                                               
 //* STEPS: <NONE>                                                               
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  VARY DEVICE ONLINE/OFFLINE ONCE BEFORE RUNNING OR I/O ERR            
 //*-----------------------------------------------------------------*           
 //STEP01  EXEC PGM=ICKDSF,REGION=0M                                             

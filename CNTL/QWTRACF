@@ -5,7 +5,7 @@
 //* JOB:   IUQWTRA                                                              
 //* DESC:  RACF SETUP FOR QWT                                                   
 //* STEPS: <NONE>                                                               
-//* AUTH:  NPA / BMT          DATE: 2025-08-20                                  
+//* AUTH:  Ben               DATE: 2025-08-20                                   
 //* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING              
 //*-----------------------------------------------------------------*           
 //* STEP 1: DEFINE GROUPS AND USERS FOR QWT                                     

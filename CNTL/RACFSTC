@@ -5,7 +5,7 @@
 //* JOB:   IURACFS                                                              
 //* DESC:  CREATE STC USERID AND STARTED PROFILE                                
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT               DATE: 2025-08-21                                   
+//* AUTH:  Ben               DATE: 2025-08-21                                   
 //* NOTE:  HOME PATH /u/automount/omeg SHOULD EXIST BEFORE RUNNING              
 //*-----------------------------------------------------------------*           
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     

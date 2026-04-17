@@ -5,7 +5,7 @@
 //* JOB:   IUDFHA                                                               
 //* DESC:  FORMAT CICS AUXILIARY TEMPORARY STORAGE DATASETS                     
 //* STEPS: <NONE>                                                               
-//* AUTH:  IBM / BMT          DATE: 2025-07-25                                  
+//* AUTH:  Ben               DATE: 2025-07-25                                   
 //* NOTE:  UPDATE DFHAUXT AND DFHBUXT DSN TO MATCH CICS INSTALLATION            
 //*-----------------------------------------------------------------*           
 //* STEP 1: RUN DFHTU750 TO FORMAT AUXILIARY TS FILES                           

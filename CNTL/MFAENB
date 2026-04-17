@@ -5,7 +5,7 @@
 //* JOB:   IUMFA03                                                              
 //* DESC:  ENABLE MFA USERS                                                     
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT               DATE: 2025-05-26                                   
+//* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  USER IDs MFAUSR1-MFAUSR3 MUST ALREADY EXIST BEFORE RUN               
 //*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        

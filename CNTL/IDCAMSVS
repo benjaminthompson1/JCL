@@ -5,7 +5,7 @@
 //* JOB:   IUIDCAM                                                              
 //* DESC:  DEFINE VSAM WITH ALTERNATE INDEX                                     
 //* STEPS: 1-CREATE, 2-REPRO, 3-CREATEAX                                        
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
 //CREATE   EXEC PGM=IDCAMS,REGION=0M                                            

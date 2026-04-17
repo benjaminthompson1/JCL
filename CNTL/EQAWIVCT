@@ -5,7 +5,7 @@
 //* JOB:   IUWIVCT                                                              
 //* DESC:  Z/OS DEBUGGER: DYNAMIC DEBUG AND COBOL TEST CICS IVP                 
 //* STEPS: 1-ALLOCC, 2-COMPILE, 3-BIND                                          
-//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REQUIRES CICS REGION CUSTOMIZED FOR Z/OS DEBUGGER                    
 //*-----------------------------------------------------------------*           
 //*********************************************************************         
@@ -452,3 +452,6 @@
 /*                                                                              
 //*                                                                             
 //*                ========> END OF JOB EQAWIVCT <========                      
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

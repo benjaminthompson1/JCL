@@ -5,7 +5,7 @@
 //* JOB:   IUIDCAM                                                              
 //* DESC:  DEFINE BACKUP SCDS FOR SMS                                           
 //* STEPS: <NONE>                                                               
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  USE SETSMS SAVESCDS(SYS1.S0W1.BACKUP.SCDS) AFTER DEFINE              
 //*-----------------------------------------------------------------*           
 //CREATE   EXEC PGM=IDCAMS,REGION=0M                                            

@@ -5,7 +5,7 @@
 //* JOB:   IUJCKTP                                                              
 //* DESC:  CREATE JES2 CHECKPOINT DATASETS                                      
 //* STEPS: 1-CKPT, 2-JES2PARM, 3-JES2                                           
-//* AUTH:  BMT               DATE: 2025-04-24                                   
+//* AUTH:  Ben               DATE: 2025-04-24                                   
 //* NOTE:  ENSURE TARGET VOLUMES C3SYS1 AND C3CFG1 ARE ONLINE                   
 //*-----------------------------------------------------------------*           
 //CKPT  EXEC PGM=IEFBR14                                                        

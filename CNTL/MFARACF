@@ -5,7 +5,7 @@
 //* JOB:   IUMFA01                                                              
 //* DESC:  CREATE MFA RACF DEFINITIONS                                          
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT               DATE: 2025-05-26                                   
+//* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING              
 //*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        

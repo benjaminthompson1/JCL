@@ -5,7 +5,7 @@
 //* JOB:   IUMKCER                                                              
 //* DESC:  CREATE/MANAGE DIGITAL CERTIFICATES                                   
 //* STEPS: 1-STEP010 THRU STEP120                                               
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  WARNING - THIS JOB DELETES RINGS AND CERTIFICATES                    
 //*-----------------------------------------------------------------*           
 //*********************************************************************         

@@ -5,7 +5,7 @@
 //* JOB:   IUDSSRE                                                              
 //* DESC:  DSS BACKUP RESTORE                                                   
 //* STEPS: <NONE>                                                               
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL RESTORE                   
 //*-----------------------------------------------------------------*           
                                                                                 
@@ -32,3 +32,6 @@
   OUTDYNAM((LAR001),(LAR002),(LAR003),(LAR004)) -                               
   DS(INCL(CMPWAREP.LMS.CHKPT)) CATALOG REPLACE -                                
 //                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

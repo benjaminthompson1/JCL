@@ -5,7 +5,7 @@
 //* JOB:   IUCONVE                                                              
 //* DESC:  SMS CONVERTV                                                         
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CHANGE VOL=SER= IN INVOL1 DD TO TARGET VOLUME BEFORE RUN             
 //*-----------------------------------------------------------------*           
 //*-- 1: SMS CONVERTV DASD VOLUME ----------------------------------*           

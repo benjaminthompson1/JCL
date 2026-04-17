@@ -5,7 +5,7 @@
 //* JOB:   IUVTPDP                                                              
 //* DESC:  VTP PLAYBACK DUMP UTILITY                                            
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REQUIRES VTP TOURFILE IN IBMUSER.VTP.TOURFILE.PLAY                   
 //*-----------------------------------------------------------------*           
 //*-- 1: FORMAT VTP PLAYBACK FILE USING BZUPLAY --------------------*           

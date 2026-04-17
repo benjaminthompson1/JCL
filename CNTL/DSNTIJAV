@@ -5,7 +5,7 @@
 //* JOB:   IUTIJAV                                                              
 //* DESC:  SQLDI IVP                                                            
 //* STEPS: 1-DSNTIAV0, 2-DSNTIAV1, 3-DSNTIAV2                                   
-//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CHANGE DBDG, DSND10, DSNTIA13 TO SITE VALUES BEFORE RUN              
 //*-----------------------------------------------------------------*           
 //JOBLIB  DD  DISP=SHR,                                                         

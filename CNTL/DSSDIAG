@@ -5,7 +5,7 @@
 //* JOB:   IUDDIAG                                                              
 //* DESC:  CHECK VVRS AND CATALOG ENTRIES ON VOLUME                             
 //* STEPS: <NONE>                                                               
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REPORTS DUPLICATE AND ORPHANED VVRS AND UNCATALOGED DSN              
 //*-----------------------------------------------------------------*           
 //CHECK   EXEC PGM=ADRDSSU,REGION=0M                                            

@@ -5,7 +5,7 @@
 //* JOB:   IUGDKUT                                                              
 //* DESC:  UPLOAD, LIST, AND DOWNLOAD Z/OS DATASETS TO S3 STORAGE               
 //* STEPS: 1-MINIO1, 2-MINIO2, 3-MINIO3                                         
-//* AUTH:  BMT               DATE: 2025-06-26                                   
+//* AUTH:  Ben               DATE: 2025-06-26                                   
 //* NOTE:  ENSURE NETWORK CONNECTIVITY TO CHOSEN ENDPOINT BEFORE RUN            
 //*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        

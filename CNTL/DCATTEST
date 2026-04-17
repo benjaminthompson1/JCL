@@ -5,7 +5,7 @@
 //* JOB:   IUOMVSA                                                              
 //* DESC:  CREATE TEMP DATASET AND TEST DCAT CATALOG ACCESS                     
 //* STEPS: 1-STEP1, 2-STEP2                                                     
-//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REQUIRES DCAT CONFIGURED AND ACCESSIBLE ON THE SYSTEM                
 //*-----------------------------------------------------------------*           
 //*--------------------------------------------------                           

@@ -5,7 +5,7 @@
 //* JOB:   IURSCPY                                                              
 //* DESC:  CLONE GOLDEN IMAGES TO IPL RESVOL USING DFSMSDSS                     
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT               DATE: 2025-08-21                                   
+//* AUTH:  Ben               DATE: 2025-08-21                                   
 //* NOTE:  ENSURE TARGET IPL RESVOL VOLUMES ARE NOT IN USE BEFORE RUN           
 //*-----------------------------------------------------------------*           
 //RESCOPYY EXEC PGM=ADRDSSU                                                     

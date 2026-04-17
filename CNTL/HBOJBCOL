@@ -5,7 +5,7 @@
 //* JOB:   IUSMFCB                                                              
 //* DESC:  CDP Z BATCH COLLECT SMF DATA                                         
 //* STEPS: 1-HBOTCAFF, 2-HBOSMFCB                                               
-//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CHANGE HBOvrm HLQ TO YOUR SMP/E-INSTALLED TARGET LIBRARY             
 //*-----------------------------------------------------------------*           
 //*                                                                             

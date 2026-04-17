@@ -5,7 +5,7 @@
 //* JOB:   IUJBDC2                                                              
 //* DESC:  CDP Z BATCH DCOLLECT TO DATA STREAMER                                
 //* STEPS: 1-HBOTCAFF, 2-HBOSMFCL                                               
-//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  MODIFY IBM_UPDATE_TARGET PORT AND HBOIN POLICY FILE PATH             
 //*-----------------------------------------------------------------*           
 //*                                                                             

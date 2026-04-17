@@ -5,7 +5,7 @@
 //* JOB:   IUVSAM                                                               
 //* DESC:  IPCS FOR VSAM                                                        
 //* STEPS: <NONE>                                                               
-//* AUTH:  IBM / BMT          DATE: 2025-08-05                                  
+//* AUTH:  Ben               DATE: 2025-08-05                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
 //* STEP 1: DEFINE IPCS DUMP DIRECTORY USING IDCAMS                             

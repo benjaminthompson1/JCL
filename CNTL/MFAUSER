@@ -5,7 +5,7 @@
 //* JOB:   IUMFA02                                                              
 //* DESC:  CREATE TSO MFA USERS                                                 
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT               DATE: 2025-05-26                                   
+//* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  DELETES AND RECREATES MFAUSR1-MFAUSR3; IZUACCT NEEDED                
 //*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        

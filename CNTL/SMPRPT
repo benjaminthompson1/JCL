@@ -5,7 +5,7 @@
 //* JOB:   IUSMPRE                                                              
 //* DESC:  SMP/E TARGET SYSTEM REPORT                                           
 //* STEPS: 1-STEP1                                                              
-//* AUTH:  BMT                  DATE: 2025-07-14                                
+//* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #target; OUTPUT TO SEQUENTIAL DATASET     
 //*-----------------------------------------------------------------*           
 //*--------------------------------------------------------------------*        

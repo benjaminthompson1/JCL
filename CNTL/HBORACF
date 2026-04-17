@@ -5,7 +5,7 @@
 //* JOB:   IURACF                                                               
 //* DESC:  RACF SETUP FOR IBM Z COMMON DATA PROVIDER                            
 //* STEPS: <NONE>                                                               
-//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  MUST RUN WITH RACF SPECIAL ATTRIBUTE; REVIEW BEFORE USE              
 //*-----------------------------------------------------------------*           
 //*                                                                             

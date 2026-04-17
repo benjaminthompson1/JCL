@@ -5,7 +5,7 @@
 //* JOB:   IUDSSCP                                                              
 //* DESC:  COPY DATASETS                                                        
 //* STEPS: <NONE>                                                               
-//* AUTH:  BMT               DATE: 2026-02-11                                   
+//* AUTH:  Ben               DATE: 2026-02-11                                   
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL COPY                      
 //*-----------------------------------------------------------------*           
 //DSSCOPY  EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       

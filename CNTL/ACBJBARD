@@ -5,7 +5,7 @@
 //* JOB:   IUJBARD                                                              
 //* DESC:  GENERATE DATASET REPORT FROM DCOLLECT DATA                           
 //* STEPS: 1-DELREP, 2-ALCISPFL, 3-GENREP, 4-REPGEN                             
-//* AUTH:  BMT                DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REQUIRES DCOLLECT DATA IN IBMUSER.DCOLLECT.DATA                      
 //*-----------------------------------------------------------------*           
 //MYLIB JCLLIB ORDER=SYS1.SACBCNTL                                              

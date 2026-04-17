@@ -5,7 +5,7 @@
 //* JOB:   IUDVMS                                                       00050000
 //* DESC:  CREATE SAMPLE DB/TB FOR DVM                                  00060000
 //* STEPS: <NONE>                                                       00070000
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                         00080000
+//* AUTH:  Ben               DATE: 2026-04-06                           00080000
 //* NOTE:  REQUIRES DB2 SUBSYSTEM DBCG AND PLAN DSNTEP13                00090000
 //*-----------------------------------------------------------------*   00100000
 //DBPLANS  EXEC PGM=IKJEFT01,REGION=0M                                  00110000
@@ -75,3 +75,6 @@ COMMIT;                                                                 00740000
                                                                         00750000
 SELECT WS_ITEM_REF, WS_MANUFACTURER_NAME, WS_MANUFACTURER_ADDRESS       00760000
 FROM ZOFFICE_ITEM_SUPPLIER LIMIT 1000;                                  00770000
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

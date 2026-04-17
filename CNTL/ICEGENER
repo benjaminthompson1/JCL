@@ -5,7 +5,7 @@
 //* JOB:   IUICEGE                                                              
 //* DESC:  IEBGENER REPLACEMENT FOR VSAM/SEQUENTIAL                             
 //* STEPS: <NONE>                                                               
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
 //SCOPY EXEC PGM=ICEGENER                                                       

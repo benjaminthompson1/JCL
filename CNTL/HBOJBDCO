@@ -5,7 +5,7 @@
 //* JOB:   IUJBDCO                                                              
 //* DESC:  CDP Z BATCH DCOLLECT PROCESSOR                                       
 //* STEPS: 1-HBOTCAFF, 2-HBODCOCB                                               
-//* AUTH:  IBM / BMT          DATE: 2026-04-06                                  
+//* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  ADD DD STATEMENTS FOR ANY NEW DCOLLECT RECORD TYPES ADDED            
 //*-----------------------------------------------------------------*           
 //*                                                                             
