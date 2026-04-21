@@ -8,12 +8,15 @@
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
+//*-- 1: DELETE EXISTING SMF TYPE 119 OUTPUT DATASET ------------------*
 //DELETE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   DELETE 'SMF.ZERT.TYPE119'                                                     
   SET MAXCC=0                                                                   
-/*                                                                              
+/*
+//*
+//*-- 2: DUMP SMF TYPE 119 RECORDS TO SEQUENTIAL DATASET --------------*
 //DUMP     EXEC PGM=IFASMFDP,REGION=4096K                                       
 //SYSPRINT DD SYSOUT=*                                                          
 //OUTD1    DD DSN=SMF.ZERT.TYPE119,                                             

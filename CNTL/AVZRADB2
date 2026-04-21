@@ -8,6 +8,7 @@
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CHANGE DBDG, ID(*), AND DBDGLU1 TO SITE VALUES BEFORE RUN            
 //*-----------------------------------------------------------------*           
+//*-- 1: PERMIT DB2 SUBSYSTEM ACCESS FOR DRDA AND BATCH CONNECTIONS ---*
 //PERMIT1  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -24,8 +25,9 @@
   PERMIT DBDG.DIST CLASS(DSNR)  ID(*) ACCESS(READ)  << use for DRDA             
                                                                                 
   SETROPTS REFRESH RACLIST(DSNR)                                                
-/*                                                                              
-                                                                                
+/*
+//*
+//*-- 2: DEFINE PASSTICKET PROFILE AND GRANT ACCESS -------------------*
 //PERMIT2  EXEC PGM=IKJEFT01,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          

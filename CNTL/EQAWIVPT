@@ -191,10 +191,7 @@
 //*                                                                             
 //        SET UNITDEV=SYSALLDA                                                  
 //*                                                                             
-//*------------------------------------------------------------                 
-//* 1. Allocate uncataloged temporary data sets needed                          
-//*------------------------------------------------------------                 
-//*                                                                             
+//*-- 1: ALLOCATE TEMPORARY DATASETS FOR COMPILE AND BIND -------------*
 //ALLOC   EXEC PGM=IEFBR14                                                      
 //OBJECT  DD  DSN=&&OBJECT,   -- holds object (text) from compiler              
 //            DISP=(NEW,PASS),UNIT=&UNITDEV.,                                   
@@ -204,12 +201,8 @@
 //            DISP=(NEW,PASS),UNIT=&UNITDEV.,                                   
 //            DCB=(DSORG=PO,RECFM=U,LRECL=0,BLKSIZE=32760),                     
 //            SPACE=(CYL,(1,1)),DSNTYPE=LIBRARY                                 
-//*                                                                             
-//*                                                                             
-//*------------------------------------------------------------                 
-//* 2. Compile the test program                                                 
-//*------------------------------------------------------------                 
-//*                                                                             
+//*
+//*-- 2: COMPILE COBOL TEST PROGRAM WITH DEBUG SUPPORT ----------------*
 //COMPILE EXEC PGM=IGYCRCTL,                                                    
 // PARM=('NONAME,NOTERM,TEST'),                                                 
 // REGION=0M                                                                    
@@ -314,11 +307,8 @@
            MOVE "END"  TO STR2.                                                 
            MOVE "FIN"  TO STR3.                                                 
            STOP RUN.                                                            
-//*                                                                             
-//*------------------------------------------------------------                 
-//* 3. Bind step                                                                
-//*------------------------------------------------------------                 
-//*                                                                             
+//*
+//*-- 3: BIND COMPILED OBJECT INTO LOAD MODULE ------------------------*
 //BIND    EXEC PGM=IEWBLINK,PARM='MAP',REGION=0M                                
 //SYSLIB   DD DISP=SHR,DSN=&LIBPRFX..SCEELKED                                   
 //         DD DISP=SHR,DSN=&LIBPRFX..SCEELKEX                                   
@@ -330,11 +320,8 @@
 //SYSLIN   DD *                                                                 
      INCLUDE OBJECT(PROGT)                                                      
      NAME PROGT(R)                                                              
-//*                                                                             
-//*------------------------------------------------------------                 
-//* 4. Go go go                                                                 
-//*------------------------------------------------------------                 
-//*                                                                             
+//*
+//*-- 4: EXECUTE COBOL TEST PROGRAM WITH Z/OS DEBUGGER ----------------*
 //INSPGO EXEC PGM=PROGT,                                                        
 //      PARM='/TEST(,,,RDS:*)',                                                 
 //*      PARM='/TEST(,CMDS,;,*) TRAP(ON)',                                      

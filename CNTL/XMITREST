@@ -8,20 +8,15 @@
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: TERSE (UNPACK) AND XMIT (RECEIVE) A LOAD LIBRARY        *          
-//*                                                                  *          
-//********************************************************************          
+//*-- 1: UNPACK TERSED LOAD LIBRARY USING AMATERSE --------------------*
 //AMATERSE EXEC PGM=AMATERSE,PARM=UNPACK                                        
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD.XMIT.TRS                          
 //SYSUT2   DD DSN=IBMUSER.COBOL.LOAD.XMIT,                                      
 //            DISP=(NEW,CATLG),UNIT=SYSDA,                                      
 //            SPACE=(TRK,(1,1),RLSE)                                            
-//*                                                                             
-//*  RECEIVE PDSE LINKLIB                                                       
-//*                                                                             
+//*
+//*-- 2: RECEIVE XMIT FILE TO RESTORE LOAD LIBRARY --------------------*
 //RECVPDS  EXEC PGM=IKJEFT01,COND=(0,NE)                                        
 //INPUT    DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD.XMIT                              
 //SYSTSIN  DD *                                                                 

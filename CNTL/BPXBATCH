@@ -8,7 +8,6 @@
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  STDPARM DD REFERENCES BPXPARM MEMBER FOR USS COMMANDS                
 //*-----------------------------------------------------------------*           
-//*-- 1: EXECUTE METAL C COMPILE SCRIPT IN USS ---------------------*           
 //BPXBATCH EXEC PGM=BPXBATCH                                                    
 //* USS SCRIPT PARAMETERS                                                       
 //STDPARM  DD DISP=SHR,DSN=IBMUSER.CNTL(BPXPARM)                                

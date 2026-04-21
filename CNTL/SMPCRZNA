@@ -8,9 +8,7 @@
 //* AUTH:  Ben               DATE: 2025-07-09                                   
 //* NOTE:  RUN ONLY TO CREATE A NEW SMP/E CSI; FOLLOW WITH SMPCRZNB             
 //*-----------------------------------------------------------------*           
-//*--------------------------------------------------------------------*        
-//* STEP 1: DEFINE SMP/E GLOBAL CSI                                             
-//*--------------------------------------------------------------------*        
+//*-- 1: DEFINE SMP/E GLOBAL CSI VSAM CLUSTER -------------------------*
 //DEFINE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //CSIVOL   DD UNIT=SYSALLDA,                                                    
@@ -34,10 +32,9 @@
           CONTROLINTERVALSIZE(4096)      -                                      
           CYLINDERS(10 2)                -                                      
           IMBED                          )                                      
-/*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 2 (OPTIONAL): PRIME NEW CSI FROM GIMZPOOL                              
-//*--------------------------------------------------------------------*        
+/*
+//*
+//*-- 2: PRIME NEW CSI WITH GIMZPOOL INITIALIZATION DATA --------------*
 //PRIMEIT  EXEC PGM=IDCAMS,COND=(9,LT)                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCSI   DD DSN=SMPE.CDM.V1R2M0.GLOBAL.CSI,                                   

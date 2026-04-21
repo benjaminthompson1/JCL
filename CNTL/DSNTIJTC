@@ -11,9 +11,7 @@
 //JOBLIB  DD  DISP=SHR,                                                         
 //            DSN=DSND10.SDSNLOAD                                               
 //*                                                                             
-//*********************************************************************         
-//* UPDATE CATALOG FOR NEW RELEASE OR FUNCTION LEVEL                            
-//*********************************************************************         
+//*-- 1: UPDATE DB2 CATALOG FOR NEW FUNCTION LEVEL --------------------*
 //DSNTITC  EXEC PGM=DSNUTILB,REGION=0M,                                         
 //          PARM='DBDG,RELODCAT'                                                
 //SYSPRINT DD   SYSOUT=*                                                        
@@ -29,9 +27,7 @@
 //CHKTITC IF ABEND=TRUE OR RC GE 8 THEN                                         
 //*********************************************************************         
 //*                                                                             
-//*********************************************************************         
-//* REBUILD ANY CATALOG INDEXES THAT ARE IN REBUILDING PENDING                  
-//*********************************************************************         
+//*-- 2: REBUILD CATALOG INDEXES IN REBUILDING PENDING STATE ----------*
 //DSNTIRI EXEC PGM=DSNUTILB,REGION=0M,                                          
 //             PARM='DSN,DSNTIRI'                                               
 //SYSPRINT DD  SYSOUT=*                                                         
@@ -40,9 +36,7 @@
 //SYSIN    DD  *                                                                
    CATMAINT UPDATE UNLDDN REBLDIDX                                              
 //*                                                                             
-//*********************************************************************         
-//* RUN DISPLAY BLOCKERS COMMAND FOR CATALOG AND DIRECTORY DATABASES            
-//*********************************************************************         
+//*-- 3: DISPLAY BLOCKERS FOR CATALOG AND DIRECTORY DATABASES ---------*
 //DSNTITD EXEC PGM=IKJEFT01,DYNAMNBR=20                                         
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSPRINT DD  SYSOUT=*                                                         

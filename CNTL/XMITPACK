@@ -8,15 +8,11 @@
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
-//********************************************************************          
-//*                                                                  *          
-//* PURPOSE: XMIT AND TERSE (PACK) A LOAD LIBRARY                    *          
-//*                                                                  *          
-//********************************************************************          
+//*-- 1: DELETE EXISTING XMIT OUTPUT DATASET --------------------------*
 //DELETE   EXEC  PGM=IEFBR14                                                    
 //FILE     DD DISP=(MOD,DELETE),DSN=IBMUSER.COBOL.LOAD.XMIT,                    
 //            UNIT=SYSDA,SPACE=(TRK,1)                                          
-//*                                                                             
+//*-- 2: TRANSMIT LOAD LIBRARY TO XMIT FORMAT -------------------------*
 //XMIT     EXEC PGM=IKJEFT01,REGION=4M,COND=(0,NE)                              
 //FILEIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
 //FILEOUT  DD DSN=IBMUSER.COBOL.LOAD.XMIT,                                      
@@ -26,9 +22,8 @@
   XMIT A.B FILE(FILEIN) OUTFILE(FILEOUT) -                                      
        SYSOUT(Z) NOEPILOG NOLOG NOPROLOG                                        
 //SYSTSPRT DD SYSOUT=*                                                          
-//*                                                                             
-//*  PACK PDSE LINKLIB                                                          
-//*                                                                             
+//*
+//*-- 3: PACK XMIT FILE USING AMATERSE --------------------------------*
 //AMATERSE EXEC PGM=AMATERSE,PARM=PACK                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD.XMIT                              

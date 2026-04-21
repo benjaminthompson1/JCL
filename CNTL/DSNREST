@@ -8,8 +8,7 @@
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  UPDATE SERVICE NAMES AND TARGET TABLE BEFORE RUN                     
 //*-----------------------------------------------------------------*           
-//* STEP 1: FREE 'employeeList' SERVICE                                         
-//*--------------------------------------------------------------------*        
+//*-- 1: FREE EMPLOYEELIST REST SERVICE -------------------------------*
 //FREE1    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
 //         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
@@ -21,9 +20,8 @@
   FREE SERVICE("EmployeeService"."employeeList")                                
   END                                                                           
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 2: BIND 'employeeList' SERVICE                                         
-//*--------------------------------------------------------------------*        
+//*
+//*-- 2: BIND EMPLOYEELIST REST SERVICE -------------------------------*
 //BIND1    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
 //         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
@@ -43,9 +41,8 @@
        DESCRIPTION('Returns a list of employees')                               
   END                                                                           
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 3: FREE 'employeeDetails' SERVICE                                      
-//*--------------------------------------------------------------------*        
+//*
+//*-- 3: FREE EMPLOYEEDETAILS REST SERVICE ----------------------------*
 //FREE2    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
 //         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
@@ -57,9 +54,8 @@
   FREE SERVICE("EmployeeService"."employeeDetails")                             
   END                                                                           
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 4: BIND 'employeeDetails' SERVICE                                      
-//*--------------------------------------------------------------------*        
+//*
+//*-- 4: BIND EMPLOYEEDETAILS REST SERVICE ----------------------------*
 //BIND2    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
 //         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
@@ -80,9 +76,8 @@
        DESCRIPTION('Returns the details of an individual employee')             
   END                                                                           
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 5: FREE 'employeeUpdate' SERVICE                                       
-//*--------------------------------------------------------------------*        
+//*
+//*-- 5: FREE EMPLOYEEUPDATE REST SERVICE -----------------------------*
 //FREE3    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
 //         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
@@ -94,9 +89,8 @@
   FREE SERVICE("EmployeeService"."employeeUpdate")                              
   END                                                                           
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 6: BIND 'employeeUpdate' SERVICE                                       
-//*--------------------------------------------------------------------*        
+//*
+//*-- 6: BIND EMPLOYEEUPDATE REST SERVICE -----------------------------*
 //BIND3    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
 //         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      

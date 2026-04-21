@@ -8,9 +8,7 @@
 //* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  DELETES AND RECREATES MFAUSR1-MFAUSR3; IZUACCT NEEDED                
 //*-----------------------------------------------------------------*           
-//*--------------------------------------------------------------------*        
-//* STEP 1: DELETE & CREATE USERS WITH TSO SEGMENTS AND MFA SETTINGS            
-//*--------------------------------------------------------------------*        
+//*-- 1: DELETE AND CREATE MFA USERS WITH TSO SEGMENTS AND SETTINGS ---*
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -84,9 +82,8 @@ LISTUSER MFAUSR1 MFA
 LISTUSER MFAUSR2 MFA                                                            
 LISTUSER MFAUSR3 MFA                                                            
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 2: CLEAN UP OLD ISPF PROFILE DATASETS (IF THEY EXIST)                  
-//*--------------------------------------------------------------------*        
+//*
+//*-- 2: CLEAN UP OLD ISPF PROFILE DATASETS ---------------------------*
 //DELETE EXEC PGM=IDCAMS,COND=(0,NE)                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
@@ -95,9 +92,8 @@ LISTUSER MFAUSR3 MFA
   DELETE MFAUSR3.S0W1.ISPF.ISPPROF PURGE                                        
   SET MAXCC=0                                                                   
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 3: ALLOCATE NEW ISPF PROFILE LIBRARIES FOR USERS                       
-//*--------------------------------------------------------------------*        
+//*
+//*-- 3: ALLOCATE NEW ISPF PROFILE LIBRARIES FOR USERS ----------------*
 //DEFINE   EXEC PGM=IEFBR14,COND=(0,NE)                                         
 //MFAUSR1  DD DSN=MFAUSR1.S0W1.ISPF.ISPPROF,                                    
 //            DISP=(NEW,CATLG),                                                 

@@ -8,6 +8,7 @@
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
+//*-- 1: SORT SMF DATA FOR RMF POST-PROCESSING ------------------------*
 //RMFSORT  EXEC PGM=SORT                                                        
 //SORTIN   DD DISP=SHR,DSN=SMF.S0W1.DATA(0)                                     
 //SORTOUT  DD DISP=(NEW,PASS),UNIT=SYSDA,SPACE=(CYL,(50,50))                    
@@ -18,12 +19,9 @@
 //SYSOUT   DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   SORT FIELDS=(11,4,CH,A,7,4,CH,A),EQUALS                                       
-/*                                                                              
-//******************************************************************            
-//*                                                                             
-//*        RMF POSTPROCESSING                                                   
-//*                                                                             
-//******************************************************************            
+/*
+//*
+//*-- 2: RMF POST-PROCESSING CPU UTILIZATION REPORT -------------------*
 //RMFPP    EXEC PGM=ERBRMFPP                                                    
 //MFPINPUT DD DISP=(OLD,DELETE),DSN=*.RMFSORT.SORTOUT                           
 //MFPMSGDS DD SYSOUT=*                                                          

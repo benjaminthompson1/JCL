@@ -69,9 +69,7 @@
 //*--------------------------------------------------------------------*        
 //* End of PROC                                                                 
 //*--------------------------------------------------------------------*        
-//*--------------------------------------------------------------------*        
-//* STEP 1: DEFINE OPTIONS, ZONES, ZONEINDEX                                    
-//*--------------------------------------------------------------------*        
+//*-- 1: DEFINE OPTIONS, ZONES, AND ZONEINDEX VIA AVZALB PROC ---------*
 //ZONING   EXEC AVZALB                                                          
 //SMPCNTL  DD *                                                                 
   SET BDY(GLOBAL).                                                              
@@ -111,9 +109,8 @@
    ENDUCL.                                                                      
   LIST ALLZONES.                                                                
 /*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 2: ADD DDDEFs FOR GLOBAL, DLIB, AND TARGET ZONES                       
-//*--------------------------------------------------------------------*        
+//*
+//*-- 2: ADD DDDEFS FOR GLOBAL, DLIB, AND TARGET ZONES ----------------*
 //DDDEF    EXEC PGM=GIMSMP,REGION=0M                                            
 //SMPCSI   DD DSN=SMPE.CDM.V1R2M0.GLOBAL.CSI,                                   
 //            DISP=SHR                                                          

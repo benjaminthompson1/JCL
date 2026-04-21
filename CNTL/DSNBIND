@@ -8,8 +8,7 @@
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  UPDATE COLLECTION, MEMBER, PLAN AND DB2 SUBSYSTEM NAMES              
 //*-----------------------------------------------------------------*           
-//* STEP 1: BIND DB2 PACKAGE                                                    
-//*--------------------------------------------------------------------*        
+//*-- 1: BIND DB2 PACKAGE ---------------------------------------------*
 //BINDPKG  EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //SYSTSPRT DD SYSOUT=*                                                          
@@ -29,10 +28,9 @@
        FLAG(I) -                                                                
        VALIDATE(BIND)                                                           
   END                                                                           
-/*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 2: BIND DB2 PLAN                                                       
-//*--------------------------------------------------------------------*        
+/*
+//*
+//*-- 2: BIND DB2 PLAN ------------------------------------------------*
 //BINDPLAN EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //SYSTSPRT DD SYSOUT=*                                                          
@@ -48,10 +46,9 @@
        RELEASE(COMMIT) -                                                        
        VALIDATE(BIND)                                                           
   END                                                                           
-/*                                                                              
-//*--------------------------------------------------------------------*        
-//* STEP 3: GRANT EXECUTE PERMISSION TO PUBLIC                                  
-//*--------------------------------------------------------------------*        
+/*
+//*
+//*-- 3: GRANT EXECUTE ON PACKAGE TO PUBLIC ---------------------------*
 //GRANTPKG EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
 //SYSTSPRT DD SYSOUT=*                                                          

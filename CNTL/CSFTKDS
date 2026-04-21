@@ -8,7 +8,7 @@
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CHANGE VOLUME AND DSN PREFIX TO MATCH SITE ICSF CONFIG               
 //*-----------------------------------------------------------------*           
-//*-- 1: DEFINE VSAM CLUSTER FOR TKDS ------------------------------*           
+//*-- 1: DEFINE VSAM CLUSTER FOR TKDS ---------------------------------*
 //DEFINE  EXEC PGM=IDCAMS,REGION=4M                                             
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN DD *                                                                    
@@ -24,8 +24,9 @@
                   CONTROLINTERVALSIZE(32768) -                                  
                   ERASE)                     -                                  
            INDEX (NAME(CSF.SCSFTKDS.INDEX))                                     
-/*                                                                              
-//*-- 2: CREATE HEADER RECORD FOR TKDS USING IEBGENER --------------*           
+/*
+//*
+//*-- 2: CREATE HEADER RECORD FOR TKDS USING IEBGENER -----------------*
 //MKHEAD   EXEC PGM=IEBGENER                                                    
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD *                                                                 
@@ -44,17 +45,19 @@
         FIELD=(4,X'0000009C',,113),                                             
         FIELD=(16,X'00000000000000000000000000000000',,117),                    
         FIELD=(20,X'0000000000000000000000000000000000000000',,133),            
-        FIELD=(4,X'00000200',,153)                                              
-/*                                                                              
-//*-- 3: REPRO HEADER RECORD INTO THE TKDS VSAM DATASET ------------*           
+        FIELD=(4,X'00000200',,153)
+/*
+//*
+//*-- 3: REPRO HEADER RECORD INTO THE TKDS VSAM DATASET ---------------*
 //REPROKSD EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSDATA  DD DSN=*.MKHEAD.SYSUT2,DISP=(OLD,DELETE)                             
 //SYSIN    DD *                                                                 
    REPRO INFILE(SYSDATA) -                                                      
-      OUTDATASET(CSF.SCSFTKDS)                                                  
-/*                                                                              
-//*-- 4: DELETE AND REDEFINE CSFCKDS - CLEAR KEY DATA SET ----------*           
+      OUTDATASET(CSF.SCSFTKDS)
+/*
+//*
+//*-- 4: DELETE AND REDEFINE CSFCKDS - CLEAR KEY DATA SET -------------*
 //DEFINE  EXEC PGM=IDCAMS,REGION=4M                                             
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN DD *                                                                    
@@ -71,9 +74,10 @@
                   BUFFERSPACE(100000)        -                                  
                   ERASE                      -                                  
                   CISZ(32768))               -                                  
-           INDEX (NAME(CSF.CSFCKDS.INDEX))                                      
-/*                                                                              
-//*-- 5: DELETE AND REDEFINE CSFPKDS - PRIVATE KEY DATA SET --------*           
+           INDEX (NAME(CSF.CSFCKDS.INDEX))
+/*
+//*
+//*-- 5: DELETE AND REDEFINE CSFPKDS - PRIVATE KEY DATA SET -----------*
 //DEFINE  EXEC PGM=IDCAMS,REGION=64M                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN DD *                                                                    

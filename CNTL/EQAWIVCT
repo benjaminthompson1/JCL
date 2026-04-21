@@ -320,20 +320,14 @@
 //*                                                                             
 //        SET UNITDEV=SYSALLDA                                                  
 //*                                                                             
-//*------------------------------------------------------------                 
-//* 1. Allocate cataloged data set needed                                       
-//*------------------------------------------------------------                 
-//*                                                                             
+//*-- 1: ALLOCATE CATALOGED LOAD LIBRARY DATASET ----------------------*
 //ALLOCC   EXEC PGM=IEFBR14                                                     
 //LOADPDSE DD DSN=&EQAIVP..LOADPDSE,                                            
 //         DISP=(MOD,CATLG),                                                    
 //         DCB=(DSORG=PO,RECFM=U,LRECL=0,BLKSIZE=32760),                        
 //         SPACE=(CYL,(1,1)),UNIT=&UNITDEV.,DSNTYPE=LIBRARY                     
 //*                                                                             
-//*------------------------------------------------------------                 
-//* 3. Compile the test program                                                 
-//*------------------------------------------------------------                 
-//*                                                                             
+//*-- 2: COMPILE COBOL TEST PROGRAM WITH CICS SUPPORT -----------------*
 //COMPILE EXEC PGM=IGYCRCTL,                                                    
 // PARM=('APOST,NONAME,TEST,CICS("SP COBOL3")'),                                
 // REGION=0M                                                                    
@@ -432,10 +426,7 @@
            EXEC CICS RETURN END-EXEC.                                           
 /*                                                                              
 //*                                                                             
-//*------------------------------------------------------------                 
-//* 4. Bind step                                                                
-//*------------------------------------------------------------                 
-//*                                                                             
+//*-- 3: LINK-EDIT COMPILED PROGRAM INTO LOAD LIBRARY -----------------*
 //BIND    EXEC PGM=HEWL,PARM='CALL,LIST,XREF,LET,MAP,RENT',REGION=0M            
 //SYSLIB   DD DISP=SHR,DSN=&LIBPRFX..SCEELKED                                   
 //         DD DISP=SHR,DSN=&LIBPRFX..SCEELKEX                                   
