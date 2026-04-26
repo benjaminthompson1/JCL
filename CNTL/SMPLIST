@@ -4,14 +4,11 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPLI                                                              
 //* DESC:  SMP/E LIST DDDEF DEFINITIONS                                         
-//* STEPS: 1-LISTSMPE                                                           
+//* STEPS: <NONE>                                                           
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone; NON-DESTRUCTIVE, REPORT OUTPUT ONLY          
 //*-----------------------------------------------------------------*
 //        SET CSI=#globalzone
-//*--------------------------------------------------------------------*
-//* STEP 1: LIST DDDEF AND SOURCEID ENTRIES FROM GLOBAL ZONE
-//*--------------------------------------------------------------------*
 //LISTSMPE EXEC PGM=GIMSMP
 //SMPCSI   DD DISP=SHR,DSN=&CSI                                          
 //SMPLOG   DD SYSOUT=*                                                          

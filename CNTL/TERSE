@@ -4,13 +4,10 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUTERSE                                                              
 //* DESC:  PACK AND UNPACK DATASETS (AMATERSE)                                  
-//* STEPS: 1-AMATERSE                                                           
+//* STEPS: <NONE>                                                           
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SET PARM TO SPACK, PACK, OR UNPACK; CUSTOMIZE SYSUT1/SYSUT2 NAMES    
-//*-----------------------------------------------------------------*           
-//*--------------------------------------------------------------------*        
-//* STEP 1: EXECUTE AMATERSE TO PACK / SPACK / UNPACK DATASET                   
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
 //AMATERSE EXEC PGM=AMATERSE,PARM=SPACK                                         
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD DSN=SMF.S0W1.DATA.G0051V00,                                       

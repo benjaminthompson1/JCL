@@ -4,13 +4,10 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSYSLG                                                              
 //* DESC:  DUMP SYSLOG TO A DATASET                                             
-//* STEPS: 1-DUMPLOG                                                            
+//* STEPS: <NONE>                                                            
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  CUSTOMIZE OUTPUT DSN AND TIME RANGE; REQUIRES SDSF LOG/PT AUTHORITY  
-//*-----------------------------------------------------------------*           
-//*--------------------------------------------------------------------*        
-//* STEP 1: DUMP SYSLOG TO TEMPORARY DATASET                                    
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
 //DUMPLOG  EXEC PGM=ISFAFD,DYNAMNBR=150,PARM='++122,1000'                       
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSOUT   DD SYSOUT=*                                                          

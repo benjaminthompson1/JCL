@@ -7,9 +7,7 @@
 //* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-07-25                                   
 //* NOTE:  ADJUST GDG NAME TO SUIT YOUR SYSTEM STANDARDS                        
-//*-----------------------------------------------------------------*           
-//* STEP 1: DEFINE GDG BASE                                                     
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
 //IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 

@@ -8,10 +8,7 @@
 //* AUTH:  Ben               DATE: 2025-06-27                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #target BEFORE RUNNING                    
 //*-----------------------------------------------------------------*           
-//        SET CSI=#globalzone                                                   
-//*--------------------------------------------------------------------*        
-//* STEP 1: SMP/E APPLY CHECK                                                   
-//*--------------------------------------------------------------------*        
+//        SET CSI=#globalzone
 //APPLY   EXEC PGM=GIMSMP                                                       
 //SMPCSI  DD DISP=SHR,DSN=&CSI                                                  
 //* SMP/E TEMP DATASETS (OPTIONAL)                                              

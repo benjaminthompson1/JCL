@@ -8,10 +8,7 @@
 //* AUTH:  Ben               DATE: 2025-07-09                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #dlib BEFORE RUNNING                      
 //*-----------------------------------------------------------------*           
-//        SET CSI=#globalzone                                                   
-//*--------------------------------------------------------------------*        
-//* STEP 1: SMP/E ACCEPT                                                        
-//*--------------------------------------------------------------------*        
+//        SET CSI=#globalzone
 //ACCEPT   EXEC PGM=GIMSMP                                                      
 //* GLOBAL ZONE CSI                                                             
 //SMPCSI   DD DISP=SHR,DSN=&CSI                                                 

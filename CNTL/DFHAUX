@@ -7,9 +7,7 @@
 //* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-07-25                                   
 //* NOTE:  UPDATE DFHAUXT AND DFHBUXT DSN TO MATCH CICS INSTALLATION            
-//*-----------------------------------------------------------------*           
-//* STEP 1: RUN DFHTU750 TO FORMAT AUXILIARY TS FILES                           
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
 //DFHTU660 EXEC PGM=DFHTU750,REGION=5M                                          
 //STEPLIB  DD DISP=SHR,DSN=DFH620.CICS.SDFHLOAD                                 
 //         DD DISP=SHR,DSN=DFH620.CICS.SDFHLINK                                 

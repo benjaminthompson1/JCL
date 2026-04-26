@@ -4,13 +4,10 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRE                                                              
 //* DESC:  SMP/E TARGET SYSTEM REPORT                                           
-//* STEPS: 1-STEP1                                                              
+//* STEPS: <NONE>                                                              
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #target; OUTPUT TO SEQUENTIAL DATASET     
-//*-----------------------------------------------------------------*           
-//*--------------------------------------------------------------------*        
-//* STEP 1: GENERATE PRODUCT AND SERVICE INVENTORY REPORT                       
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
 //STEP1    EXEC PGM=GIMXSID,PARM='WAIT=10MIN,L=ENU'                             
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPOUT   DD SYSOUT=*                                                          

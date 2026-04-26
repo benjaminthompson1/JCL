@@ -4,14 +4,11 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRS                                                              
 //* DESC:  SMP/E RESTORE                                                        
-//* STEPS: 1-RESTORE                                                            
+//* STEPS: <NONE>                                                            
 //* AUTH:  Ben               DATE: 2025-08-29                                   
 //* NOTE:  UPDATE RESTORE SELECT() LIST; USE CHECK BEFORE FINAL RUN             
 //*-----------------------------------------------------------------*
 //        SET CSI=MVS.GLOBAL.CSI
-//*--------------------------------------------------------------------*
-//* STEP 1: RESTORE SYSMODS
-//*--------------------------------------------------------------------*
 //RESTORE  EXEC PGM=GIMSMP
 //SMPCSI   DD DISP=SHR,DSN=&CSI                                       
 //SYSPRINT DD SYSOUT=*                                                          

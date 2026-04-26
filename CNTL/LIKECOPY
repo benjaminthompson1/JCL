@@ -7,9 +7,7 @@
 //* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-04                                   
 //* NOTE:  ENSURE SOURCE DATASET EXISTS AND IS CATALOGED                        
-//*-----------------------------------------------------------------*           
-//* STEP 1: ALLOCATE NEW DATASET USING LIKE PARAMETER                           
-//*------------------------------------------------------------------*          
+//*-----------------------------------------------------------------*
 //LIKECPY EXEC PGM=IEFBR14                                                      
 //SMSDS1  DD DSNAME=IBMUSER.COBOL.LOAD.NEW,                                     
 //        LIKE=IBMUSER.COBOL.LOAD,DISP=(NEW,KEEP)                               

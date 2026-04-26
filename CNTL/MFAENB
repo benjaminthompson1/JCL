@@ -7,10 +7,7 @@
 //* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  USER IDs MFAUSR1-MFAUSR3 MUST ALREADY EXIST BEFORE RUN               
-//*-----------------------------------------------------------------*           
-//*--------------------------------------------------------------------*        
-//* STEP 1: ENABLE MFA FACTORS AND POLICIES                                     
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          

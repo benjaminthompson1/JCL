@@ -4,14 +4,11 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRE                                                              
 //* DESC:  SMP/E REJECT AFTER ACCEPT (PURGE PROCESSED SYSMODS)                  
-//* STEPS: 1-RECNTS                                                             
+//* STEPS: <NONE>                                                             
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #dlib; USES PURGE TO FREE SMPPTS SPACE    
 //*-----------------------------------------------------------------*           
-//        SET CSI=#globalzone                                                   
-//*--------------------------------------------------------------------*        
-//* STEP 1: REJECT SYSMODS AND PURGE FROM SMPPTS                                
-//*--------------------------------------------------------------------*        
+//        SET CSI=#globalzone
 //RECNTS   EXEC PGM=GIMSMP                                                      
 //SMPCSI   DD DISP=SHR,DSN=&CSI                                                 
 //SMPOUT   DD SYSOUT=*                                                          

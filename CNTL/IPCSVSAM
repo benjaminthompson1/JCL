@@ -7,9 +7,7 @@
 //* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-05                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
-//*-----------------------------------------------------------------*           
-//* STEP 1: DEFINE IPCS DUMP DIRECTORY USING IDCAMS                             
-//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*
 //IPCSVASM EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //AMSDUMP  DD SYSOUT=*                                                          

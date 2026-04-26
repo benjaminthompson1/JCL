@@ -7,9 +7,7 @@
 //* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-20                                   
 //* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING              
-//*-----------------------------------------------------------------*           
-//* STEP 1: DEFINE GROUPS AND USERS FOR QWT                                     
-//*-----------------------------------------------------------------*           
+//*-----------------------------------------------------------------*
 //QWTRACF  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          

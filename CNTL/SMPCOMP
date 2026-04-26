@@ -4,14 +4,11 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPCP                                                              
 //* DESC:  SMP/E COMPARE TARGET AND DISTRIBUTION ZONES                          
-//* STEPS: 1-NOACCEPT                                                           
+//* STEPS: <NONE>                                                           
 //* AUTH:  Ben               DATE: 2025-06-27                                   
 //* NOTE:  NOACCEPT ONLY; REPORTS DIFFERENCES, NO CHANGES APPLIED               
 //*-----------------------------------------------------------------*
 //        SET CSI=#globalzone
-//*--------------------------------------------------------------------*
-//* STEP 1: SMP/E COMPARE NOACCEPT
-//*--------------------------------------------------------------------*
 //NOACCEPT EXEC PGM=GIMSMP
 //SMPCSI   DD DISP=SHR,DSN=&CSI                                          
 //SYSPRINT DD SYSOUT=*                                                          
