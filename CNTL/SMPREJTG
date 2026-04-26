@@ -7,12 +7,13 @@
 //* STEPS: 1-RECNTS                                                             
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  USES CHECK BY DEFAULT; REMOVE CHECK TO ACTUALLY REJECT               
-//*-----------------------------------------------------------------*           
-//*--------------------------------------------------------------------*        
-//* STEP 1: REJECT RECEIVED-ONLY SYSMODS (DRY RUN MODE)                         
-//*--------------------------------------------------------------------*        
-//RECNTS   EXEC PGM=GIMSMP                                                      
-//         PARM='CSI=#globalzone'                                               
+//*-----------------------------------------------------------------*
+//        SET CSI=#globalzone
+//*--------------------------------------------------------------------*
+//* STEP 1: REJECT RECEIVED-ONLY SYSMODS (DRY RUN MODE)
+//*--------------------------------------------------------------------*
+//RECNTS   EXEC PGM=GIMSMP
+//         PARM='CSI=&CSI'                                               
 //SMPOUT   DD SYSOUT=*                                                          
 //SMPLOG   DD SYSOUT=*                                                          
 //SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
