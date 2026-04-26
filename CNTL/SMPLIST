@@ -7,12 +7,13 @@
 //* STEPS: 1-LISTSMPE                                                           
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone; NON-DESTRUCTIVE, REPORT OUTPUT ONLY          
-//*-----------------------------------------------------------------*           
-//*--------------------------------------------------------------------*        
-//* STEP 1: LIST DDDEF AND SOURCEID ENTRIES FROM GLOBAL ZONE                    
-//*--------------------------------------------------------------------*        
-//LISTSMPE EXEC PGM=GIMSMP                                                      
-//SMPCSI   DD DISP=SHR,DSN=#globalzone                                          
+//*-----------------------------------------------------------------*
+//        SET CSI=#globalzone
+//*--------------------------------------------------------------------*
+//* STEP 1: LIST DDDEF AND SOURCEID ENTRIES FROM GLOBAL ZONE
+//*--------------------------------------------------------------------*
+//LISTSMPE EXEC PGM=GIMSMP
+//SMPCSI   DD DISP=SHR,DSN=&CSI                                          
 //SMPLOG   DD SYSOUT=*                                                          
 //SMPHOLD  DD DUMMY                                                             
 //SMPOUT   DD SYSOUT=*                                                          

@@ -7,15 +7,17 @@
 //* STEPS: 1-RECEIVE                                                            
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone, #smpptfdsn, #fromnts, #sourceid              
-//*-----------------------------------------------------------------*           
-//*--------------------------------------------------------------------*        
-//* STEP 1: RECEIVE SYSMODS FROM SMPPTFIN PACKAGE                               
-//*--------------------------------------------------------------------*        
-//RECNTS   EXEC PGM=GIMSMP                                                      
-//SMPCSI   DD DISP=OLD,DSN=#globalzone                                          
-//SMPOUT   DD SYSOUT=*                                                          
-//SMPLOG   DD SYSOUT=*                                                          
-//SMPPTFIN DD DISP=SHR,DSN=#smpptfdsn                                           
+//*-----------------------------------------------------------------*
+//        SET CSI=#globalzone
+//        SET SMPPTF=#smpptfdsn
+//*--------------------------------------------------------------------*
+//* STEP 1: RECEIVE SYSMODS FROM SMPPTFIN PACKAGE
+//*--------------------------------------------------------------------*
+//RECNTS   EXEC PGM=GIMSMP
+//SMPCSI   DD DISP=OLD,DSN=&CSI
+//SMPOUT   DD SYSOUT=*
+//SMPLOG   DD SYSOUT=*
+//SMPPTFIN DD DISP=SHR,DSN=&SMPPTF                                           
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
   SET BOUNDARY(GLOBAL) .                                                        
