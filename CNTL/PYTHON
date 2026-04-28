@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUBPXCL                                                              
-//* DESC:  IVP BATCH PYTHON                                                     
+//* DESC:  Run a Python script in batch using TSO                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

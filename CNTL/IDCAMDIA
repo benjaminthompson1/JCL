@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUIDCAM                                                              
-//* DESC:  DIAGNOSE VTOC AND CATALOG                                            
+//* DESC:  Diagnose VTOC and catalog entries using IDCAMS                       
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  SUBSTITUTE @volser@ AND @catalog@ BEFORE RUNNING                     
 //*-----------------------------------------------------------------*           

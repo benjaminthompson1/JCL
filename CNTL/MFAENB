@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUMFA03                                                              
-//* DESC:  ENABLE MFA USERS                                                     
+//* DESC:  Enable MFA authentication for existing RACF users                    
 //* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  USER IDs MFAUSR1-MFAUSR3 MUST ALREADY EXIST BEFORE RUN               
 //*-----------------------------------------------------------------*

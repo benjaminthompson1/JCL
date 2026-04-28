@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IURACFZ                                                              
-//* DESC:  CREATE SIGNED PERSONAL CERT ON KEYRING                               
+//* DESC:  Create and manage digital certificates using RACF                    
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

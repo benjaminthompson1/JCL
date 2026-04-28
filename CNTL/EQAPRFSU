@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUPRFSU                                                              
-//* DESC:  Z/OS DEBUGGER: CONFIGURE DEBUG PROFILE SERVICE                       
+//* DESC:  Configure the z/OS Debugger debug profile service                    
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  JOB ID RUNNING THIS MUST HAVE SUFFICIENT Z/OS UNIX AUTH              
 //*-----------------------------------------------------------------*           

@@ -3,7 +3,11 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUTIJAI                                                              
-//* DESC:  SQLDI PSEUDO CATALOG                                                 
+//* DESC:  Set up the SQLDI database environment using DSNTICU                  
+//*        Create pseudo-catalog tablespaces and tables (DSNTIAI1)              
+//*        Create pseudo-catalog views and indexes (DSNTIAI2)                   
+//*        Load initial statistics data into the catalog (DSNTIAI3)             
+//*        Grant privileges on pseudo-catalog objects (DSNTIAI4)                
 //* STEPS: 1-DSNTICU, 2-DSNTIAI1, 3-DSNTIAI2, 4-DSNTIAI3, 5-DSNTIAI4            
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REVIEW BUFFER POOL AND STORAGE GROUP SETTINGS BEFORE RUN             

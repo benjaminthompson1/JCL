@@ -3,7 +3,9 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUJCKTP                                                              
-//* DESC:  CREATE JES2 CHECKPOINT DATASETS                                      
+//* DESC:  Allocate JES2 checkpoint datasets on target volumes                  
+//*        Copy JES2 parmlib members to the target library                      
+//*        Copy JES2 load modules to the target library                         
 //* STEPS: 1-CKPT, 2-JES2PARM, 3-JES2                                           
 //* AUTH:  Ben               DATE: 2025-04-24                                   
 //* NOTE:  ENSURE TARGET VOLUMES C3SYS1 AND C3CFG1 ARE ONLINE                   

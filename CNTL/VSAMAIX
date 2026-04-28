@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUVSAIX                                                              
-//* DESC:  <One-line purpose>                                                   
+//* DESC:  Create a VSAM KSDS cluster with an alternate index                   
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

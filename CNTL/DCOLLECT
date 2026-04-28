@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUDCOLL                                                              
-//* DESC:  COLLECT DATASET, VOLUME, POLICY VALUES                               
+//* DESC:  Collect dataset and volume data using IDCAMS DCOLLECT                
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  ENSURE SPACE AND DCB VALUES SUIT EXPECTED DATA VOLUME                
 //*-----------------------------------------------------------------*           

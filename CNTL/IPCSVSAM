@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUVSAM                                                               
-//* DESC:  IPCS FOR VSAM                                                        
+//* DESC:  Allocate VSAM datasets required for IPCS dump analysis               
 //* AUTH:  Ben               DATE: 2025-08-05                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*

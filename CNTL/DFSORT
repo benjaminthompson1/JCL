@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUDFSRT                                                              
-//* DESC:  DFSORT UTILITY                                                       
+//* DESC:  Sort or merge datasets using DFSORT                                  
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  INPUT DATASET MUST USE RECFM=VB; VLSHRT OPTION IS REQUIRED           
 //*-----------------------------------------------------------------*           

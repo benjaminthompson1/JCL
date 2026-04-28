@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUQGET                                                               
-//* DESC:  ANSIBLE ZFORUM COBOL GET                                             
+//* DESC:  Get and print messages from an MQ queue via CSQ4BVJ1                 
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSYSLG                                                              
-//* DESC:  DUMP SYSLOG TO A DATASET                                             
+//* DESC:  Dump the JES syslog to a sequential dataset                          
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  CUSTOMIZE OUTPUT DSN AND TIME RANGE; REQUIRES SDSF LOG/PT AUTHORITY  
 //*-----------------------------------------------------------------*

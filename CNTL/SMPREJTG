@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRE                                                              
-//* DESC:  SMP/E REJECT RECEIVED-ONLY ELEMENTS                                  
+//* DESC:  Reject received-only SMP/E SYSMODs from the global zone              
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  USES CHECK BY DEFAULT; REMOVE CHECK TO ACTUALLY REJECT               
 //*-----------------------------------------------------------------*

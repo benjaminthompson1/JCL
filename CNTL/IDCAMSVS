@@ -3,7 +3,9 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUIDCAM                                                              
-//* DESC:  DEFINE VSAM WITH ALTERNATE INDEX                                     
+//* DESC:  Define the base VSAM KSDS cluster using IDCAMS                       
+//*        Load data into the base cluster using IDCAMS REPRO                   
+//*        Define the alternate index on the base cluster                       
 //* STEPS: 1-CREATE, 2-REPRO, 3-CREATEAX                                        
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             

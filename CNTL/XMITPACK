@@ -3,7 +3,9 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUXMIT                                                               
-//* DESC:  <One-line purpose>                                                   
+//* DESC:  Delete the prior XMIT output dataset                                 
+//*        Transmit a PDS library to an XMIT format dataset                     
+//*        Compress the XMIT dataset using AMATERSE PACK                        
 //* STEPS: <Very brief step summary, if needed>                                 
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             

@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IURSCPX                                                              
-//* DESC:  CLONE GOLDEN IMAGES TO IPL RESVOL USING DFSMSDSS                     
+//* DESC:  Restore a DFSMSdss backup to the original volume                     
 //* AUTH:  Ben               DATE: 2025-08-21                                   
 //* NOTE:  ENSURE TARGET IPL RESVOL VOLUMES ARE NOT IN USE BEFORE RUN           
 //*-----------------------------------------------------------------*           

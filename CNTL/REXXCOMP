@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUREXXP                                                              
-//* DESC:  COMPILE REXX EXEC USING THE REXX COMPILER                            
+//* DESC:  Compile a REXX exec and save the result to CEXEC                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

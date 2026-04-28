@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCICSD                                                              
-//* DESC:  DEFINE BASE CICS APPLICATION CSD ENTRY                               
+//* DESC:  Define a CICS application program entry in the CSD                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE DFHCSD DSN AND STEPLIB TO MATCH CICS INSTALLATION             
 //*-----------------------------------------------------------------*           

@@ -3,7 +3,8 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUJBDCO                                                              
-//* DESC:  CDP Z BATCH DCOLLECT PROCESSOR                                       
+//* DESC:  Set thread affinity for the CDP Z batch collector job                
+//*        Process DCOLLECT records using the CDP Z HBOPDE processor            
 //* STEPS: 1-HBOTCAFF, 2-HBODCOCB                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  ADD DD STATEMENTS FOR ANY NEW DCOLLECT RECORD TYPES ADDED            

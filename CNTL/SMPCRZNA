@@ -3,7 +3,8 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPCA                                                              
-//* DESC:  SMP/E CREATE GLOBAL ZONE (ALLOCATE CSI)                              
+//* DESC:  Define the SMP/E global zone CSI VSAM cluster                        
+//*        Prime the global zone with initial entries                           
 //* STEPS: 1-DEFINE, 2-PRIMEIT (OPTIONAL)                                       
 //* AUTH:  Ben               DATE: 2025-07-09                                   
 //* NOTE:  RUN ONLY TO CREATE A NEW SMP/E CSI; FOLLOW WITH SMPCRZNB             

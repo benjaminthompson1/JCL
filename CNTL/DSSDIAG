@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUDDIAG                                                              
-//* DESC:  CHECK VVRS AND CATALOG ENTRIES ON VOLUME                             
+//* DESC:  Diagnose VTOC and catalog entries using DFSMSdss                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REPORTS DUPLICATE AND ORPHANED VVRS AND UNCATALOGED DSN              
 //*-----------------------------------------------------------------*           

@@ -3,7 +3,10 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUMKCER                                                              
-//* DESC:  CREATE/MANAGE DIGITAL CERTIFICATES                                   
+//* DESC:  Delete any existing certificates and keyrings                        
+//*        Create the CA certificate and define the keyring                     
+//*        Create server and client certificates for the keyring                
+//*        Export certificates and grant access to authorised users             
 //* STEPS: 1-STEP010 THRU STEP120                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  WARNING - THIS JOB DELETES RINGS AND CERTIFICATES                    

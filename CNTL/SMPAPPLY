@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPAP                                                              
-//* DESC:  SMP/E APPLY                                                          
+//* DESC:  Apply SMP/E SYSMODs to the target system                             
 //* AUTH:  Ben               DATE: 2025-06-27                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #target BEFORE RUNNING                    
 //*-----------------------------------------------------------------*           

@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCOBOL                                                              
-//* DESC:  COBOL COMPILE AND BIND                                               
+//* DESC:  Compile a COBOL program and link-edit the load module                
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  SET GOPGM= TO TARGET COBOL PROGRAM NAME BEFORE RUN                   
 //*-----------------------------------------------------------------*           

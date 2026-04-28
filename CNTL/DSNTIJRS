@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUTIJRS                                                              
-//* DESC:  ENABLE DB2 REST SERVICES                                             
+//* DESC:  Enable DB2 native REST services database and schema                  
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  RUN BEFORE DSNTIJR2; CUSTOMIZE SSID, DSND10, PLAN NAME               
 //*-----------------------------------------------------------------*           

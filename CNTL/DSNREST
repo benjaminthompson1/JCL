@@ -3,7 +3,9 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUREST                                                               
-//* DESC:  ENABLE DB2 NATIVE REST SERVICES FOR ZCEE                             
+//* DESC:  Free prior DB2 native REST service package binds                     
+//*        Bind the REST service packages                                       
+//*        Bind the REST service plans                                          
 //* STEPS: 1-FREE1, 2-BIND1, 3-BIND2                                            
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  UPDATE SERVICE NAMES AND TARGET TABLE BEFORE RUN                     

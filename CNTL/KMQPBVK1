@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUQPUT                                                               
-//* DESC:  ANSIBLE ZFORUM COBOL PUT                                             
+//* DESC:  Put sample messages to an MQ queue using CSQ4BVK1                    
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

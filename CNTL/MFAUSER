@@ -3,7 +3,9 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUMFA02                                                              
-//* DESC:  CREATE TSO MFA USERS                                                 
+//* DESC:  Create MFA RACF user definitions using TSO RACF commands             
+//*        Delete the existing MFA authentication VSAM dataset                  
+//*        Allocate a fresh MFA authentication VSAM dataset                     
 //* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  DELETES AND RECREATES MFAUSR1-MFAUSR3; IZUACCT NEEDED                

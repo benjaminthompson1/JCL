@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUQWTRA                                                              
-//* DESC:  RACF SETUP FOR QWT                                                   
+//* DESC:  Define RACF profiles for QWT performance monitoring                  
 //* AUTH:  Ben               DATE: 2025-08-20                                   
 //* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING              
 //*-----------------------------------------------------------------*

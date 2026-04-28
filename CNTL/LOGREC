@@ -3,7 +3,9 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IULOGRC                                                              
-//* DESC:  CLEAR/INIT HARDWARE EVENT RECORDER DATASET                           
+//* DESC:  Print current LOGREC hardware error records to SYSOUT                
+//*        Print SIE-format error records to SYSOUT                             
+//*        Clear and reinitialise the LOGREC dataset                            
 //* STEPS: 1-STEP1, 2-STEP2, 3-STEP3                                            
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  DESTROYS ALL EXISTING LOGREC RECORDS; REVIEW BEFORE USE              

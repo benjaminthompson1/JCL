@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUREXX                                                               
-//* DESC:  SUBMIT REXX IN BATCH                                                 
+//* DESC:  Run an interpreted REXX exec from a PDS in batch                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

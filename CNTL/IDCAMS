@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUIDCAM                                                              
-//* DESC:  LISTCAT/DEFINE ALIAS                                                 
+//* DESC:  Manage VSAM datasets and catalogs using IDCAMS                       
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

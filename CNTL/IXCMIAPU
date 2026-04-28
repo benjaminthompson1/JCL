@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUMIAPU                                                              
-//* DESC:  DEFINE LOGSTREAM NAME (IFASMF.SMFALL)                                
+//* DESC:  Define a sysplex couple dataset using IXCMIAPU                       
 //* AUTH:  Ben               DATE: 2025-06-17                                   
 //* NOTE:  UPDATE SYSTEM NAME S0W1 AND RETENTION SETTINGS AS NEEDED             
 //*-----------------------------------------------------------------*

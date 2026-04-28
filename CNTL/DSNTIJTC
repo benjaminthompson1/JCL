@@ -3,7 +3,9 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUTIJTC                                                              
-//* DESC:  ACTIVATE FUNCTION LEVEL NEEDING CATALOG                              
+//* DESC:  Apply DB2 catalog changes for the new function level                 
+//*        Run DB2 initialisation utilities for the new level                   
+//*        Bind DB2 packages required by the new function level                 
 //* STEPS: 1-DSNTITC, 2-CHKTITC, 3-DSNTIRI, 4-DSNTITD                           
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  STEP DSNTITC CANNOT BE RERUN AFTER SUCCESSFUL RC=0                   

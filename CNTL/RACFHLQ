@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IURACFS                                                              
-//* DESC:  RACF TO IMPLEMENT HLQ PROFILES                                       
+//* DESC:  Define RACF dataset profiles for high-level qualifiers               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUDSSCP                                                              
-//* DESC:  COPY DATASETS                                                        
+//* DESC:  Copy datasets to a target volume using DFSMSdss                      
 //* AUTH:  Ben               DATE: 2026-02-11                                   
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL COPY                      
 //*-----------------------------------------------------------------*           

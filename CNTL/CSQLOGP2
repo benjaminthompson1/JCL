@@ -3,7 +3,8 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IULOGP2                                                              
-//* DESC:  MQ CSQ LOG PRINT COMMITTED MESSAGES                                  
+//* DESC:  Print the MQ active log using CSQ1LOGP                               
+//*        Sort the log output by timestamp using DFSORT                        
 //* STEPS: 1-PRTLOG, 2-FILTER                                                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE ARCHIVE DD DSN TO TARGET MQ ARCHIVE LOG DATASET               

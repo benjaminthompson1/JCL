@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUDFRAG                                                              
-//* DESC:  DEFRAGMENT A VOLUME                                                  
+//* DESC:  Defragment a DASD volume using DFSMSdss                              
 //* AUTH:  Ben               DATE: 2026-02-11                                   
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM DEFRAGMENTATION                  
 //*-----------------------------------------------------------------*           

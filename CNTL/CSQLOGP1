@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IULOGP1                                                              
-//* DESC:  MQ CSQ LOG PRINT                                                     
+//* DESC:  Print the MQ active log using CSQ1LOGP                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE ARCHIVE DD DSN TO TARGET MQ ARCHIVE LOG DATASET               
 //*-----------------------------------------------------------------*           

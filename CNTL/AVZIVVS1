@@ -3,7 +3,8 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUIVVS1                                                              
-//* DESC:  DVM IVP                                                              
+//* DESC:  Extract VSAM metrics from z/OS using the AVZ batch tool              
+//*        Reload the extracted metrics into the AVZ data store                 
 //* STEPS: 1-DMFEXTR1, 2-DMFEXTR2                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CUSTOMIZE SET STATEMENTS WITH AVZ INSTALLATION DATASET NAMES         

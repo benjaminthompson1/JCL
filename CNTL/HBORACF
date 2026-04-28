@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IURACF                                                               
-//* DESC:  RACF SETUP FOR IBM Z COMMON DATA PROVIDER                            
+//* DESC:  Define RACF profiles for IBM Z Common Data Provider                  
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  MUST RUN WITH RACF SPECIAL ATTRIBUTE; REVIEW BEFORE USE              
 //*-----------------------------------------------------------------*           

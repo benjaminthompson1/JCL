@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IURACFS                                                              
-//* DESC:  CREATE STC USERID AND STARTED PROFILE                                
+//* DESC:  Define a RACF userid and started task security profile               
 //* AUTH:  Ben               DATE: 2025-08-21                                   
 //* NOTE:  HOME PATH /u/automount/omeg SHOULD EXIST BEFORE RUNNING              
 //*-----------------------------------------------------------------*           

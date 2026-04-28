@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRE                                                              
-//* DESC:  SMP/E TARGET SYSTEM REPORT                                           
+//* DESC:  Generate an SMP/E target system report using GIMXSID                 
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #target; OUTPUT TO SEQUENTIAL DATASET     
 //*-----------------------------------------------------------------*

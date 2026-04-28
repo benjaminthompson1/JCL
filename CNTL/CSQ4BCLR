@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IU4BCLR                                                              
-//* DESC:  MQ PRINT MESSAGES FROM QUEUE (SAMPLE)                                
+//* DESC:  Read and clear messages from an MQ queue via CSQ4BCL1                
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  UPDATE PARM WITH QUEUE MANAGER AND QUEUE NAME BEFORE RUN             
 //*-----------------------------------------------------------------*           

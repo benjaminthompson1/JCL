@@ -3,7 +3,8 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUOMVSA                                                              
-//* DESC:  CREATE TEMP DATASET AND TEST DCAT CATALOG ACCESS                     
+//* DESC:  Create a test dataset using IEBGENER                                 
+//*        Verify distributed catalog (DCAT) access via BPXBATCH                
 //* STEPS: 1-STEP1, 2-STEP2                                                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REQUIRES DCAT CONFIGURED AND ACCESSIBLE ON THE SYSTEM                

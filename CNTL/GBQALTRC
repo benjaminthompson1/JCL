@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUALTRC                                                              
-//* DESC:  IBM Z/OS DFSMS CLOUD DATA MANAGER: DEFINE TRACE DATASETS             
+//* DESC:  Allocate IBM Z DFSMS Cloud Data Manager trace datasets               
 //* AUTH:  Ben               DATE: 2025-08-25                                   
 //* NOTE:  UPDATE HLQ CDM.V1R2M0.GBQS0W1 AND STORCLAS AS REQUIRED               
 //*-----------------------------------------------------------------*

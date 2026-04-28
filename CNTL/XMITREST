@@ -3,7 +3,8 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUXMIT                                                               
-//* DESC:  <One-line purpose>                                                   
+//* DESC:  Unpack a tersed XMIT dataset using AMATERSE UNPACK                   
+//*        Receive the transmitted PDS using TSO RECEIVE                        
 //* STEPS: <Very brief step summary, if needed>                                 
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             

@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUIPCS                                                               
-//* DESC:  INTERACTIVE PROBLEM CONTROL SYSTEM                                   
+//* DESC:  Analyse a system dump using IPCS in TSO batch                        
 //* AUTH:  Ben               DATE: 2025-08-05                                   
 //* NOTE:  IPCS DUMP DIRECTORY (VSAM KSDS) MUST BE DEFINED FIRST                
 //*-----------------------------------------------------------------*

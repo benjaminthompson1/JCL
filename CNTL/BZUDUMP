@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUVTPDP                                                              
-//* DESC:  VTP PLAYBACK DUMP UTILITY                                            
+//* DESC:  Dump a Visual Test Platform recording to a dataset                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REQUIRES VTP TOURFILE IN IBMUSER.VTP.TOURFILE.PLAY                   
 //*-----------------------------------------------------------------*           

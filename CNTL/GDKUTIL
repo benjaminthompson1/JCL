@@ -3,7 +3,9 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUGDKUT                                                              
-//* DESC:  UPLOAD, LIST, AND DOWNLOAD Z/OS DATASETS TO S3 STORAGE               
+//* DESC:  Upload a z/OS dataset to S3 object storage via GDKUTIL               
+//*        List objects in the S3 bucket                                        
+//*        Download a dataset from S3 object storage                            
 //* STEPS: 1-MINIO1, 2-MINIO2, 3-MINIO3                                         
 //* AUTH:  Ben               DATE: 2025-06-26                                   
 //* NOTE:  ENSURE NETWORK CONNECTIVITY TO CHOSEN ENDPOINT BEFORE RUN            

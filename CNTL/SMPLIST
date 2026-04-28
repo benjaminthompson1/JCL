@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPLI                                                              
-//* DESC:  SMP/E LIST DDDEF DEFINITIONS                                         
+//* DESC:  List SMP/E DDDEF entries in the global zone                          
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone; NON-DESTRUCTIVE, REPORT OUTPUT ONLY          
 //*-----------------------------------------------------------------*

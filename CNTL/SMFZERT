@@ -3,7 +3,8 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMFDMP                                                             
-//* DESC:  SMF DUMP TYPE 119 FOR ZERT                                           
+//* DESC:  Delete the prior SMF type 119 output dataset                         
+//*        Dump SMF type 119 records to a flat dataset                          
 //* STEPS: 1-DELETE, 2-DUMP                                                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             

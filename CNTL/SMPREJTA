@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRE                                                              
-//* DESC:  SMP/E REJECT AFTER ACCEPT (PURGE PROCESSED SYSMODS)                  
+//* DESC:  Reject accepted SMP/E SYSMODs from the distribution zone             
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #dlib; USES PURGE TO FREE SMPPTS SPACE    
 //*-----------------------------------------------------------------*           

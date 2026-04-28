@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUMFA01                                                              
-//* DESC:  CREATE MFA RACF DEFINITIONS                                          
+//* DESC:  Create RACF definitions for the MFA server STC                       
 //* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING              
 //*-----------------------------------------------------------------*

@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUIEBUP                                                              
-//* DESC:  COPIES MEMBER FROM SOURCE PDS/PDSE TO NEW LIBRARY                    
+//* DESC:  Create or update PDS members using IEBUPDTE                          
 //* AUTH:  Ben               DATE: 2025-10-26                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

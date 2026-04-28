@@ -3,7 +3,9 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPCB                                                              
-//* DESC:  SMP/E ALLOCATE DATASETS AND DEFINE ZONES                             
+//* DESC:  Initialise the SMP/E environment using GIMSMP                        
+//*        Define target and distribution zones using AVZALB proc               
+//*        Define SMP/E DDDEFs for all required libraries                       
 //* STEPS: 1-INITSMP (VIA AVZALB PROC)                                          
 //* AUTH:  Ben               DATE: 2025-07-09                                   
 //* NOTE:  RUN AFTER SMPCRZNA; UPDATE HLQ, ZONE NAMES, AND SYSTEM PARAMETERS    

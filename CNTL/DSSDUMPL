@@ -3,7 +3,8 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUDSSBK                                                              
-//* DESC:  DSS LOGICAL DATASET BACKUP                                           
+//* DESC:  Perform a logical dataset backup using DFSMSdss                      
+//*        Verify the backup dataset integrity using DFSMSdss                   
 //* STEPS: 1-BACKUP, 2-VERIFY                                                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL DUMP                      

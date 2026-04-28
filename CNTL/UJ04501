@@ -3,7 +3,8 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IU04501                                                              
-//* DESC:  <One-line purpose>                                                   
+//* DESC:  Allocate zSecure customisation datasets using IEFBR14                
+//*        Define SMP/E DDDEFs for zSecure target libraries                     
 //* STEPS: <Very brief step summary, if needed>                                 
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             

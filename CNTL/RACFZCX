@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IURACFZ                                                              
-//* DESC:  RACF TO IMPLEMENT ZCX                                                
+//* DESC:  Define RACF permissions for IBM Z Container Extensions               
 //* AUTH:  Ben               DATE: 2025-08-21                                   
 //* NOTE:  CHANGE PASSWORDS AFTER INITIAL SETUP                                 
 //*-----------------------------------------------------------------*           

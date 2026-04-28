@@ -3,7 +3,8 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUTIJAV                                                              
-//* DESC:  SQLDI IVP                                                            
+//* DESC:  Verify the SQLDI pseudo-catalog environment                          
+//*        Run SQL Data Insights IVP test queries                               
 //* STEPS: 1-DSNTIAV0, 2-DSNTIAV1, 3-DSNTIAV2                                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CHANGE DBDG, DSND10, DSNTIA13 TO SITE VALUES BEFORE RUN              

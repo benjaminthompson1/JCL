@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCOBOL                                                              
-//* DESC:  COBOL RUN DB2ARCH                                                    
+//* DESC:  Run the DB2 archive log utility in TSO batch                         
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE PROGRAM, PLAN AND LIBRARY NAMES IN SYSTSIN BEFORE RUN         
 //*-----------------------------------------------------------------*           

@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMFDL                                                              
-//* DESC:  SMF LOGSTREAM DUMP                                                   
+//* DESC:  Define an SMF logstream using IFASMFDL                               
 //* AUTH:  Ben               DATE: 2025-06-17                                   
 //* NOTE:  UPDATE SYSTEM NAME S0W1 AND LOGSTREAM NAME IF REQUIRED               
 //*-----------------------------------------------------------------*

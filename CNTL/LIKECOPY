@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IULIKEC                                                              
-//* DESC:  CREATE DATASET USING ATTRIBUTES OF BASE                              
+//* DESC:  Allocate a dataset using attributes from an existing one             
 //* AUTH:  Ben               DATE: 2025-08-04                                   
 //* NOTE:  ENSURE SOURCE DATASET EXISTS AND IS CATALOGED                        
 //*-----------------------------------------------------------------*

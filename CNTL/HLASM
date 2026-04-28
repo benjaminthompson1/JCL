@@ -3,7 +3,8 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUHLASM                                                              
-//* DESC:  COMPILE AND LINK HLASM                                               
+//* DESC:  Assemble an HLASM source program using ASMA90                        
+//*        Link-edit the assembled object into a load module                    
 //* STEPS: 1-ASM, 2-LKED                                                        
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             

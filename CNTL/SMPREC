@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRE                                                              
-//* DESC:  SMP/E RECEIVE (SHOPZ DOWNLOAD)                                       
+//* DESC:  Receive SMP/E SYSMODs from a ShopZ package download                  
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone, #smpptfdsn, #fromnts, #sourceid              
 //*-----------------------------------------------------------------*

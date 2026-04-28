@@ -3,7 +3,8 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUWCRVS                                                              
-//* DESC:  Z/OS DEBUGGER: CREATE VSAM FILE FOR DTCN DEBUG PROFILES              
+//* DESC:  Delete the prior DTCN debug profile VSAM dataset                     
+//*        Define a new DTCN debug profile VSAM dataset                         
 //* STEPS: 1-DELETE, 2-DEFINE                                                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  V15+ RECORD SIZE INCREASED; FILES NOT COMPATIBLE WITH PRIOR          

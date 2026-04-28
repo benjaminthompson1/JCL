@@ -3,7 +3,8 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IURADB2                                                              
-//* DESC:  RACF PERMISSIONS FOR DVM ACCESS TO DB2 RESOURCES                     
+//* DESC:  Permit DB2 subsystem access for DRDA connections                     
+//*        Permit DB2 batch access for DVM process IDs                          
 //* STEPS: 1-PERMIT1, 2-PERMIT2                                                 
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CHANGE DBDG, ID(*), AND DBDGLU1 TO SITE VALUES BEFORE RUN            

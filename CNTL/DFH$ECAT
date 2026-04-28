@@ -3,7 +3,8 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUEGUIC                                                              
-//* DESC:  COPY FROM CICS SDFHINST                                              
+//* DESC:  Define the CICS extended catalog VSAM KSDS cluster                   
+//*        Populate the cluster by copying from SDFHINST                        
 //* STEPS: 1-DEFKSDS, 2-LOADDATA                                                
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  UPDATE DATASET PREFIX TO MATCH CICS INSTALLATION                     

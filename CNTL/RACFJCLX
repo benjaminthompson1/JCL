@@ -3,7 +3,7 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IURACFJ                                                              
-//* DESC:  RACF TO IMPLEMENT JCL EXPERT                                         
+//* DESC:  Define RACF profiles and permissions for JCL Expert                  
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

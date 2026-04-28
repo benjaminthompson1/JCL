@@ -3,7 +3,10 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUJBARD                                                              
-//* DESC:  GENERATE DATASET REPORT FROM DCOLLECT DATA                           
+//* DESC:  Delete the prior report output dataset                               
+//*        Allocate the ISPF profile library dataset                            
+//*        Generate dataset capacity report via ACBJBAOB proc                   
+//*        Copy the finished report to SYSOUT using IEBGENER                    
 //* STEPS: 1-DELREP, 2-ALCISPFL, 3-GENREP, 4-REPGEN                             
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REQUIRES DCOLLECT DATA IN IBMUSER.DCOLLECT.DATA                      

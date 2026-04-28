@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMFDP                                                              
-//* DESC:  SMF VALIDATE SIGNATURE RECORDS                                       
+//* DESC:  Dump SMF records from a logstream to a flat dataset                  
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

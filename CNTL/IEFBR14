@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUIEFBR                                                              
-//* DESC:  TEST ALLOCATIONS (IEFBR14)                                           
+//* DESC:  Allocate or delete datasets using IEFBR14                            
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           

@@ -3,7 +3,8 @@
 //*      TYPRUN=HOLD                                                            
 //*-----------------------------------------------------------------*           
 //* JOB:   IUVTAMU                                                              
-//* DESC:  <One-line purpose>                                                   
+//* DESC:  Assemble a VTAM USS message table using ASMA90                       
+//*        Link-edit the assembled table into a load module                     
 //* STEPS: <Very brief step summary, if needed>                                 
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             

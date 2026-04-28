@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPHO                                                              
-//* DESC:  SMP/E LIST HELD ELEMENTS                                             
+//* DESC:  Report on held SMP/E elements and their reasons                      
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone WITH SMP/E GLOBAL CSI DATASET NAME            
 //*-----------------------------------------------------------------*

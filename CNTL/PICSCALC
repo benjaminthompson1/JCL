@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCALC                                                               
-//* DESC:  PL/I BIT OFFSETS FOR DVM DFAT EXIT                                   
+//* DESC:  Calculate PIC S field sizes using a REXX exec                        
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
 //*-----------------------------------------------------------------*           
