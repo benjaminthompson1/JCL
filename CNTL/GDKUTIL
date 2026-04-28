@@ -1,7 +1,7 @@
 //IUGDKUT JOB (FB3),'GDKUTIL',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUGDKUT                                                              
 //* DESC:  Upload a z/OS dataset to S3 object storage via GDKUTIL               
 //*        List objects in the S3 bucket                                        
@@ -9,7 +9,7 @@
 //* STEPS: 1-MINIO1, 2-MINIO2, 3-MINIO3                                         
 //* AUTH:  Ben               DATE: 2025-06-26                                   
 //* NOTE:  ENSURE NETWORK CONNECTIVITY TO CHOSEN ENDPOINT BEFORE RUN            
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: UPLOAD DATASET TO S3 OBJECT STORAGE VIA GDKUTIL --------------*
 //MINIO1   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
@@ -48,6 +48,6 @@
 //            DCB=(RECFM=VBA,LRECL=240,BLKSIZE=0)                               
 //SYSOUT   DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

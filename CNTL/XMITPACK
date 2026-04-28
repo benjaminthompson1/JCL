@@ -1,7 +1,7 @@
 //IUXMIT JOB (FB3),'XMIT TERSE',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUXMIT                                                               
 //* DESC:  Delete the prior XMIT output dataset                                 
 //*        Transmit a PDS library to an XMIT format dataset                     
@@ -9,7 +9,7 @@
 //* STEPS: <Very brief step summary, if needed>                                 
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: DELETE EXISTING XMIT OUTPUT DATASET --------------------------*
 //DELETE   EXEC  PGM=IEFBR14                                                    
 //FILE     DD DISP=(MOD,DELETE),DSN=IBMUSER.COBOL.LOAD.XMIT,                    
@@ -32,6 +32,6 @@
 //SYSUT2   DD DSN=IBMUSER.COBOL.LOAD.XMIT.TRS,                                  
 //            DISP=(NEW,CATLG),UNIT=SYSDA,                                      
 //            SPACE=(TRK,(1,1),RLSE)                                            
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

@@ -1,12 +1,12 @@
 //IUQWTRA JOB (FB3),'QWTRACF',CLASS=A,MSGCLASS=H,                               
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUQWTRA                                                              
 //* DESC:  Define RACF profiles for QWT performance monitoring                  
 //* AUTH:  Ben               DATE: 2025-08-20                                   
 //* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING              
-//*-----------------------------------------------------------------*
+//*--------------------------------------------------------------------*        
 //QWTRACF  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -66,6 +66,6 @@ STDATA(USER(TMSSVR) GROUP(QWT))
                                                                                 
 SETROPTS REFRESH RACLIST(STARTED)                                               
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

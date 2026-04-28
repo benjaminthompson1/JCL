@@ -1,14 +1,14 @@
 //IUEGUIF JOB (FB3),'DFH$ECNF',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUECNF                                                               
 //* DESC:  Define the CICS extended configuration VSAM KSDS cluster             
 //*        Populate the cluster by copying from SDFHINST                        
 //* STEPS: 1-DEFKSDS, 2-LOADDATA                                                
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  UPDATE DATASET PREFIX TO MATCH CICS INSTALLATION                     
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: DELETE AND DEFINE CICS EXAMPLE CONFIGURATION KSDS ------------*
 //DEFKSDS EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                                
 //SYSPRINT DD SYSOUT=*                                                          
@@ -42,6 +42,6 @@ WS-SERVER myserver:99999
 //SYSIN DD *                                                                    
  REPRO INFILE(INFILE) OUTFILE(OUTFILE)                                          
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

@@ -1,7 +1,7 @@
 //IUJCKTP JOB (FB3),'JES2CKPT',CLASS=A,MSGCLASS=H,                              
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUJCKTP                                                              
 //* DESC:  Allocate JES2 checkpoint datasets on target volumes                  
 //*        Copy JES2 parmlib members to the target library                      
@@ -9,7 +9,7 @@
 //* STEPS: 1-CKPT, 2-JES2PARM, 3-JES2                                           
 //* AUTH:  Ben               DATE: 2025-04-24                                   
 //* NOTE:  ENSURE TARGET VOLUMES C3SYS1 AND C3CFG1 ARE ONLINE                   
-//*-----------------------------------------------------------------*
+//*--------------------------------------------------------------------*        
 //*-- 1: ALLOCATE JES2 CHECKPOINT DATASETS ON TARGET VOLUMES ----------*
 //CKPT  EXEC PGM=IEFBR14                                                        
 //CKPT1 DD DSN=SYS1.Z31C.CKPT1,UNIT=SYSDA,                                      
@@ -37,6 +37,6 @@
   COPY INDD=INPDS,OUTDD=OUTPDS                                                  
     SELECT MEMBER=(JES2)                                                        
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

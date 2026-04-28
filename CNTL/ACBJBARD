@@ -1,7 +1,7 @@
 //IUJBARD JOB (FB3),'DCOLLECT',CLASS=A,MSGCLASS=H,                              
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUJBARD                                                              
 //* DESC:  Delete the prior report output dataset                               
 //*        Allocate the ISPF profile library dataset                            
@@ -10,15 +10,15 @@
 //* STEPS: 1-DELREP, 2-ALCISPFL, 3-GENREP, 4-REPGEN                             
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REQUIRES DCOLLECT DATA IN IBMUSER.DCOLLECT.DATA                      
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //MYLIB JCLLIB ORDER=SYS1.SACBCNTL                                              
-//*-- 1: DELETE OLD REPORT -----------------------------------------*           
+//*-- 1: DELETE OLD REPORT --------------------------------------------*        
 //DELREP  EXEC PGM=IDCAMS                                                       
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   DELETE IBMUSER.DATASET.REPORT                                                 
 /*                                                                              
-//*-- 2: ALLOCATE NEW REPORT DSN -----------------------------------*           
+//*-- 2: ALLOCATE NEW REPORT DSN --------------------------------------*        
 //ALCISPFL EXEC PGM=IEFBR14                                                     
 //ISPFILE  DD DSN=IBMUSER.DATASET.REPORT,DISP=(NEW,CATLG),                      
 //            BLKSIZE=0,SPACE=(TRK,(3,1)),RECFM=FBA,                            
@@ -26,7 +26,7 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
 /*                                                                              
-//*-- 3: BUILD REPORT FROM DCOLLECT --------------------------------*           
+//*-- 3: BUILD REPORT FROM DCOLLECT -----------------------------------*        
 //GENREP EXEC ACBJBAOB,PLIB1=SYS1.DGTPLIB,TABL2=IBMUSER.TEST.ISPTABL            
 //DCOLIN  DD DSN=IBMUSER.DCOLLECT.DATA,DISP=SHR                                 
 //ISPFILE DD DSN=IBMUSER.DATASET.REPORT,DISP=OLD                                
@@ -50,12 +50,12 @@
   USED%        /* Space Used Percentage */                                      
   STORCLAS     /* Storage Class */                                              
 /*                                                                              
-//*-- 4: PRINT REPORT ----------------------------------------------*           
+//*-- 4: PRINT REPORT -------------------------------------------------*        
 //REPGEN EXEC PGM=IEBGENER                                                      
 //SYSUT1   DD DSN=IBMUSER.DATASET.REPORT,DISP=SHR                               
 //SYSUT2   DD SYSOUT=*                                                          
 //SYSIN    DD DUMMY                                                             
 //SYSPRINT DD SYSOUT=*                                                          
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

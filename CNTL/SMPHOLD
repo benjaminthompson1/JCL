@@ -1,12 +1,12 @@
 //IUSMPHO JOB (FB3),'SMPE HOLD',CLASS=A,MSGCLASS=H,                             
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUSMPHO                                                              
 //* DESC:  Report on held SMP/E elements and their reasons                      
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone WITH SMP/E GLOBAL CSI DATASET NAME            
-//*-----------------------------------------------------------------*
+//*--------------------------------------------------------------------*        
 //REPORT  EXEC PGM=GIMSMP,PARM='DATE=U'                                         
 //SMPCSI  DD DISP=SHR,DSN=#globalzone                                           
 //SMPOUT  DD SYSOUT=*                                                           
@@ -18,6 +18,6 @@
   LIST SYSMODS HOLDERR HOLDDATA.                                                
   LIST HOLDSYSTEM .                                                             
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

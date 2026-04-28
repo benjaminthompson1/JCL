@@ -1,14 +1,14 @@
 //IURMFPP JOB (FB3),'RMF POST',CLASS=A,MSGCLASS=H,                              
 //        NOTIFY=&SYSUID,REGION=4M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IURMFPP                                                              
 //* DESC:  Sort RMF CPU data records using DFSORT                               
 //*        Post-process CPU utilisation using ERBRMFPP                          
 //* STEPS: 1-RMFSORT, 2-RMFPP                                                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: SORT SMF DATA FOR RMF POST-PROCESSING ------------------------*
 //RMFSORT  EXEC PGM=SORT                                                        
 //SORTIN   DD DISP=SHR,DSN=SMF.S0W1.DATA(0)                                     
@@ -37,7 +37,7 @@ REPORTS(CPU)
   DINTV(0002)                                                                   
   SYSID(S0W1)                                                                   
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
                                                                                 

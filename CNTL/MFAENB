@@ -1,12 +1,12 @@
 //IUMFA03 JOB (FB3),'MFA ENABLE',CLASS=A,MSGCLASS=H,                            
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUMFA03                                                              
 //* DESC:  Enable MFA authentication for existing RACF users                    
 //* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  USER IDs MFAUSR1-MFAUSR3 MUST ALREADY EXIST BEFORE RUN               
-//*-----------------------------------------------------------------*
+//*--------------------------------------------------------------------*        
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
 //STDOUT   DD SYSOUT=*                                                          
@@ -30,6 +30,6 @@ LISTUSER MFAUSR1 MFA
 LISTUSER MFAUSR2 MFA                                                            
 LISTUSER MFAUSR3 MFA                                                            
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

@@ -1,7 +1,7 @@
 //IUIDCAM JOB (FB3),'IDCAM AIX',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUIDCAM                                                              
 //* DESC:  Define the base VSAM KSDS cluster using IDCAMS                       
 //*        Load data into the base cluster using IDCAMS REPRO                   
@@ -9,7 +9,7 @@
 //* STEPS: 1-CREATE, 2-REPRO, 3-CREATEAX                                        
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: DEFINE VSAM KSDS CLUSTER WITH PRIMARY INDEX ------------------*
 //CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
 //SYSPRINT DD SYSOUT=*                                                          
@@ -70,6 +70,6 @@
   BLDINDEX INDATASET (IBMUSER.DFAT.FSCN) -                                      
   OUTDATASET (IBMUSER.DFAT.FSCN.AIX.PATH)                                       
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

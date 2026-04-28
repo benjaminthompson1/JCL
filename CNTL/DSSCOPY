@@ -1,12 +1,12 @@
 //IUDSSCP JOB (FB3),'DSSCOPY',CLASS=A,MSGCLASS=H,                               
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUDSSCP                                                              
 //* DESC:  Copy datasets to a target volume using DFSMSdss                      
 //* AUTH:  Ben               DATE: 2026-02-11                                   
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL COPY                      
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //DSSCOPY  EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
 //FROMVOL  DD UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                                
 //SYSPRINT DD SYSOUT=*                                                          
@@ -23,9 +23,9 @@
       ALLEXCP                                                -                  
       SHARE                                                                     
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //                                                                              
       REPLACEU -                                                                
       OUTDYNAM((TMM201)) -                                                      

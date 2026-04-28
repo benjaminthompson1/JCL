@@ -1,14 +1,14 @@
 //IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUCOBOL                                                              
 //* DESC:  Sort the input dataset using DFSORT                                  
 //*        Compile, link-edit, and run the COBOL program                        
 //* STEPS: 1-DFSORT, 2-COBCBG1                                                  
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE SORTIN DSN AND GOPGM BEFORE RUN                               
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: SORT ACCOUNT DATA USING DFSORT -------------------------------*
 //DFSORT EXEC PGM=SORT                                                          
 //SORTIN   DD DISP=SHR,DSN=IBMUSER.LEARN.ACCT.DATA                              
@@ -36,6 +36,6 @@
 //BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.LEARN.LOAD(&GOPGM)                       
 //GO.ACCTSORT  DD DISP=SHR,DSN=*.DFSORT.SORTOUT                                 
 //GO.PRTLINE   DD SYSOUT=*                                                      
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

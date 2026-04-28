@@ -1,14 +1,14 @@
 //IUXMIT JOB (FB3),'XMIT',CLASS=A,MSGCLASS=H,                                   
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUXMIT                                                               
 //* DESC:  Unpack a tersed XMIT dataset using AMATERSE UNPACK                   
 //*        Receive the transmitted PDS using TSO RECEIVE                        
 //* STEPS: <Very brief step summary, if needed>                                 
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: UNPACK TERSED LOAD LIBRARY USING AMATERSE --------------------*
 //AMATERSE EXEC PGM=AMATERSE,PARM=UNPACK                                        
 //SYSPRINT DD SYSOUT=*                                                          
@@ -25,7 +25,7 @@
      DSNAME('IBMUSER.COBOL.LOAD') RELEASE                                       
 /*                                                                              
 //SYSTSPRT DD SYSOUT=*                                                          
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
                                                                                 

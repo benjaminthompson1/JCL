@@ -1,12 +1,12 @@
 //IUCICSD JOB (FB3),'CICS CSD',CLASS=A,MSGCLASS=H,                              
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUCICSD                                                              
 //* DESC:  Define a CICS application program entry in the CSD                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE DFHCSD DSN AND STEPLIB TO MATCH CICS INSTALLATION             
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //STEP1 EXEC PGM=DFHCSDUP,                                                      
 //           PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                        
 //STEPLIB  DD DISP=SHR,DSN=DFH620.CICS.SDFHLOAD                                 
@@ -120,6 +120,6 @@
        CONFDATA(NO) OTSTIMEOUT(NO) ACTION(BACKOUT) WAIT(YES)                    
        WAITTIME(0,0,0) RESSEC(NO) CMDSEC(NO)                                    
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

@@ -1,14 +1,14 @@
 //IUTIJAV JOB (FB3),'DSNTIJAV',CLASS=A,MSGCLASS=H,                              
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUTIJAV                                                              
 //* DESC:  Verify the SQLDI pseudo-catalog environment                          
 //*        Run SQL Data Insights IVP test queries                               
 //* STEPS: 1-DSNTIAV0, 2-DSNTIAV1, 3-DSNTIAV2                                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CHANGE DBDG, DSND10, DSNTIA13 TO SITE VALUES BEFORE RUN              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //JOBLIB  DD  DISP=SHR,                                                         
 //            DSN=DSND10.SDSNLOAD                                               
 //*                                                                             
@@ -44989,7 +44989,7 @@ INSERT INTO CHURN VALUES('3186-AJIEK', 'Male',
 'Two year', 'Yes', 'Bank transfer (automatic)',                                 
 105.65, 6844.5, 'No');                                                          
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
                                                                                 

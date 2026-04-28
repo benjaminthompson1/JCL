@@ -1,14 +1,14 @@
 //IUSMPCA JOB (FB3),'CREATE ZONE A',CLASS=A,MSGCLASS=H,                         
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUSMPCA                                                              
 //* DESC:  Define the SMP/E global zone CSI VSAM cluster                        
 //*        Prime the global zone with initial entries                           
 //* STEPS: 1-DEFINE, 2-PRIMEIT (OPTIONAL)                                       
 //* AUTH:  Ben               DATE: 2025-07-09                                   
 //* NOTE:  RUN ONLY TO CREATE A NEW SMP/E CSI; FOLLOW WITH SMPCRZNB             
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: DEFINE SMP/E GLOBAL CSI VSAM CLUSTER -------------------------*
 //DEFINE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
@@ -45,6 +45,6 @@
 //SYSIN    DD *                                                                 
   REPRO OUTFILE(SMPCSI) INFILE(ZPOOL)                                           
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

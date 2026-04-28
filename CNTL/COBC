@@ -1,12 +1,12 @@
 //IUCOBOL JOB (FB3),'COBOL COMPILE',CLASS=A,MSGCLASS=H,                         
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUCOBOL                                                              
 //* DESC:  Compile a COBOL source program                                       
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  SET GOPGM= TO TARGET COBOL PROGRAM NAME BEFORE RUN                   
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //COBC1 EXEC IGYQC,                                                             
 //           LNGPRFX=IGY640,                                                    
 //           LIBPRF1=CEE,                                                       
@@ -14,6 +14,6 @@
 //SYSLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                              
 //SYSIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                       
 //SYSLIN DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                       
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

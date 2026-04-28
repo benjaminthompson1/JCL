@@ -1,12 +1,12 @@
 //IUOMEGC JOB (FB3),'OMEG CREATE',CLASS=A,MSGCLASS=H,                           
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUOMEGC                                                              
 //* DESC:  Create an OMEGAMON configuration using KCIOMEGA                      
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //OMEGCRT  EXEC PGM=KCIOMEGA,REGION=0M,DYNAMNBR=256                             
 //STEPLIB  DD DISP=SHR,DSN=ZMS210.TKANMOD                                       
 //KCIFLOW  DD DISP=SHR,DSN=ZMS210.TKANCUS(KFJOMEGA)                             
@@ -15,6 +15,6 @@ ACTION            CREATE
 RTE_NAME          Z31C                                                          
 RTE_PLIB_HILEV    OMEG                                                          
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

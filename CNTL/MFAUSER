@@ -1,7 +1,7 @@
 //IUMFA02 JOB (FB3),'MFA USER',CLASS=A,MSGCLASS=H,                              
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUMFA02                                                              
 //* DESC:  Create MFA RACF user definitions using TSO RACF commands             
 //*        Delete the existing MFA authentication VSAM dataset                  
@@ -9,7 +9,7 @@
 //* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  DELETES AND RECREATES MFAUSR1-MFAUSR3; IZUACCT NEEDED                
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: DELETE AND CREATE MFA USERS WITH TSO SEGMENTS AND SETTINGS ---*
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             
@@ -115,6 +115,6 @@ LISTUSER MFAUSR3 MFA
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                
 //            DSNTYPE=LIBRARY,                                                  
 //            SPACE=(TRK,(1,1,1))                                               
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

@@ -1,14 +1,14 @@
 //IUSMFDM JOB (FB3),'SMF DUMP',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*      TYPRUN=HOLD                                                            
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUSMFDMP                                                             
 //* DESC:  Delete the prior SMF type 119 output dataset                         
 //*        Dump SMF type 119 records to a flat dataset                          
 //* STEPS: 1-DELETE, 2-DUMP                                                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: DELETE EXISTING SMF TYPE 119 OUTPUT DATASET ------------------*
 //DELETE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
@@ -27,6 +27,6 @@
   INDD(INDD1,OPTIONS(DUMP))                                                     
   OUTDD(OUTD1,TYPE(119(12)))                                                    
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

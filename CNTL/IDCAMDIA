@@ -1,12 +1,12 @@
 //IUIDCAM JOB (FB3),'DIAGNOSE',CLASS=A,MSGCLASS=H,                              
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUIDCAM                                                              
 //* DESC:  Diagnose VTOC and catalog entries using IDCAMS                       
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  SUBSTITUTE @volser@ AND @catalog@ BEFORE RUNNING                     
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //DIAGNOSE EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //VVDS01   DD DISP=SHR,DSN=SYS1.VVDS.V@volser@,UNIT=SYSDA,                      
@@ -15,6 +15,6 @@
 //SYSIN    DD *                                                                 
   DIAGNOSE VVDS INFILE(VVDS01) COMPAREDD(CATL01)                                
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        

@@ -1,14 +1,14 @@
 //IUHLASM JOB (FB3),'HLASM',CLASS=A,MSGCLASS=H,                                 
 //        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* JOB:   IUHLASM                                                              
 //* DESC:  Assemble an HLASM source program using ASMA90                        
 //*        Link-edit the assembled object into a load module                    
 //* STEPS: 1-ASM, 2-LKED                                                        
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  <Key prerequisite or caution (optional)>                             
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //*-- 1: ASSEMBLE HLASM SOURCE USING ASMA90 ---------------------------*
 //ASM      EXEC PGM=ASMA90,REGION=1024K,PARM='NODECK,OBJECT'                    
 //SYSPRINT DD SYSOUT=*                                                          
@@ -34,6 +34,6 @@
   ENTRY AVZFORME                                                                
   NAME AVZFORME(R)                                                              
 /*                                                                              
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
