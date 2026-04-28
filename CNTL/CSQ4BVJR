@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUBVJR                                                               
 //* DESC:  MQ PUT/GET SAMPLE PROGRAMS                                           
-//* STEPS: 1-PUTMSGS, 2-GETMSGS                                                 
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  UPDATE PARM VALUES WITH QUEUE MANAGER AND QUEUE NAME                 
 //*-----------------------------------------------------------------*           

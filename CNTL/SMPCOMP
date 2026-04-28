@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPCP                                                              
 //* DESC:  SMP/E COMPARE TARGET AND DISTRIBUTION ZONES                          
-//* STEPS: <NONE>                                                           
 //* AUTH:  Ben               DATE: 2025-06-27                                   
 //* NOTE:  NOACCEPT ONLY; REPORTS DIFFERENCES, NO CHANGES APPLIED               
 //*-----------------------------------------------------------------*

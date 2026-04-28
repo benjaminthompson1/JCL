@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUDSSMVE                                                             
 //* DESC:  MOVE DATASETS BETWEEN VOLUMES                                        
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL MOVE                      
 //*-----------------------------------------------------------------*           

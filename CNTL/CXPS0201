@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCX201                                                              
 //* DESC:  JCL EXPERT: SCAN AN ENTIRE JCL LIBRARY                               
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  SET JCLPDS= TO THE PDS TO SCAN BEFORE RUN                            
 //*-----------------------------------------------------------------*           

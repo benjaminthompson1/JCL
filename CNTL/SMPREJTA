@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRE                                                              
 //* DESC:  SMP/E REJECT AFTER ACCEPT (PURGE PROCESSED SYSMODS)                  
-//* STEPS: <NONE>                                                             
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #dlib; USES PURGE TO FREE SMPPTS SPACE    
 //*-----------------------------------------------------------------*           

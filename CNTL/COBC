@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCOBOL                                                              
 //* DESC:  COBOL COMPILE                                                        
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  SET GOPGM= TO TARGET COBOL PROGRAM NAME BEFORE RUN                   
 //*-----------------------------------------------------------------*           

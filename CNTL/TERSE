@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUTERSE                                                              
 //* DESC:  PACK AND UNPACK DATASETS (AMATERSE)                                  
-//* STEPS: <NONE>                                                           
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SET PARM TO SPACK, PACK, OR UNPACK; CUSTOMIZE SYSUT1/SYSUT2 NAMES    
 //*-----------------------------------------------------------------*

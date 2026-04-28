@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUMETAC                                                              
 //* DESC:  ISSUE OMVS COMMANDS USING BPXBATCH                                   
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  STDPARM DD REFERENCES BPXPARM MEMBER FOR USS COMMANDS                
 //*-----------------------------------------------------------------*           

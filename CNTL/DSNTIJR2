@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUTIJR2                                                              
 //* DESC:  ENABLE DB2 REST SERVICE VERSIONING                                   
-//* STEPS: 1-DSNTIAC, 2-DSNTICU                                                 
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  RUN ONLY AFTER DSNTIJRS AND APAR PI98649 ARE APPLIED                 
 //*-----------------------------------------------------------------*           

@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCONVE                                                              
 //* DESC:  SMS CONVERTV                                                         
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  CHANGE VOL=SER= IN INVOL1 DD TO TARGET VOLUME BEFORE RUN             
 //*-----------------------------------------------------------------*           

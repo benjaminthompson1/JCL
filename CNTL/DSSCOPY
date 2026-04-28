@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUDSSCP                                                              
 //* DESC:  COPY DATASETS                                                        
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-02-11                                   
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL COPY                      
 //*-----------------------------------------------------------------*           

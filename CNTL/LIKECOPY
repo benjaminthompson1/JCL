@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IULIKEC                                                              
 //* DESC:  CREATE DATASET USING ATTRIBUTES OF BASE                              
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-04                                   
 //* NOTE:  ENSURE SOURCE DATASET EXISTS AND IS CATALOGED                        
 //*-----------------------------------------------------------------*

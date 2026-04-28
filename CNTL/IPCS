@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUIPCS                                                               
 //* DESC:  INTERACTIVE PROBLEM CONTROL SYSTEM                                   
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-05                                   
 //* NOTE:  IPCS DUMP DIRECTORY (VSAM KSDS) MUST BE DEFINED FIRST                
 //*-----------------------------------------------------------------*

@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUJZOSA                                                              
 //* DESC:  JZOS V17 BATCH JAVA                                                  
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-04                                   
 //* NOTE:  ENSURE PROC=JVMPRC17 IS AVAILABLE AND JAVA 17 IS INSTALLED           
 //*-----------------------------------------------------------------*

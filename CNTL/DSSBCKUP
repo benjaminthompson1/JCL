@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*   00000500
 //* JOB:   IUDSSBK                                                      00000600
 //* DESC:  DSS INCREMENTAL VSAM BACKUP                                  00000700
-//* STEPS: <NONE>                                                       00000800
 //* AUTH:  Ben               DATE: 2026-02-11                           00000900
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL BACKUP            00001000
 //*-----------------------------------------------------------------*   00002000

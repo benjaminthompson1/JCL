@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IULOGRC                                                              
 //* DESC:  PROCESS LOGREC DATASET INTO REPORTS                                  
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-04                                   
 //* NOTE:  CODE ONLY ONE OF SERLOG (LIVE) OR ACCIN (HISTORICAL)                 
 //*-----------------------------------------------------------------*

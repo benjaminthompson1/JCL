@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUQWTRA                                                              
 //* DESC:  RACF SETUP FOR QWT                                                   
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-20                                   
 //* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING              
 //*-----------------------------------------------------------------*

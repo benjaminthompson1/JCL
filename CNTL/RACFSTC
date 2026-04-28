@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IURACFS                                                              
 //* DESC:  CREATE STC USERID AND STARTED PROFILE                                
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-21                                   
 //* NOTE:  HOME PATH /u/automount/omeg SHOULD EXIST BEFORE RUNNING              
 //*-----------------------------------------------------------------*           

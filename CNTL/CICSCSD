@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCICSD                                                              
 //* DESC:  DEFINE BASE CICS APPLICATION CSD ENTRY                               
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE DFHCSD DSN AND STEPLIB TO MATCH CICS INSTALLATION             
 //*-----------------------------------------------------------------*           

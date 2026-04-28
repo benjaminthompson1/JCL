@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRE                                                              
 //* DESC:  SMP/E REJECT RECEIVED-ONLY ELEMENTS                                  
-//* STEPS: <NONE>                                                             
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  USES CHECK BY DEFAULT; REMOVE CHECK TO ACTUALLY REJECT               
 //*-----------------------------------------------------------------*

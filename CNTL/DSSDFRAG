@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUDFRAG                                                              
 //* DESC:  DEFRAGMENT A VOLUME                                                  
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-02-11                                   
 //* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM DEFRAGMENTATION                  
 //*-----------------------------------------------------------------*           

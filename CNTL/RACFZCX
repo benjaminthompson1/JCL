@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IURACFZ                                                              
 //* DESC:  RACF TO IMPLEMENT ZCX                                                
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-21                                   
 //* NOTE:  CHANGE PASSWORDS AFTER INITIAL SETUP                                 
 //*-----------------------------------------------------------------*           

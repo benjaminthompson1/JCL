@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRS                                                              
 //* DESC:  SMP/E RESTORE                                                        
-//* STEPS: <NONE>                                                            
 //* AUTH:  Ben               DATE: 2025-08-29                                   
 //* NOTE:  UPDATE RESTORE SELECT() LIST; USE CHECK BEFORE FINAL RUN             
 //*-----------------------------------------------------------------*

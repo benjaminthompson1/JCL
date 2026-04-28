@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPRE                                                              
 //* DESC:  SMP/E RECEIVE (SHOPZ DOWNLOAD)                                       
-//* STEPS: <NONE>                                                            
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone, #smpptfdsn, #fromnts, #sourceid              
 //*-----------------------------------------------------------------*

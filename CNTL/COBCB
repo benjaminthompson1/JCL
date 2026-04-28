@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCOBOL                                                              
 //* DESC:  COBOL COMPILE AND BIND                                               
-//* STEPS: 1-COMPILE, 2-BIND                                                    
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  SET GOPGM= TO TARGET COBOL PROGRAM NAME BEFORE RUN                   
 //*-----------------------------------------------------------------*           

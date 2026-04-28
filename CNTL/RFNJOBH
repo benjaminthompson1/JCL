@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IURFNJB                                                              
 //* DESC:  PULL SERVICE FROM IBM AND RECEIVE TO GZONE                           
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-06-26                                   
 //* NOTE:  JAVA 11 MUST BE INSTALLED AND TRUSTED FOR HTTPS ACCESS               
 //*-----------------------------------------------------------------*

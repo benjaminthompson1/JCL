@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCOBOL                                                              
 //* DESC:  COBOL RUN PROGRAM WITH DB2                                           
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE PROGRAM AND PLAN NAMES IN SYSTSIN BEFORE RUN                  
 //*-----------------------------------------------------------------*           

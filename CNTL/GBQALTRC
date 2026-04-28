@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUALTRC                                                              
 //* DESC:  IBM Z/OS DFSMS CLOUD DATA MANAGER: DEFINE TRACE DATASETS             
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-08-25                                   
 //* NOTE:  UPDATE HLQ CDM.V1R2M0.GBQS0W1 AND STORCLAS AS REQUIRED               
 //*-----------------------------------------------------------------*

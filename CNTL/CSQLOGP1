@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IULOGP1                                                              
 //* DESC:  MQ CSQ LOG PRINT                                                     
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE ARCHIVE DD DSN TO TARGET MQ ARCHIVE LOG DATASET               
 //*-----------------------------------------------------------------*           

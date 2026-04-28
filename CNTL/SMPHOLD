@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPHO                                                              
 //* DESC:  SMP/E LIST HELD ELEMENTS                                             
-//* STEPS: <NONE>                                                             
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone WITH SMP/E GLOBAL CSI DATASET NAME            
 //*-----------------------------------------------------------------*

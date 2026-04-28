@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCX200                                                              
 //* DESC:  JCL EXPERT: SCAN A SINGLE JCL MEMBER                                 
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  SET JCLMEMB= TO THE FULLY QUALIFIED PDS(MEMBER) TO SCAN              
 //*-----------------------------------------------------------------*           

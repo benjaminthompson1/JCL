@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCOBOL                                                              
 //* DESC:  COBOL RUN PROGRAM (ALTERNATE EXECUTION TEMPLATE)                     
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE PGM= AND STEPLIB DSN TO TARGET LOAD MODULE                    
 //*-----------------------------------------------------------------*           

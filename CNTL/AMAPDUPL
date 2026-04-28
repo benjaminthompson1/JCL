@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUPDUPL                                                              
 //* DESC:  IBM PROBLEM DOCUMENTATION UPLOAD UTILITY                             
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE USERID, PASSWORD, CASE AND TARGET_DSN BEFORE RUN              
 //*-----------------------------------------------------------------*           

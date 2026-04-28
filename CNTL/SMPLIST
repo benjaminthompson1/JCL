@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPLI                                                              
 //* DESC:  SMP/E LIST DDDEF DEFINITIONS                                         
-//* STEPS: <NONE>                                                           
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  SUBSTITUTE #globalzone; NON-DESTRUCTIVE, REPORT OUTPUT ONLY          
 //*-----------------------------------------------------------------*

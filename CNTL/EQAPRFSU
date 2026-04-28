@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUPRFSU                                                              
 //* DESC:  Z/OS DEBUGGER: CONFIGURE DEBUG PROFILE SERVICE                       
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  JOB ID RUNNING THIS MUST HAVE SUFFICIENT Z/OS UNIX AUTH              
 //*-----------------------------------------------------------------*           

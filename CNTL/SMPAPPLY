@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPAP                                                              
 //* DESC:  SMP/E APPLY                                                          
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-06-27                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #target BEFORE RUNNING                    
 //*-----------------------------------------------------------------*           

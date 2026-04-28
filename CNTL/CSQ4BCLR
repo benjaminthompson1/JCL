@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IU4BCLR                                                              
 //* DESC:  MQ PRINT MESSAGES FROM QUEUE (SAMPLE)                                
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  UPDATE PARM WITH QUEUE MANAGER AND QUEUE NAME BEFORE RUN             
 //*-----------------------------------------------------------------*           

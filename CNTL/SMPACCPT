@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUSMPAC                                                              
 //* DESC:  SMP/E ACCEPT                                                         
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-07-09                                   
 //* NOTE:  SUBSTITUTE #globalzone AND #dlib BEFORE RUNNING                      
 //*-----------------------------------------------------------------*           

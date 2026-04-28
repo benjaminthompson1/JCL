@@ -4,7 +4,6 @@
 //*-----------------------------------------------------------------*           
 //* JOB:   IUCOBOL                                                              
 //* DESC:  COBOL RUN DB2ARCH                                                    
-//* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  UPDATE PROGRAM, PLAN AND LIBRARY NAMES IN SYSTSIN BEFORE RUN         
 //*-----------------------------------------------------------------*           
