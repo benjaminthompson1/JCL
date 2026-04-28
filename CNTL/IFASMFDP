@@ -5,7 +5,7 @@
 //* JOB:   IUSMFDP                                                              
 //* DESC:  Dump SMF records from a logstream to a flat dataset                  
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update SYSUT1 DSN to point to the SMF logstream or flat file         
 //*--------------------------------------------------------------------*        
 //IFASMSDP EXEC PGM=IFASMFDP,REGION=0M                                          
 //DUMPIN   DD DSN=ARCH.SMF.S0W1.BACKUP(0),DISP=SHR                              

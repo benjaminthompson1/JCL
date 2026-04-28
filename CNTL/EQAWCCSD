@@ -5,7 +5,7 @@
 //* JOB:   IUWCCSD                                                              
 //* DESC:  Define z/OS Debugger programs in the CICS CSD                        
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  THIS JOB WILL COMPLETE WITH RETURN CODE 4 (NORMAL)                   
+//* NOTE:  This job completes with RC=4, which is normal                        
 //*--------------------------------------------------------------------*        
 //        SET DFHPRFX=DFH620.CICS                     <<<<<                     
 //        SET CSDPRFX=DFH620                          <<<<<                     

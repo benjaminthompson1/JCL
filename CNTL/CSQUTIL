@@ -5,7 +5,7 @@
 //* JOB:   IUCSQUT                                                              
 //* DESC:  Run MQ utility commands against a queue manager                      
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  UPDATE PARM WITH QUEUE MANAGER NAME AND SYSIN COMMANDS               
+//* NOTE:  Update PARM with queue manager name and SYSIN control commands       
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP: EXECUTE MQSC COMMANDS VIA CSQUTIL                                     

@@ -7,7 +7,7 @@
 //*        Prime the global zone with initial entries                           
 //* STEPS: 1-DEFINE, 2-PRIMEIT (OPTIONAL)                                       
 //* AUTH:  Ben               DATE: 2025-07-09                                   
-//* NOTE:  RUN ONLY TO CREATE A NEW SMP/E CSI; FOLLOW WITH SMPCRZNB             
+//* NOTE:  Run only to create a new SMP/E CSI; follow with SMPCRZNB             
 //*--------------------------------------------------------------------*        
 //*-- 1: DEFINE SMP/E GLOBAL CSI VSAM CLUSTER -------------------------*
 //DEFINE   EXEC PGM=IDCAMS                                                      

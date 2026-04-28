@@ -5,7 +5,7 @@
 //* JOB:   IULOGP1                                                              
 //* DESC:  Print the MQ active log using CSQ1LOGP                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  UPDATE ARCHIVE DD DSN TO TARGET MQ ARCHIVE LOG DATASET               
+//* NOTE:  Update ARCHIVE DD DSN to the target MQ archive log dataset           
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* STEP: RUN MQ LOG PRINT UTILITY                                              

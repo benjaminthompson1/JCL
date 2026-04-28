@@ -5,7 +5,7 @@
 //* JOB:   IURACFZ                                                              
 //* DESC:  Define RACF permissions for IBM Z Container Extensions               
 //* AUTH:  Ben               DATE: 2025-08-21                                   
-//* NOTE:  CHANGE PASSWORDS AFTER INITIAL SETUP                                 
+//* NOTE:  Change passwords after initial setup is complete                     
 //*--------------------------------------------------------------------*        
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             

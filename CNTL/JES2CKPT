@@ -8,7 +8,7 @@
 //*        Copy JES2 load modules to the target library                         
 //* STEPS: 1-CKPT, 2-JES2PARM, 3-JES2                                           
 //* AUTH:  Ben               DATE: 2025-04-24                                   
-//* NOTE:  ENSURE TARGET VOLUMES C3SYS1 AND C3CFG1 ARE ONLINE                   
+//* NOTE:  Ensure target volumes C3SYS1 and C3CFG1 are online before run        
 //*--------------------------------------------------------------------*        
 //*-- 1: ALLOCATE JES2 CHECKPOINT DATASETS ON TARGET VOLUMES ----------*
 //CKPT  EXEC PGM=IEFBR14                                                        

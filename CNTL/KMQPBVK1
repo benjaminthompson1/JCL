@@ -5,7 +5,7 @@
 //* JOB:   IUQPUT                                                               
 //* DESC:  Put sample messages to an MQ queue using CSQ4BVK1                    
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update queue manager name in EXEC PARM before run                    
 //*--------------------------------------------------------------------*        
 //JOBLIB   DD   DSN=IBMUSER.COBOL.LOAD,DISP=SHR                                 
 //         DD   DSN=CSQ911.SCSQANLE,DISP=SHR                                    

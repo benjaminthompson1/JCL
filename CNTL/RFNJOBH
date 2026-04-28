@@ -5,7 +5,7 @@
 //* JOB:   IURFNJB                                                              
 //* DESC:  Pull an SMP/E service package from IBM and receive it                
 //* AUTH:  Ben               DATE: 2025-06-26                                   
-//* NOTE:  JAVA 11 MUST BE INSTALLED AND TRUSTED FOR HTTPS ACCESS               
+//* NOTE:  Java 11 must be installed and trusted for HTTPS access to IBM        
 //*--------------------------------------------------------------------*        
 //SMPER1 EXEC PGM=GIMSMP,REGION=0M,                                             
 //            PARM='PROCESS=WAIT'                                               

@@ -8,7 +8,7 @@
 //*        Define SMP/E DDDEFs for all required libraries                       
 //* STEPS: 1-INITSMP (VIA AVZALB PROC)                                          
 //* AUTH:  Ben               DATE: 2025-07-09                                   
-//* NOTE:  RUN AFTER SMPCRZNA; UPDATE HLQ, ZONE NAMES, AND SYSTEM PARAMETERS    
+//* NOTE:  Run after SMPCRZNA; update HLQ, zone names, and system parms         
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //* PROC DEFINITION: AVZALB                                                     

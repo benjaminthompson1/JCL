@@ -7,7 +7,7 @@
 //*        Collect SMF data using the CDP Z HBOPDE processor                    
 //* STEPS: 1-HBOTCAFF, 2-HBOSMFCB                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  CHANGE HBOvrm HLQ TO YOUR SMP/E-INSTALLED TARGET LIBRARY             
+//* NOTE:  Change HBOvrm HLQ to the SMP/E-installed target library              
 //*--------------------------------------------------------------------*        
 //*                                                                             
 //***************************************************************               

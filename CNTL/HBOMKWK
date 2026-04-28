@@ -5,7 +5,7 @@
 //* JOB:   IUMKWK                                                               
 //* DESC:  Create IBM Z Common Data Provider working directories                
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  USER MUST HAVE SUPERUSER.FILESYS.CHOWN RACF ACCESS                   
+//* NOTE:  Requires RACF SUPERUSER.FILESYS.CHOWN authority                      
 //*--------------------------------------------------------------------*        
 //*                                                                             
 //*********************************************************************         

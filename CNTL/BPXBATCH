@@ -5,7 +5,7 @@
 //* JOB:   IUMETAC                                                              
 //* DESC:  Run USS shell commands in batch via BPXBATCH                         
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  STDPARM DD REFERENCES BPXPARM MEMBER FOR USS COMMANDS                
+//* NOTE:  STDPARM DD references the BPXPARM member for USS commands            
 //*--------------------------------------------------------------------*        
 //BPXBATCH EXEC PGM=BPXBATCH                                                    
 //* USS SCRIPT PARAMETERS                                                       

@@ -7,7 +7,7 @@
 //*        Receive the transmitted PDS using TSO RECEIVE                        
 //* STEPS: <Very brief step summary, if needed>                                 
 //* AUTH:  Ben               DATE: 2026-04-17                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update source XMIT DSN and target library before run                 
 //*--------------------------------------------------------------------*        
 //*-- 1: UNPACK TERSED LOAD LIBRARY USING AMATERSE --------------------*
 //AMATERSE EXEC PGM=AMATERSE,PARM=UNPACK                                        

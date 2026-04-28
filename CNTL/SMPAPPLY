@@ -5,7 +5,7 @@
 //* JOB:   IUSMPAP                                                              
 //* DESC:  Apply SMP/E SYSMODs to the target system                             
 //* AUTH:  Ben               DATE: 2025-06-27                                   
-//* NOTE:  SUBSTITUTE #globalzone AND #target BEFORE RUNNING                    
+//* NOTE:  Substitute #globalzone and #target with actual dataset names         
 //*--------------------------------------------------------------------*        
 //        SET CSI=#globalzone
 //APPLY   EXEC PGM=GIMSMP                                                       

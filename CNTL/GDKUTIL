@@ -8,7 +8,7 @@
 //*        Download a dataset from S3 object storage                            
 //* STEPS: 1-MINIO1, 2-MINIO2, 3-MINIO3                                         
 //* AUTH:  Ben               DATE: 2025-06-26                                   
-//* NOTE:  ENSURE NETWORK CONNECTIVITY TO CHOSEN ENDPOINT BEFORE RUN            
+//* NOTE:  Ensure network connectivity to the S3 endpoint before run            
 //*--------------------------------------------------------------------*        
 //*-- 1: UPLOAD DATASET TO S3 OBJECT STORAGE VIA GDKUTIL --------------*
 //MINIO1   EXEC PGM=GDKUTIL                                                     

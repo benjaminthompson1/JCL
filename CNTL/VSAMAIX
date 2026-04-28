@@ -5,7 +5,7 @@
 //* JOB:   IUVSAIX                                                              
 //* DESC:  Create a VSAM KSDS cluster with an alternate index                   
 //* AUTH:  Ben               DATE: 2026-04-17                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update cluster, alternate index, and path DSNs before run            
 //*--------------------------------------------------------------------*        
 //********************************************************************  00012000
 //*                                                                  *  00013000

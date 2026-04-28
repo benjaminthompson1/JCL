@@ -5,7 +5,7 @@
 //* JOB:   IUDSSCP                                                              
 //* DESC:  Copy datasets to a target volume using DFSMSdss                      
 //* AUTH:  Ben               DATE: 2026-02-11                                   
-//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL COPY                      
+//* NOTE:  Remove TYPRUN=NORUN from PARM to perform the actual copy             
 //*--------------------------------------------------------------------*        
 //DSSCOPY  EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
 //FROMVOL  DD UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                                

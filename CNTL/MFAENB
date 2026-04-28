@@ -5,7 +5,7 @@
 //* JOB:   IUMFA03                                                              
 //* DESC:  Enable MFA authentication for existing RACF users                    
 //* AUTH:  Ben               DATE: 2025-05-26                                   
-//* NOTE:  USER IDs MFAUSR1-MFAUSR3 MUST ALREADY EXIST BEFORE RUN               
+//* NOTE:  User IDs MFAUSR1-MFAUSR3 must exist in RACF before running           
 //*--------------------------------------------------------------------*        
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             

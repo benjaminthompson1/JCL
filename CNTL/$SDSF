@@ -5,7 +5,7 @@
 //* JOB:   IUSDSF                                                               
 //* DESC:  Browse and search the JES spool using SDSF in batch                  
 //* AUTH:  Ben               DATE: 2026-04-17                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update PARM values to match the SDSF configuration                   
 //*--------------------------------------------------------------------*        
 //*--------------------------------------------------------------------*        
 //*  JOB NAME   : SDSF BATCH COMMANDS                                           

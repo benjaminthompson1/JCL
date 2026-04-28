@@ -7,7 +7,7 @@
 //*        Link-edit the updated z/OSMF UUID module                             
 //* STEPS: <NONE>                                                       00070000
 //* AUTH:  Ben               DATE: 2026-04-06                           00080000
-//* NOTE:  RECEIVE AND APPLY SMP/E USERMOD TO CREATE MODULE IZUSIUI     00090000
+//* NOTE:  Receive and apply SMP/E usermod to create module IZUSIUI     00090000
 //*--------------------------------------------------------------------*00100000
 /*JOBPARM SYSAFF=S0W1                                                   00101000
 //RECAPP   EXEC PGM=GIMSMP                                              00110000

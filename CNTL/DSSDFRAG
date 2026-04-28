@@ -5,7 +5,7 @@
 //* JOB:   IUDFRAG                                                              
 //* DESC:  Defragment a DASD volume using DFSMSdss                              
 //* AUTH:  Ben               DATE: 2026-02-11                                   
-//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM DEFRAGMENTATION                  
+//* NOTE:  Remove TYPRUN=NORUN from PARM to perform defragmentation             
 //*--------------------------------------------------------------------*        
 //DSSDFRAG EXEC PGM=ADRDSSU,REGION=0M PARM='TYPRUN=NORUN'                       
 //SYSPRINT DD SYSOUT=*                                                          

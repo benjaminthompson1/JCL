@@ -5,7 +5,7 @@
 //* JOB:   IUSMPHO                                                              
 //* DESC:  Report on held SMP/E elements and their reasons                      
 //* AUTH:  Ben               DATE: 2025-07-14                                   
-//* NOTE:  SUBSTITUTE #globalzone WITH SMP/E GLOBAL CSI DATASET NAME            
+//* NOTE:  Substitute #globalzone with the SMP/E global CSI dataset name        
 //*--------------------------------------------------------------------*        
 //REPORT  EXEC PGM=GIMSMP,PARM='DATE=U'                                         
 //SMPCSI  DD DISP=SHR,DSN=#globalzone                                           

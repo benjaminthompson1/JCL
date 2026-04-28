@@ -7,7 +7,7 @@
 //*        Populate the cluster by copying from SDFHINST                        
 //* STEPS: 1-DEFKSDS, 2-LOADDATA                                                
 //* AUTH:  Ben               DATE: 2025-07-10                                   
-//* NOTE:  UPDATE DATASET PREFIX TO MATCH CICS INSTALLATION                     
+//* NOTE:  Update dataset prefix to match the CICS installation                 
 //*--------------------------------------------------------------------*        
 //*-- 1: DELETE AND DEFINE CICS EXAMPLE CATALOG KSDS ------------------*
 //DEFKSDS EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                                

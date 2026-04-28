@@ -5,7 +5,7 @@
 //* JOB:   IUOMEGD                                                              
 //* DESC:  Discover OMEGAMON resources using KCIALPHA                           
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update STEPLIB and KCIFLOW DSNs for the OMEGAMON installation        
 //*--------------------------------------------------------------------*        
 //OMEGCRT  EXEC PGM=KCIALPHA,REGION=0M,DYNAMNBR=256                             
 //STEPLIB  DD DISP=SHR,DSN=ZMS210.TKANMOD                                       

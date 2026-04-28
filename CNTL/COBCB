@@ -5,7 +5,7 @@
 //* JOB:   IUCOBOL                                                              
 //* DESC:  Compile a COBOL program and link-edit the load module                
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  SET GOPGM= TO TARGET COBOL PROGRAM NAME BEFORE RUN                   
+//* NOTE:  Set GOPGM= to the target COBOL program name before run               
 //*--------------------------------------------------------------------*        
 //COBCB1 EXEC IGYQCB,                                                           
 //            LNGPRFX=IGY640,                                                   

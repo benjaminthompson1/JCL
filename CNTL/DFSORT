@@ -5,7 +5,7 @@
 //* JOB:   IUDFSRT                                                              
 //* DESC:  Sort or merge datasets using DFSORT                                  
 //* AUTH:  Ben               DATE: 2025-07-10                                   
-//* NOTE:  INPUT DATASET MUST USE RECFM=VB; VLSHRT OPTION IS REQUIRED           
+//* NOTE:  Input dataset must use RECFM=VB; VLSHRT option is required           
 //*--------------------------------------------------------------------*        
 //* STEP: DFSORT                                                                
 //*--------------------------------------------------------------------*        

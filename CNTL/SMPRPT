@@ -5,7 +5,8 @@
 //* JOB:   IUSMPRE                                                              
 //* DESC:  Generate an SMP/E target system report using GIMXSID                 
 //* AUTH:  Ben               DATE: 2025-07-14                                   
-//* NOTE:  SUBSTITUTE #globalzone AND #target; OUTPUT TO SEQUENTIAL DATASET     
+//* NOTE:  Substitute #globalzone and #target before running                    
+//*        Output is written to a sequential dataset                            
 //*--------------------------------------------------------------------*        
 //STEP1    EXEC PGM=GIMXSID,PARM='WAIT=10MIN,L=ENU'                             
 //SYSPRINT DD SYSOUT=*                                                          

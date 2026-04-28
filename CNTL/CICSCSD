@@ -5,7 +5,7 @@
 //* JOB:   IUCICSD                                                              
 //* DESC:  Define a CICS application program entry in the CSD                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  UPDATE DFHCSD DSN AND STEPLIB TO MATCH CICS INSTALLATION             
+//* NOTE:  Update DFHCSD DSN and STEPLIB to match the CICS installation         
 //*--------------------------------------------------------------------*        
 //STEP1 EXEC PGM=DFHCSDUP,                                                      
 //           PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                        

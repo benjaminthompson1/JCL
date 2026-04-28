@@ -5,7 +5,7 @@
 //* JOB:   IUZERT                                                               
 //* DESC:  Define RACF security profiles for z/OSMF                             
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Must run under a userid with the RACF SPECIAL attribute              
 //*--------------------------------------------------------------------*        
 //STEP1  EXEC PGM=IKJEFT01,DYNAMNBR=99                                          
 //SYSPRINT DD SYSOUT=*                                                          

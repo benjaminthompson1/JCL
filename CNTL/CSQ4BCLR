@@ -5,7 +5,7 @@
 //* JOB:   IU4BCLR                                                              
 //* DESC:  Read and clear messages from an MQ queue via CSQ4BCL1                
 //* AUTH:  Ben               DATE: 2025-07-10                                   
-//* NOTE:  UPDATE PARM WITH QUEUE MANAGER AND QUEUE NAME BEFORE RUN             
+//* NOTE:  Update PARM with queue manager and queue name before run             
 //*--------------------------------------------------------------------*        
 //* STEP: EXECUTE CSQ4BCL1 TO BROWSE AND PRINT QUEUE MESSAGES                   
 //*--------------------------------------------------------------------*        

@@ -8,7 +8,8 @@
 //*        Bind DB2 packages required by the new function level                 
 //* STEPS: 1-DSNTITC, 2-CHKTITC, 3-DSNTIRI, 4-DSNTITD                           
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  STEP DSNTITC CANNOT BE RERUN AFTER SUCCESSFUL RC=0                   
+//* NOTE:  Step DSNTITC is not re-runnable after a successful RC=0              
+//*        Back up the DB2 catalog before the first run                         
 //*--------------------------------------------------------------------*        
 //JOBLIB  DD  DISP=SHR,                                                         
 //            DSN=DSND10.SDSNLOAD                                               

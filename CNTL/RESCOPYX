@@ -5,7 +5,7 @@
 //* JOB:   IURSCPX                                                              
 //* DESC:  Restore a DFSMSdss backup to the original volume                     
 //* AUTH:  Ben               DATE: 2025-08-21                                   
-//* NOTE:  ENSURE TARGET IPL RESVOL VOLUMES ARE NOT IN USE BEFORE RUN           
+//* NOTE:  Ensure target IPL RESVOL volumes are not in use before running       
 //*--------------------------------------------------------------------*        
 //RESCOPYX EXEC PGM=ADRDSSU                                                     
 //SYSPRINT DD   SYSOUT=*                                                        

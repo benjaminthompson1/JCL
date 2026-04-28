@@ -5,7 +5,7 @@
 //* JOB:   IUDSSMVE                                                             
 //* DESC:  Move datasets to a target volume using DFSMSdss                      
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL MOVE                      
+//* NOTE:  Remove TYPRUN=NORUN from PARM to perform the actual move             
 //*--------------------------------------------------------------------*        
 //MOVE     EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
 //FROMVOL  DD  UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                               

@@ -5,7 +5,7 @@
 //* JOB:   IUCONVE                                                              
 //* DESC:  Convert a volume to or from SMS management using ADRDSSU             
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  CHANGE VOL=SER= IN INVOL1 DD TO TARGET VOLUME BEFORE RUN             
+//* NOTE:  Change VOL=SER= in INVOL1 DD to the target volume before run         
 //*--------------------------------------------------------------------*        
 //STEP1 EXEC PGM=ADRDSSU                                                        
 //SYSPRINT DD SYSOUT=*                                                          

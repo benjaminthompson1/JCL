@@ -5,7 +5,7 @@
 //* JOB:   IUTERSE                                                              
 //* DESC:  Pack a sequential dataset using AMATERSE SPACK                       
 //* AUTH:  Ben               DATE: 2025-07-14                                   
-//* NOTE:  SET PARM TO SPACK, PACK, OR UNPACK; CUSTOMIZE SYSUT1/SYSUT2 NAMES    
+//* NOTE:  Set PARM to SPACK, PACK, or UNPACK; update SYSUT1/SYSUT2 DSNs        
 //*--------------------------------------------------------------------*        
 //AMATERSE EXEC PGM=AMATERSE,PARM=SPACK                                         
 //SYSPRINT DD SYSOUT=*                                                          

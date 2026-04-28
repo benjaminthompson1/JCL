@@ -5,7 +5,7 @@
 //* JOB:   IUIPCS                                                               
 //* DESC:  Analyse a system dump using IPCS in TSO batch                        
 //* AUTH:  Ben               DATE: 2025-08-05                                   
-//* NOTE:  IPCS DUMP DIRECTORY (VSAM KSDS) MUST BE DEFINED FIRST                
+//* NOTE:  The IPCS dump directory VSAM KSDS must be defined first              
 //*--------------------------------------------------------------------*        
 //IPCS   EXEC PGM=IKJEFT01                                                      
 //STEPLIB  DD DISP=SHR,DSN=SYS1.MIGLIB                                          

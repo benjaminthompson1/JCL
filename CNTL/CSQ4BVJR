@@ -5,7 +5,7 @@
 //* JOB:   IUBVJR                                                               
 //* DESC:  Put sample messages to an MQ queue using CSQ4BVK1                    
 //* AUTH:  Ben               DATE: 2025-07-10                                   
-//* NOTE:  UPDATE PARM VALUES WITH QUEUE MANAGER AND QUEUE NAME                 
+//* NOTE:  Update PARM with queue manager and queue name before run             
 //*--------------------------------------------------------------------*        
 //* STEP: DEFINE LIBRARIES FOR PROGRAM EXECUTION                                
 //*--------------------------------------------------------------------*        

@@ -5,7 +5,7 @@
 //* JOB:   IUCX200                                                              
 //* DESC:  Scan a single JCL member for errors using JCL Expert                 
 //* AUTH:  Ben               DATE: 2025-07-10                                   
-//* NOTE:  SET JCLMEMB= TO THE FULLY QUALIFIED PDS(MEMBER) TO SCAN              
+//* NOTE:  Set JCLMEMB= to the fully qualified PDS(MEMBER) to scan              
 //*--------------------------------------------------------------------*        
 //* SET JCL VARIABLES                                                           
 //*--------------------------------------------------------------------*        

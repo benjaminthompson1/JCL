@@ -5,7 +5,7 @@
 //* JOB:   IUIDCAM                                                              
 //* DESC:  Copy a dataset to a target using IDCAMS REPRO                        
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update IN() and OUT() DSN values in SYSIN before run                 
 //*--------------------------------------------------------------------*        
 //IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
 //INDD    DD DSN=SYS2.HSM.BCDS,DISP=SHR                                         

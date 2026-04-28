@@ -5,7 +5,7 @@
 //* JOB:   IUPLIC                                                               
 //* DESC:  Compile a PL/I source program                                        
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update the SYSIN DD to point to the PL/I source member               
 //*--------------------------------------------------------------------*        
 // EXPORT SYMLIST=(COPYBK)                                                      
 // SET COPYBK=PLIZPER                                                           

@@ -5,7 +5,7 @@
 //* JOB:   IUSEND                                                               
 //* DESC:  Send datasets to cloud storage via IBM Z DFSMS CDM                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  MODIFY SYSEXEC AND STEPLIB BEFORE USE; CUSTOMIZE CDMSEND             
+//* NOTE:  Update SYSEXEC and STEPLIB DSNs; customize the CDMSEND exec          
 //*--------------------------------------------------------------------*        
 //*********************************************************************         
 //*                                                                   *         

@@ -5,7 +5,7 @@
 //* JOB:   IUREXXP                                                              
 //* DESC:  Compile a REXX exec and save the result to CEXEC                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update SYSIN and SYSCEXEC DSNs for source and compiled exec          
 //*--------------------------------------------------------------------*        
 //COMPILE  EXEC PGM=REXXCOMP,PARM='XREF'                                        
 //SYSPRINT DD SYSOUT=*                                                          

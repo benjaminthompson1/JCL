@@ -5,7 +5,7 @@
 //* JOB:   IUPDUPL                                                              
 //* DESC:  Upload problem documentation to IBM using AMAPDUPL                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  UPDATE USERID, PASSWORD, CASE AND TARGET_DSN BEFORE RUN              
+//* NOTE:  Update userid, password, CASE, and TARGET_DSN before run             
 //*--------------------------------------------------------------------*        
 //HTTPS EXEC PGM=AMAPDUPL                                                       
 //SYSUDUMP DD SYSOUT=*                                                          

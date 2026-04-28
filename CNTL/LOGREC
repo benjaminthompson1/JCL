@@ -8,7 +8,8 @@
 //*        Clear and reinitialise the LOGREC dataset                            
 //* STEPS: 1-STEP1, 2-STEP2, 3-STEP3                                            
 //* AUTH:  Ben               DATE: 2025-07-14                                   
-//* NOTE:  DESTROYS ALL EXISTING LOGREC RECORDS; REVIEW BEFORE USE              
+//* NOTE:  Destroys all existing LOGREC records; review before running          
+//*        Ensure records are reported or backed up before clearing             
 //*--------------------------------------------------------------------*        
 //*-- 1: PRINT CURRENT LOGREC CONTENTS TO SYSOUT ----------------------*
 //STEP1   EXEC PGM=IFCEREP1,PARM='EVENT=Y,ACC=N',REGION=256K                    

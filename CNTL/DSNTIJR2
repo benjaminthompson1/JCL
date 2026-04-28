@@ -5,7 +5,7 @@
 //* JOB:   IUTIJR2                                                              
 //* DESC:  Enable DB2 REST service versioning (alter services index)            
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  RUN ONLY AFTER DSNTIJRS AND APAR PI98649 ARE APPLIED                 
+//* NOTE:  Run only after DSNTIJRS completes and APAR PI98649 is applied        
 //*--------------------------------------------------------------------*        
 //JOBLIB  DD  DISP=SHR,                                                         
 //            DSN=DSND10.SDSNLOAD                                               

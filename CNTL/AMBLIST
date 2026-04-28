@@ -5,7 +5,7 @@
 //* JOB:   IUAMBLT                                                              
 //* DESC:  List load module attributes and cross-references                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  SET MEMBER= IN SYSIN TO THE LOAD MODULE TO ANALYSE                   
+//* NOTE:  Set MEMBER= in SYSIN to the load module to analyse                   
 //*--------------------------------------------------------------------*        
 //STEP1  EXEC PGM=AMBLIST                                                       
 //SYSPRINT DD SYSOUT=*                                                          

@@ -5,7 +5,7 @@
 //* JOB:   IURACFS                                                              
 //* DESC:  Define RACF dataset profiles for high-level qualifiers               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update HLQ profile names and user IDs to match site standards        
 //*--------------------------------------------------------------------*        
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             

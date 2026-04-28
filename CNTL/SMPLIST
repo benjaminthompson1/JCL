@@ -5,7 +5,7 @@
 //* JOB:   IUSMPLI                                                              
 //* DESC:  List SMP/E DDDEF entries in the global zone                          
 //* AUTH:  Ben               DATE: 2025-07-14                                   
-//* NOTE:  SUBSTITUTE #globalzone; NON-DESTRUCTIVE, REPORT OUTPUT ONLY          
+//* NOTE:  Substitute #globalzone; non-destructive, report output only          
 //*--------------------------------------------------------------------*        
 //        SET CSI=#globalzone
 //LISTSMPE EXEC PGM=GIMSMP

@@ -10,7 +10,7 @@
 //*        Grant privileges on pseudo-catalog objects (DSNTIAI4)                
 //* STEPS: 1-DSNTICU, 2-DSNTIAI1, 3-DSNTIAI2, 4-DSNTIAI3, 5-DSNTIAI4            
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  REVIEW BUFFER POOL AND STORAGE GROUP SETTINGS BEFORE RUN             
+//* NOTE:  Review buffer pool and storage group settings before run             
 //*--------------------------------------------------------------------*        
 //* NOTES =                                                                     
 //*    PRIOR TO RUNNING THIS JOB, customize it for your system:                 

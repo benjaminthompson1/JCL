@@ -5,7 +5,7 @@
 //* JOB:   IURACFZ                                                              
 //* DESC:  Create and manage digital certificates using RACF                    
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update certificate authority, keyring, and subject details           
 //*--------------------------------------------------------------------*        
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             

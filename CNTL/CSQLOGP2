@@ -7,7 +7,7 @@
 //*        Sort the log output by timestamp using DFSORT                        
 //* STEPS: 1-PRTLOG, 2-FILTER                                                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  UPDATE ARCHIVE DD DSN TO TARGET MQ ARCHIVE LOG DATASET               
+//* NOTE:  Update ARCHIVE DD DSN to the target MQ archive log dataset           
 //*--------------------------------------------------------------------*        
 //*-- 1: EXTRACT COMMITTED MESSAGES FROM MQ ARCHIVE LOG ---------------*
 //PRTLOG   EXEC PGM=CSQ1LOGP                                                    

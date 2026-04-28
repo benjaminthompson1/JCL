@@ -7,7 +7,7 @@
 //*        Process DCOLLECT records and stream to CDP Z receiver                
 //* STEPS: 1-HBOTCAFF, 2-HBOSMFCL                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  MODIFY IBM_UPDATE_TARGET PORT AND HBOIN POLICY FILE PATH             
+//* NOTE:  Update IBM_UPDATE_TARGET port and HBOIN policy file path             
 //*--------------------------------------------------------------------*        
 //*                                                                             
 //*********************************************************************         

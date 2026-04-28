@@ -5,7 +5,7 @@
 //* JOB:   IUSMPRE                                                              
 //* DESC:  Reject received-only SMP/E SYSMODs from the global zone              
 //* AUTH:  Ben               DATE: 2025-07-14                                   
-//* NOTE:  USES CHECK BY DEFAULT; REMOVE CHECK TO ACTUALLY REJECT               
+//* NOTE:  Uses CHECK by default; remove CHECK to perform actual reject         
 //*--------------------------------------------------------------------*        
 //        SET CSI=#globalzone
 //RECNTS   EXEC PGM=GIMSMP

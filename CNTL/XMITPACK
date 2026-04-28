@@ -8,7 +8,7 @@
 //*        Compress the XMIT dataset using AMATERSE PACK                        
 //* STEPS: <Very brief step summary, if needed>                                 
 //* AUTH:  Ben               DATE: 2026-04-17                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update source library DSN and target XMIT dataset names              
 //*--------------------------------------------------------------------*        
 //*-- 1: DELETE EXISTING XMIT OUTPUT DATASET --------------------------*
 //DELETE   EXEC  PGM=IEFBR14                                                    

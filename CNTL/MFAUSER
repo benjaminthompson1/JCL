@@ -8,7 +8,7 @@
 //*        Allocate a fresh MFA authentication VSAM dataset                     
 //* STEPS: <NONE>                                                               
 //* AUTH:  Ben               DATE: 2025-05-26                                   
-//* NOTE:  DELETES AND RECREATES MFAUSR1-MFAUSR3; IZUACCT NEEDED                
+//* NOTE:  Deletes and recreates MFAUSR1-MFAUSR3; IZUACCT required              
 //*--------------------------------------------------------------------*        
 //*-- 1: DELETE AND CREATE MFA USERS WITH TSO SEGMENTS AND SETTINGS ---*
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               

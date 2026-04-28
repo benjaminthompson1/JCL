@@ -5,7 +5,7 @@
 //* JOB:   IUBPXCL                                                              
 //* DESC:  Run a Python script in batch using TSO                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update SYSTSIN to specify the target Python script path              
 //*--------------------------------------------------------------------*        
 //PYTHON EXEC PGM=IKJEFT01                                                      
 //SYSPRINT DD SYSOUT=*                                                          

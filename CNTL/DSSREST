@@ -5,7 +5,7 @@
 //* JOB:   IUDSSRE                                                              
 //* DESC:  Restore a DFSMSdss backup to the original location                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL RESTORE                   
+//* NOTE:  Remove TYPRUN=NORUN from PARM to perform the actual restore          
 //*--------------------------------------------------------------------*        
                                                                                 
 //STEP1    EXEC PGM=ADRDSSU,PARM='TYPRUN=NORUN'                                 

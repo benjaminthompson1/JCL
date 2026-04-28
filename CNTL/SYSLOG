@@ -5,7 +5,8 @@
 //* JOB:   IUSYSLG                                                              
 //* DESC:  Dump the JES syslog to a sequential dataset                          
 //* AUTH:  Ben               DATE: 2025-07-14                                   
-//* NOTE:  CUSTOMIZE OUTPUT DSN AND TIME RANGE; REQUIRES SDSF LOG/PT AUTHORITY  
+//* NOTE:  Customize output DSN and time range before run                       
+//*        Requires SDSF LOG and PT authority to access the syslog              
 //*--------------------------------------------------------------------*        
 //DUMPLOG  EXEC PGM=ISFAFD,DYNAMNBR=150,PARM='++122,1000'                       
 //SYSPRINT DD SYSOUT=*                                                          

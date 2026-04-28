@@ -5,7 +5,7 @@
 //* JOB:   IUICEGE                                                              
 //* DESC:  Copy a dataset or PDS member using ICEGENER                          
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update SYSUT1 and SYSUT2 DSNs for source and target datasets         
 //*--------------------------------------------------------------------*        
 //SCOPY EXEC PGM=ICEGENER                                                       
 //SYSPRINT DD SYSOUT=*                                                          

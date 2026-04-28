@@ -5,7 +5,7 @@
 //* JOB:   IUSMPAC                                                              
 //* DESC:  Accept SMP/E SYSMODs into the distribution zone                      
 //* AUTH:  Ben               DATE: 2025-07-09                                   
-//* NOTE:  SUBSTITUTE #globalzone AND #dlib BEFORE RUNNING                      
+//* NOTE:  Substitute #globalzone and #dlib before running                      
 //*--------------------------------------------------------------------*        
 //        SET CSI=#globalzone
 //ACCEPT   EXEC PGM=GIMSMP                                                      

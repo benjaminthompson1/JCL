@@ -7,7 +7,7 @@
 //*        Verify distributed catalog (DCAT) access via BPXBATCH                
 //* STEPS: 1-STEP1, 2-STEP2                                                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  REQUIRES DCAT CONFIGURED AND ACCESSIBLE ON THE SYSTEM                
+//* NOTE:  Requires DCAT configured and accessible on this system               
 //*--------------------------------------------------------------------*        
 //*-- 1: CREATE CATALOGED TEST DATASET USING IEBGENER -----------------*
 //STEP1    EXEC PGM=IEBGENER                                                    

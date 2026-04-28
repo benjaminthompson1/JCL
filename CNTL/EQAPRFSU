@@ -5,7 +5,7 @@
 //* JOB:   IUPRFSU                                                              
 //* DESC:  Configure the z/OS Debugger debug profile service                    
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  JOB ID RUNNING THIS MUST HAVE SUFFICIENT Z/OS UNIX AUTH              
+//* NOTE:  Run under a userid with sufficient z/OS UNIX authority               
 //*--------------------------------------------------------------------*        
 //* Licensed Materials - Property of IBM                              *         
 //*                                                                   *         

@@ -5,7 +5,7 @@
 //* JOB:   IULIKEC                                                              
 //* DESC:  Allocate a dataset using attributes from an existing one             
 //* AUTH:  Ben               DATE: 2025-08-04                                   
-//* NOTE:  ENSURE SOURCE DATASET EXISTS AND IS CATALOGED                        
+//* NOTE:  Ensure the source dataset exists and is cataloged                    
 //*--------------------------------------------------------------------*        
 //LIKECPY EXEC PGM=IEFBR14                                                      
 //SMSDS1  DD DSNAME=IBMUSER.COBOL.LOAD.NEW,                                     

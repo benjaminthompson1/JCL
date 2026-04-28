@@ -5,7 +5,7 @@
 //* JOB:   IUJZOSA                                                              
 //* DESC:  Run a Java application using JZOS JVM launcher (v17)                 
 //* AUTH:  Ben               DATE: 2025-08-04                                   
-//* NOTE:  ENSURE PROC=JVMPRC17 IS AVAILABLE AND JAVA 17 IS INSTALLED           
+//* NOTE:  Ensure PROC=JVMPRC17 is available and Java 17 is installed           
 //*--------------------------------------------------------------------*        
 //JAVA EXEC PROC=JVMPRC17,                                                      
 // JAVACLS='com.ibm.jzos.sample.HelloWorld'                                     

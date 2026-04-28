@@ -5,7 +5,7 @@
 //* JOB:   IUREXX                                                               
 //* DESC:  Run a compiled REXX exec from the CEXEC library in batch             
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update SYSEXEC DSN and PARM to target the compiled exec              
 //*--------------------------------------------------------------------*        
 //REXX     EXEC PGM=IRXJCL,PARM='HELLOW'                                        
 //SYSTSPRT DD SYSOUT=*                                                          

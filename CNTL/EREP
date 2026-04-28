@@ -5,7 +5,7 @@
 //* JOB:   IULOGRC                                                              
 //* DESC:  Print hardware error event records using IFCEREP1                    
 //* AUTH:  Ben               DATE: 2025-08-04                                   
-//* NOTE:  CODE ONLY ONE OF SERLOG (LIVE) OR ACCIN (HISTORICAL)                 
+//* NOTE:  Code only one of SERLOG (live) or ACCIN (historical)                 
 //*--------------------------------------------------------------------*        
 //ERIP EXEC PGM=IFCEREP1,PARM='CARD'                                            
 //SERLOG   DD DISP=SHR,DSN=SYS1.S0W1.LOGREC          <=== SEE NOTE 1            

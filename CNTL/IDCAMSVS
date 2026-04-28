@@ -8,7 +8,7 @@
 //*        Define the alternate index on the base cluster                       
 //* STEPS: 1-CREATE, 2-REPRO, 3-CREATEAX                                        
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update base cluster and alternate index DSN values before run        
 //*--------------------------------------------------------------------*        
 //*-- 1: DEFINE VSAM KSDS CLUSTER WITH PRIMARY INDEX ------------------*
 //CREATE   EXEC PGM=IDCAMS,REGION=0M                                            

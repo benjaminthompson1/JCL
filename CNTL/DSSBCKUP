@@ -5,7 +5,7 @@
 //* JOB:   IUDSSBK                                                      00000600
 //* DESC:  Incremental VSAM backup of a volume using DFSMSdss           00000700
 //* AUTH:  Ben               DATE: 2026-02-11                           00000900
-//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL BACKUP            00001000
+//* NOTE:  Remove TYPRUN=NORUN from PARM to perform the actual backup   00001000
 //*--------------------------------------------------------------------*00002000
 //DSSINCR  EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                         00012200
 //SYSPRINT DD SYSOUT=*                                                  00012300

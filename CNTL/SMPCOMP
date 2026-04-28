@@ -5,7 +5,7 @@
 //* JOB:   IUSMPCP                                                              
 //* DESC:  Compare target and distribution zones for differences                
 //* AUTH:  Ben               DATE: 2025-06-27                                   
-//* NOTE:  NOACCEPT ONLY; REPORTS DIFFERENCES, NO CHANGES APPLIED               
+//* NOTE:  NOACCEPT only; reports differences, no changes applied               
 //*--------------------------------------------------------------------*        
 //        SET CSI=#globalzone
 //NOACCEPT EXEC PGM=GIMSMP

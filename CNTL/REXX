@@ -5,7 +5,7 @@
 //* JOB:   IUREXX                                                               
 //* DESC:  Run an interpreted REXX exec from a PDS in batch                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update SYSEXEC DSN and IRXJCL PARM to target the correct exec        
 //*--------------------------------------------------------------------*        
 //REXX     EXEC PGM=IRXJCL,PARM='HELLOW'                                        
 //SYSTSPRT DD SYSOUT=*                                                          

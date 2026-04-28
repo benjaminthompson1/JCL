@@ -8,7 +8,7 @@
 //*        Load initial key data into the datasets using IDCAMS                 
 //* STEPS: 1-DEFINE, 2-MKHEAD, 3-MKDATA                                         
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  CHANGE VOLUME AND DSN PREFIX TO MATCH SITE ICSF CONFIG               
+//* NOTE:  Change volume and DSN prefix to match the ICSF configuration         
 //*--------------------------------------------------------------------*        
 //*-- 1: DEFINE VSAM CLUSTER FOR TKDS ---------------------------------*
 //DEFINE  EXEC PGM=IDCAMS,REGION=4M                                             

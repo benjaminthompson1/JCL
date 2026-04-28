@@ -8,7 +8,7 @@
 //*        Grant execute privilege on the package                               
 //* STEPS: 1-BINDPKG, 2-BINDPLAN, 3-GRANT                                       
 //* AUTH:  Ben               DATE: 2025-07-10                                   
-//* NOTE:  UPDATE COLLECTION, MEMBER, PLAN AND DB2 SUBSYSTEM NAMES              
+//* NOTE:  Update collection, member, plan, and DB2 subsystem names             
 //*--------------------------------------------------------------------*        
 //*-- 1: BIND DB2 PACKAGE ---------------------------------------------*
 //BINDPKG  EXEC PGM=IKJEFT01,DYNAMNBR=20                                        

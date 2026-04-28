@@ -8,7 +8,7 @@
 //*        Bind the REST service plans                                          
 //* STEPS: 1-FREE1, 2-BIND1, 3-BIND2                                            
 //* AUTH:  Ben               DATE: 2025-07-10                                   
-//* NOTE:  UPDATE SERVICE NAMES AND TARGET TABLE BEFORE RUN                     
+//* NOTE:  Update service names and target table before run                     
 //*--------------------------------------------------------------------*        
 //*-- 1: FREE EMPLOYEELIST REST SERVICE -------------------------------*
 //FREE1    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        

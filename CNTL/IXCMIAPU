@@ -5,7 +5,7 @@
 //* JOB:   IUMIAPU                                                              
 //* DESC:  Define a sysplex couple dataset using IXCMIAPU                       
 //* AUTH:  Ben               DATE: 2025-06-17                                   
-//* NOTE:  UPDATE SYSTEM NAME S0W1 AND RETENTION SETTINGS AS NEEDED             
+//* NOTE:  Update system name S0W1 and retention settings as needed             
 //*--------------------------------------------------------------------*        
 //CREATE   EXEC PGM=IXCMIAPU                                                    
 //SYSPRINT DD   SYSOUT=*                                                        

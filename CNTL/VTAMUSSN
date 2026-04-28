@@ -7,7 +7,7 @@
 //*        Link-edit the assembled table into a load module                     
 //* STEPS: <Very brief step summary, if needed>                                 
 //* AUTH:  Ben               DATE: 2026-04-17                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update SYSLIB, SYSLMOD DSNs and the module name before run           
 //*--------------------------------------------------------------------*        
 //*-- 1: ASSEMBLE VTAM USS TABLE USING ASMA90 -------------------------*
 //ASM      EXEC PGM=ASMA90,                                             00110000

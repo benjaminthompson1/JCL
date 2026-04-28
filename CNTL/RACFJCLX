@@ -5,7 +5,7 @@
 //* JOB:   IURACFJ                                                              
 //* DESC:  Define RACF profiles and permissions for JCL Expert                  
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update user IDs and profile names to match site standards            
 //*--------------------------------------------------------------------*        
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
 //SYSTERM  DD DUMMY                                                             

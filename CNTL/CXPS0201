@@ -5,7 +5,7 @@
 //* JOB:   IUCX201                                                              
 //* DESC:  Scan an entire JCL library for errors using JCL Expert               
 //* AUTH:  Ben               DATE: 2025-07-10                                   
-//* NOTE:  SET JCLPDS= TO THE PDS TO SCAN BEFORE RUN                            
+//* NOTE:  Set JCLPDS= to the PDS library to scan before run                    
 //*--------------------------------------------------------------------*        
 //* SET JCL VARIABLES                                                           
 //*--------------------------------------------------------------------*        

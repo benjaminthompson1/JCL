@@ -7,7 +7,7 @@
 //*        Post-process CPU utilisation using ERBRMFPP                          
 //* STEPS: 1-RMFSORT, 2-RMFPP                                                   
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update SMFIN DSN to point to the source SMF type 72 data             
 //*--------------------------------------------------------------------*        
 //*-- 1: SORT SMF DATA FOR RMF POST-PROCESSING ------------------------*
 //RMFSORT  EXEC PGM=SORT                                                        

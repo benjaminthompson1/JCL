@@ -7,7 +7,7 @@
 //*        Compile, link-edit, and run the COBOL program                        
 //* STEPS: 1-DFSORT, 2-COBCBG1                                                  
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  UPDATE SORTIN DSN AND GOPGM BEFORE RUN                               
+//* NOTE:  Update SORTIN DSN and GOPGM before run                               
 //*--------------------------------------------------------------------*        
 //*-- 1: SORT ACCOUNT DATA USING DFSORT -------------------------------*
 //DFSORT EXEC PGM=SORT                                                          

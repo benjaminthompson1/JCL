@@ -5,7 +5,7 @@
 //* JOB:   IUIEFBR                                                              
 //* DESC:  Allocate or delete datasets using IEFBR14                            
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update DD statements with target DSN and space values                
 //*--------------------------------------------------------------------*        
 //IEFBR14  EXEC PGM=IEFBR14                                                     
 //SYSPRINT DD SYSOUT=*                                                          

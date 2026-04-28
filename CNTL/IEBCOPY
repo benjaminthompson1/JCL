@@ -5,7 +5,7 @@
 //* JOB:   IUIEBCP                                                              
 //* DESC:  Copy or compress a PDS or PDSE using IEBCOPY                         
 //* AUTH:  Ben               DATE: 2025-08-19                                   
-//* NOTE:  UPDATE DDIN AND DDOUT DSN TO YOUR SOURCE/TARGET LIBRARIES            
+//* NOTE:  Update DDIN and DDOUT DSNs for source and target libraries           
 //*--------------------------------------------------------------------*        
 //IEBCOPY1 EXEC PGM=IEBCOPY                                                     
 //SYSPRINT DD SYSOUT=*                                                          

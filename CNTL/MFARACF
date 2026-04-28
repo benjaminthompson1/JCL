@@ -5,7 +5,7 @@
 //* JOB:   IUMFA01                                                              
 //* DESC:  Create RACF definitions for the MFA server STC                       
 //* AUTH:  Ben               DATE: 2025-05-26                                   
-//* NOTE:  CERTAUTH NAMED BaseCA MUST EXIST; REVIEW BEFORE RUNNING              
+//* NOTE:  Certificate authority named BaseCA must exist before running         
 //*--------------------------------------------------------------------*        
 //RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
 //SYSTERM  DD DUMMY                                                             

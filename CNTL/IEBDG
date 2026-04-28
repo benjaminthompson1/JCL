@@ -5,7 +5,7 @@
 //* JOB:   IUIEBDG                                                              
 //* DESC:  Generate structured test data using IEBDG                            
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  <Key prerequisite or caution (optional)>                             
+//* NOTE:  Update SYSIN to define the test data generation structure            
 //*--------------------------------------------------------------------*        
 //CREATE   EXEC PGM=IEBDG                                                       
 //SYSPRINT DD SYSOUT=*                                                          
