@@ -1,6 +1,6 @@
 //IUIPCS JOB (FB3),'IPCS',CLASS=A,MSGCLASS=H,                                   
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUIPCS                                                               
 //* DESC:  Analyse a system dump using IPCS in TSO batch                        

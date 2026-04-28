@@ -1,6 +1,6 @@
 //IURACFZ JOB (FB3),'RACF CERT,CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IURACFZ                                                              
 //* DESC:  Create and manage digital certificates using RACF                    

@@ -5,7 +5,7 @@
 //* JOB:   IU04501                                                              
 //* DESC:  Allocate zSecure customisation datasets using IEFBR14                
 //*        Define SMP/E DDDEFs for zSecure target libraries                     
-//* STEPS: <Very brief step summary, if needed>                                 
+//* STEPS: 1-ALLOCT, 2-DDDEFT                                                   
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  Update HLQ and library names to match the zSecure installation       
 //*--------------------------------------------------------------------*        

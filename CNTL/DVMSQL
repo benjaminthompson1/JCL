@@ -1,6 +1,6 @@
 //IUDVMSQ JOB (FB3),'DVM SQL',CLASS=A,MSGCLASS=H,                       00001000
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00002000
-//*      TYPRUN=HOLD                                                    00003000
+//*       TYPRUN=HOLD                                                   00003000
 //*--------------------------------------------------------------------*00040000
 //* JOB:   IUDVMS                                                       00050000
 //* DESC:  Create DVM sample DB2 tables, views, and bind plans          00060000

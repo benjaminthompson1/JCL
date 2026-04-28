@@ -1,12 +1,12 @@
 //IUXMIT JOB (FB3),'XMIT TERSE',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUXMIT                                                               
 //* DESC:  Delete the prior XMIT output dataset                                 
 //*        Transmit a PDS library to an XMIT format dataset                     
 //*        Compress the XMIT dataset using AMATERSE PACK                        
-//* STEPS: <Very brief step summary, if needed>                                 
+//* STEPS: 1-DELETE, 2-XMIT, 3-AMATERSE                                         
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  Update source library DSN and target XMIT dataset names              
 //*--------------------------------------------------------------------*        

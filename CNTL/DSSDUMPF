@@ -1,6 +1,6 @@
 //IUDSSDF JOB (FB3),'DSS DUMPF',CLASS=A,MSGCLASS=H,                     00001000
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00002000
-//*      TYPRUN=HOLD                                                    00003000
+//*       TYPRUN=HOLD                                                   00003000
 //*--------------------------------------------------------------------*00010400
 //* JOB:   XBTC4                                                        00010500
 //* DESC:  Perform a full DASD volume backup using DFSMSdss             00010600

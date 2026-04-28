@@ -1,6 +1,6 @@
 //IUBIND JOB (FB3),'DB2 BIND',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUBIND                                                               
 //* DESC:  Bind the DB2 package                                                 

@@ -1,6 +1,6 @@
 //IUDCOLL JOB (FB3),'DCOLLECT',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUDCOLL                                                              
 //* DESC:  Collect dataset and volume data using IDCAMS DCOLLECT                

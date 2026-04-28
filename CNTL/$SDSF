@@ -1,6 +1,6 @@
 //IUSDSF JOB (FB3),'SDSF BATCH',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUSDSF                                                               
 //* DESC:  Browse and search the JES spool using SDSF in batch                  

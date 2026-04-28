@@ -1,6 +1,6 @@
 //IUQPUT JOB (FB3),'CSQ4BVJR',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUQPUT                                                               
 //* DESC:  Put sample messages to an MQ queue using CSQ4BVK1                    

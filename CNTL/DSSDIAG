@@ -1,6 +1,6 @@
 //IUDDIAG JOB (FB3),'DSS DIAG',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUDDIAG                                                              
 //* DESC:  Diagnose VTOC and catalog entries using DFSMSdss                     

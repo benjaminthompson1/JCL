@@ -1,6 +1,6 @@
 //IURACF JOB (FB3),'HBORACF',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IURACF                                                               
 //* DESC:  Define RACF profiles for IBM Z Common Data Provider                  

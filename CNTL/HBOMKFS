@@ -1,6 +1,6 @@
 //IUHBOMK JOB (FB3),'HBOMKFS',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   HBOMKFS                                                              
 //* DESC:  Define the CDP Z filesystem VSAM linear dataset                      

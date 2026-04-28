@@ -1,6 +1,6 @@
 //IUGDKUT JOB (FB3),'GDKUTIL',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUGDKUT                                                              
 //* DESC:  Upload a z/OS dataset to S3 object storage via GDKUTIL               

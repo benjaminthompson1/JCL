@@ -1,6 +1,6 @@
 //IUIDCAM JOB (FB3),'IDCAM SCDS',CLASS=A,MSGCLASS=H,                            
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUIDCAM                                                              
 //* DESC:  Define or alter SMS constructs using IDCAMS                          

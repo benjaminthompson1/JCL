@@ -1,6 +1,6 @@
 //IUEGUIF JOB (FB3),'DFH$ECNF',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUECNF                                                               
 //* DESC:  Define the CICS extended configuration VSAM KSDS cluster             

@@ -1,6 +1,6 @@
 //IUIDCAM JOB (FB3),'IDCAM AIX',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUIDCAM                                                              
 //* DESC:  Define the base VSAM KSDS cluster using IDCAMS                       

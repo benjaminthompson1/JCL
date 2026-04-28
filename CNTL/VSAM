@@ -1,6 +1,6 @@
 //IUIDCAM JOB (FB3),'IDCAMS',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUIDCAM                                                              
 //* DESC:  Create a VSAM KSDS cluster using IDCAMS DEFINE                       

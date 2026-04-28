@@ -1,6 +1,6 @@
 //IUDSSMV JOB (FB3),'DSS MOVE',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUDSSMVE                                                             
 //* DESC:  Move datasets to a target volume using DFSMSdss                      

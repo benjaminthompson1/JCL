@@ -1,6 +1,6 @@
 //IUSEND JOB (FB3),'GBQSEND',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUSEND                                                               
 //* DESC:  Send datasets to cloud storage via IBM Z DFSMS CDM                   

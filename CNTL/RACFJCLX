@@ -1,6 +1,6 @@
 //IURACFJ JOB (FB3),'RACF JCLX',CLASS=A,MSGCLASS=H,                             
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IURACFJ                                                              
 //* DESC:  Define RACF profiles and permissions for JCL Expert                  

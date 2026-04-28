@@ -1,6 +1,6 @@
 //IUDFHA JOB (FB3),'DFHAUX',CLASS=A,MSGCLASS=H,                                 
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUDFHA                                                               
 //* DESC:  Format CICS auxiliary temporary storage datasets                     

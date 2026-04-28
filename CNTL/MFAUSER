@@ -6,7 +6,7 @@
 //* DESC:  Create MFA RACF user definitions using TSO RACF commands             
 //*        Delete the existing MFA authentication VSAM dataset                  
 //*        Allocate a fresh MFA authentication VSAM dataset                     
-//* STEPS: <NONE>                                                               
+//* STEPS: 1-RACFSTC, 2-DELETE, 3-DEFINE                                        
 //* AUTH:  Ben               DATE: 2025-05-26                                   
 //* NOTE:  Deletes and recreates MFAUSR1-MFAUSR3; IZUACCT required              
 //*--------------------------------------------------------------------*        

@@ -1,6 +1,6 @@
 //IUREST JOB (FB3),'DSNREST',CLASS=A,MSGCLASS=H,                                
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUREST                                                               
 //* DESC:  Free prior DB2 native REST service package binds                     

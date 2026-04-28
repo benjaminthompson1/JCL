@@ -1,6 +1,6 @@
 //IUOMVSA JOB (FB3),'OMVS TEMP,CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUOMVSA                                                              
 //* DESC:  Create a test dataset using IEBGENER                                 

@@ -1,6 +1,6 @@
 //IUZERT JOB (FB3),'ZERT SEC',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUZERT                                                               
 //* DESC:  Define RACF security profiles for z/OSMF                             

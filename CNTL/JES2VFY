@@ -1,6 +1,6 @@
 //IUJES2V JOB (FB3),'JES2 VERIFY',CLASS=A,MSGCLASS=H,                           
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUJVFY                                                               
 //* DESC:  Verify JES2 parm syntax by starting JES2 in test mode                

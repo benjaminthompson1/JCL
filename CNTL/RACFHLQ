@@ -1,6 +1,6 @@
 //IURACFQ JOB (FB3),'RACF HLQ',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IURACFS                                                              
 //* DESC:  Define RACF dataset profiles for high-level qualifiers               

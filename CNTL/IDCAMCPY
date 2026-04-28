@@ -1,6 +1,6 @@
 //IUIDCAM JOB (FB3),'IDCAM COPY',CLASS=A,MSGCLASS=H,                            
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUIDCAM                                                              
 //* DESC:  Copy a dataset to a target using IDCAMS REPRO                        

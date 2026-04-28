@@ -1,6 +1,6 @@
 //IUIDCAM JOB (FB3),'IDCAM CATALOG',CLASS=A,MSGCLASS=H,                         
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUIDCAM                                                              
 //* DESC:  Manage VSAM datasets and catalogs using IDCAMS                       

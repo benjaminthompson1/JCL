@@ -1,6 +1,6 @@
 //IUEGUIC JOB (FB3),'DFH$ECAT',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUEGUIC                                                              
 //* DESC:  Define the CICS extended catalog VSAM KSDS cluster                   

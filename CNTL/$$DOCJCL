@@ -1,7 +1,29 @@
-//*--------------------------------------------------------------------*        
-//* JOB:   <JOBNAME>                                                            
-//* DESC:  <One-line purpose>                                                   
-//* STEPS: <Very brief step summary, if needed>                                 
-//* AUTH:  <Name / Initials>   DATE: 2026-04-06                                 
-//* NOTE:  <Key prerequisite or caution (optional)>                             
-//*--------------------------------------------------------------------*        
+//*--------------------------------------------------------------------*
+//* JCL documentation standard - header block and style reference
+//*--------------------------------------------------------------------*
+//*
+//* Job card format:
+//*   //IUxxxxx JOB (FB3),'Short title',CLASS=A,MSGCLASS=H,
+//*   //        NOTIFY=&SYSUID,REGION=0M,TIME=1440
+//*   //*       TYPRUN=HOLD
+//*
+//* Header block:
+//*   //*--------------------------------------------------------------------*
+//*   //* JOB:   IUxxxxx
+//*   //* DESC:  Purpose in sentence case (single-step jobs)
+//*   //*        One continuation line per step (multi-step jobs)
+//*   //* STEPS: 1-STEP1, 2-STEP2  (multi-step jobs only; omit otherwise)
+//*   //* AUTH:  Your name               DATE: YYYY-MM-DD
+//*   //* NOTE:  Key prerequisite or caution in sentence case
+//*   //*--------------------------------------------------------------------*
+//*
+//* Step separator (multi-step jobs only):
+//*   //*-- N: STEP DESCRIPTION ----------------------------*
+//*   Trailing dashes ensure the closing * aligns to column 72
+//*
+//* End of job footer (all jobs):
+//*   //*--------------------------------------------------------------------*
+//*   //* End of Job
+//*   //*--------------------------------------------------------------------*
+//*
+//*--------------------------------------------------------------------*

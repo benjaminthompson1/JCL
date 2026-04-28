@@ -1,6 +1,6 @@
 //IUVSAM JOB (FB3),'IPCSVSAM',CLASS=A,MSGCLASS=H,                               
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUVSAM                                                               
 //* DESC:  Allocate VSAM datasets required for IPCS dump analysis               

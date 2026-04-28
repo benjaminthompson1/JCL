@@ -1,11 +1,11 @@
 //IUVTAMU JOB (FB3),'VTAM USSN,CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUVTAMU                                                              
 //* DESC:  Assemble a VTAM USS message table using ASMA90                       
 //*        Link-edit the assembled table into a load module                     
-//* STEPS: <Very brief step summary, if needed>                                 
+//* STEPS: 1-ASM, 2-LKED                                                        
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  Update SYSLIB, SYSLMOD DSNs and the module name before run           
 //*--------------------------------------------------------------------*        

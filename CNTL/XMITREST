@@ -1,11 +1,11 @@
 //IUXMIT JOB (FB3),'XMIT',CLASS=A,MSGCLASS=H,                                   
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUXMIT                                                               
 //* DESC:  Unpack a tersed XMIT dataset using AMATERSE UNPACK                   
 //*        Receive the transmitted PDS using TSO RECEIVE                        
-//* STEPS: <Very brief step summary, if needed>                                 
+//* STEPS: 1-AMATERSE, 2-RECVPDS                                                
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  Update source XMIT DSN and target library before run                 
 //*--------------------------------------------------------------------*        

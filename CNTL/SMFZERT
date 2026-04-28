@@ -1,6 +1,6 @@
 //IUSMFDM JOB (FB3),'SMF DUMP',CLASS=A,MSGCLASS=H,                              
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
-//*      TYPRUN=HOLD                                                            
+//*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUSMFDMP                                                             
 //* DESC:  Delete the prior SMF type 119 output dataset                         
