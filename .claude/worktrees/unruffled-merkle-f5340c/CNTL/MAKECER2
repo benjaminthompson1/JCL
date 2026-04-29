@@ -1,0 +1,135 @@
+//IUMKCER JOB (FB3),'MAKECER2',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUMKCER                                                              
+//* DESC:  CREATE/MANAGE DIGITAL CERTIFICATES                                   
+//* STEPS: 1-STEP010 THRU STEP120                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  WARNING - THIS JOB DELETES RINGS AND CERTIFICATES                    
+//*-----------------------------------------------------------------*           
+//*-- 1: DELETE CA CERTIFICATE IF IT EXISTS ---------------------------*
+//STEP010 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT CERTAUTH DELETE(LABEL('++MY_CA_CERT++')) ID(++USERID++)                
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*
+//*-- 2: CREATE CA CERTIFICATE ----------------------------------------*
+//STEP020 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT CERTAUTH GENCERT -                                                     
+SUBJECTSDN(CN('++CN_CA++') -                                                    
+O('International Business Machines Corporation') C('AU')) -                     
+NOTBEFORE(DATE(++NOTBEFORE++)) -                                                
+NOTAFTER(DATE(++NOTAFTER++)) -                                                  
+KEYUSAGE(CERTSIGN) -                                                            
+WITHLABEL('++MY_CA_CERT++')                                                     
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*
+//*-- 3: DELETE NON-CA CERTIFICATE IF IT EXISTS -----------------------*
+//STEP030 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT ID(++USERID++) DELETE(LABEL('++MY_CERT++')                             
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*
+//*-- 4: CREATE NON-CA CERTIFICATE SIGNED BY CA CERT ------------------*
+//STEP040 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT GENCERT ID(++USERID++) +                                               
+SUBJECTSDN(CN('++CN_SERVER++') +                                                
+O('International Business Machines Corporation') C('AU')) +                     
+SIZE(2048) NOTBEFORE(DATE(++NOTBEFORE++) TIME(11:00:00)) +                      
+NOTAFTER(DATE(++NOTAFTER++) TIME(11:00:00)) +                                   
+WITHLABEL('++MY_CERT++') +                                                      
+RSA KEYUSAGE(CERTSIGN DATAENCRYPT HANDSHAKE) +                                  
+SIGNWITH(CERTAUTH LABEL('++MY_CA_CERT++')) +                                    
+ALTNAME(IP(++MY_IP++) DOMAIN('++MY_DOMAIN++'))                                  
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*
+//*-- 5: LIST CA CERTIFICATE ------------------------------------------*
+//STEP050 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT CERTAUTH LIST(LABEL('++MY_CA_CERT++'))                                 
+/*                                                                              
+//*
+//*-- 6: LIST NON-CA CERTIFICATE --------------------------------------*
+//STEP060 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT LIST(LABEL('++MY_CERT++')) ID(++USERID++)                              
+/*                                                                              
+//*
+//*-- 7: DELETE KEY RING IF IT EXISTS ---------------------------------*
+//STEP070 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT ID(++USERID++) DELRING(++MY_KEYRING++)                                 
+/*                                                                              
+//*
+//*-- 8: CREATE KEY RING ----------------------------------------------*
+//STEP080 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT ID(++USERID++) ADDRING(++MY_KEYRING++)                                 
+/*                                                                              
+//*
+//*-- 9: LIST KEY RING ------------------------------------------------*
+//STEP090 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT LISTRING(++MY_KEYRING++) ID(++USERID++)                                
+/*                                                                              
+//*
+//*-- 10: CONNECT NON-CA CERT TO KEY RING AS DEFAULT ------------------*
+//STEP100 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=0M                               
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT ID(++USERID++) CONNECT(LABEL('++MY_CERT++') -                          
+RING(++MY_KEYRING++) DEFAULT)                                                   
+/*                                                                              
+//*
+//*-- 11: CONNECT CA CERT TO KEY RING ---------------------------------*
+//STEP110 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=0M                               
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT ID(++USERID++) CONNECT(CERTAUTH -                                      
+LABEL('++MY_CA_CERT++') -                                                       
+RING(++MY_KEYRING++) -                                                          
+USAGE(CERTAUTH))                                                                
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*
+//*-- 12: DISPLAY KEY RING WITH CONNECTED CERTIFICATES ----------------*
+//STEP120 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT LISTRING(++MY_KEYRING++) ID(++USERID++)                                
+/*                                                                              
+//*
+//*-- 13: EXPORT CA CERTIFICATE TO DATASET FOR DISTRIBUTION -----------*
+//STEP130 EXEC PGM=IKJEFT01,DYNAMNBR=50                                         
+//SYSLBC DD DSN=SYS1.BRODCAST,DISP=SHR                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+RACDCERT CERTAUTH EXPORT(LABEL('++MY_CA_CERT++')) -                             
+FORMAT(CERTB64) DSN('++HLQ++.CACERT.EXPORT') -                                  
+PASSWORD('WELCOME')                                                             
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

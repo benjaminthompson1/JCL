@@ -1,0 +1,80 @@
+//IUDVMSQ JOB (FB3),'DVM SQL',CLASS=A,MSGCLASS=H,                       00001000
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00002000
+//*      TYPRUN=HOLD                                                    00003000
+//*-----------------------------------------------------------------*   00040000
+//* JOB:   IUDVMS                                                       00050000
+//* DESC:  CREATE SAMPLE DB/TB FOR DVM                                  00060000
+//* STEPS: <NONE>                                                       00070000
+//* AUTH:  Ben               DATE: 2026-04-06                           00080000
+//* NOTE:  REQUIRES DB2 SUBSYSTEM DBCG AND PLAN DSNTEP13                00090000
+//*-----------------------------------------------------------------*   00100000
+//DBPLANS  EXEC PGM=IKJEFT01,REGION=0M                                  00110000
+//*        DB2 Runtime Libraries                                        00120000
+//STEPLIB  DD DISP=SHR,DSN=DSND10.DBCG.SDSNEXIT                         00130000
+//         DD DISP=SHR,DSN=DSND10.SDSNLOAD                              00140000
+//         DD DISP=SHR,DSN=DSND10.SDSNLOD2                              00150000
+//         DD DISP=SHR,DSN=DSND10.DBCG.RUNLIB.LOAD                      00160000
+//DBRMLIB  DD DISP=SHR,DSN=DSND10.SDSNDBRM                              00170000
+//SYSTSPRT DD SYSOUT=*                                                  00180000
+//SYSTSIN  DD *                                                         00190000
+DSN SYSTEM(DBCG)                                                        00200000
+   RUN -                                                                00210000
+     PROGRAM(DSNTEP2) -                                                 00220000
+     PLAN(DSNTEP13)                                                     00230000
+//SYSPRINT DD SYSOUT=*                                                  00240000
+//SYSUDUMP DD SYSOUT=*                                                  00250000
+//SYSIN    DD *                                                         00260000
+                                                                        00270000
+SET CURRENT SQLID = 'DVM';                                              00280000
+                                                                        00290000
+CREATE DATABASE DVMDB                                                   00300000
+CCSID UNICODE                                                           00310000
+BUFFERPOOL BP0                                                          00320000
+INDEXBP BP0;                                                            00330000
+COMMIT;                                                                 00340000
+                                                                        00350000
+CREATE TABLESPACE ZOFFITEM IN DVMDB                                     00360000
+USING STOGROUP DB2ZDTSG                                                 00370000
+PRIQTY -1 SECQTY -1                                                     00380000
+FREEPAGE 0                                                              00390000
+PCTFREE  5                                                              00400000
+BUFFERPOOL BP0                                                          00410000
+MAXPARTITIONS 4096                                                      00420000
+DSSIZE 4G                                                               00430000
+LOCKSIZE TABLESPACE;                                                    00440000
+COMMIT;                                                                 00450000
+                                                                        00460000
+CREATE TABLE ZOFFICE_ITEM_SUPPLIER                                      00470000
+ ( WS_ITEM_REF INT,                                                     00480000
+   WS_MANUFACTURER_NAME varchar(20),                                    00490000
+   WS_MANUFACTURER_ADDRESS varchar(30)                                  00500000
+ ) IN DVMDB.ZOFFITEM;                                                   00510000
+COMMIT;                                                                 00520000
+                                                                        00530000
+INSERT INTO ZOFFICE_ITEM_SUPPLIER                                       00540000
+ ( WS_ITEM_REF ,                                                        00550000
+   WS_MANUFACTURER_NAME,                                                00560000
+   WS_MANUFACTURER_ADDRESS)                                             00570000
+ VALUES                                                                 00580000
+   (10, 'PENRUS' ,'Canberra' );                                         00590000
+                                                                        00600000
+INSERT INTO ZOFFICE_ITEM_SUPPLIER                                       00610000
+ ( WS_ITEM_REF ,                                                        00620000
+   WS_MANUFACTURER_NAME,                                                00630000
+   WS_MANUFACTURER_ADDRESS)                                             00640000
+ VALUES                                                                 00650000
+   (20, 'PENRUS' ,'Deakin' );                                           00660000
+                                                                        00670000
+INSERT INTO ZOFFICE_ITEM_SUPPLIER                                       00680000
+ ( WS_ITEM_REF ,                                                        00690000
+   WS_MANUFACTURER_NAME,                                                00700000
+   WS_MANUFACTURER_ADDRESS)                                             00710000
+ VALUES                                                                 00720000
+   (20, 'BIGPENS' ,'Germany' );                                         00730000
+COMMIT;                                                                 00740000
+                                                                        00750000
+SELECT WS_ITEM_REF, WS_MANUFACTURER_NAME, WS_MANUFACTURER_ADDRESS       00760000
+FROM ZOFFICE_ITEM_SUPPLIER LIMIT 1000;                                  00770000
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

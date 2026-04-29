@@ -1,0 +1,56 @@
+//IUIDCAM JOB (FB3),'CREATE ZFS',CLASS=A,MSGCLASS=H,                            
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIDCAM                                                              
+//* DESC:  DEFINE ZFS DATASET AND MOUNT DIRECTORY                               
+//* STEPS: 1-CREATE, 2-FORMAT, 3-MKDIR, 4-MOUNT                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  SUBSTITUTE @zfsdsn@, @pathprefix@, @volume@ BEFORE RUN               
+//*-----------------------------------------------------------------*
+//*-- 1: DEFINE ZFS CLUSTER USING IDCAMS ------------------------------*
+//CREATE   EXEC PGM=IDCAMS                                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  DEFINE -                                                                      
+       CLUSTER -                                                                
+         ( -                                                                    
+             NAME(@zfsdsn@) -                                                   
+             LINEAR -                                                           
+             CYL(1 1) VOLUME(@volume@) -                                        
+             DATACLASS(DCEXTEAV) -                                              
+             SHAREOPTIONS(3) -                                                  
+         )                                                                      
+/*                                                                              
+//*
+//*-- 2: FORMAT ZFS DATASET USING IOEAGFMT ----------------------------*
+// SET ZFSDSN='@zfsdsn@'
+//FORMAT   EXEC PGM=IOEAGFMT,COND=(0,LT),                                       
+// PARM='-aggregate &ZFSDSN -compat'                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//CEEDUMP  DD SYSOUT=*                                                          
+//*
+//*-- 3: CREATE MOUNTPOINT DIRECTORY USING BPXBATCH -------------------*
+//MKDIR    EXEC PGM=BPXBATCH,COND=(0,LT),                                       
+// PARM='SH'                                                                    
+//STDPARM  DD *                                                                 
+SH                                                                              
+mkdir -p @pathprefix@ && chmod 777 @pathprefix@                                 
+/*                                                                              
+//*
+//*-- 4: MOUNT ZFS FILESYSTEM AT MOUNTPOINT ---------------------------*
+//MOUNT    EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=99,COND=(4,LT)                  
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+  PROFILE MSGID WTPMSG                                                          
+  MOUNT TYPE(ZFS) +                                                             
+    MODE(RDWR) +                                                                
+    MOUNTPOINT('@pathprefix@') +                                                
+    FILESYSTEM('@zfsdsn@')                                                      
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

@@ -1,0 +1,84 @@
+//IUCSQUT JOB (FB3),'CSQUTIL',CLASS=A,MSGCLASS=H,                               
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUCSQUT                                                              
+//* DESC:  MQ CSQ UTILITY                                                       
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  UPDATE PARM WITH QUEUE MANAGER NAME AND SYSIN COMMANDS               
+//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
+//* STEP: EXECUTE MQSC COMMANDS VIA CSQUTIL                                     
+//*--------------------------------------------------------------------*        
+//CQSUTIL  EXEC PGM=CSQUTIL,PARM='CSQ9'                                         
+//STEPLIB  DD DISP=SHR,DSN=CSQ911.SCSQANLE                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* OPTIONAL: GENERATE DEFINE/ALTER/REPLACE COMMANDS TO OUTPUT1                 
+//*--------------------------------------------------------------------*        
+//*OUTPUT1  DD DISP=(NEW,CATLG,DELETE),DSN=IBMUSER.USRDEF,                      
+//*            BLKSIZE=0,LRECL=80,RECFM=FB,SPACE=(CYL,(1,1))                    
+//*--------------------------------------------------------------------*        
+//* SYSIN CONTROLS WHICH COMMAND SET TO RUN                                     
+//*                                                                             
+//*  - SYSIN tells CSQUTIL which MQSC command set to execute.                   
+//*                                                                             
+//*  - To run a command set, use:                                               
+//*      SYSIN DD *                                                             
+//*        COMMAND                                                              
+//*      /*                                                                     
+//*                                                                             
+//*  - Then define the actual commands in a DD named:                           
+//*      CSQUCMD  - CLEAR queue example                                         
+//*      CMDINP   - DISPLAY objects                                             
+//*      ATTR     - DISPLAY with filters                                        
+//*      MOVEQ    - MOVE queues between pagesets                                
+//*                                                                             
+//*  - Only one command set can be run per job.                                 
+//*--------------------------------------------------------------------*        
+//SYSIN    DD *                                                                 
+  COMMAND                                                                       
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* COMMAND SET - DIRECT MQSC INSTRUCTIONS                                      
+//*--------------------------------------------------------------------*        
+//CSQUCMD  DD *                                                                 
+  CLEAR QL(IBMUSER.TEST)                                                        
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* ALTERNATE COMMAND SET - DISPLAY QUEUE MANAGER STATE                         
+//*--------------------------------------------------------------------*        
+//CMDINP   DD *                                                                 
+  DISPLAY CHANNEL(*) ALL                                                        
+  DISPLAY QMGR ALL                                                              
+  DISPLAY STGCLASS(*) ALL                                                       
+  DISPLAY QUEUE(*) ALL                                                          
+  DISPLAY NAMELIST(*) ALL                                                       
+  DISPLAY PROCESS(*) ALL                                                        
+  DISPLAY CHANNEL(*) ALL                                                        
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* DISPLAY EXAMPLES WITH FILTERS                                               
+//*--------------------------------------------------------------------*        
+//ATTR     DD *                                                                 
+  DISPLAY QL(*) QDEPTHHI WHERE(QDEPTHHI EQ 5)                                   
+  DISPLAY QUEUE(SYSTEM.*) WHERE (STGCLASS EQ SYSTEM)                            
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* MOVE QUEUE DATA TO ANOTHER PAGESET - REQUIRES TWO MOVES                     
+//*--------------------------------------------------------------------*        
+//MOVEQ    DD *                                                                 
+  ALTER QL(QUEUE_TO_MOVE) PUT(DISABLED)                                         
+  DELETE QL(TEMP_QUEUE) PURGE                                                   
+  DEFINE QL(TEMP_QUEUE) LIKE(QUEUE_TO_MOVE) PUT(ENABLED) GET(ENABLED)           
+  MOVE QLOCAL(QUEUE_TO_MOVE) TOQLOCAL(TEMP_QUEUE)                               
+  DELETE QL(QUEUE_TO_MOVE)                                                      
+  DEFINE STGCLASS(NEW) PSID(2)                                                  
+  DEFINE QL(QUEUE_TO_MOVE) LIKE(TEMP_QUEUE) STGCLASS(NEW)                       
+  MOVE QLOCAL(TEMP_QUEUE) TOQLOCAL(QUEUE_TO_MOVE)                               
+  DELETE QL(TEMP_QUEUE)                                                         
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

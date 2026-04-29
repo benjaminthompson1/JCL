@@ -1,0 +1,21 @@
+//IUREXXP JOB (FB3),'REXXCOMP',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUREXXP                                                              
+//* DESC:  COMPILE REXX EXEC USING THE REXX COMPILER                            
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//COMPILE  EXEC PGM=REXXCOMP,PARM='XREF'                                        
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(1,1))                                      
+//SYSIN    DD DISP=SHR,DSN=IBMUSER.GIT.REXX.SYSEXEC(HELLOW)                     
+//SYSCEXEC DD DISP=SHR,DSN=IBMUSER.GIT.REXX.CEXEC(HELLOW)                       
+//*--------------------------------------------------------------------*        
+//* END OF JOB                                                                  
+//*--------------------------------------------------------------------*        
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

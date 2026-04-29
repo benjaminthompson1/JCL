@@ -1,0 +1,29 @@
+//IUSMPRE JOB (FB3),'SMPE REJECT',CLASS=A,MSGCLASS=H,                           
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPRE                                                              
+//* DESC:  SMP/E REJECT AFTER ACCEPT (PURGE PROCESSED SYSMODS)                  
+//* STEPS: <NONE>                                                             
+//* AUTH:  Ben               DATE: 2025-07-14                                   
+//* NOTE:  SUBSTITUTE #globalzone AND #dlib; USES PURGE TO FREE SMPPTS SPACE    
+//*-----------------------------------------------------------------*           
+//        SET CSI=#globalzone
+//RECNTS   EXEC PGM=GIMSMP                                                      
+//SMPCSI   DD DISP=SHR,DSN=&CSI                                                 
+//SMPOUT   DD SYSOUT=*                                                          
+//SMPLOG   DD SYSOUT=*                                                          
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
+//SYSUT2   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
+//SYSUT3   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
+//SYSUT4   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPCNTL  DD *                                                                 
+  SET BDY(GLOBAL).                                                              
+  REJECT PURGE(#dlib)                                                           
+  PTFS COMPRESS(SMPPTS)                                                         
+  CHECK .                                                                       
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

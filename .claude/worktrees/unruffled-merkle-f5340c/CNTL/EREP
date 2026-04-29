@@ -1,0 +1,31 @@
+//IULOGRC JOB (FB3),'CLEAR LOGREC',CLASS=A,MSGCLASS=H,                          
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IULOGRC                                                              
+//* DESC:  PROCESS LOGREC DATASET INTO REPORTS                                  
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2025-08-04                                   
+//* NOTE:  CODE ONLY ONE OF SERLOG (LIVE) OR ACCIN (HISTORICAL)                 
+//*-----------------------------------------------------------------*
+//ERIP EXEC PGM=IFCEREP1,PARM='CARD'                                            
+//SERLOG   DD DISP=SHR,DSN=SYS1.S0W1.LOGREC          <=== SEE NOTE 1            
+//*ACCIN   DD DISP=SHR,DSN=SYS1.LOGREC.HIST          <=== SEE NOTE 1            
+//TOURIST  DD SYSOUT=*,DCB=BLKSIZE=133                                          
+//EREPPT   DD SYSOUT=*,DCB=BLKSIZE=133                                          
+//SYSABEND DD SYSOUT=A                                                          
+//DIRECTWK DD UNIT=SYSDA,SPACE=(CYL,(50,50))                                    
+//SYSIN DD *                                                                    
+PRINT=PS                                                                        
+EVENT                                                                           
+HIST=N                                                                          
+ACC=N                                                                           
+TYPE=ACDEHIMOSX                                                                 
+ENDPARM                                                                         
+/*                                                                              
+//*------------------------------------------------------------------*          
+//* END OF JOB                                                                  
+//*------------------------------------------------------------------*          
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

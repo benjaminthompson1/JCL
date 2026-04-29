@@ -1,0 +1,55 @@
+//IUIDCAM JOB (FB3),'IDCAM CATALOG',CLASS=A,MSGCLASS=H,                         
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIDCAM                                                              
+//* DESC:  LISTCAT/DEFINE ALIAS                                                 
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//IDCAMS   EXEC PGM=IDCAMS,REGION=0M                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  LISTCAT -                                                                     
+  ENTRIES(DSND10.DBCG.SDSNEXIT) -                                               
+  ALL                                                                           
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           
+                                                                                
+//                                                                              
+//* CREATE DATASET ALIAS                                                        
+ DEFINE ALIAS (NAME(IBMUSER.CNTL) -                                             
+        RELATE(IBMUSER.GIT.JCL.CNTL))                                           
+//                                                                              
+//* CREATE SYMBOLICRELATE ALIAS                                                 
+ DEL IBMUSER.TEST.ALIAS                                                         
+ DEF ALIAS(NAME(IBMUSER.TEST.ALIAS) -                                           
+     SYMBOLICRELATE(IBMUSER.&SYSNAME..TEST))                                    
+ LISTC ENT(IBMUSER.TEST.ALIAS) ALL                                              
+//                                                                              
+//* VERIFY IS USED TO CHECK AND FIX VSAM FILES                                  
+   VERIFY DATASET(MVS.GLOBAL.CSI)                                               
+//                                                                              
+//* REPRO DUMP VSAM DATASET                                                     
+//INDD DD DSN=IBMUSER.DFAT.FSCN.AIX,DISP=SHR                                    
+//OUTDD DD DSN=IBMUSER.DFAT.REPRO,DISP=(NEW,CATLG,DELETE),                      
+// SPACE=(CYL,(2,2)),UNIT=DASD                                                  
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN DD *                                                                    
+  REPRO INFILE(INDD) OUTFILE(OUTDD)                                             
+/*                                                                              
+//                                                                              
+//* A NON-VSAM DATA SET'S ENTRY IS DELETED                                      
+//DD1   DD VOL=SER=C4ZWE1,DISP=OLD,UNIT=SYSDA,                                  
+//      DSNAME=ZWE100.PARMLIB                                                   
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN DD *                                                                    
+  DELETE -                                                                      
+    ZWE100.PARMLIB -                                                            
+    FILE (DD1) -                                                                
+    PURGE -                                                                     
+    CATALOG(USERCAT.Z24C.PRODS)                                                 
+/*                                                                              

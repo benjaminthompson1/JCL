@@ -1,0 +1,41 @@
+//IUPDUPL JOB (FB3),'AMAPDUPL',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUPDUPL                                                              
+//* DESC:  IBM PROBLEM DOCUMENTATION UPLOAD UTILITY                             
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  UPDATE USERID, PASSWORD, CASE AND TARGET_DSN BEFORE RUN              
+//*-----------------------------------------------------------------*           
+//HTTPS EXEC PGM=AMAPDUPL                                                       
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//* DEFINE DEBUG OUTPUT DATASET                                                 
+//DEBUG    DD DSN=IBMUSER.AMAPDUPL.DEBUG,DISP=(,CATLG),                         
+//            UNIT=SYSALLDA,SPACE=(CYL,(1,1),RLSE)                              
+//* CEEOPTIONS FOR MEMORY MANAGEMENT                                            
+//CEEOPTS  DD *                                                                 
+  HEAP(32768,32768,ANYWHERE,FREE,8192,4096)                                     
+/*                                                                              
+//* INPUT DATASET CONTAINING PROBLEM DOCUMENTATION                              
+//SYSUT1   DD DISP=SHR,DSN=IBMUSER.AVZ1.OUTPUTD                                 
+//* PRIMARY CONTROL PARAMETERS FOR UPLOAD                                       
+//SYSIN    DD *                                                                 
+USERID=anonymous                                                                
+PASSWORD=benjamin.thompson1@ibm.com                                             
+TARGET_SYS=www.ecurep.ibm.com                                                   
+TARGET_DSN=wessamp.bigfile                                                      
+CC_HTTPS=03                                                                     
+WORK_SIZE=100                                                                   
+DIRECTORY=/toibm/mvs/                                                           
+CASE=TS021553683                                                                
+USE_HTTPS=Y                                                                     
+SSL_4CIPHER=C030                                                                
+HTTPS_TLS12=Y                                                                   
+HTTPS_KEYRING=TCPIP/ECuRepAP                                                    
+HTTPS_VERBOSE=Y                                                                 
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

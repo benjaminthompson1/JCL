@@ -1,0 +1,45 @@
+//IUWCRVS JOB (FB3),'EQAWCRVS',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUWCRVS                                                              
+//* DESC:  Z/OS DEBUGGER: CREATE VSAM FILE FOR DTCN DEBUG PROFILES              
+//* STEPS: 1-DELETE, 2-DEFINE                                                   
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  V15+ RECORD SIZE INCREASED; FILES NOT COMPATIBLE WITH PRIOR          
+//*-----------------------------------------------------------------*           
+//*-- 1: DELETE EXISTING Z/OS DEBUGGER VSAM PROFILE DATASET -----------*
+//DELETE    EXEC PGM=IDCAMS,REGION=1M                                           
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+ DELETE ISM403.S0W1.EQADPFMB                                                    
+ SET MAXCC=0                                                                    
+/*
+//*
+//*-- 2: DEFINE NEW VSAM DEBUGGING PROFILE DATASET --------------------*
+//DEFINE    EXEC PGM=IDCAMS,REGION=1M                                           
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+ /*                           */                                                
+ /* DEFINE DEBUGGING PROFILES */                                                
+ /* BASE AND PATH DATA SETS   */                                                
+ /*                           */                                                
+    DEFINE CLUSTER (RECORDS(256) -                                              
+     NAME (ISM403.S0W1.EQADPFMB) -                                              
+     SHAREOPTIONS(2 3) -                                                        
+     LOG(NONE) -                                                                
+     VOLUME(C3USR3)-                                                            
+     IXD) -                                                                     
+    DATA -                                                                      
+     (RECSZ(3000,3000) -                                                        
+     NAME (ISM403.S0W1.EQADPFMB.DATA) -                                         
+     KEYS(8 16) -                                                               
+     FREESPACE(10 10) -                                                         
+     BUFFERSPACE (20000)) -                                                     
+   INDEX -                                                                      
+     (NAME(ISM403.S0W1.EQADPFMB.INDX))                                          
+/*                                                                              
+//*                                                                             
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

@@ -1,0 +1,57 @@
+//IUZUUID JOB (FB3),'ZOSMF UUID',CLASS=A,MSGCLASS=H,                    00001000
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                             00002000
+//*      TYPRUN=HOLD                                                    00003000
+//*-----------------------------------------------------------------*   00040000
+//* JOB:   IZUWFJB                                                      00050000
+//* DESC:  Z/OS UUID (ZOSMF SUPPORT)                                    00060000
+//* STEPS: <NONE>                                                       00070000
+//* AUTH:  Ben               DATE: 2026-04-06                           00080000
+//* NOTE:  RECEIVE AND APPLY SMP/E USERMOD TO CREATE MODULE IZUSIUI     00090000
+//*-----------------------------------------------------------------*   00100000
+/*JOBPARM SYSAFF=S0W1                                                   00101000
+//RECAPP   EXEC PGM=GIMSMP                                              00110000
+//SMPCSI   DD DISP=SHR,                                                 00120000
+//            DSN=MVS.GLOBAL.CSI                                        00130000
+//SMPPTFIN DD DATA,DLM=$$                                               00140000
+++FUNCTION(UUIDUMD)                                                     00150000
+  DESCRIPTION(CREATE MODULE IZUSIUI CONTAINING THE SWI UUID)            00160000
+  REWORK(24111301).                                                     00170000
+++VER(Z038).                                                            00180000
+++JCLIN.                                                                00190000
+//LINK     EXEC PGM=IEWL,PARM='RMODE=ANY,AMODE=31,RENT'                 00200000
+//SYSLMOD  DD DSN=LPALIB                                                00210000
+//SYSLIN   DD *                                                         00220000
+  INCLUDE SYSPUNCH(IZUSIUI)                                             00230000
+  NAME IZUSIUI  RC=0                                                    00240000
+/*                                                                      00250000
+++SRC(IZUSIUI ) DISTLIB(ASAMPLIB).                                      00260000
+IZUSIUI  CSECT                                                          00270000
+IZUSIUI  AMODE 31                                                       00280000
+IZUSIUI  RMODE 31                                                       00290000
+         IHASIUI DSECT=NO                                               00300000
+         ORG   SIUI_EYECATCHER                                          00310000
+         DC    CL8'IZUSIUI'                                             00320000
+         ORG   SIUI_ASSEMBLYDATE                                        00330000
+         DC    CL8'&SYSDATC'                                            00340000
+         ORG   SIUI_ASSEMBLYPARM                                        00350000
+         DC    CL8' UUIDUMD'                                            00360000
+         ORG   SIUI_VERSION                                             00370000
+         DC    AL2(SIUI_KVERSION_0)                                     00380000
+         ORG   SIUI_UUID_OFFSET                                         00390000
+         DC    AL2(UUID-SIUI)                                           00400000
+         ORG   SIUI_UUID_LEN                                            00410000
+         DC    AL2(L'UUID)                                              00420000
+         ORG   SIUI+SIUI_KVERSION_0_LEN                                 00430000
+UUID     DC    CL36'7E8F5144-74E0-4BAF-9671-9E17029358AB'               00440000
+         END                                                            00450000
+$$                                                                      00460000
+//SMPCNTL  DD *                                                         00470000
+  SET BDY(GLOBAL).                                                      00480000
+    RECEIVE SYSMODS.                                                    00490000
+  SET BDY(MVST).                                                        00500000
+    APPLY S(UUIDUMD) REDO CHECK.                                        00510000
+    APPLY S(UUIDUMD) REDO.                                              00520000
+/*                                                                      00530000
+//*-----------------------------------------------------------------*   00540000
+//* End of Job                                                          00550000
+//*-----------------------------------------------------------------*   00560000

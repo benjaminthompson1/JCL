@@ -1,0 +1,52 @@
+//IURACFZ JOB (FB3),'RACF CERT,CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IURACFZ                                                              
+//* DESC:  CREATE SIGNED PERSONAL CERT ON KEYRING                               
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+  RACDCERT CERTAUTH GENCERT +                                                   
+    SUBJECTSDN(CN('RMF z31a Root CA') +                                         
+    OU('DTSC') +                                                                
+    O('IBM')) +                                                                 
+    SIZE(2048) +                                                                
+    WITHLABEL('RMFRootCert') +                                                  
+    TRUST NOTAFTER(DATE(2050/01/02))                                            
+                                                                                
+  RACDCERT ID(GPMSERVE) GENCERT +                                               
+    SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                  
+    OU('DTSC') +                                                                
+    O('IBM')) +                                                                 
+    SIZE(2048) +                                                                
+    WITHLABEL('RMF.CERT.S0W1') +                                                
+    SIGNWITH(CERTAUTH LABEL('RMFRootCert')) +                                   
+    NOTAFTER(DATE(2050/01/02)) +                                                
+    ALTNAME(IP(192.168.1.171) +                                                 
+            DOMAIN('s0w1.dal-ebis.ihost.com') +                                 
+            URI('s0w1.dal-ebis.ihost.com'))                                     
+                                                                                
+  RACDCERT ID(GPMSERVE) ADDRING(DDSServerKeyring)                               
+                                                                                
+  RACDCERT ID(GPMSERVE) CONNECT(CERTAUTH LABEL('RMFRootCert') +                 
+    RING(DDSServerKeyring) USAGE(CERTAUTH))                                     
+                                                                                
+  RACDCERT ID(GPMSERVE) CONNECT(ID(GPMSERVE) LABEL('RMF.CERT.S0W1') +           
+    RING(DDSServerKeyring) USAGE(PERSONAL) DEFAULT)                             
+                                                                                
+  SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                  
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

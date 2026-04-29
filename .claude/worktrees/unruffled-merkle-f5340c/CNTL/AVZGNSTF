@@ -1,0 +1,35 @@
+//IUGNSTF JOB (FB3),'AVZGNSTF',CLASS=A,MSGCLASS=H,                      00001000
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                            00002000
+//*       TYPRUN=HOLD                                                   00003000
+//*-----------------------------------------------------------------*   00004000
+//* JOB:   IUGNSTF                                                      00005000
+//* DESC:  DVM CREATE THE SAMPLE VSAM FILE                              00006000
+//* STEPS: 1-DEFSTAFF, 2-LOADSTAFF                                      00007000
+//* AUTH:  Ben               DATE: 2026-04-06                           00008000
+//* NOTE:  CHANGE IBMUSER AND HLQ2 TO SITE HIGH-LEVEL QUALIFIERS        00009000
+//*-----------------------------------------------------------------*   00010000
+//DEFSTAFF  EXEC PGM=IDCAMS                                             00330000
+//SYSPRINT  DD SYSOUT=*                                                 00340000
+//SYSIN     DD *                                                        00350000
+  DELETE           'APP.STAFF.VSAM'                                     00360000
+  SET MAXCC = 0                                                         00370000
+  DEFINE CLUSTER ( NAME('APP.STAFF.VSAM') -                             00380000
+                   SHAREOPTIONS(2,3) -                                  00400000
+                   INDEXED -                                            00410000
+                   UNIQUE ) -                                           00420000
+            DATA ( NAME('APP.STAFF.VSAM.DATA') -                        00430000
+                   CYLINDERS(1 1) -                                     00440000
+                   KEYS(2,0) -                                          00450000
+                   RECORDSIZE(80,80) -                                  00460000
+                   FREESPACE(10,10)  -                                  00470000
+                   CISZ(512) ) -                                        00480000
+            INDEX( NAME('APP.STAFF.VSAM.INDEX') -                       00490000
+                   CYLINDERS(1 1) -                                     00500000
+                   CISZ(512) )                                          00510000
+                                                                        00520000
+  REPRO INDATASET('DVM.V2R1M0.SAVZSAMP(AVZSTFVS)') -                    00530000
+        OUTDATASET('APP.STAFF.VSAM')                                    00540000
+/*                                                                      00550000
+//*-----------------------------------------------------------------*   00560000
+//* End of Job                                                          00570000
+//*-----------------------------------------------------------------*   00580000

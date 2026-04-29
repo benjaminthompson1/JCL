@@ -1,0 +1,25 @@
+//IUQPUT JOB (FB3),'CSQ4BVJR',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUQPUT                                                               
+//* DESC:  ANSIBLE ZFORUM COBOL PUT                                             
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//JOBLIB   DD   DSN=IBMUSER.COBOL.LOAD,DISP=SHR                                 
+//         DD   DSN=CSQ911.SCSQANLE,DISP=SHR                                    
+//         DD   DSN=CSQ911.SCSQAUTH,DISP=SHR                                    
+//*                                                                             
+//PUTMSGS  EXEC PGM=CSQ4BVK1,REGION=1024K,                                      
+//  PARM=('CSQ9,KMQ.ANSIBLE.TEST,99,Z,80,P')                                    
+//*  PARM=('++QMGR++,++QUEUE++,++MSGS++,++PAD++,++LEN++,++PERS++')              
+//*                                                                             
+//SYSDBOUT DD   SYSOUT=*                                                        
+//SYSABOUT DD   SYSOUT=*                                                        
+//SYSPRINT DD   SYSOUT=*                                                        
+//SYSOUT   DD   SYSOUT=*                                                        
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

@@ -1,0 +1,282 @@
+//IUBINDD JOB (FB3),'AVZBINDD',CLASS=A,MSGCLASS=H,                      00001000
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                            00002000
+//*       TYPRUN=HOLD                                                   00003000
+//*-----------------------------------------------------------------*   00004000
+//* JOB:   IUBINDD                                                      00005000
+//* DESC:  BIND AVZ SERVER DB2 PACKAGES FOR DRDA CONNECTIONS            00006000
+//* STEPS: 1-COPY0001, 2-BIND0001, 3-GRNT0001                           00007000
+//* AUTH:  Ben               DATE: 2026-04-06                           00008000
+//* NOTE:  CHANGE DVM.V2R1M0, DSND10, AND DBDG TO SITE VALUES           00009000
+//*-----------------------------------------------------------------*   00010000
+//JOBLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                              00420000
+//         DD DISP=SHR,DSN=DSND10.DBDG.RUNLIB.LOAD                      00430000
+//*-- 1: COPY DBRM MEMBERS TO TEMPORARY LIBRARY -----------------------*
+//COPY0001 EXEC PGM=IEBCOPY                                             00450000
+//DBRMLIB  DD DISP=SHR,DSN=DVM.V2R1M0.SAVZDBRM                          00460000
+//DBRMTMP  DD DSN=&&DBRMTMP,SPACE=(TRK,(15,10,10)),UNIT=SYSDA,          00470000
+//         DISP=(,PASS)                                                 00480000
+//OUTDD    DD DISP=(NEW,DELETE),SPACE=(TRK,(15,10,10)),UNIT=SYSDA       00490000
+//SYSUT3   DD DISP=(NEW,DELETE),SPACE=(TRK,(1,1)),UNIT=SYSDA            00500000
+//SYSUT4   DD DISP=(NEW,DELETE),SPACE=(TRK,(1,1)),UNIT=SYSDA            00510000
+//SYSTSPRT DD SYSOUT=*                                                  00520000
+//SYSPRINT DD SYSOUT=*                                                  00530000
+//SYSUDUMP DD SYSOUT=*                                                  00540000
+//SYSIN    DD *                                                         00550000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00560000
+   SELECT MEMBER=((AVZC510A,DSOC510A))                                  00570000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00580000
+   SELECT MEMBER=((AVZC510B,DSOC510B))                                  00590000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00600000
+   SELECT MEMBER=((AVZC510C,DSOC510C))                                  00610000
+                                                                        00620000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00630000
+   SELECT MEMBER=((AVZR510A,DSOR510A))                                  00640000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00650000
+   SELECT MEMBER=((AVZR510B,DSOR510B))                                  00660000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00670000
+   SELECT MEMBER=((AVZR510C,DSOR510C))                                  00680000
+                                                                        00690000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00700000
+   SELECT MEMBER=((AVZS510A,DSOS510A))                                  00710000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00720000
+   SELECT MEMBER=((AVZS510B,DSOS510B))                                  00730000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00740000
+   SELECT MEMBER=((AVZS510C,DSOS510C))                                  00750000
+                                                                        00760000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00770000
+   SELECT MEMBER=((AVZU510A,DSOU510A))                                  00780000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00790000
+   SELECT MEMBER=((AVZU510B,DSOU510B))                                  00800000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00810000
+   SELECT MEMBER=((AVZU510C,DSOU510C))                                  00820000
+                                                                        00830000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00840000
+   SELECT MEMBER=((AVZC51XA,DXOC510A))                                  00850000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00860000
+   SELECT MEMBER=((AVZC51XB,DXOC510B))                                  00870000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00880000
+   SELECT MEMBER=((AVZC51XC,DXOC510C))                                  00890000
+                                                                        00900000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00910000
+   SELECT MEMBER=((AVZR51XA,DXOR510A))                                  00920000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00930000
+   SELECT MEMBER=((AVZR51XB,DXOR510B))                                  00940000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00950000
+   SELECT MEMBER=((AVZR51XC,DXOR510C))                                  00960000
+                                                                        00970000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      00980000
+   SELECT MEMBER=((AVZS51XA,DXOS510A))                                  00990000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      01000000
+   SELECT MEMBER=((AVZS51XB,DXOS510B))                                  01010000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      01020000
+   SELECT MEMBER=((AVZS51XC,DXOS510C))                                  01030000
+                                                                        01040000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      01050000
+   SELECT MEMBER=((AVZU51XA,DXOU510A))                                  01060000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      01070000
+   SELECT MEMBER=((AVZU51XB,DXOU510B))                                  01080000
+   COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      01090000
+   SELECT MEMBER=((AVZU51XC,DXOU510C))                                  01100000
+                                                                        01110000
+//*-- 2: FREE EXISTING AVZ DB2 PACKAGES -------------------------------*
+//FREE0001 EXEC PGM=IKJEFT1A,COND=(4,LT,COPY0001)                       01140000
+//SYSTSPRT DD SYSOUT=*                                                  01150000
+//SYSPRINT DD SYSOUT=*                                                  01160000
+//SYSUDUMP DD SYSOUT=*                                                  01170000
+//SYSTSIN  DD *                                                         01180000
+ DSN SYSTEM(DBDG)                                                       01190000
+      FREE PACKAGE(NULLID.DSOC510A.(*))                                 01200000
+      FREE PACKAGE(NULLID.DSOC510B.(*))                                 01210000
+      FREE PACKAGE(NULLID.DSOC510C.(*))                                 01220000
+                                                                        01230000
+      FREE PACKAGE(NULLID.DSOR510A.(*))                                 01240000
+      FREE PACKAGE(NULLID.DSOR510B.(*))                                 01250000
+      FREE PACKAGE(NULLID.DSOR510C.(*))                                 01260000
+                                                                        01270000
+      FREE PACKAGE(NULLID.DSOS510A.(*))                                 01280000
+      FREE PACKAGE(NULLID.DSOS510B.(*))                                 01290000
+      FREE PACKAGE(NULLID.DSOS510C.(*))                                 01300000
+                                                                        01310000
+      FREE PACKAGE(NULLID.DSOU510A.(*))                                 01320000
+      FREE PACKAGE(NULLID.DSOU510B.(*))                                 01330000
+      FREE PACKAGE(NULLID.DSOU510C.(*))                                 01340000
+                                                                        01350000
+      FREE PACKAGE(NULLID.DXOC510A.(*))                                 01360000
+      FREE PACKAGE(NULLID.DXOC510B.(*))                                 01370000
+      FREE PACKAGE(NULLID.DXOC510C.(*))                                 01380000
+                                                                        01390000
+      FREE PACKAGE(NULLID.DXOR510A.(*))                                 01400000
+      FREE PACKAGE(NULLID.DXOR510B.(*))                                 01410000
+      FREE PACKAGE(NULLID.DXOR510C.(*))                                 01420000
+                                                                        01430000
+      FREE PACKAGE(NULLID.DXOS510A.(*))                                 01440000
+      FREE PACKAGE(NULLID.DXOS510B.(*))                                 01450000
+      FREE PACKAGE(NULLID.DXOS510C.(*))                                 01460000
+                                                                        01470000
+      FREE PACKAGE(NULLID.DXOU510A.(*))                                 01480000
+      FREE PACKAGE(NULLID.DXOU510B.(*))                                 01490000
+      FREE PACKAGE(NULLID.DXOU510C.(*))                                 01500000
+                                                                        01510000
+ END                                                                    01520000
+//*
+//*-- 3: BIND AVZ SERVER DB2 PACKAGES ---------------------------------*
+//BIND0001 EXEC PGM=IKJEFT1A,COND=(8,LT,FREE0001)                       01570000
+//DBRMLIB  DD DSN=&&DBRMTMP,DISP=(OLD,DELETE)                           01580000
+//SYSTSPRT DD SYSOUT=*                                                  01590000
+//SYSPRINT DD SYSOUT=*                                                  01600000
+//SYSUDUMP DD SYSOUT=*                                                  01610000
+//SYSTSIN  DD *                                                         01620000
+    DSN SYSTEM(DBDG)                                                    01630000
+      BIND PACKAGE(NULLID) -                                            01640000
+           MEMBER(DSOC510A) ACT(REP) ISO(CS) -                          01650000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              01660000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              01670000
+      BIND PACKAGE(NULLID) -                                            01680000
+           MEMBER(DSOC510B) ACT(REP) ISO(CS)  -                         01690000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              01700000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              01710000
+      BIND PACKAGE(NULLID) -                                            01720000
+           MEMBER(DSOC510C) ACT(REP) ISO(CS)  -                         01730000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              01740000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              01750000
+                                                                        01760000
+      BIND PACKAGE(NULLID) -                                            01770000
+           MEMBER(DSOR510A) ACT(REP) ISO(RS) -                          01780000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              01790000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              01800000
+      BIND PACKAGE(NULLID) -                                            01810000
+           MEMBER(DSOR510B) ACT(REP) ISO(RS)  -                         01820000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              01830000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              01840000
+      BIND PACKAGE(NULLID) -                                            01850000
+           MEMBER(DSOR510C) ACT(REP) ISO(RS)  -                         01860000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              01870000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              01880000
+                                                                        01890000
+      BIND PACKAGE(NULLID) -                                            01900000
+           MEMBER(DSOS510A) ACT(REP) ISO(RR) -                          01910000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              01920000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              01930000
+      BIND PACKAGE(NULLID) -                                            01940000
+           MEMBER(DSOS510B) ACT(REP) ISO(RR)  -                         01950000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              01960000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              01970000
+      BIND PACKAGE(NULLID) -                                            01980000
+           MEMBER(DSOS510C) ACT(REP) ISO(RR)  -                         01990000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02000000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02010000
+                                                                        02020000
+      BIND PACKAGE(NULLID) -                                            02030000
+           MEMBER(DSOU510A) ACT(REP) ISO(UR) -                          02040000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02050000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02060000
+      BIND PACKAGE(NULLID) -                                            02070000
+           MEMBER(DSOU510B) ACT(REP) ISO(UR)  -                         02080000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02090000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02100000
+      BIND PACKAGE(NULLID) -                                            02110000
+           MEMBER(DSOU510C) ACT(REP) ISO(UR)  -                         02120000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02130000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02140000
+                                                                        02150000
+      BIND PACKAGE(NULLID) -                                            02160000
+           MEMBER(DXOC510A) ACT(REP) ISO(CS) -                          02170000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02180000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02190000
+      BIND PACKAGE(NULLID) -                                            02200000
+           MEMBER(DXOC510B) ACT(REP) ISO(CS)  -                         02210000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02220000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02230000
+      BIND PACKAGE(NULLID) -                                            02240000
+           MEMBER(DXOC510C) ACT(REP) ISO(CS)  -                         02250000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02260000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02270000
+                                                                        02280000
+      BIND PACKAGE(NULLID) -                                            02290000
+           MEMBER(DXOR510A) ACT(REP) ISO(RS) -                          02300000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02310000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02320000
+      BIND PACKAGE(NULLID) -                                            02330000
+           MEMBER(DXOR510B) ACT(REP) ISO(RS)  -                         02340000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02350000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02360000
+      BIND PACKAGE(NULLID) -                                            02370000
+           MEMBER(DXOR510C) ACT(REP) ISO(RS)  -                         02380000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02390000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02400000
+                                                                        02410000
+      BIND PACKAGE(NULLID) -                                            02420000
+           MEMBER(DXOS510A) ACT(REP) ISO(RR) -                          02430000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02440000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02450000
+      BIND PACKAGE(NULLID) -                                            02460000
+           MEMBER(DXOS510B) ACT(REP) ISO(RR)  -                         02470000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02480000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02490000
+      BIND PACKAGE(NULLID) -                                            02500000
+           MEMBER(DXOS510C) ACT(REP) ISO(RR)  -                         02510000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02520000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02530000
+                                                                        02540000
+      BIND PACKAGE(NULLID) -                                            02550000
+           MEMBER(DXOU510A) ACT(REP) ISO(UR) -                          02560000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02570000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02580000
+      BIND PACKAGE(NULLID) -                                            02590000
+           MEMBER(DXOU510B) ACT(REP) ISO(UR)  -                         02600000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02610000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02620000
+      BIND PACKAGE(NULLID) -                                            02630000
+           MEMBER(DXOU510C) ACT(REP) ISO(UR)  -                         02640000
+           VALIDATE(BIND) RELEASE(COMMIT) KEEPDYNAMIC(Y) -              02650000
+           DYNAMICRULES(R) NODEFER(PREPARE) CURRENTDATA(N)              02660000
+                                                                        02670000
+                                                                        02680000
+    END                                                                 02690000
+//*
+//*-- 4: GRANT EXECUTE ON ALL AVZ PACKAGES TO PUBLIC ------------------*
+//GRNT0001 EXEC PGM=IKJEFT1A,COND=(4,LT,BIND0001)                       02740000
+//SYSTSPRT DD SYSOUT=*                                                  02750000
+//SYSPRINT DD SYSOUT=*                                                  02760000
+//SYSUDUMP DD SYSOUT=*                                                  02770000
+//SYSTSIN  DD *                                                         02780000
+ DSN  SYSTEM(DBDG)                                                      02790000
+  RUN PROGRAM(DSNTIAD) PLAN(DSNTIA13)                                   02800000
+ END                                                                    02810000
+//SYSIN  DD *                                                           02820000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOC510A TO PUBLIC ;                  02830000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOC510B TO PUBLIC ;                  02840000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOC510C TO PUBLIC ;                  02850000
+                                                                        02860000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOR510A TO PUBLIC ;                  02870000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOR510B TO PUBLIC ;                  02880000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOR510C TO PUBLIC ;                  02890000
+                                                                        02900000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOS510A TO PUBLIC ;                  02910000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOS510B TO PUBLIC ;                  02920000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOS510C TO PUBLIC ;                  02930000
+                                                                        02940000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOU510A TO PUBLIC ;                  02950000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOU510B TO PUBLIC ;                  02960000
+  GRANT EXECUTE ON PACKAGE NULLID.DSOU510C TO PUBLIC ;                  02970000
+                                                                        02980000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOC510A TO PUBLIC ;                  02990000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOC510B TO PUBLIC ;                  03000000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOC510C TO PUBLIC ;                  03010000
+                                                                        03020000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOR510A TO PUBLIC ;                  03030000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOR510B TO PUBLIC ;                  03040000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOR510C TO PUBLIC ;                  03050000
+                                                                        03060000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOS510A TO PUBLIC ;                  03070000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOS510B TO PUBLIC ;                  03080000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOS510C TO PUBLIC ;                  03090000
+                                                                        03100000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOU510A TO PUBLIC ;                  03110000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOU510B TO PUBLIC ;                  03120000
+  GRANT EXECUTE ON PACKAGE NULLID.DXOU510C TO PUBLIC ;                  03130000
+                                                                        03140000
+//*                                                                     03150000
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

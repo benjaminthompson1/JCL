@@ -1,0 +1,84 @@
+//IURACFX JOB (FB3),'RACF ZCX',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IURACFZ                                                              
+//* DESC:  RACF TO IMPLEMENT ZCX                                                
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2025-08-21                                   
+//* NOTE:  CHANGE PASSWORDS AFTER INITIAL SETUP                                 
+//*-----------------------------------------------------------------*           
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+ADDGROUP zcxprvg OMVS(AUTOGID) DATA('zCX Prov Group')                           
+ADDGROUP zcxstcg OMVS(AUTOGID) DATA('zCX STC Group')                            
+ADDGROUP zcxadmg OMVS(AUTOGID) DATA('zCX Admin Group')                          
+                                                                                
+ADDUSER ZCXPRV1 PASSWORD(NEW2DAY) +                                             
+  NAME('zCX Provision User 1') +                                                
+  OWNER(SYS1) UACC(ALTER) DFLTGRP(ZCXPRVG) +                                    
+  AUTHORITY(JOIN) GRPACC +                                                      
+  TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) SIZE(2096128) MAXSIZE(0) +                  
+  UNIT(SYSALLDA) COMMAND(ISPF)) +                                               
+  OMVS(AUTOUID HOME(/u/automount/zcxprv1) PROGRAM(/bin/sh))                     
+                                                                                
+ADDUSER ZCXSTC1 +                                                               
+  NAME('zCX STC User 1') +                                                      
+  OWNER(SYS1) UACC(ALTER) DFLTGRP(ZCXSTCG) +                                    
+  AUTHORITY(JOIN) GRPACC +                                                      
+  NOPASSWORD NOOIDCARD +                                                        
+  TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) SIZE(2096128) MAXSIZE(0) +                  
+  UNIT(SYSALLDA) COMMAND(ISPF)) +                                               
+  OMVS(AUTOUID HOME(/u/automount/zcxstc1) PROGRAM(/bin/sh))                     
+                                                                                
+ADDUSER ZCXADM1 PASSWORD(NEW2DAY) +                                             
+  NAME('zCX Admin User 1') +                                                    
+  OWNER(SYS1) UACC(ALTER) DFLTGRP(ZCXADMG) +                                    
+  AUTHORITY(JOIN) GRPACC +                                                      
+  TSO(ACCTNUM(ACCT#) PROC(ISPFPROC) SIZE(2096128) MAXSIZE(0) +                  
+  UNIT(SYSALLDA) COMMAND(ISPF)) +                                               
+  OMVS(AUTOUID HOME(/u/automount/zcxadm1) PROGRAM(/bin/sh))                     
+                                                                                
+PERMIT ACCT# CL(ACCTNUM) ID(ZCXPRV1) ACC(READ)                                  
+PERMIT ACCT# CL(ACCTNUM) ID(ZCXSTC1) ACC(READ)                                  
+PERMIT ACCT# CL(ACCTNUM) ID(ZCXADM1) ACC(READ)                                  
+                                                                                
+SETROPTS RACLIST(ACCTNUM) REFRESH                                               
+                                                                                
+ADDSD    'ZCXPRV1.*' +                                                          
+         GENERIC +                                                              
+         OWNER(ZCXPRV1) +                                                       
+         UACC(NONE) +                                                           
+         AUDIT(FAILURES(READ))                                                  
+PERMIT   'ZCXPRV1.*' GENERIC +                                                  
+         ID(IBMUSER) ACCESS(ALTER)                                              
+                                                                                
+ADDSD    'ZCXSTC1.*' +                                                          
+         GENERIC +                                                              
+         OWNER(ZCXSTC1) +                                                       
+         UACC(NONE) +                                                           
+         AUDIT(FAILURES(READ))                                                  
+PERMIT   'ZCXSTC1.*' GENERIC +                                                  
+         ID(IBMUSER) ACCESS(ALTER)                                              
+                                                                                
+ADDSD    'ZCXADM1.*' +                                                          
+         GENERIC +                                                              
+         OWNER(ZCXADM1) +                                                       
+         UACC(NONE) +                                                           
+         AUDIT(FAILURES(READ))                                                  
+PERMIT   'ZCXADM1.*' GENERIC +                                                  
+         ID(IBMUSER) ACCESS(ALTER)                                              
+                                                                                
+SETROPTS REFRESH GENERIC(DATASET)                                               
+/*                                                                              
+//*------------------------------------------------------------------*          
+//* End of Job                                                                  
+//*------------------------------------------------------------------*          

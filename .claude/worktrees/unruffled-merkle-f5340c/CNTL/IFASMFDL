@@ -1,0 +1,24 @@
+//IUSMFDL JOB (FB3),'IFASMFDL',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMFDL                                                              
+//* DESC:  SMF LOGSTREAM DUMP                                                   
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2025-06-17                                   
+//* NOTE:  UPDATE SYSTEM NAME S0W1 AND LOGSTREAM NAME IF REQUIRED               
+//*-----------------------------------------------------------------*
+//IFASMFDL EXEC PGM=IFASMFDL,REGION=0M                                          
+//OUTDD1   DD DSN=ARCH.SMF.S0W1.BACKUP(+1),                                     
+//            DISP=(NEW,CATLG,DELETE),UNIT=DASD,                                
+//            SPACE=(CYL,(200,100),RLSE),DATACLAS=DCEXTEAV                      
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+ LSNAME(IFASMF.SMFALL.S0W1,OPTIONS(DUMP))                                       
+ OUTDD(OUTDD1,TYPE(0:255))                                                      
+ NOSIGSTRIP                                                                     
+ RELATIVEDATE(BYDAY,1,1)                                                        
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

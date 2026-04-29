@@ -1,0 +1,118 @@
+//IUREST JOB (FB3),'DSNREST',CLASS=A,MSGCLASS=H,                                
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUREST                                                               
+//* DESC:  ENABLE DB2 NATIVE REST SERVICES FOR ZCEE                             
+//* STEPS: 1-FREE1, 2-BIND1, 3-BIND2                                            
+//* AUTH:  Ben               DATE: 2025-07-10                                   
+//* NOTE:  UPDATE SERVICE NAMES AND TARGET TABLE BEFORE RUN                     
+//*-----------------------------------------------------------------*           
+//*-- 1: FREE EMPLOYEELIST REST SERVICE -------------------------------*
+//FREE1    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
+//STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  FREE SERVICE("EmployeeService"."employeeList")                                
+  END                                                                           
+/*                                                                              
+//*
+//*-- 2: BIND EMPLOYEELIST REST SERVICE -------------------------------*
+//BIND1    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
+//STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//DSNSTMT  DD *                                                                 
+  SELECT EMPNO AS "employeeNumber", FIRSTNME AS "firstName",                    
+         LASTNAME AS "lastName", WORKDEPT AS "department"                       
+  FROM IBMUSER.EMP                                                              
+  ORDER BY LASTNAME                                                             
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  BIND SERVICE("EmployeeService") -                                             
+       NAME("employeeList") -                                                   
+       SQLENCODING(1047) -                                                      
+       DESCRIPTION('Returns a list of employees')                               
+  END                                                                           
+/*                                                                              
+//*
+//*-- 3: FREE EMPLOYEEDETAILS REST SERVICE ----------------------------*
+//FREE2    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
+//STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  FREE SERVICE("EmployeeService"."employeeDetails")                             
+  END                                                                           
+/*                                                                              
+//*
+//*-- 4: BIND EMPLOYEEDETAILS REST SERVICE ----------------------------*
+//BIND2    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
+//STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//DSNSTMT  DD *                                                                 
+  SELECT EMPNO AS "employeeNumber", FIRSTNME AS "firstName",                    
+         LASTNAME AS "lastName", WORKDEPT AS "department",                      
+         PHONENO AS "phoneNumber", HIREDATE AS "hireDate"                       
+  FROM IBMUSER.EMP                                                              
+  WHERE EMPNO = :employeeNumber                                                 
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  BIND SERVICE("EmployeeService") -                                             
+       NAME("employeeDetails") -                                                
+       SQLENCODING(1047) -                                                      
+       DESCRIPTION('Returns the details of an individual employee')             
+  END                                                                           
+/*                                                                              
+//*
+//*-- 5: FREE EMPLOYEEUPDATE REST SERVICE -----------------------------*
+//FREE3    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
+//STEPLIB  DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//         DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  FREE SERVICE("EmployeeService"."employeeUpdate")                              
+  END                                                                           
+/*                                                                              
+//*
+//*-- 6: BIND EMPLOYEEUPDATE REST SERVICE -----------------------------*
+//BIND3    EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
+//STEPLIB  DD DSN=DSND10.DBDG.SDSNEXIT,DISP=SHR                                 
+//         DD DSN=DSND10.SDSNLOAD,DISP=SHR                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//DSNSTMT  DD *                                                                 
+  UPDATE IBMUSER.EMP SET                                                        
+         FIRSTNME = :firstName,                                                 
+         LASTNAME = :lastName,                                                  
+         WORKDEPT = :department,                                                
+         PHONENO  = :phoneNumber,                                               
+         HIREDATE = :hireDate                                                   
+  WHERE EMPNO = :employeeNumber                                                 
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  BIND SERVICE("EmployeeService") -                                             
+       NAME("employeeUpdate") -                                                 
+       SQLENCODING(1047) -                                                      
+       DESCRIPTION('Updates the details of an individual employee')             
+  END                                                                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

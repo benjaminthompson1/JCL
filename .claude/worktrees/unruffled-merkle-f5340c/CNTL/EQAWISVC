@@ -1,0 +1,25 @@
+//IUWISVC JOB (FB3),'EQAWISVC',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUWISVC                                                              
+//* DESC:  Z/OS DEBUGGER: INSTALL SVCS IN RUNNING Z/OS                          
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  EQAINSVC MUST RESIDE IN AN AUTHORIZED LIBRARY                        
+//*-----------------------------------------------------------------*           
+//*                                                                             
+//*-------------------------------------------------------------------*         
+//* Run the program                                                             
+//*-------------------------------------------------------------------*         
+//*                                                                             
+//STEP10   EXEC PGM=EQAINSVC                                                    
+//STEPLIB  DD   DISP=SHR,DSN=ISM403.SEQAAUTH                                    
+//LOADLIB  DD   DISP=SHR,DSN=ISM403.SEQAAUTH                                    
+//SYSUDUMP DD   SYSOUT=*                                                        
+//*                                                                             
+//*                ========> END OF JOB EQAWISVC <========                      
+//                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

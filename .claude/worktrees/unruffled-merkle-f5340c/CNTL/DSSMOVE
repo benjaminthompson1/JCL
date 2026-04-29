@@ -1,0 +1,38 @@
+//IUDSSMV JOB (FB3),'DSS MOVE',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUDSSMVE                                                             
+//* DESC:  MOVE DATASETS BETWEEN VOLUMES                                        
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  REMOVE PARM TYPRUN=NORUN TO PERFORM ACTUAL MOVE                      
+//*-----------------------------------------------------------------*           
+//MOVE     EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
+//FROMVOL  DD  UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                               
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  COPY -                                                                        
+  DATASET(INCLUDE(HARBORP.**, -                                                 
+                  ZZCPM.**,   -                                                 
+                  ZZDB.**))   -                                                 
+  LOGINDD(FROMVOL)  -                                                           
+  ALLD(*)     -                                                                 
+  ALLEXCP     -                                                                 
+  SELECTMULTI(ANY) -                                                            
+  SPHERE      -                                                                 
+  CATALOG     -                                                                 
+  CANCELERROR -                                                                 
+  DELETE      -                                                                 
+  DYNALLOC    -                                                                 
+  OPT(4) TOL(ENQF) -                                                            
+  WAIT(10,10) -                                                                 
+  ADMINISTRATOR                                                                 
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           
+                                                                                
+//                                                                              
+  STORCLAS(STGMGMT) -                                                           
+  OUTDYNAM((TMM201)) -                                                          

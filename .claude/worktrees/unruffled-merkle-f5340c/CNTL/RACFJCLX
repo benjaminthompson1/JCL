@@ -1,0 +1,138 @@
+//IURACFJ JOB (FB3),'RACF JCLX',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IURACFJ                                                              
+//* DESC:  RACF TO IMPLEMENT JCL EXPERT                                         
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+                                                                                
+ADDGROUP CXPADM DATA('JCL Expert admin group') SUPGROUP(SYS1) +                 
+  OWNER(IBMUSER)                                                                
+                                                                                
+ADDGROUP CXPUSER DATA('JCL Expert users') SUPGROUP(CXPADM) +                    
+  OWNER(CXPADM) OMVS(AUTOGID)                                                   
+                                                                                
+CONNECT (IBMUSER) GROUP(CXPUSER) OWNER(CXPUSER)                                 
+                                                                                
+ADDUSER CXPSRV NAME('JCL Expert started task') +                                
+  OMVS(AUTOUID HOME(/global/jclexpert) PROGRAM(/bin/sh)) +                      
+  OWNER(IBMUSER) DFLTGRP(SYS1) NOPASSWORD                                       
+                                                                                
+CONNECT CXPSRV GROUP(CXPUSER) OWNER(CXPSRV)                                     
+                                                                                
+RDEFINE STARTED CXPSRV.** STDATA(USER(CXPSRV) GROUP(SYS1) +                     
+  TRUSTED(YES))                                                                 
+                                                                                
+SETROPTS RACLIST(STARTED) REFRESH                                               
+                                                                                
+SETROPTS WHEN(PROGRAM)                                                          
+                                                                                
+RDEFINE PROGRAM CXPSRV ADDMEM('JCL.V1R2M0.SCXPLOAD'//NOPADCHK) +                
+  UACC(READ)                                                                    
+                                                                                
+SETROPTS WHEN(PROGRAM) REFRESH                                                  
+                                                                                
+RDEFINE FACILITY BPX.SERVER UACC(NONE)                                          
+                                                                                
+PERMIT BPX.SERVER CLASS(FACILITY) ID(CXPSRV) ACCESS(READ)                       
+                                                                                
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+                                                                                
+PERMIT BPX.SRV.** CLASS(SURROGAT) ACC(READ) ID(CXPSRV)                          
+SETROPTS RACLIST(SURROGAT) REFRESH                                              
+                                                                                
+RDEFINE FACILITY CXP.JCLCKUSR.** UACC(NONE) OWNER(CXPADM)                       
+                                                                                
+PERMIT CXP.JCLCKUSR.** CLASS(FACILITY) ACC(READ) ID(IBMUSER)                    
+                                                                                
+PERMIT CXP.JCLCKUSR.** CLASS(FACILITY) ACC(READ) ID(CXPUSER)                    
+                                                                                
+SETROPTS REFRESH RACLIST(FACILITY)                                              
+                                                                                
+RACDCERT CERTAUTH GENCERT +                                                     
+  SUBJECTSDN(CN('JCL Expert z31c Root CA') +                                    
+  OU('DTSC') +                                                                  
+  O('IBM')) +                                                                   
+  SIZE(2048) +                                                                  
+  WITHLABEL('CXPRootCert') +                                                    
+  TRUST NOTAFTER(DATE(2050/01/02))                                              
+                                                                                
+RACDCERT ID(CXPSRV) GENCERT +                                                   
+  SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                    
+  OU('DTSC') +                                                                  
+  O('IBM')) +                                                                   
+  SIZE(2048) +                                                                  
+  WITHLABEL('CXPServerCert') +                                                  
+  SIGNWITH(CERTAUTH LABEL('CXPRootCert')) +                                     
+  NOTAFTER(DATE(2050/01/02)) +                                                  
+  ALTNAME(IP(192.168.1.171) +                                                   
+          DOMAIN('s0w1.dal-ebis.ihost.com') +                                   
+          URI('s0w1.dal-ebis.ihost.com'))                                       
+                                                                                
+RACDCERT ALTER(LABEL('CXPServerCert')) ID(CXPSRV) TRUST                         
+                                                                                
+RACDCERT ADDRING(CXPServerRing) ID(CXPSRV)                                      
+                                                                                
+RACDCERT ID(CXPSRV) CONNECT (LABEL('CXPRootCert') +                             
+  RING(CXPServerRing) CERTAUTH)                                                 
+                                                                                
+RACDCERT ID(CXPSRV) CONNECT (LABEL('CXPServerCert') +                           
+  RING(CXPServerRing) DEFAULT)                                                  
+                                                                                
+SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                    
+                                                                                
+RACDCERT ID(IBMUSER) GENCERT +                                                  
+  SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                    
+  OU('DTSC') +                                                                  
+  O('IBM')) +                                                                   
+  WITHLABEL('CXPClientCert') +                                                  
+  SIGNWITH(CERTAUTH LABEL('CXPRootCert')) +                                     
+  NOTAFTER(DATE(2050/01/02)) +                                                  
+  ALTNAME(IP(192.168.1.171) +                                                   
+          DOMAIN('s0w1.dal-ebis.ihost.com') +                                   
+          URI('s0w1.dal-ebis.ihost.com'))                                       
+                                                                                
+RACDCERT ADDRING(CXPClientRing) ID(IBMUSER)                                     
+                                                                                
+RACDCERT ID(IBMUSER) CONNECT (LABEL('CXPRootCert') +                            
+  RING(CXPClientRing) CERTAUTH)                                                 
+                                                                                
+RACDCERT ID(IBMUSER) CONNECT (LABEL('CXPClientCert') +                          
+  RING(CXPClientRing) DEFAULT)                                                  
+                                                                                
+SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                    
+                                                                                
+RDEFINE RDATALIB CXPCLNT.CXPClientRing.LST UACC(NONE)                           
+                                                                                
+PERMIT CXPCLNT.CXPClientRing.LST CLASS(RDATALIB) ID(CXPUSER) +                  
+  ACCESS(UPDATE)                                                                
+                                                                                
+SETROPTS CLASSACT(RDATALIB) RACLIST(RDATALIB)                                   
+                                                                                
+SETROPTS RACLIST(RDATALIB) REFRESH                                              
+                                                                                
+RDEFINE FACILITY IRR.DIGTCERT.LIST UACC(NONE)                                   
+RDEFINE FACILITY IRR.DIGTCERT.LISTRING UACC(NONE)                               
+                                                                                
+PERMIT IRR.DIGTCERT.LIST CLASS(FACILITY) ID(CXPSRV) ACCESS(READ)                
+PERMIT IRR.DIGTCERT.LISTRING CLASS(FACILITY) ID(CXPSRV) ACCESS(READ)            
+                                                                                
+SETROPTS RACLIST(FACILITY) REFRESH                                              
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           
+                                                                                

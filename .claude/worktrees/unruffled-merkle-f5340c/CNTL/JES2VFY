@@ -1,0 +1,15 @@
+//IUJES2V JOB (FB3),'JES2 VERIFY',CLASS=A,MSGCLASS=H,                           
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUJVFY                                                               
+//* DESC:  VERIFY JES2 PARM                                                     
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//JES2    EXEC JES2,REGION=0M                                                   
+//IEFPROC.HASPLIST DD SYSOUT=*                                                  
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

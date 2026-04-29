@@ -1,0 +1,83 @@
+//IUTIJRS JOB (FB3),'DSNTIJRS',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUTIJRS                                                              
+//* DESC:  ENABLE DB2 REST SERVICES                                             
+//* STEPS: 1-DSNTICU, 2-DSNTIAC                                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  RUN BEFORE DSNTIJR2; CUSTOMIZE SSID, DSND10, PLAN NAME               
+//*-----------------------------------------------------------------*           
+//JOBLIB  DD  DISP=SHR,                                                         
+//            DSN=DSND10.SDSNLOAD                                               
+//*                                                                             
+//*  //****************************************************************         
+//*  //* Optional: Drop the RESTful services databases                          
+//*  //****************************************************************         
+//*  //DSNTICU EXEC PGM=IKJEFT01,DYNAMNBR=20                                    
+//*  //SYSTSPRT DD  SYSOUT=*                                                    
+//*  //SYSPRINT DD  SYSOUT=*                                                    
+//*  //SYSUDUMP DD  SYSOUT=*                                                    
+//*  //SYSTSIN  DD  *                                                           
+//*    DSN SYSTEM(DBDG)                                                         
+//*    RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) PARM('RC0') -                       
+//*         LIBRARY('DSND10.DBDG.RUNLIB.LOAD')                                  
+//*    END                                                                      
+//*  //SYSIN    DD  *                                                           
+//*    DROP DATABASE DSNSVCDB;                                                  
+//*  /*                                                                         
+//*                                                                             
+//*********************************************************************         
+//* Create the RESTful services database                                        
+//*********************************************************************         
+//DSNTIAC EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                             
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSUDUMP DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) -                                        
+       LIBRARY('DSND10.DBDG.RUNLIB.LOAD')                                       
+  END                                                                           
+//SYSIN    DD  *                                                                
+  CREATE DATABASE DSNSVCDB                                                      
+         CCSID UNICODE;                                                         
+                                                                                
+  CREATE TABLESPACE DSNSVCTS IN DSNSVCDB                                        
+         SEGSIZE 4                                                              
+         LOCKSIZE ROW                                                           
+         MAXPARTITIONS 1                                                        
+         USING STOGROUP SYSDEFLT                                                
+         PRIQTY 80                                                              
+         CLOSE NO                                                               
+         CCSID UNICODE                                                          
+         FREEPAGE 0                                                             
+         PCTFREE 10                                                             
+         BUFFERPOOL BP0;                                                        
+                                                                                
+  CREATE TABLE "SYSIBM"."DSNSERVICE"                                            
+         ( "NAME"        VARCHAR(128) NOT NULL                                  
+         , "COLLID"      VARCHAR(128) NOT NULL                                  
+         , "CONTOKEN"    CHAR(8) FOR BIT DATA NOT NULL                          
+         , "ENABLED"     CHAR(1) NOT NULL WITH DEFAULT 'Y'                      
+                         CHECK(ENABLED = 'Y' OR ENABLED = 'N')                  
+         , "CREATEDTS"   TIMESTAMP NOT NULL                                     
+         , "ALTEREDTS"   TIMESTAMP NOT NULL GENERATED BY DEFAULT                
+                         FOR EACH ROW ON UPDATE AS ROW CHANGE                   
+                         TIMESTAMP                                              
+         , "DESCRIPTION" VARCHAR(250) )                                         
+         IN DSNSVCDB.DSNSVCTS                                                   
+         CCSID UNICODE                                                          
+         WITH RESTRICT ON DROP;                                                 
+                                                                                
+  CREATE UNIQUE INDEX SYSIBM.DSNSVC01                                           
+         ON "SYSIBM"."DSNSERVICE"                                               
+         ( "COLLID"     ASC,                                                    
+           "NAME"       ASC)                                                    
+         FREEPAGE 0 PCTFREE 10                                                  
+         CLUSTER BUFFERPOOL BP0                                                 
+         CLOSE NO;                                                              
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

@@ -1,0 +1,49 @@
+//IUSMPCA JOB (FB3),'CREATE ZONE A',CLASS=A,MSGCLASS=H,                         
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPCA                                                              
+//* DESC:  SMP/E CREATE GLOBAL ZONE (ALLOCATE CSI)                              
+//* STEPS: 1-DEFINE, 2-PRIMEIT (OPTIONAL)                                       
+//* AUTH:  Ben               DATE: 2025-07-09                                   
+//* NOTE:  RUN ONLY TO CREATE A NEW SMP/E CSI; FOLLOW WITH SMPCRZNB             
+//*-----------------------------------------------------------------*           
+//*-- 1: DEFINE SMP/E GLOBAL CSI VSAM CLUSTER -------------------------*
+//DEFINE   EXEC PGM=IDCAMS                                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//CSIVOL   DD UNIT=SYSALLDA,                                                    
+//            VOL=SER=C3USR4,                                                   
+//            DISP=SHR                                                          
+//SYSIN    DD *                                                                 
+  DEFINE CLUSTER                          -                                     
+         (NAME(SMPE.CDM.V1R2M0.GLOBAL.CSI) -                                    
+          FREESPACE(10,5)                 -                                     
+          KEYS(24 0)                      -                                     
+          RECORDSIZE(24 143)             -                                      
+          SHAREOPTIONS(2 3)              -                                      
+          UNIQUE                          -                                     
+          VOLUMES(C3USR4)                ) -                                    
+      DATA                                -                                     
+         (NAME(SMPE.CDM.V1R2M0.GLOBAL.CSI.DATA) -                               
+          CONTROLINTERVALSIZE(8192)      -                                      
+          CYLINDERS(25 5)                ) -                                    
+      INDEX                               -                                     
+         (NAME(SMPE.CDM.V1R2M0.GLOBAL.CSI.INDEX) -                              
+          CONTROLINTERVALSIZE(4096)      -                                      
+          CYLINDERS(10 2)                -                                      
+          IMBED                          )                                      
+/*
+//*
+//*-- 2: PRIME NEW CSI WITH GIMZPOOL INITIALIZATION DATA --------------*
+//PRIMEIT  EXEC PGM=IDCAMS,COND=(9,LT)                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPCSI   DD DSN=SMPE.CDM.V1R2M0.GLOBAL.CSI,                                   
+//            DISP=OLD                                                          
+//ZPOOL    DD DSN=SYS1.MACLIB(GIMZPOOL),                                        
+//            DISP=SHR                                                          
+//SYSIN    DD *                                                                 
+  REPRO OUTFILE(SMPCSI) INFILE(ZPOOL)                                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

@@ -1,0 +1,22 @@
+//IUSMPRS JOB (FB3),'SMPE RESTORE',CLASS=A,MSGCLASS=H,                          
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPRS                                                              
+//* DESC:  SMP/E RESTORE                                                        
+//* STEPS: <NONE>                                                            
+//* AUTH:  Ben               DATE: 2025-08-29                                   
+//* NOTE:  UPDATE RESTORE SELECT() LIST; USE CHECK BEFORE FINAL RUN             
+//*-----------------------------------------------------------------*
+//        SET CSI=MVS.GLOBAL.CSI
+//RESTORE  EXEC PGM=GIMSMP
+//SMPCSI   DD DISP=SHR,DSN=&CSI                                       
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPLOG   DD SYSOUT=*                                                          
+//SMPCNTL  DD *                                                                 
+  SET BDY(MVST).                                                                
+  RESTORE SELECT(UO03558) CHECK.                                                
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

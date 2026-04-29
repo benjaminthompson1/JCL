@@ -1,0 +1,31 @@
+//IUIPCS JOB (FB3),'IPCS',CLASS=A,MSGCLASS=H,                                   
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIPCS                                                               
+//* DESC:  INTERACTIVE PROBLEM CONTROL SYSTEM                                   
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2025-08-05                                   
+//* NOTE:  IPCS DUMP DIRECTORY (VSAM KSDS) MUST BE DEFINED FIRST                
+//*-----------------------------------------------------------------*
+//IPCS   EXEC PGM=IKJEFT01                                                      
+//STEPLIB  DD DISP=SHR,DSN=SYS1.MIGLIB                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//IPCSTOC  DD SYSOUT=*                                                          
+//PRINTER  DD SYSOUT=*                                                          
+//SYSPROC  DD DISP=SHR,DSN=SYS1.SBLSCLI0                                        
+//IPCSPRNT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//GTFIN    DD DISP=SHR,DSN=IBMUSER.GTFRACF.TRACE                                
+//IPCSDDIR DD DISP=SHR,DSN=IBMUSER.DDIR                                         
+//SYSTSIN  DD *                                                                 
+  IPCS NOPARM                                                                   
+  DROPDUMP                                                                      
+  SETDEF FILE(GTFIN) NOCONFIRM                                                  
+  GTFTRACE USR(F44,F45)                                                         
+  END                                                                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

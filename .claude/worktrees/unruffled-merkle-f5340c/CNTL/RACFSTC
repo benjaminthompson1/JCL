@@ -1,0 +1,33 @@
+//IURACFS JOB (FB3),'RACF STC',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IURACFS                                                              
+//* DESC:  CREATE STC USERID AND STARTED PROFILE                                
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2025-08-21                                   
+//* NOTE:  HOME PATH /u/automount/omeg SHOULD EXIST BEFORE RUNNING              
+//*-----------------------------------------------------------------*           
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+ADDUSER OMEG NAME('Omegamon started task') -                                    
+ OMVS(AUTOUID HOME(/u/automount/omeg) PROGRAM(/bin/sh)) -                       
+   OWNER(IBMUSER) -                                                             
+   NOPASSWORD -                                                                 
+   DFLTGRP(SYS1)                                                                
+                                                                                
+RDEFINE STARTED OMEG.** LEVEL(0) OWNER(IBMUSER) -                               
+STDATA(USER(OMEG) GROUP(SYS1))                                                  
+SETROPTS REFRESH RACLIST(STARTED)                                               
+/*                                                                              
+//*------------------------------------------------------------------*          
+//* End of Job                                                                  
+//*------------------------------------------------------------------*          

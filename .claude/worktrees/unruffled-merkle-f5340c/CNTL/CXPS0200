@@ -1,0 +1,32 @@
+//IUCX200 JOB (FB3),'CXPS0200',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUCX200                                                              
+//* DESC:  JCL EXPERT: SCAN A SINGLE JCL MEMBER                                 
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2025-07-10                                   
+//* NOTE:  SET JCLMEMB= TO THE FULLY QUALIFIED PDS(MEMBER) TO SCAN              
+//*-----------------------------------------------------------------*           
+//* SET JCL VARIABLES                                                           
+//*--------------------------------------------------------------------*        
+//         SET CXPHLQ=JCL.V2R1M0                                                
+//         SET CXPPATH='/global/jclexpert'                                      
+//         SET JCLMEMB=JCL.V2R1M0.S0W1.SCXPSAMP(CXPS0202)                       
+//*--------------------------------------------------------------------*        
+//* STEP: RUN JCL EXPERT                                                        
+//*--------------------------------------------------------------------*        
+//JCLXPERT EXEC PGM=CXPJCLB,PARM='/OUTPUT=TEXT'                                 
+//STEPLIB  DD DSN=&CXPHLQ..SCXPLOAD,DISP=SHR                                    
+//CXPHOME  DD PATH='&CXPPATH',PATHOPTS=ORDONLY                                  
+//*--------------------------------------------------------------------*        
+//* INPUT: TARGET JCL MEMBER TO SCAN                                            
+//*--------------------------------------------------------------------*        
+//INDD     DD DSN=&JCLMEMB,DISP=SHR                                             
+//SYSPRINT DD SYSOUT=*                                                          
+//CEEOPTS  DD *                                                                 
+  POSIX(ON)                                                                     
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

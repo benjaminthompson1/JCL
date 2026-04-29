@@ -1,0 +1,21 @@
+//IUIDCAM JOB (FB3),'IDCAM SCDS',CLASS=A,MSGCLASS=H,                            
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIDCAM                                                              
+//* DESC:  DEFINE BACKUP SCDS FOR SMS                                           
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  USE SETSMS SAVESCDS(SYS1.S0W1.BACKUP.SCDS) AFTER DEFINE              
+//*-----------------------------------------------------------------*           
+//CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+  DEFINE CLUSTER(NAME(SYS1.S0W1.BACKUP.SCDS) -                                  
+  LINEAR VOL(C4SYS1) -                                                          
+  TRK(6 6) SHAREOPTIONS(3,3)) -                                                 
+  DATA(NAME(SYS1.S0W1.BACKUP.SCDS.DATA)REUSE)                                   
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

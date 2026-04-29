@@ -1,0 +1,31 @@
+//IURACFQ JOB (FB3),'RACF HLQ',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IURACFS                                                              
+//* DESC:  RACF TO IMPLEMENT HLQ PROFILES                                       
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+                                                                                
+ADDGROUP LDA510 OWNER(SYS1) SUPGROUP(SYS1)                                      
+                                                                                
+ADDSD 'LDA510.*' OWNER(LDA510) UACC(NONE) -                                     
+    AUDIT(FAILURES(READ) SUCCESS(UPDATE))                                       
+                                                                                
+PERMIT 'LDA510.*' ID(IBMUSER) ACCESS(ALTER)                                     
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

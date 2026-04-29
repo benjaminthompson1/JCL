@@ -1,0 +1,26 @@
+//IUTERSE JOB (FB3),'TERSE',CLASS=A,MSGCLASS=H,                                 
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUTERSE                                                              
+//* DESC:  PACK AND UNPACK DATASETS (AMATERSE)                                  
+//* STEPS: <NONE>                                                           
+//* AUTH:  Ben               DATE: 2025-07-14                                   
+//* NOTE:  SET PARM TO SPACK, PACK, OR UNPACK; CUSTOMIZE SYSUT1/SYSUT2 NAMES    
+//*-----------------------------------------------------------------*
+//AMATERSE EXEC PGM=AMATERSE,PARM=SPACK                                         
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD DSN=SMF.S0W1.DATA.G0051V00,                                       
+//            DISP=SHR                                                          
+//SYSUT2   DD DSN=SMF.S0W1.DATA.TRS,                                            
+//            DISP=(NEW,CATLG,DELETE),                                          
+//            UNIT=SYSDA,                                                       
+//            SPACE=(CYL,(50,50),RLSE),                                         
+//            DCB=(RECFM=FB,LRECL=1024,BLKSIZE=0)                               
+//*SYSUT2   DD DSN=CUST.AGL.SMF,                                                
+//*            DISP=(NEW,CATLG,DELETE),                                         
+//*            LABEL=(1,SL,RETPD=10),                                           
+//*            UNIT=3490                                                        
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

@@ -1,0 +1,25 @@
+//IUDFHA JOB (FB3),'DFHAUX',CLASS=A,MSGCLASS=H,                                 
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUDFHA                                                               
+//* DESC:  FORMAT CICS AUXILIARY TEMPORARY STORAGE DATASETS                     
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2025-07-25                                   
+//* NOTE:  UPDATE DFHAUXT AND DFHBUXT DSN TO MATCH CICS INSTALLATION            
+//*-----------------------------------------------------------------*
+//DFHTU660 EXEC PGM=DFHTU750,REGION=5M                                          
+//STEPLIB  DD DISP=SHR,DSN=DFH620.CICS.SDFHLOAD                                 
+//         DD DISP=SHR,DSN=DFH620.CICS.SDFHLINK                                 
+//DFHAUXT  DD DISP=SHR,DSN=DFH620.CICS.DFHAUXT                                  
+//DFHBUXT  DD DISP=SHR,DSN=DFH620.CICS.DFHBUXT                                  
+//DFHAXPRT DD SYSOUT=*,HOLD=YES                                                 
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSABEND DD SYSOUT=*                                                          
+//SYSABOUT DD SYSOUT=*                                                          
+//DFHAXPRM DD *                                                                 
+FULL                                                                            
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

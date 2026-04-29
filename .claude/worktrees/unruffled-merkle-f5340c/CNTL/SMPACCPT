@@ -1,0 +1,45 @@
+//IUSMPAC JOB (FB3),'SMPE ACCEPT',CLASS=A,MSGCLASS=H,                           
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPAC                                                              
+//* DESC:  SMP/E ACCEPT                                                         
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2025-07-09                                   
+//* NOTE:  SUBSTITUTE #globalzone AND #dlib BEFORE RUNNING                      
+//*-----------------------------------------------------------------*           
+//        SET CSI=#globalzone
+//ACCEPT   EXEC PGM=GIMSMP                                                      
+//* GLOBAL ZONE CSI                                                             
+//SMPCSI   DD DISP=SHR,DSN=&CSI                                                 
+//* SMP/E TEMP DATASETS (OPTIONAL)                                              
+//*SYSUT1   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT2   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT3   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SYSUT4   DD UNIT=SYSALLDA,SPACE=(CYL,(100,50))                               
+//*SMPWRK1  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=6160           
+//*SMPWRK2  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=6160           
+//*SMPWRK3  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
+//*SMPWRK4  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
+//*SMPWRK6  DD UNIT=SYSALLDA,SPACE=(CYL,(10,10,300)),DCB=BLKSIZE=3200           
+//SMPLOG   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPCNTL  DD *                                                                 
+  SET      BDY(#dlib) .                                                         
+  ACCEPT   CHECK                                                                
+           BYPASS(HOLDSYS)                                                      
+           GROUPEXTEND                                                          
+           COMPRESS(ALL) .                                                      
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* OPTIONALLY ACCEPT SPECIFIC SYSMODs BY SOURCEID                              
+//*--------------------------------------------------------------------*        
+//* NOTE: Uncomment below to accept only selected SYSMODs                       
+//*       with a specific SOURCEID (e.g., FIX29)                                
+//*                                                                             
+//*   S (UI64830,UI64837,UI64839)                                               
+//*   SOURCEID(FIX29)                                                           
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
+                                                                                

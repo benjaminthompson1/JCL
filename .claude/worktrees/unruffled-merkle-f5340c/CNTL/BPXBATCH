@@ -1,0 +1,23 @@
+//IUMETAC JOB (FB3),'METAL C COMPILE',CLASS=A,MSGCLASS=H,                       
+//        NOTIFY=&SYSUID,REGION=4M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUMETAC                                                              
+//* DESC:  ISSUE OMVS COMMANDS USING BPXBATCH                                   
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  STDPARM DD REFERENCES BPXPARM MEMBER FOR USS COMMANDS                
+//*-----------------------------------------------------------------*           
+//BPXBATCH EXEC PGM=BPXBATCH                                                    
+//* USS SCRIPT PARAMETERS                                                       
+//STDPARM  DD DISP=SHR,DSN=IBMUSER.CNTL(BPXPARM)                                
+//* STANDARD MESSAGES AND DIAGNOSTICS                                           
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSERR   DD SYSOUT=*                                                          
+//SYSOUT   DD SYSOUT=*                                                          
+//CEEDUMP  DD SYSOUT=*                                                          
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

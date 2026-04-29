@@ -1,0 +1,29 @@
+//IUSMFDP JOB (FB3),'IFASMFDP',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMFDP                                                              
+//* DESC:  SMF VALIDATE SIGNATURE RECORDS                                       
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//IFASMSDP EXEC PGM=IFASMFDP,REGION=0M                                          
+//DUMPIN   DD DSN=ARCH.SMF.S0W1.BACKUP(0),DISP=SHR                              
+//DDSMF1   DD DUMMY                                                             
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+ SID(S0W1)                                                                      
+ INDD(DUMPIN,OPTIONS(DUMP))                                                     
+ OUTDD(DDSMF1,TYPE(0:255))                                                      
+ NOSIGSTRIP                                                                     
+ DATE(2024311,2024312)                                                          
+ START(0000) END(2400)                                                          
+ SIGVALIDATE(HASH(SHA512),                                                      
+    TOKENNAME(SMF.NATIONAL.AUDIT.OFFICE.ECDSA#))                                
+ ASIGVALIDATE(HASH(SHA512),                                                     
+    TOKENNAME(SMF.NATIONAL.AUDIT.OFFICE.DILITH))                                
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

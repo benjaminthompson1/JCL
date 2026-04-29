@@ -1,0 +1,32 @@
+//IUDCOLL JOB (FB3),'DCOLLECT',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*-----------------------------------------------------------------*           
+//* JOB:   IUDCOLL                                                              
+//* DESC:  COLLECT DATASET, VOLUME, POLICY VALUES                               
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2025-07-10                                   
+//* NOTE:  ENSURE SPACE AND DCB VALUES SUIT EXPECTED DATA VOLUME                
+//*-----------------------------------------------------------------*           
+//* STEP: EXECUTE DCOLLECT TO CAPTURE VOLUME METADATA                           
+//*--------------------------------------------------------------------*        
+//DCOLLECT EXEC PGM=IDCAMS                                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* OUTPUT: SEQUENTIAL FILE WITH DCOLLECT INFORMATION                           
+//*--------------------------------------------------------------------*        
+//OUTDS    DD DSN=IBMUSER.Z31A.DCOLLECT(+1),DSORG=PS,                           
+//            DCB=(RECFM=VB,LRECL=644,BLKSIZE=0),                               
+//            SPACE=(CYL,(1,1),RLSE),                                           
+//            DISP=(NEW,CATLG,DELETE)                                           
+//*--------------------------------------------------------------------*        
+//* CONTROL STATEMENTS TO SPECIFY DCOLLECT OPERATION                            
+//*--------------------------------------------------------------------*        
+//SYSIN    DD *                                                                 
+  DCOLLECT -                                                                    
+    OUTFILE(OUTDS) -                                                            
+    VOLUMES(*)                                                                  
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

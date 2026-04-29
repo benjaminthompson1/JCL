@@ -1,0 +1,97 @@
+//IU04501 JOB (FB3),'UJ04501',CLASS=A,MSGCLASS=H,                               
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IU04501                                                              
+//* DESC:  <One-line purpose>                                                   
+//* STEPS: <Very brief step summary, if needed>                                 
+//* AUTH:  Ben               DATE: 2026-04-17                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//*-- 1: ALLOCATE ZSECURE CUSTOMIZATION DATASETS ----------------------*
+//ALLOCT   EXEC PGM=IEFBR14                                                     
+//SCKACUST DD DSN=CKR240.SCKACUST,                                              
+// DISP=(NEW,CATLG),                                                            
+// UNIT=SYSALLDA,                                                               
+// VOL=SER=USER0B,                                                              
+// SPACE=(32760,(70,50,90)),                                                    
+// DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                           
+// DSNTYPE=LIBRARY                                                              
+//SCKACUSV DD DSN=CKR240.SCKACUSV,                                              
+// DISP=(NEW,CATLG),                                                            
+// UNIT=SYSALLDA,                                                               
+// VOL=SER=USER0B,                                                              
+// SPACE=(32760,(70,50,90)),                                                    
+// DCB=(RECFM=VB,LRECL=32752,BLKSIZE=0),                                        
+// DSNTYPE=LIBRARY                                                              
+//ACKACUST DD DSN=CKR240.ACKACUST,                                              
+// DISP=(NEW,CATLG),                                                            
+// UNIT=SYSALLDA,                                                               
+// VOL=SER=USER0A,                                                              
+// SPACE=(32760,(70,50,90)),                                                    
+// DCB=(RECFM=FB,LRECL=80,BLKSIZE=0),                                           
+// DSNTYPE=LIBRARY                                                              
+//ACKACUSV DD DSN=CKR240.ACKACUSV,                                              
+// DISP=(NEW,CATLG),                                                            
+// UNIT=SYSALLDA,                                                               
+// VOL=SER=USER0A,                                                              
+// SPACE=(32760,(70,50,90)),                                                    
+// DCB=(RECFM=VB,LRECL=32752,BLKSIZE=0),                                        
+// DSNTYPE=LIBRARY
+//*
+//*-- 2: DEFINE SMP/E DDDEFS FOR ZSECURE DATASETS ---------------------*
+//DDDEFT   EXEC PGM=GIMSMP,REGION=48M,COND=(4,LT)                               
+//SMPCSI   DD DSN=CKR240.GLOBAL.CSI,                                            
+//            DISP=SHR                                                          
+//SMPCNTL DD *                                                                  
+    SET   BDY(CKR240T).                                                         
+    UCLIN.                                                                      
+      REP DDDEF (SCKACUST)                                                      
+      DATASET(CKR240.SCKACUST)                                                  
+      UNIT(SYSALLDA)                                                            
+      VOLUME(USER0B)                                                            
+      WAITFORDSN                                                                
+      SHR.                                                                      
+                                                                                
+      REP DDDEF (SCKACUSV)                                                      
+      DATASET(CKR240.SCKACUSV)                                                  
+      UNIT(SYSALLDA)                                                            
+      VOLUME(USER0B)                                                            
+      WAITFORDSN                                                                
+      SHR.                                                                      
+                                                                                
+      REP DDDEF (ACKACUST)                                                      
+      DATASET(CKR240.ACKACUST)                                                  
+      UNIT(SYSALLDA)                                                            
+      VOLUME(USER0B)                                                            
+      WAITFORDSN                                                                
+      SHR.                                                                      
+                                                                                
+      REP DDDEF (ACKACUSV)                                                      
+      DATASET(CKR240.ACKACUSV)                                                  
+      UNIT(SYSALLDA)                                                            
+      VOLUME(USER0B)                                                            
+      WAITFORDSN                                                                
+      SHR.                                                                      
+    ENDUCL.                                                                     
+                                                                                
+    SET BDY(CKR240D).                                                           
+    UCLIN.                                                                      
+      REP DDDEF (ACKACUST)                                                      
+      DATASET(CKR240.ACKACUST)                                                  
+      UNIT(SYSALLDA)                                                            
+      VOLUME(USER0B)                                                            
+      WAITFORDSN                                                                
+      SHR.                                                                      
+                                                                                
+      REP DDDEF (ACKACUSV)                                                      
+      DATASET(CKR240.ACKACUSV)                                                  
+      UNIT(SYSALLDA)                                                            
+      VOLUME(USER0B)                                                            
+      WAITFORDSN                                                                
+      SHR.                                                                      
+   ENDUCL.                                                                      
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

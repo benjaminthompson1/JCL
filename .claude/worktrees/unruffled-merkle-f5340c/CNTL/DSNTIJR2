@@ -1,0 +1,70 @@
+//IUTIJR2 JOB (FB3),'DSNTIJR2',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUTIJR2                                                              
+//* DESC:  ENABLE DB2 REST SERVICE VERSIONING                                   
+//* STEPS: 1-DSNTIAC, 2-DSNTICU                                                 
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  RUN ONLY AFTER DSNTIJRS AND APAR PI98649 ARE APPLIED                 
+//*-----------------------------------------------------------------*           
+//JOBLIB  DD  DISP=SHR,                                                         
+//            DSN=DSND10.SDSNLOAD                                               
+//*                                                                             
+//*********************************************************************         
+//* Alter the RESTful services database and index to add new                    
+//* VERSIONID column                                                            
+//*********************************************************************         
+//DSNTIAC EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                             
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSPRINT DD  SYSOUT=*                                                         
+//SYSUDUMP DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA13) -                                        
+       LIBRARY('DSND10.DBDG.RUNLIB.LOAD')                                       
+  END                                                                           
+//SYSIN    DD  *                                                                
+  ALTER TABLE "SYSIBM"."DSNSERVICE"                                             
+        ADD COLUMN VERSIONID VARCHAR(64) NOT NULL WITH DEFAULT ''               
+        ADD COLUMN ISDEFAULT CHAR(1) NOT NULL WITH DEFAULT 'Y';                 
+                                                                                
+  ALTER INDEX SYSIBM.DSNSVC01                                                   
+        ADD COLUMN (VERSIONID ASC);                                             
+                                                                                
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           
+                                                                                
+//*  //****************************************************************         
+//*  //* Optional: Alter the index to add existing columns CONTOKEN,            
+//*  //*           ENABLED, and ISDEFAULT. Performing these ALTERs              
+//*  //*           may improve access performance to the REST                   
+//*  //*           services database.                                           
+//*  //* WARNING:  PERFORMING THE FOLLOWING ALTER STEPS WILL RESULT             
+//*  //*           IN THE INDEX BEING PLACED INTO REBUILD-PENDING               
+//*  //*           (PSRBD) STATE. THIS WILL INCUR AN OUTAGE FOR REST            
+//*  //*           SERVICES UNTIL THE INDEX IS REBUILT USING THE                
+//*  //*           REBUILD INDEX UTILITY.                                       
+//*  //****************************************************************         
+//*  //DSNTICU EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                        
+//*  //SYSTSPRT DD  SYSOUT=*                                                    
+//*  //SYSPRINT DD  SYSOUT=*                                                    
+//*  //SYSUDUMP DD  SYSOUT=*                                                    
+//*  //SYSTSIN  DD  *                                                           
+//*    DSN SYSTEM(!DSN!)                                                        
+//*    RUN PROGRAM(DSNTIAD)  PLAN(DSNTIA!!) -                                   
+//*         LIBRARY('DSN!!0.RUNLIB.LOAD')                                       
+//*    END                                                                      
+//*  //SYSIN    DD  *                                                           
+//*    ALTER INDEX SYSIBM.DSNSVC01                                              
+//*          ADD INCLUDE COLUMN (CONTOKEN);                                     
+//*                                                                             
+//*    ALTER INDEX SYSIBM.DSNSVC01                                              
+//*          ADD INCLUDE COLUMN (ENABLED);                                      
+//*                                                                             
+//*    ALTER INDEX SYSIBM.DSNSVC01                                              
+//*          ADD INCLUDE COLUMN (ISDEFAULT);                                    
+//*                                                                             
+//*  /*                                                                         

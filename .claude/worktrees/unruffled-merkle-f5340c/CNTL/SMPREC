@@ -1,0 +1,28 @@
+//IUSMPRE JOB (FB3),'SMPE RECEIVE',CLASS=A,MSGCLASS=H,                          
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUSMPRE                                                              
+//* DESC:  SMP/E RECEIVE (SHOPZ DOWNLOAD)                                       
+//* STEPS: <NONE>                                                            
+//* AUTH:  Ben               DATE: 2025-07-14                                   
+//* NOTE:  SUBSTITUTE #globalzone, #smpptfdsn, #fromnts, #sourceid              
+//*-----------------------------------------------------------------*
+//        SET CSI=#globalzone
+//        SET SMPPTF=#smpptfdsn
+//RECNTS   EXEC PGM=GIMSMP
+//SMPCSI   DD DISP=OLD,DSN=&CSI
+//SMPOUT   DD SYSOUT=*
+//SMPLOG   DD SYSOUT=*
+//SMPPTFIN DD DISP=SHR,DSN=&SMPPTF                                           
+//SYSPRINT DD SYSOUT=*                                                          
+//SMPCNTL  DD *                                                                 
+  SET BOUNDARY(GLOBAL) .                                                        
+  RECEIVE SELECT(AH39768)                                                       
+  SYSMODS LIST +                                                                
+  FROMNTS(#fromnts) +                                                           
+  SOURCEID(#sourceid) .                                                         
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

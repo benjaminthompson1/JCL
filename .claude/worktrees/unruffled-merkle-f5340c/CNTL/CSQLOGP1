@@ -1,0 +1,83 @@
+//IULOGP1 JOB (FB3),'CSQLOGP1',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IULOGP1                                                              
+//* DESC:  MQ CSQ LOG PRINT                                                     
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  UPDATE ARCHIVE DD DSN TO TARGET MQ ARCHIVE LOG DATASET               
+//*-----------------------------------------------------------------*           
+//*--------------------------------------------------------------------*        
+//* STEP: RUN MQ LOG PRINT UTILITY                                              
+//*--------------------------------------------------------------------*        
+//PRTLOG   EXEC PGM=CSQ1LOGP                                                    
+//STEPLIB  DD DISP=SHR,DSN=CSQ911.SCSQANLE                                      
+//         DD DISP=SHR,DSN=CSQ911.SCSQLOAD                                      
+//*--------------------------------------------------------------------*        
+//* INPUT: ARCHIVE LOG DATASET                                                  
+//*--------------------------------------------------------------------*        
+//ARCHIVE  DD DISP=SHR,DSN=CSQARC1.CSQ9.A0000019                                
+//*--------------------------------------------------------------------*        
+//* OPTIONAL: BSDS DATASET (REQUIRED FOR PAGESET FILTERING)                     
+//*--------------------------------------------------------------------*        
+//*BSDS     DD DISP=SHR,DSN=#MQHLQ.BSDS01                                       
+//*--------------------------------------------------------------------*        
+//* OUTPUT: EXTRACTED LOG RECORD DATASETS                                       
+//*--------------------------------------------------------------------*        
+//CSQBACK  DD DSN=IBMUSER.CSQ9.BACKOUT.DATASET,                                 
+//            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//CSQCMT   DD DSN=IBMUSER.CSQ9.COMMIT.DATASET,                                  
+//            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//CSQBOTH  DD DSN=IBMUSER.CSQ9.BOTH.DATASET,                                    
+//            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//CSQINFLT DD DSN=IBMUSER.CSQ9.INFLIGHT.DATASET,                                
+//            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//CSQOBJS  DD DSN=IBMUSER.CSQ9.OBJECTS.DATASET,                                 
+//            DISP=(NEW,CATLG,DELETE),UNIT=3390,                                
+//            DCB=(RECFM=VB,LRECL=32756,BLKSIZE=32760),                         
+//            SPACE=(CYL,(1,10,0))                                              
+//*--------------------------------------------------------------------*        
+//* OUTPUT: REPORTS                                                             
+//*--------------------------------------------------------------------*        
+//SYSPRINT DD SYSOUT=*,LRECL=131                                                
+//SYSSUMRY DD SYSOUT=*,LRECL=131                                                
+//*--------------------------------------------------------------------*        
+//* CONTROL PARAMETERS                                                          
+//*--------------------------------------------------------------------*        
+//SYSIN    DD *                                                                 
+* Include summary report                                                        
+ SUMMARY(YES)                                                                   
+                                                                                
+* Extract log records to datasets                                               
+ EXTRACT(YES)                                                                   
+                                                                                
+* Filter options (optional, uncomment to use):                                  
+* - PAGESET(xx)   : Only for specific pagesets (requires BSDS + RBA)            
+* - RBASTART(hex) : Start RBA filter                                            
+* - RBAEND(hex)   : End RBA filter                                              
+* - URID(hex)     : Only include a specific Unit-of-Work record                 
+* - DATA(hex)     : Search for data containing a hex string                     
+                                                                                
+*PAGESET(00)                                                                    
+*PAGESET(01)                                                                    
+                                                                                
+*RBASTART(000000900000)                                                         
+*RBAEND(000000968FFF)                                                           
+                                                                                
+*URID(000000000000)                                                             
+                                                                                
+*DATA(E7C2E3)                                                                   
+*     X B T                                                                     
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

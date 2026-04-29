@@ -1,0 +1,58 @@
+//IUCOBOL JOB (FB3),'COBOL CBG',CLASS=A,MSGCLASS=H,                             
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUCOBOL                                                              
+//* DESC:  COBOL COMPILE, BIND, AND GO WITH DB2                                 
+//* STEPS: 1-COMPILE, 2-DB2BIND, 3-GO                                           
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  SET GOPGM= AND VERIFY DB2 SUBSYSTEM BEFORE RUN                       
+//*-----------------------------------------------------------------*           
+//*-- 1: COMPILE AND BIND PROGRAM WITH DB2 SUPPORT -----------------*           
+//COMPILE EXEC IGYQCB,                                                          
+//             LNGPRFX=IGY640,                                                  
+//             LIBPRF1=CEE,                                                     
+//             BPARM='DYNAM=NO',                                                
+//             GOPGM=ORGREP                                                     
+//COBOL.STEPLIB DD DISP=SHR,DSN=DSND10.DBDG.SDSNEXIT                            
+//              DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
+//COBOL.SYSLIB  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                       
+//COBOL.SYSIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                
+//COBOL.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
+//COBOL.DBRMLIB DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.DBRMLIB(&GOPGM)               
+//BIND.SYSLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                                 
+//              DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                          
+//BIND.SYSLIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                
+//BIND.SYSLMOD  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                  
+//*-- 2: DB2 PACKAGE AND PLAN BIND ---------------------------------*           
+//DB2BIND EXEC PGM=IKJEFT01                                                     
+//STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  BIND PACKAGE(BENCOLLECTION) MEMBER(ORGREP) +                                  
+       LIBRARY('IBMUSER.GIT.COBOL.DBRMLIB') +                                   
+       EXPLAIN(YES) +                                                           
+       ARCHIVESENSITIVE(YES) +                                                  
+       ACTION(REPLACE)                                                          
+  BIND PLAN(BENPLAN) PKLIST(BENCOLLECTION.ORGREP)                               
+  END                                                                           
+/*                                                                              
+//*-- 3: RUN PROGRAM WITH DEBUG TOOL ENABLED -----------------------*           
+//DB2RUN EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                                
+//STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
+//         DD DISP=SHR,DSN=ISM403.SEQAMOD                                       
+//         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  DSN SYSTEM(DBDG)                                                              
+  RUN PROGRAM(ORGREP) PLAN(BENPLAN) LIBRARY('IBMUSER.GIT.COBOL.LOAD') +         
+    PARM('/TEST(,,,TCPIP&10.1.1.36%8001:*)')                                    
+  END                                                                           
+/*                                                                              
+//ORGREPPER DD DISP=SHR,DSN=IBMUSER.ORGREP.PERSON                               
+//ORGREPPRO DD DISP=SHR,DSN=IBMUSER.ORGREP.PROVIDER                             
+//ORGREPVAC DD DISP=SHR,DSN=IBMUSER.ORGREP.VACCINE                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

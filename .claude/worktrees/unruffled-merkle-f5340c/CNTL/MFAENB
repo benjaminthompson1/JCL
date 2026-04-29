@@ -1,0 +1,36 @@
+//IUMFA03 JOB (FB3),'MFA ENABLE',CLASS=A,MSGCLASS=H,                            
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUMFA03                                                              
+//* DESC:  ENABLE MFA USERS                                                     
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2025-05-26                                   
+//* NOTE:  USER IDs MFAUSR1-MFAUSR3 MUST ALREADY EXIST BEFORE RUN               
+//*-----------------------------------------------------------------*
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100                               
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+ALTUSER MFAUSR2 MFA(FACTOR(AZFTOTP1) TAGS(REGSTATE:OPEN) NOPWFALLBACK +         
+   ACTIVE)                                                                      
+ALTUSER MFAUSR2 MFA(FACTOR(AZFTOTP1) NOPWFALLBACK ACTIVE)                       
+                                                                                
+ALTUSER MFAUSR3 MFA(FACTOR(AZFTOTP1) TAGS(REGSTATE:OPEN) PWFALLBACK +           
+   ACTIVE)                                                                      
+ALTUSER MFAUSR3 MFA(FACTOR(AZFTOTP1) PWFALLBACK ACTIVE)                         
+ALTUSER MFAUSR3 MFA(ADDPOLICY(TOTPPOLICY))                                      
+                                                                                
+LISTUSER MFAUSR1 MFA                                                            
+LISTUSER MFAUSR2 MFA                                                            
+LISTUSER MFAUSR3 MFA                                                            
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

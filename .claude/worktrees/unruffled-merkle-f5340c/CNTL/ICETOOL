@@ -1,0 +1,31 @@
+//IUICETL JOB (FB3),'ICETOOL',CLASS=A,MSGCLASS=H,                               
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUICETL                                                              
+//* DESC:  ZSORT NEW FEATURE ON Z15 HARDWARE                                    
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//ZSORT1   EXEC PGM=ICETOOL                                                     
+//TOOLMSG  DD SYSOUT=*                                                          
+//DFSMSG   DD SYSOUT=*                                                          
+//TOOLIN   DD *                                                                 
+  SORT FROM(SMFIN) -                                                            
+  TO(SMFOUT) -                                                                  
+  USING(SMFS)                                                                   
+/*                                                                              
+//SMFIN    DD DISP=SHR,DSN=SYS1.SMF.DATA(0)                                     
+//         DD DISP=SHR,DSN=SYS1.SMF.DATA(-1)                                    
+//         DD DISP=SHR,DSN=SYS1.SMF.DATA(-2)                                    
+//         DD DISP=SHR,DSN=SYS1.SMF.DATA(-3)                                    
+//         DD DISP=SHR,DSN=SYS1.SMF.DATA(-4)                                    
+//SMFOUT   DD DUMMY                                                             
+//SMFSCNTL DD *                                                                 
+  OPTION ZSORT                                                                  
+  SORT FIELDS=(15,4,A,11,4,A,7,4,A),FORMAT=CH                                   
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

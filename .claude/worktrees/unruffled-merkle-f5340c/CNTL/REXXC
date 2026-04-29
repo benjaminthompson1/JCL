@@ -1,0 +1,16 @@
+//IUREXC  JOB (FB3),'REXXC',CLASS=A,MSGCLASS=H,                                 
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUREXX                                                               
+//* DESC:  RUN COMPILED REXX EXEC IN BATCH                                      
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//REXX     EXEC PGM=IRXJCL,PARM='HELLOW'                                        
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSEXEC  DD DSN=IBMUSER.GIT.REXX.CEXEC,DISP=SHR                               
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

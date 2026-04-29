@@ -1,0 +1,25 @@
+//IUBPXCL JOB (FB3),'PYTHON',CLASS=A,MSGCLASS=H,                                
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUBPXCL                                                              
+//* DESC:  IVP BATCH PYTHON                                                     
+//* STEPS: <NONE>                                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  <Key prerequisite or caution (optional)>                             
+//*-----------------------------------------------------------------*           
+//PYTHON EXEC PGM=IKJEFT01                                                      
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDOUT DD SYSOUT=*                                                            
+//STDERR DD SYSOUT=*                                                            
+//SYSTSIN DD *                                                                  
+BPXBATCH SH +                                                                   
+export PATH=/usr/lpp/IBM/cyp/v3r10/pyz/bin:$PATH ; +                            
+export PYTHONPATH=/usr/lpp/IBM/cyp/v3r10/pyz ; +                                
+python -c "print('Hello, World!')" ;                                            
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           

@@ -1,0 +1,56 @@
+//IUIVVS1 JOB (FB3),'AVZIVVS1',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*-----------------------------------------------------------------*           
+//* JOB:   IUIVVS1                                                              
+//* DESC:  DVM IVP                                                              
+//* STEPS: 1-DMFEXTR1, 2-DMFEXTR2                                               
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  CUSTOMIZE SET STATEMENTS WITH AVZ INSTALLATION DATASET NAMES         
+//*-----------------------------------------------------------------*           
+//*                                                                             
+//* CUSTOMIZE THE FOLLOWING:                                                    
+//*                                                                             
+// SET LOADLIB='DVM.V2R1M0.SAVZLOAD'        <- AVZ LOAD LIBRARY                 
+// SET REXXLIB='DVM.V2R1M0.SAVZEXEC'        <- AVZ REXX LIBRARY                 
+// SET SAMPLIB='DVM.V2R1M0.SAVZSAMP'        <- AVZ SAMP LIBRARY                 
+//*                                                                             
+//*-- 1: EXTRACT DVM MAP DEFINITION FROM VSAM FILE --------------------*
+//DMFEXTR1  EXEC PGM=IKJEFT01,PARM=('AVZMBTPA O'),REGION=0M                     
+//STEPLIB   DD DISP=SHR,DSN=&LOADLIB                                            
+//SYSEXEC   DD DISP=SHR,DSN=&REXXLIB                                            
+//SOURCE    DD DISP=SHR,DSN=&SAMPLIB.(AVZSTFCP)                                 
+//STDERR    DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                             
+//XMLOUT    DD SYSOUT=*,DCB=(LRECL=254,BLKSIZE=254)                             
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD DUMMY                                                            
+//SYSIN     DD *                                                                
+  SSID = AVZ1                                                                   
+  FUNCTION    = STOD                                                            
+  MAP NAME = STAFFVS                                                            
+  SAVE OPTION = REPLACE                                                         
+  REFRESH OPTION = REFRESH                                                      
+  OFFSET ZERO = Y                                                               
+  START FIELD = STAFFVS-RECORD                                                  
+  END FIELD   = STAFFVS-DATA-YRS                                                
+  VSAM FILE   = APP.STAFF.VSAM                                                  
+/*
+//*
+//*-- 2: RUN AVZXMAPD TO QUERY VSAM DATA USING DVM MAP ----------------*
+//REAAVZAM EXEC  PGM=AVZXMAPD,PARM='SSID=AVZ1,MXR=30000000'                     
+//STEPLIB  DD DISP=SHR,DSN=&LOADLIB                                             
+//RPT      DD SYSOUT=*                                                          
+//*OUT      DD SYSOUT=*                                                         
+//FMT      DD SYSOUT=*,DCB=LRECL=4096                                           
+//*TRC      DD SYSOUT=*                                                         
+//*SNAP     DD SYSOUT=*                                                         
+//IN       DD *                                                                 
+++SET BUFSIZE=512 ;                                                             
+++SET SSMU=6;                                                                   
+++SET NUMROWS=-1   ;                                                            
+SELECT * FROM STAFFVS                                                           
+/*                                                                              
+//*-----------------------------------------------------------------*           
+//* End of Job                                                                  
+//*-----------------------------------------------------------------*           
+                                                                                

@@ -1,0 +1,535 @@
+//IUSCRTJ JOB (FB3),'SCRT JCL',CLASS=A,MSGCLASS=H,                      00010000
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                            00020000
+//*       TYPRUN=HOLD                                                   00040000
+//*-----------------------------------------------------------------*   00050000
+//* JOB:   IUSCRTJ                                                      00060000
+//* DESC:  SCRT REPORT                                                  00070000
+//* STEPS: 1-DELETE, 2-SCRT                                             00080000
+//* AUTH:  Ben               DATE: 2026-04-06                           00090000
+//* NOTE:  UPDATE JAVA_HOME, APP_HOME, CLASSPATH AND SMF DD BEFORE RUN  00100000
+//*-----------------------------------------------------------------*   00110000
+                                                                        00120000
+//***PROPRIETARY_STATEMENT********************************************  00130000
+//*                                                                  *  00140000
+//* LICENSED MATERIALS - PROPERTY OF IBM                             *  00150000
+//* 5650-ZOS                                                         *  00160000
+//* COPYRIGHT IBM CORP. 2017, 2019                                   *  00170000
+//*                                                                  *  00180000
+//* STATUS = HBB77C0                                                 *  00190000
+//*                                                                  *  00200000
+//***END_OF_PROPRIETARY_STATEMENT*************************************  00210000
+//*                                                                     00220000
+//* SCRT VERSION 27.1.2 - INTENDED TO RUN ON z/OS                       00230000
+//*                                                                     00240000
+//* FOR RECENT CHANGES TO THE SUB-CAPACITY REPORTING TOOL (SCRT), SEE   00250000
+//* THE SCRT CURRENT LEVELS DOCUMENT AND/OR THE SCRT USERS GUIDE        00260000
+//* AVAILABLE AT THE Z SOFTWARE PRICING SITE:                           00270000
+//*    www.ibm.com/it-infrastructure/z/software/pricing                 00280000
+//*                                                                     00290000
+//* REQUIREMENTS AND INSTALLATION:                                      00300000
+//*    For SCRT V23.10.0 and above releases only)                       00310000
+//*   - SCRT requires a minimum Java level of:                          00320000
+//*        IBM SDK for z/OS, Java Technology Edition, Version 7.0.0.    00330000
+//*   - This JCL invokes the Java 8.0 SDK.                              00340000
+//*   - This JCL invokes the 64-bit JVM and so usage of this            00350000
+//*     JCL requires that the 64-bit Java 8.0 SDK is installed.         00360000
+//*                                                                     00370000
+//* - Modifications necessary to run SCRT in the JAVA VM:               00380000
+//*                                                                     00390000
+//*    Tailor the proc and job for your installation:                   00400000
+//*    1.) Modify the Job card per your installation's requirements     00410000
+//*    2.) Modify the EXEC PROC= statement to point to the PDS          00420000
+//*        containing the installation version of the JZOS PROC.        00430000
+//*    3.) edit JAVA_HOME to point to the location of the Java JDK.     00440000
+//*    4.) edit APP_HOME to point to the location of the SCRT JAR file. 00450000
+//*    5.) Modify the CLASSPATH to point to the location that SCRT was  00460000
+//*        installed in. (This is the location of the scrt.jar file).   00470000
+//*                                                                     00480000
+//*  This job (with the accompanying proc) will call the JZOS batch     00490000
+//*  launcher load module. The JZOS batch launcher load module will     00500000
+//*  create the JVM under UNIX System Services. This JCL contains       00510000
+//*  all relevant information about how to launch the batch job.        00520000
+//*  For more information on JZOS, see the following web page:          00530000
+//*    www-03.ibm.com/systems/z/os/zos/tools/java/                      00540000
+//*                                                                     00550000
+//*  The program will read an SMF file and product sub capacity         00560000
+//*  reporting data suitable for import to your favorite spreadsheet    00570000
+//*  program.                                                           00580000
+//*  After you have reviewed the data in the spreadsheet,               00590000
+//*  send the file to IBM using the LMS web interface or email          00600000
+//*  the file to IBM.                                                   00610000
+//*                                                                     00620000
+//*  Do a global change on hlq to your desired high level qualifier.    00630000
+//*                                                                     00640000
+//*  Replace the job statement with one that fits your installation     00650000
+//*  standards.                                                         00660000
+//*                                                                     00670000
+//*  Point the SMF DD at your SMF dataset containing type 70 and 89     00680000
+//*  records for the month to be reported.  Note that for reporting     00690000
+//*  purposes a month begins at 00:00 on the second, and ends at        00700000
+//*  24:00 on the first of the following month.                         00710000
+//*                                                                     00720000
+//*  Update the PARMS and NO89 DD statements below.                     00730000
+//*                                                                     00740000
+//*-- 1: DELETE EXISTING SCRT CSV OUTPUT DATASET ----------------------*
+//DELETE   EXEC  PGM=IEFBR14                                            00750000
+//DD1      DD    DSN=IBMUSER.SCRTTOOL.CSV,DISP=(MOD,DELETE),            00760000
+//            SPACE=(TRK,(1)),UNIT=SYSDA                                00770000
+//* FOLLOWING DD IS FOR OPTIONAL USE BY z/OS CUSTOMERS                  00780000
+//*  UNCOMMENT THE DD IF YOU CREATE A CSV FILE TO SHOW                  00790000
+//*  TAILORED FIT PRICING DETAILED DATA                                 00800000
+//* //CPSTRACE DD    DISP=(MOD,DELETE),DSN=HLQ.CPSTRACE.CSV,            00810000
+//* //             SPACE=(TRK,(1)),UNIT=SYSDA                           00820000
+//* FOLLOWING DD IS FOR OPTIONAL USE BY z/OS CUSTOMERS                  00830000
+//*  UNCOMMENT THE DD IF YOU CREATE A CSV FILE TO SHOW THE REASONS      00840000
+//*  THAT GETTING STARTED PRICING MSUS WERE NOT USED IN THE REPORT      00850000
+//* //GSTRACE  DD    DISP=(MOD,DELETE),DSN=HLQ.GSTRACE.CSV,             00860000
+//* //             SPACE=(TRK,(1)),UNIT=SYSDA                           00870000
+//* FOLLOWING DD IS FOR OPTIONAL USE BY z/OS CUSTOMERS                  00880000
+//* UNCOMMENT THE DD IF YOU CREATE A CSV FILE TO SHOW THE REASONS       00890000
+//* THAT INTEGRATED WORKLOAD PRICING WASN'T USED IN THE REPORT          00900000
+//* //IWPTRACE DD    DISP=(MOD,DELETE),DSN=HLQ.IWPTRACE.CSV,            00910000
+//* //             SPACE=(TRK,(1)),UNIT=SYSDA                           00920000
+//*                                                                     00930000
+//********************************************************************  00940000
+//*-- 2: RUN SCRT JAVA REPORT USING JVMPRC86 PROC ---------------------*
+//SCRT EXEC PROC=JVMPRC86,                                              00950000
+// JAVACLS='com.ibm.scrt.SCRTe'                                         00960000
+//STDENV DD *                                                           00970000
+# This is a shell script which configures                               00980000
+# any environment variables for the Java JVM.                           00990000
+# Variables must be exported to be seen by the launcher.                01000000
+                                                                        01010000
+. /etc/profile                                                          01020000
+export JAVA_HOME=/usr/lpp/java/J8.0_64                                  01030000
+                                                                        01040000
+export PATH=/bin:"${JAVA_HOME}"/bin                                     01050000
+                                                                        01060000
+LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin                                01070000
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib/s390x                             01080000
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/lib/s390x/j9vm                        01090000
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/bin/classic                           01100000
+export LIBPATH="$LIBPATH":                                              01110000
+                                                                        01120000
+# Customize your CLASSPATH here                                         01130000
+APP_HOME=/usr/lpp/scrt                                                  01140000
+CLASSPATH=$APP_HOME:"${JAVA_HOME}"/lib:"${JAVA_HOME}"/lib/ext           01150000
+CLASSPATH="$CLASSPATH":"${APP_HOME}"/ext                                01160000
+                                                                        01170000
+# Add Application required jars to end of CLASSPATH                     01180000
+for i in "${APP_HOME}"/*.jar; do                                        01190000
+    CLASSPATH="$CLASSPATH":"$i"                                         01200000
+    done                                                                01210000
+export CLASSPATH="$CLASSPATH":                                          01220000
+export JZOS_ENABLE_MVS_COMMANDS=false                                   01230000
+# SCRT default 64bit JVM options                                        01240000
+IJO="-Xms128m -Xmx2048m"                                                01250000
+IJO="$IJO -Xquickstart"                                                 01260000
+IJO="$IJO -Xcompressedrefs"                                             01270000
+IJO="$IJO -Xgcpolicy:optthruput"                                        01280000
+export IBM_JAVA_OPTIONS="$IJO "                                         01290000
+//*                                                                     01300000
+//* FOR SEQUENTIAL OUTPUT (ALL CPCS IN ONE DS)                          01310000
+//* CHANGE SPACE PARAMETER TO SPACE=(TRK,(15,15))                       01320000
+//OUTPUT DD DISP=(,CATLG),DSN=IBMUSER.SCRTTOOL.CSV,                     01330000
+//        SPACE=(TRK,(15,15,15)),UNIT=SYSDA                             01340000
+//SMF      DD    DISP=SHR,DSN=SYS1.SMF.DATA                             01350000
+//PARMS    DD    *                                                      01360000
+*                                                                       01370000
+* THERE ARE 5 REQUIRED PARM KEYWORDS:                                   01380000
+*     THEY MUST BE FILLED IN OR THE PROGRAM WILL NOT PROCEED.           01390000
+*                                                                       01400000
+* ENTER YOUR CUSTOMER_NAME                                              01410000
+Customer_Name=ZD&T                                                      01420000
+*                                                                       01430000
+* ENTER YOUR IBM COUNTRY CODE FOLLOWED BY YOUR IBM SITE ID              01440000
+*   IF YOU DON'T KNOW YOUR IBM COUNTRY CODE, FIND IT HERE:              01450000
+* https://www.ibm.com/downloads/cas/OVPO2DJW                            01460000
+CUSTOMER_NUMBER=036992109                                               01470000
+*                                                                       01480000
+* IF COUNTRY_MULTIPLEX_PRICING OR ENTERPRISE_TAILORED_FIT_PRICING       01490000
+* WAS SPECIFIED AND YOU MUST ASSIGN MULTIPLE SITE IDS                   01500000
+* WITHIN THE ENVIRONMENT, UNCOMMENT THE FOLLOWING LINE TO ASSIGN        01510000
+* ADDITIONAL SITE IDS. NOTE THE BASE CUSTOMER_NUMBER                    01520000
+* PARAMETER WILL SERVE AS THE DEFAULT VALUE.                            01530000
+* ASSIGN CUSTOMER_NUMBER= ,CPC=                                         01540000
+*                                                                       01550000
+* ENTER THE NAME OF THE PERSON SUBMITTING THE REPORT                    01560000
+Contact_Name=Benjamin Thompson                                          01570000
+*                                                                       01580000
+* ENTER THE EMAIL ADDRESS OF PERSON SUBMITTING THE REPORT               01590000
+Contact_EMail=benjamin.thompson1@ibm.com                                01600000
+*                                                                       01610000
+* ENTER THE PHONE NUMBER OF THE PERSON SUBMITTING THE REPORT            01620000
+Contact_Phone=0439032104                                                01630000
+*                                                                       01640000
+* OPTIONALLY UNCOMMENT THIS LINE AND ENTER A PO NUMBER                  01650000
+* PO_Number=                                                            01660000
+*                                                                       01670000
+* OPTIONALLY UNCOMMENT ONE OF THESE LINES TO SELECT A REPORT PERIOD     01680000
+* Report_Period=YYYY/MM                                                 01690000
+* Report_Period=Last_Month                                              01700000
+*                                                                       01710000
+* OPTIONALLY UNCOMMENT THESE LINES TO PROVIDE AN LPAR COMMENT           01720000
+* LPAR_Comment CPC= ,LPAR= ,                                            01730000
+*  Comment="......"                                                     01740000
+*                                                                       01750000
+//* FOLLOWING DD IS FOR OPTIONAL USE BY z/OS, z/TPF CUSTOMERS           01760000
+//*  UNCOMMENT DESIRED CONTROL STMTS AND PROVIDE MISSING VALUES         01770000
+//SPECIAL   DD  *                                                       01780000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    01790000
+*  UNCOMMENT CONTROL STMT TO REQUEST THAT SCRT INCLUDE ONLY THE         01800000
+*  IMAGE OR IMAGES SPECIFIED                                            01810000
+* Include CPC= ,Image_Id=                                               01820000
+*                                                                       01830000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    01840000
+*  UNCOMMENT CONTROL STMT TO REQUEST THAT SCRT EXCLUDE AN IMAGE         01850000
+*  AND/OR PRODUCT FOR A SPECIFIED TIME INTERVAL                         01860000
+* Exclude CPC= ,Image_Id= ,Product_Id= ,                                01870000
+*   Start= ,Resume=                                                     01880000
+*                                                                       01890000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    01900000
+*  UNCOMMENT CONTROL STMT TO REQUEST THAT SCRT EXCLUDE MSU              01910000
+*  CONSUMPTION FOR A SOLUTION ID                                        01920000
+* Exclude MSU_CONSUMPTION,CPC= ,HOUR= ,CPUTIME= ,ID=                    01930000
+*                                                                       01940000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE FOR z/OS           01950000
+*  UNCOMMENT CONTROL STMT TO REQUEST INTEGRATED WORKLOAD PRICING        01960000
+* Integrated_Workload_Pricing                                           01970000
+*                                                                       01980000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE FOR z/TPF          01990000
+*  UNCOMMENT STMT TO REQUEST Z/TPF TRANSFORMATION ENGINES OFFERING      02000000
+* z/TPF_Transformation_Engines_Offering                                 02010000
+*                                                                       02020000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02030000
+*  UNCOMMENT STMT TO REQUEST COUNTRY MULTIPLEX PRICING                  02040000
+* Country_Multiplex_Pricing                                             02050000
+*                                                                       02060000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02070000
+*  UNCOMMENT STMT TO REQUEST A TAILORED FIT PRICING ENTERPRISE          02080000
+*  SOLUTION REPORT                                                      02090000
+* Enterprise_Tailored_Fit_Pricing                                       02100000
+*                                                                       02110000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02120000
+*  UNCOMMENT STMT TO ASSIGN Z WORKLOAD PRICING FOR CLOUD                02130000
+*  WLM CATEGORY ASSIGNMENT                                              02140000
+* Assign zWPC=CATEGORYA                                                 02150000
+*                                                                       02160000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02170000
+*  UNCOMMENT STMT TO REQUEST DETAILED INTERVAL DATA                     02180000
+* Generate_Detailed_Data                                                02190000
+*                                                                       02200000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02210000
+*  UNCOMMENT STMT TO REQUEST SCRT IGNORE WLM MOBILE DATA                02220000
+* IGNORE_WLM_MWP_Data                                                   02230000
+*                                                                       02240000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02250000
+*  UNCOMMENT STMT TO REQUEST WLM MOBILE DIAGNOSTIC MESSAGES             02260000
+* DIAGMSG=WLMMOB                                                        02270000
+*                                                                       02280000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02290000
+*  UNCOMMENT STMT TO REQUEST WLM CLOUD DIAGNOSTIC MESSAGES              02300000
+* DIAGMSG=WLMZWPC                                                       02310000
+*                                                                       02320000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02330000
+*  UNCOMMENT STMT TO REQUEST MLC PRODUCT FAMILY LINE WHEN               02340000
+*  ONLY ONE FAMILY PRODUCT IN USE.                                      02350000
+* MLC_ALL                                                               02360000
+*                                                                       02370000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02380000
+*  UNCOMMENT STMT TO REQUEST IPLA PRODUCT FAMILY LINE WHEN              02390000
+*  ONLY ONE FAMILY PRODUCT IN USE.                                      02400000
+* IPLA_ALL                                                              02410000
+*                                                                       02420000
+* FOLLOWING SPECIAL CONTROL STMT IS REQUIRED FOR                        02430000
+*  TAILORED FIT PRICING SOLUTIONS.  FOR                                 02440000
+*  EVERY CONTAINER SOLUTION ID IN THE DATA, YOU MUST ASSIGN             02450000
+*  THE ASSOCIATED LMS PROVIDED NAME.                                    02460000
+* Update Container,                                                     02470000
+*   Id= ,                                                               02480000
+*   Set_Name="..."                                                      02490000
+*                                                                       02500000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02510000
+*  UNCOMMENT STMT TO DEDICATE AN LPAR TO A TAILORED FIT PRICING         02520000
+*  SOLUTION.                                                            02530000
+* Container CPC= ,Image_Id= ,                                           02540000
+*   Id=                                                                 02550000
+*                                                                       02560000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02570000
+*  UNCOMMENT STMT TO REPLACE A SOLUTION ID ASSOCIATED WITH A            02580000
+*  CONTAINER TRG WITH A NEW OR CORRECTED SOLUTION ID.                   02590000
+* Update Solution_Id,                                                   02600000
+*   Old= ,                                                              02610000
+*   New=                                                                02620000
+*                                                                       02630000
+* FOLLOWING SPECIAL CONTROL STMT IS FOR OPTIONAL USE                    02640000
+*  UNCOMMENT STMT TO REQUEST THAT SCRT IGNORE A CONTAINER               02650000
+*  PRICING SOLUTION FOR A SPECIFIED TIME INTERVAL                       02660000
+* Ignore Container,Start= ,Resume= ,                                    02670000
+*   Id=                                                                 02680000
+*                                                                       02690000
+//* FOLLOWING DD IS FOR OPTIONAL USE BY z/OS CUSTOMERS                  02700000
+//*  UNCOMMENT THE DD TO GET A CSV FILE SHOWING CONTAINER               02710000
+//*  PRICING DETAILED DATA                                              02720000
+//* //CPSTRACE DD    DISP=(,CATLG),DSN=HLQ.CPSTRACE.CSV,                02730000
+//* //             SPACE=(TRK,(15,15)),UNIT=SYSDA                       02740000
+//*                                                                     02750000
+//* FOLLOWING DD IS FOR OPTIONAL USE BY z/OS CUSTOMERS                  02760000
+//*  UNCOMMENT THE DD TO GET A CSV FILE SHOWING REASONS THAT            02770000
+//*  GETTING STARTED PRICING MSUS WERE NOT USED IN THE REPORT           02780000
+//* //GSTRACE  DD    DISP=(,CATLG),DSN=HLQ.GSTRACE.CSV,                 02790000
+//* //             SPACE=(TRK,(15,15)),UNIT=SYSDA                       02800000
+//*                                                                     02810000
+//* FOLLOWING DD IS FOR OPTIONAL USE BY z/OS CUSTOMERS                  02820000
+//* UNCOMMENT THE DD TO GET A CSV FILE SHOWING REASONS THAT             02830000
+//* INTEGRATED WORKLOAD PRICING WASN'T USED IN THE REPORT               02840000
+//* //IWPTRACE DD    DISP=(,CATLG),DSN=HLQ.IWPTRACE.CSV,                02850000
+//* //             SPACE=(TRK,(15,15)),UNIT=SYSDA                       02860000
+//*                                                                     02870000
+//* FOLLOWING DD IS FOR OPTIONAL USE BY z/OS CUSTOMERS.                 02880000
+//*  UNCOMMENT THE DD TO SPECIFY CSV FILE(S) PROVIDING INPUT FOR        02890000
+//*  EITHER MOBILE WORKLOAD PRICING OR IBM Z SYSTEMS COLLOCATED         02900000
+//*  APPLICATION PRICING.                                               02910000
+//* //INPUTCSV  DD  *                                                   02920000
+//*                                                                     02930000
+//NO89      DD  *        NON-89 PRODUCT SECTION                         02940000
+*                                                                       02950000
+* FOR EACH PRODUCT LISTED, YOU MUST ENTER ONE OF THESE 3 OPTIONS:       02960000
+*                                                                       02970000
+* 1. ENTER *ALL IF THE PRODUCT RUNS IN ALL LPARS IN THE INPUT SMF       02980000
+*    DATA FILE.                                                         02990000
+*    E.G.  5655-043=*NONE                                               03000000
+* 2. ENTER *NONE IF THE PRODUCT RUNS IN NONE OF THE LPARS IN THE        03010000
+*    INPUT SMF DATA FILE.                                               03020000
+* 3. ENTER A LIST OF LPAR NAMES SEPARATED BY COMMAS OF THE LPARS IN     03030000
+*    WHICH THE PRODUCT RUNS. (YOU MAY CONTINUE ONTO THE NEXT LINE BY    03040000
+*    ENDING THE PRIOR LINE WITH A COMMA.)                               03050000
+*                                                                       03060000
+* NOTE: IF YOU HAVE THE SAME LPAR NAME ON DIFFERENT CPCS, AND YOU       03070000
+*       NEED TO DISTINGUISH BETWEEN THEM, THE FOLLOWING SYNTAX WILL     03080000
+*       ALLOW IT.  FOR EXAMPLE: YOU HAVE 57XX-XXX RUNNING IN LPARA      03090000
+*       ON CPC 2064-12345, BUT NOT IN LPARA ON 2064-98765. SPECIFY:     03100000
+*       57XX-XXX=2064-12345:LPARA                                       03110000
+*                                                                       03120000
+* --------------------------- Z/OS NO89S -----------------------------  03130000
+*                                                                       03140000
+*   DELETE THE FOLLOWING STMTS IF Z/OS IS *NOT* RUNNING ON THE CPC      03150000
+*                                                                       03160000
+*                                                                       03170000
+* NETVIEW PERF MONITOR V2                                               03180000
+5655-043=*NONE                                                          03190000
+* TIVOLI NETVIEW FOR Z/OS V6                                            03200000
+5697-NV6=*NONE                                                          03210000
+* TIVOLI NETVIEW FOR Z/OS V5                                            03220000
+5697-ENV=*NONE                                                          03230000
+* TIVOLI NETVIEW FOR OS/390                                             03240000
+5697-B82=*NONE                                                          03250000
+* TIVOLI WORKLOAD SCHEDULER FOR Z/OS V9                                 03260000
+5698-T08=*NONE                                                          03270000
+* TIVOLI WORKLOAD SCHEDULER FOR Z/OS V8                                 03280000
+5697-WSZ=*NONE                                                          03290000
+* OPC V2                                                                03300000
+5697-OPC=*NONE                                                          03310000
+* SYSTEM AUTOMATION FOR OS/390                                          03320000
+5645-005=*NONE                                                          03330000
+* SYSTEM AUTOMATION OS/390 V2                                           03340000
+5645-006=*NONE                                                          03350000
+* LOTUS DOMINO FOR S/390                                                03360000
+5655-B86=*NONE                                                          03370000
+* LOTUS ACTIVE INSIGHT FOR Z/OS V6                                      03380000
+5655-U15=*NONE                                                          03390000
+* COBOL FOR OS/390 & VM V2                                              03400000
+5648-A25=*NONE                                                          03410000
+* VA PL/I FOR OS/390 V2                                                 03420000
+5655-B22=*NONE                                                          03430000
+* IBM ENTERPRISE PL/I FOR Z/OS AND OS/390 V3                            03440000
+5655-H31=*NONE                                                          03450000
+* IBM ENTERPRISE PL/I FOR Z/OS V4                                       03460000
+5655-W67=*NONE                                                          03470000
+* IBM ENTERPRISE COBOL FOR Z/OS AND OS/390 V3                           03480000
+5655-G53=*NONE                                                          03490000
+* IBM ENTERPRISE COBOL FOR Z/OS V4                                      03500000
+5655-S71=*NONE                                                          03510000
+* QMF MVS VERSION 3                                                     03520000
+5706-254=*NONE                                                          03530000
+* FAULT ANALYZER FOR OS/390 V1                                          03540000
+5697-F19=*NONE                                                          03550000
+* FAULT ANALYZER FOR Z/OS AND OS/390 V2                                 03560000
+5655-G74=*NONE                                                          03570000
+* FAULT ANALYZER FOR Z/OS AND OS/390 V3                                 03580000
+5655-J47=*NONE                                                          03590000
+* FAULT ANALYZER FOR Z/OS V4                                            03600000
+5655-L25=*NONE                                                          03610000
+* FAULT ANALYZER FOR Z/OS V5                                            03620000
+5655-M20=*NONE                                                          03630000
+* FAULT ANALYZER FOR Z/OS V6                                            03640000
+5655-P16=*NONE                                                          03650000
+* FAULT ANALYZER FOR Z/OS V7                                            03660000
+5655-R46=*NONE                                                          03670000
+* FILE ANALYZER FOR Z/OS AND OS/390 V2                                  03680000
+5655-G75=*NONE                                                          03690000
+* FILE MANAGER  FOR OS/390 V1                                           03700000
+5697-F20=*NONE                                                          03710000
+* FILE MANAGER  FOR Z/OS AND OS/390 V3                                  03720000
+5655-J48=*NONE                                                          03730000
+* FILE MANAGER FOR Z/OS V4                                              03740000
+5655-L26=*NONE                                                          03750000
+* FILE MANAGER FOR Z/OS V5                                              03760000
+5655-M21=*NONE                                                          03770000
+* FILE MANAGER FOR Z/OS V6                                              03780000
+5655-P17=*NONE                                                          03790000
+* FILE MANAGER FOR Z/OS V7                                              03800000
+5655-R47=*NONE                                                          03810000
+* FILE EXPORT FOR Z/OS V1                                               03820000
+5697-I12=*NONE                                                          03830000
+* APPLICATION MONITOR FOR Z/OS AND OS/390 V1                            03840000
+5697-H63=*NONE                                                          03850000
+* APPLICATION MONITOR FOR Z/OS V2                                       03860000
+5655-L22=*NONE                                                          03870000
+* DEBUG TOOL UTILITIES AND ADV FUNCTIONS FOR Z/OS & OS/390 V3           03880000
+5655-J18=*NONE                                                          03890000
+* DEBUG TOOL UTILITIES AND ADV FUNCTIONS FOR Z/OS V4                    03900000
+5655-L23=*NONE                                                          03910000
+* DEBUG TOOL UTILITIES AND ADV FUNCTIONS FOR Z/OS V5                    03920000
+5655-M19=*NONE                                                          03930000
+* DEBUG TOOL UTILITIES AND ADV FUNCTIONS FOR Z/OS V6                    03940000
+5655-P15=*NONE                                                          03950000
+* DEBUG TOOL UTILITIES AND ADV FUNCTIONS FOR Z/OS V7                    03960000
+5655-R45=*NONE                                                          03970000
+* DEBUG TOOL UTILITIES AND ADV FUNCTIONS FOR Z/OS V8                    03980000
+5655-S16=*NONE                                                          03990000
+* CLOUD 9 FOR SCLM FOR OS/390 V1                                        04000000
+5697-G57=*NONE                                                          04010000
+* CLOUD 9 FOR SCLM FOR Z/OS V2                                          04020000
+5655-G93=*NONE                                                          04030000
+* BREEZE FOR SCLM OS/390 V1                                             04040000
+5697-G58=*NONE                                                          04050000
+* IBM TIVOLI MONITORING FOR NETWORK PERFORMANCE V1                      04060000
+5698-A10=*NONE                                                          04070000
+* IBM TIVOLI SYSTEM AUTOMATION FOR OS/390 V2                            04080000
+5698-A14=*NONE                                                          04090000
+* IBM TIVOLI SYSTEM AUTOMATION FOR OS/390 V3                            04100000
+5698-SA3=*NONE                                                          04110000
+* IBM TIVOLI SYSTEM AUTOMATION FOR Z/OS V4                              04120000
+5698-SA4=*NONE                                                          04130000
+* IBM TIVOLI WORKLOAD SCHEDULER FOR HOST EDITION V8                     04140000
+5698-A17=*NONE                                                          04150000
+* IBM TIVOLI MONITORING FOR NETWORK PERFORMANCE V2                      04160000
+5698-FNP=*NONE                                                          04170000
+* WEBSPHERE TRANSFORMATION EXTENDER FOR Z/OS V8                         04180000
+5655-R95=*NONE                                                          04190000
+* IBM WEBSPHERE PORTAL FOR Z/OS AND OS/390 V4                           04200000
+5655-K12=*NONE                                                          04210000
+* IBM WEBSPHERE HOST PUBLISHER FOR V4 FOR ZSERIES                       04220000
+5655-I03=*NONE                                                          04230000
+* IBM WEBSPHERE MQ INTEGRATOR BROKER FOR Z/OS V2                        04240000
+5655-I58=*NONE                                                          04250000
+* IBM WEBSPHERE MQ INTEGRATOR FOR Z/OS V2                               04260000
+5655-G97=*NONE                                                          04270000
+* WEBSPHERE STUDIO APPLICATION MONITOR V1                               04280000
+5655-J67=*NONE                                                          04290000
+* WEBSPHERE STUDIO ASSET ANALYZER V4                                    04300000
+5655-M22=*NONE                                                          04310000
+* WEBSPHERE STUDIO ASSET ANALYZER V3                                    04320000
+5655-L21=*NONE                                                          04330000
+* WEBSPHERE STUDIO ASSET ANALYZER V2                                    04340000
+5655-I49=*NONE                                                          04350000
+* WEBSPHERE STUDIO WORKLOAD SIMULATOR V1                                04360000
+5655-I14=*NONE                                                          04370000
+* WEBSPHERE STUDIO APPLICATION MONITOR FOR Z/OS V2                      04380000
+5655-L42=*NONE                                                          04390000
+* WEBSPHERE STUDIO APPLICATION MONITOR FOR Z/OS V3                      04400000
+5697-J18=*NONE                                                          04410000
+* IMS DATA COLLECTOR FOR WEBSPHERE STUDIO APPL MONITOR V3               04420000
+5697-J01=*NONE                                                          04430000
+* CICS DATA COLLECTOR FOR WEBSPHERE STUDIO APPL MONITOR V2              04440000
+5655-L50=*NONE                                                          04450000
+* CICS DATA COLLECTOR FOR WEBSPHERE STUDIO APPL MONITOR V3              04460000
+5697-J17=*NONE                                                          04470000
+* WEBSPHERE DASHBOARD FRAMEWORK FOR Z/OS V6                             04480000
+5655-U13=*NONE                                                          04490000
+* APPLICATION WORKLOAD MODELER FOR Z/OS V1                              04500000
+5655-J62=*NONE                                                          04510000
+* ENHANCED ACCESS CONTROL FOR SCLM V1                                   04520000
+5697-H59=*NONE                                                          04530000
+* WORKLOAD SIMULATOR FOR Z/OS AND OS/390 V1                             04540000
+5655-I39=*NONE                                                          04550000
+* MERGE TOOL FOR Z/OS AND OS/390 V1                                     04560000
+5697-H70=*NONE                                                          04570000
+* MIGRATION UTILITY FOR Z/OS V1                                         04580000
+5655-I18=*NONE                                                          04590000
+* MIGRATION UTILITY FOR Z/OS V2                                         04600000
+5697-I89=*NONE                                                          04610000
+* SCLM SUITE ADMIN WORKBENCH FOR Z/OS V1                                04620000
+5655-L03=*NONE                                                          04630000
+* SCLM DEVELOPER TOOLKIT V2                                             04640000
+5655-R37=*NONE                                                          04650000
+* SCLM DEVELOPER TOOLKIT V1                                             04660000
+5655-M99=*NONE                                                          04670000
+* APPLICATION PERF ANALYZER FOR Z/OS V1                                 04680000
+5697-N37=*NONE                                                          04690000
+* APPLICATION PERF ANALYZER FOR Z/OS V7                                 04700000
+5697-N53=*NONE                                                          04710000
+* APPLICATION PERF ANALYZER FOR Z/OS V8                                 04720000
+5697-N63=*NONE                                                          04730000
+* TIVOLI COMPOSITE APPLICATION MANAGER FOR CICS V6                      04740000
+5698-A69=*NONE                                                          04750000
+* TIVOLI COMPOSITE APPLICATION MANAGER FOR IMS V6                       04760000
+5698-A70=*NONE                                                          04770000
+* TIVOLI COMPOSITE APPLICATION MANAGER FOR APPL DIAG V7                 04780000
+5698-B48=*NONE                                                          04790000
+* TIVOLI COMPOSITE APPLICATION MANAGER FOR WEBSPHERE V6                 04800000
+5698-A71=*NONE                                                          04810000
+* SCLM ADMIN TOOLKIT V2                                                 04820000
+5697-J19=*NONE                                                          04830000
+* IBM MIGRATION UTILITY FOR Z/OS V3                                     04840000
+5697-N44=*NONE                                                          04850000
+* TIVOLI OMEGAMON XE FOR MESSAGING V7                                   04860000
+5698-B23=*NONE                                                          04870000
+* TIVOLI OMEGAMON XE FOR MESSAGING V6                                   04880000
+5698-A87=*NONE                                                          04890000
+* AUTOMATED TAPE ALLOC MANAGER V1                                       04900000
+5697-H62=*NONE                                                          04910000
+* DATA STUDIO PUREQUERY RUNTIME FOR Z/OS V1                             04920000
+5655-U93=*NONE                                                          04930000
+* OPTIM PUREQUERY RUNTIME FOR Z/OS V3                                   04940000
+5655-W92=*NONE                                                          04950000
+* OPTIM PUREQUERY RUNTIME FOR Z/OS V2                                   04960000
+5655-V80=*NONE                                                          04970000
+* WEBSPHERE ILOG BUSINESS RULES FOR Z/OS V7                             04980000
+5655-ILG=*NONE                                                          04990000
+* DATA STUDIO PUREQUERY RUNTIME FOR Z/OS V2                             05000000
+5655-V57=*NONE                                                          05010000
+* WEBSPHERE ILOG JRULES FOR SYSTEM Z V7                                 05020000
+5655-V82=*NONE                                                          05030000
+* WEBSPHERE ILOG RULE TEAM SERVER FOR SYSTEM Z V7                       05040000
+5655-V84=*NONE                                                          05050000
+* WEBSPHERE ILOG RULES COBOL FOR SYSTEM Z V7                            05060000
+5655-V87=*NONE                                                          05070000
+* WEBSPHERE ILOG DECISION VALIDATION SVCS FOR SYSTEM Z V7               05080000
+5655-V89=*NONE                                                          05090000
+* IBM CPLEX Optimizer for z/OS V12                                      05100000
+5655-Y21=*NONE                                                          05110000
+* MIGRATION UTILITY FOR Z/OS V4                                         05120000
+5655-MGU=*NONE                                                          05130000
+* IBM AUTOMATION CONTROL FOR Z/OS V1                                    05140000
+5698-LSA=*NONE                                                          05150000
+* IBM Tivoli Netview Monitoring for GDPS V6                             05160000
+5698-BMP=*NONE                                                          05170000
+* IBM Standards Processing Engine for Healthcare Payer V8               05180000
+5655-Q19=*NONE                                                          05190000
+* IBM Standards Processing Engine for Supply Chain EDI V8               05200000
+5655-Q22=*NONE                                                          05210000
+* IBM Transformation Extender Advanced for z/OS V9                      05220000
+5655-Q35=*NONE                                                          05230000
+* (NEW 27.1.2) IBM Z Service Automation Suite V1                        05240000
+5698-SA1=*NONE                                                          05250000
+*                                                                       05260000
+* -------------------------- Z/VSE NO89S -----------------------------  05270000
+*                                                                       05280000
+*   DELETE THE FOLLOWING STMTS IF Z/VSE IS *NOT* RUNNING ON THE CPC     05290000
+*                                                                       05300000
+/*                                                                      05310000
+//*-----------------------------------------------------------------*   05320000
+//* End of Job                                                          05330000
+//*-----------------------------------------------------------------*   05340000
