@@ -9,15 +9,15 @@
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  Update source XMIT DSN and target library before run                 
 //*--------------------------------------------------------------------*        
-//*-- 1: UNPACK TERSED LOAD LIBRARY USING AMATERSE --------------------*
+//*-- 1: UNPACK TERSED LOAD LIBRARY USING AMATERSE --------------------*        
 //AMATERSE EXEC PGM=AMATERSE,PARM=UNPACK                                        
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD.XMIT.TRS                          
 //SYSUT2   DD DSN=IBMUSER.COBOL.LOAD.XMIT,                                      
 //            DISP=(NEW,CATLG),UNIT=SYSDA,                                      
 //            SPACE=(TRK,(1,1),RLSE)                                            
-//*
-//*-- 2: RECEIVE XMIT FILE TO RESTORE LOAD LIBRARY --------------------*
+//*                                                                             
+//*-- 2: RECEIVE XMIT FILE TO RESTORE LOAD LIBRARY --------------------*        
 //RECVPDS  EXEC PGM=IKJEFT01,COND=(0,NE)                                        
 //INPUT    DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD.XMIT                              
 //SYSTSIN  DD *                                                                 

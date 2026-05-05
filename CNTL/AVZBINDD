@@ -13,7 +13,7 @@
 //*--------------------------------------------------------------------*00010000
 //JOBLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                              00420000
 //         DD DISP=SHR,DSN=DSND10.DBDG.RUNLIB.LOAD                      00430000
-//*-- 1: COPY DBRM MEMBERS TO TEMPORARY LIBRARY -----------------------*
+//*-- 1: COPY DBRM MEMBERS TO TEMPORARY LIBRARY -----------------------*        
 //COPY0001 EXEC PGM=IEBCOPY                                             00450000
 //DBRMLIB  DD DISP=SHR,DSN=DVM.V2R1M0.SAVZDBRM                          00460000
 //DBRMTMP  DD DSN=&&DBRMTMP,SPACE=(TRK,(15,10,10)),UNIT=SYSDA,          00470000
@@ -81,7 +81,7 @@
    COPY INDD=DBRMLIB,OUTDD=DBRMTMP                                      01090000
    SELECT MEMBER=((AVZU51XC,DXOU510C))                                  01100000
                                                                         01110000
-//*-- 2: FREE EXISTING AVZ DB2 PACKAGES -------------------------------*
+//*-- 2: FREE EXISTING AVZ DB2 PACKAGES -------------------------------*        
 //FREE0001 EXEC PGM=IKJEFT1A,COND=(4,LT,COPY0001)                       01140000
 //SYSTSPRT DD SYSOUT=*                                                  01150000
 //SYSPRINT DD SYSOUT=*                                                  01160000
@@ -121,8 +121,8 @@
       FREE PACKAGE(NULLID.DXOU510C.(*))                                 01500000
                                                                         01510000
  END                                                                    01520000
-//*
-//*-- 3: BIND AVZ SERVER DB2 PACKAGES ---------------------------------*
+//*                                                                             
+//*-- 3: BIND AVZ SERVER DB2 PACKAGES ---------------------------------*        
 //BIND0001 EXEC PGM=IKJEFT1A,COND=(8,LT,FREE0001)                       01570000
 //DBRMLIB  DD DSN=&&DBRMTMP,DISP=(OLD,DELETE)                           01580000
 //SYSTSPRT DD SYSOUT=*                                                  01590000
@@ -236,8 +236,8 @@
                                                                         02670000
                                                                         02680000
     END                                                                 02690000
-//*
-//*-- 4: GRANT EXECUTE ON ALL AVZ PACKAGES TO PUBLIC ------------------*
+//*                                                                             
+//*-- 4: GRANT EXECUTE ON ALL AVZ PACKAGES TO PUBLIC ------------------*        
 //GRNT0001 EXEC PGM=IKJEFT1A,COND=(4,LT,BIND0001)                       02740000
 //SYSTSPRT DD SYSOUT=*                                                  02750000
 //SYSPRINT DD SYSOUT=*                                                  02760000

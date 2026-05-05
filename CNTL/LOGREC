@@ -11,25 +11,25 @@
 //* NOTE:  Destroys all existing LOGREC records; review before running          
 //*        Ensure records are reported or backed up before clearing             
 //*--------------------------------------------------------------------*        
-//*-- 1: PRINT CURRENT LOGREC CONTENTS TO SYSOUT ----------------------*
+//*-- 1: PRINT CURRENT LOGREC CONTENTS TO SYSOUT ----------------------*        
 //STEP1   EXEC PGM=IFCEREP1,PARM='EVENT=Y,ACC=N',REGION=256K                    
 //SERLOG  DD DSN=SYS1.S0W1.LOGREC,DISP=SHR                                      
 //TOURIST DD SYSOUT=*                                                           
 //EREPPT  DD SYSOUT=*                                                           
 //SYSIN   DD DUMMY                                                              
-//*
-//*-- 2: GENERATE LOGREC SUMMARY REPORT -------------------------------*
+//*                                                                             
+//*-- 2: GENERATE LOGREC SUMMARY REPORT -------------------------------*        
 //STEP2   EXEC PGM=IFCEREP1,PARM='TYPE=SIE,PRINT=PS,ACC=N',                     
 //        REGION=256K                                                           
 //SERLOG  DD DSN=SYS1.S0W1.LOGREC,DISP=SHR                                      
 //TOURIST DD SYSOUT=*                                                           
 //EREPPT  DD SYSOUT=*                                                           
 //SYSIN   DD DUMMY                                                              
-//*
-//*-- 3: CLEAR AND INITIALIZE LOGREC DATASET --------------------------*
+//*                                                                             
+//*-- 3: CLEAR AND INITIALIZE LOGREC DATASET --------------------------*        
 //STEP3   EXEC PGM=IFCDIP00                                                     
 //SERERDS DD DSN=SYS1.S0W1.LOGREC,DISP=OLD,                                     
-//           VOL=SER=C3SYS1,UNIT=SYSALLDA                                       
+//           VOL=SER=A3SYS1,UNIT=SYSALLDA                                       
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
 //*--------------------------------------------------------------------*        

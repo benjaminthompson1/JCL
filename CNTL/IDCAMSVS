@@ -10,7 +10,7 @@
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  Update base cluster and alternate index DSN values before run        
 //*--------------------------------------------------------------------*        
-//*-- 1: DEFINE VSAM KSDS CLUSTER WITH PRIMARY INDEX ------------------*
+//*-- 1: DEFINE VSAM KSDS CLUSTER WITH PRIMARY INDEX ------------------*        
 //CREATE   EXEC PGM=IDCAMS,REGION=0M                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
@@ -27,9 +27,9 @@
   INDEX                        -                                                
        (NAME (IBMUSER.DFAT.FSCNI) -                                             
         CISZ  (4096))                                                           
-/*
-//*
-//*-- 2: REPRO DATA INTO VSAM CLUSTER ---------------------------------*
+/*                                                                              
+//*                                                                             
+//*-- 2: REPRO DATA INTO VSAM CLUSTER ---------------------------------*        
 //REPRO    EXEC PGM=IDCAMS,REGION=0M                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //INDD     DD DSN=IBMUSER.DFAT.FSCN.LOAD,DISP=SHR                               
@@ -37,9 +37,9 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
   REPRO INFILE(INDD) OUTFILE(OUTDD)                                             
-/*
-//*
-//*-- 3: DEFINE ALTERNATE INDEX AND BUILD PATH ------------------------*
+/*                                                                              
+//*                                                                             
+//*-- 3: DEFINE ALTERNATE INDEX AND BUILD PATH ------------------------*        
 //CREATEAX EXEC PGM=IDCAMS,REGION=0M                                            
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 

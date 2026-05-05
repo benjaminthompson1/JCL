@@ -23,8 +23,8 @@
 //*    END                                                                      
 //*  //SYSIN    DD  *                                                           
 //*    DROP DATABASE DSNAIDB3;                                                  
-//*
-//*-- 1: CREATE SQLDI DATABASE, TABLESPACE, AND TABLES ----------------*
+//*                                                                             
+//*-- 1: CREATE SQLDI DATABASE, TABLESPACE, AND TABLES ----------------*        
 //DSNTIAV1 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSPRINT DD  SYSOUT=*                                                         
@@ -84,9 +84,9 @@
                                                                                 
   GRANT SELECT ON DSNAIDB.CHURN TO PUBLIC;                                      
                                                                                 
-  COMMIT;
-//*
-//*-- 2: CREATE SQLDI INDEXES AND GRANT ACCESS ------------------------*
+  COMMIT;                                                                       
+//*                                                                             
+//*-- 2: CREATE SQLDI INDEXES AND GRANT ACCESS ------------------------*        
 //DSNTIAV2 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSPRINT DD  SYSOUT=*                                                         

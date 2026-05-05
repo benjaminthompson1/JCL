@@ -10,7 +10,7 @@
 //* AUTH:  Ben               DATE: 2025-04-24                                   
 //* NOTE:  Ensure target volumes C3SYS1 and C3CFG1 are online before run        
 //*--------------------------------------------------------------------*        
-//*-- 1: ALLOCATE JES2 CHECKPOINT DATASETS ON TARGET VOLUMES ----------*
+//*-- 1: ALLOCATE JES2 CHECKPOINT DATASETS ON TARGET VOLUMES ----------*        
 //CKPT  EXEC PGM=IEFBR14                                                        
 //CKPT1 DD DSN=SYS1.Z31C.CKPT1,UNIT=SYSDA,                                      
 //         VOLUME=SER=C3SYS1,DISP=(NEW,CATLG),                                  
@@ -19,7 +19,7 @@
 //CKPT2 DD DSN=SYS1.Z31C.CKPT2,UNIT=SYSDA,                                      
 //         VOLUME=SER=C3CFG1,DISP=(NEW,CATLG),                                  
 //         SPACE=(CYL,20),DCB=(DSORG=PSU)                                       
-//*-- 2: COPY JES2PARM MEMBER TO USER PARMLIB -------------------------*
+//*-- 2: COPY JES2PARM MEMBER TO USER PARMLIB -------------------------*        
 //JES2PARM EXEC PGM=IEBCOPY                                                     
 //INPDS    DD  DSN=ADCD.Z31C.PARMLIB,DISP=SHR                                   
 //OUTPDS   DD  DSN=USER.Z31C.PARMLIB,DISP=SHR                                   
@@ -28,7 +28,7 @@
   COPY INDD=INPDS,OUTDD=OUTPDS                                                  
     SELECT MEMBER=(JES2PARM)                                                    
 /*                                                                              
-//*-- 3: COPY JES2 PROC MEMBER TO USER PROCLIB ------------------------*
+//*-- 3: COPY JES2 PROC MEMBER TO USER PROCLIB ------------------------*        
 //JES2     EXEC PGM=IEBCOPY                                                     
 //INPDS    DD  DSN=ADCD.Z31C.PROCLIB,DISP=SHR                                   
 //OUTPDS   DD  DSN=USER.Z31C.PROCLIB,DISP=SHR                                   

@@ -10,15 +10,15 @@
 //* NOTE:  z/OS Debugger V15+ increases the VSAM record size                    
 //*        Datasets from prior versions are not compatible                      
 //*--------------------------------------------------------------------*        
-//*-- 1: DELETE EXISTING Z/OS DEBUGGER VSAM PROFILE DATASET -----------*
+//*-- 1: DELETE EXISTING Z/OS DEBUGGER VSAM PROFILE DATASET -----------*        
 //DELETE    EXEC PGM=IDCAMS,REGION=1M                                           
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
  DELETE ISM403.S0W1.EQADPFMB                                                    
  SET MAXCC=0                                                                    
-/*
-//*
-//*-- 2: DEFINE NEW VSAM DEBUGGING PROFILE DATASET --------------------*
+/*                                                                              
+//*                                                                             
+//*-- 2: DEFINE NEW VSAM DEBUGGING PROFILE DATASET --------------------*        
 //DEFINE    EXEC PGM=IDCAMS,REGION=1M                                           
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 

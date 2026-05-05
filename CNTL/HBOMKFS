@@ -106,7 +106,7 @@
 //*     help correct the problem and resubmit this job.               *         
 //*                                                                   *         
 //*********************************************************************         
-//*-- 1: DELETE AND DEFINE ZFS DATASET FOR ZCDP WORK DIRECTORY --------*
+//*-- 1: DELETE AND DEFINE ZFS DATASET FOR ZCDP WORK DIRECTORY --------*        
 //DEFINE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD   SYSOUT=*                                                        
 //SYSIN    DD   *                                                               
@@ -121,14 +121,14 @@
 //*       MANAGEMENTCLASS(mgmtclass) -                                          
 //*       STORAGECLASS(storclass) -                                             
 //*                                                                             
-//*-- 2: FORMAT ZFS DATASET USING IOEFSUTL ----------------------------*
+//*-- 2: FORMAT ZFS DATASET USING IOEFSUTL ----------------------------*        
 //FORMAT   EXEC PGM=IOEFSUTL,REGION=0M,COND=(0,NE,DEFINE),                      
 // PARM=('format -aggregate LDA.V5R1M0.VAR.ZFS')                                
 //SYSPRINT DD   SYSOUT=*                                                        
 //STDOUT   DD   SYSOUT=*                                                        
 //STDERR   DD   SYSOUT=*                                                        
 //*                                                                             
-//*-- 3: CREATE MOUNTPOINT DIRECTORY AND MOUNT ZFS FILESYSTEM ---------*
+//*-- 3: CREATE MOUNTPOINT DIRECTORY AND MOUNT ZFS FILESYSTEM ---------*        
 //MOUNT    EXEC PGM=IKJEFT1A,COND=((0,NE,DEFINE),(0,NE,FORMAT))                 
 //SYSTSPRT DD   SYSOUT=*                                                        
 //STDOUT   DD   SYSOUT=*                                                        

@@ -9,7 +9,7 @@
 //* AUTH:  Ben               DATE: 2026-04-06                           00010800
 //* NOTE:  Remove TYPRUN=NORUN from PARM to perform the actual backup   00010900
 //*--------------------------------------------------------------------*00011000
-//*-- 1: FULL VOLUME BACKUP USING ADRDSSU -----------------------------*
+//*-- 1: FULL VOLUME BACKUP USING ADRDSSU -----------------------------*        
 //BACKUP   EXEC PGM=ADRDSSU PARM='TYPRUN=NORUN'                         00012100
 //SYSPRINT DD SYSOUT=*                                                  00012200
 //INDD     DD VOL=SER=DRPAK1,UNIT=SYSDA,DISP=OLD                        00012300
@@ -23,8 +23,8 @@
       OUTDD(OUTDD) -                                                    00070000
       CONCURRENT                                                        00071000
 /*                                                                      00080000
-//*
-//*-- 2: VERIFY BACKUP TAPE USING COPYDUMP ----------------------------*
+//*                                                                             
+//*-- 2: VERIFY BACKUP TAPE USING COPYDUMP ----------------------------*        
 //VERIFY  EXEC PGM=ADRDSSU,COND=(5,LT),REGION=4096K                     00130000
 //SYSPRINT DD  SYSOUT=*                                                 00140000
 //DUMMY    DD  DUMMY                                                    00150000

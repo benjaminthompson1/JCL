@@ -7,9 +7,9 @@
 //* AUTH:  Ben               DATE: 2025-06-27                                   
 //* NOTE:  NOACCEPT only; reports differences, no changes applied               
 //*--------------------------------------------------------------------*        
-//        SET CSI=#globalzone
-//NOACCEPT EXEC PGM=GIMSMP
-//SMPCSI   DD DISP=SHR,DSN=&CSI                                          
+//        SET CSI=#globalzone                                                   
+//NOACCEPT EXEC PGM=GIMSMP                                                      
+//SMPCSI   DD DISP=SHR,DSN=&CSI                                                 
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPLOG   DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 

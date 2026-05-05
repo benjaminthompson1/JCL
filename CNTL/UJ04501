@@ -9,7 +9,7 @@
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  Update HLQ and library names to match the zSecure installation       
 //*--------------------------------------------------------------------*        
-//*-- 1: ALLOCATE ZSECURE CUSTOMIZATION DATASETS ----------------------*
+//*-- 1: ALLOCATE ZSECURE CUSTOMIZATION DATASETS ----------------------*        
 //ALLOCT   EXEC PGM=IEFBR14                                                     
 //SCKACUST DD DSN=CKR240.SCKACUST,                                              
 // DISP=(NEW,CATLG),                                                            
@@ -38,9 +38,9 @@
 // VOL=SER=USER0A,                                                              
 // SPACE=(32760,(70,50,90)),                                                    
 // DCB=(RECFM=VB,LRECL=32752,BLKSIZE=0),                                        
-// DSNTYPE=LIBRARY
-//*
-//*-- 2: DEFINE SMP/E DDDEFS FOR ZSECURE DATASETS ---------------------*
+// DSNTYPE=LIBRARY                                                              
+//*                                                                             
+//*-- 2: DEFINE SMP/E DDDEFS FOR ZSECURE DATASETS ---------------------*        
 //DDDEFT   EXEC PGM=GIMSMP,REGION=48M,COND=(4,LT)                               
 //SMPCSI   DD DSN=CKR240.GLOBAL.CSI,                                            
 //            DISP=SHR                                                          
