@@ -11,7 +11,7 @@
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  Substitute @zfsdsn@, @pathprefix@, and @volume@ before run           
 //*--------------------------------------------------------------------*        
-//*-- 1: DEFINE ZFS CLUSTER USING IDCAMS ------------------------------*
+//*-- 1: DEFINE ZFS CLUSTER USING IDCAMS ------------------------------*        
 //CREATE   EXEC PGM=IDCAMS                                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
@@ -25,9 +25,9 @@
              SHAREOPTIONS(3) -                                                  
          )                                                                      
 /*                                                                              
-//*
-//*-- 2: FORMAT ZFS DATASET USING IOEAGFMT ----------------------------*
-// SET ZFSDSN='@zfsdsn@'
+//*                                                                             
+//*-- 2: FORMAT ZFS DATASET USING IOEAGFMT ----------------------------*        
+// SET ZFSDSN='@zfsdsn@'                                                        
 //FORMAT   EXEC PGM=IOEAGFMT,COND=(0,LT),                                       
 // PARM='-aggregate &ZFSDSN -compat'                                            
 //SYSPRINT DD SYSOUT=*                                                          
@@ -35,16 +35,16 @@
 //STDERR   DD SYSOUT=*                                                          
 //SYSUDUMP DD SYSOUT=*                                                          
 //CEEDUMP  DD SYSOUT=*                                                          
-//*
-//*-- 3: CREATE MOUNTPOINT DIRECTORY USING BPXBATCH -------------------*
+//*                                                                             
+//*-- 3: CREATE MOUNTPOINT DIRECTORY USING BPXBATCH -------------------*        
 //MKDIR    EXEC PGM=BPXBATCH,COND=(0,LT),                                       
 // PARM='SH'                                                                    
 //STDPARM  DD *                                                                 
 SH                                                                              
 mkdir -p @pathprefix@ && chmod 777 @pathprefix@                                 
 /*                                                                              
-//*
-//*-- 4: MOUNT ZFS FILESYSTEM AT MOUNTPOINT ---------------------------*
+//*                                                                             
+//*-- 4: MOUNT ZFS FILESYSTEM AT MOUNTPOINT ---------------------------*        
 //MOUNT    EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=99,COND=(4,LT)                  
 //SYSTSPRT  DD SYSOUT=*                                                         
 //SYSTSIN   DD *                                                                

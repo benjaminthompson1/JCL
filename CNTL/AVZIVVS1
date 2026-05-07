@@ -16,7 +16,7 @@
 // SET REXXLIB='DVM.V2R1M0.SAVZEXEC'        <- AVZ REXX LIBRARY                 
 // SET SAMPLIB='DVM.V2R1M0.SAVZSAMP'        <- AVZ SAMP LIBRARY                 
 //*                                                                             
-//*-- 1: EXTRACT DVM MAP DEFINITION FROM VSAM FILE --------------------*
+//*-- 1: EXTRACT DVM MAP DEFINITION FROM VSAM FILE --------------------*        
 //DMFEXTR1  EXEC PGM=IKJEFT01,PARM=('AVZMBTPA O'),REGION=0M                     
 //STEPLIB   DD DISP=SHR,DSN=&LOADLIB                                            
 //SYSEXEC   DD DISP=SHR,DSN=&REXXLIB                                            
@@ -35,9 +35,9 @@
   START FIELD = STAFFVS-RECORD                                                  
   END FIELD   = STAFFVS-DATA-YRS                                                
   VSAM FILE   = APP.STAFF.VSAM                                                  
-/*
-//*
-//*-- 2: RUN AVZXMAPD TO QUERY VSAM DATA USING DVM MAP ----------------*
+/*                                                                              
+//*                                                                             
+//*-- 2: RUN AVZXMAPD TO QUERY VSAM DATA USING DVM MAP ----------------*        
 //REAAVZAM EXEC  PGM=AVZXMAPD,PARM='SSID=AVZ1,MXR=30000000'                     
 //STEPLIB  DD DISP=SHR,DSN=&LOADLIB                                             
 //RPT      DD SYSOUT=*                                                          

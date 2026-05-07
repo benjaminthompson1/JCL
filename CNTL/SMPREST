@@ -7,9 +7,9 @@
 //* AUTH:  Ben               DATE: 2025-08-29                                   
 //* NOTE:  Update SELECT() list; run with CHECK before final execution          
 //*--------------------------------------------------------------------*        
-//        SET CSI=MVS.GLOBAL.CSI
-//RESTORE  EXEC PGM=GIMSMP
-//SMPCSI   DD DISP=SHR,DSN=&CSI                                       
+//        SET CSI=MVS.GLOBAL.CSI                                                
+//RESTORE  EXEC PGM=GIMSMP                                                      
+//SMPCSI   DD DISP=SHR,DSN=&CSI                                                 
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPLOG   DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 

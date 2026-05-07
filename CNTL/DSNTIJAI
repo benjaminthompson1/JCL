@@ -53,9 +53,9 @@
 //*          Fix AI object in inconsistent state issue caused by                
 //*          auth failure on Drop                                               
 //*                                                                             
-//JOBLIB  DD  DISP=SHR,
-//            DSN=DSND10.SDSNLOAD
-//*-- 1: DROP EXISTING SQLDI PSEUDO CATALOG OBJECTS -------------------*
+//JOBLIB  DD  DISP=SHR,                                                         
+//            DSN=DSND10.SDSNLOAD                                               
+//*-- 1: DROP EXISTING SQLDI PSEUDO CATALOG OBJECTS -------------------*        
 //DSNTICU EXEC PGM=IKJEFT01,DYNAMNBR=20                                         
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSPRINT DD  SYSOUT=*                                                         
@@ -92,10 +92,10 @@
                                                                                 
    DROP DATABASE DSNAIDB1;                                                      
    DROP DATABASE DSNAIDB2;                                                      
-   DROP STOGROUP DSNAIDSG;
-
-//*
-//*-- 2: CREATE SQLDI DATABASE, TABLESPACES, AND TABLES ---------------*
+   DROP STOGROUP DSNAIDSG;                                                      
+                                                                                
+//*                                                                             
+//*-- 2: CREATE SQLDI DATABASE, TABLESPACES, AND TABLES ---------------*        
 //DSNTIAI1 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSPRINT DD  SYSOUT=*                                                         
@@ -352,11 +352,11 @@
      ON SYSAIDB.SYSAITRAININGJOBS                                               
      (OBJECT_ID, CONFIGURATION_ID, MODEL_ID);                                   
                                                                                 
-   CREATE INDEX SYSAIDB.SYSAITRAININGJOBS_AUX_IX
-     ON SYSAIDB.SYSAITRAININGJOBS_MESSAGES_AUX;
-
-//*
-//*-- 3: CREATE SQLDI STOGROUP AND MODEL DATABASE ---------------------*
+   CREATE INDEX SYSAIDB.SYSAITRAININGJOBS_AUX_IX                                
+     ON SYSAIDB.SYSAITRAININGJOBS_MESSAGES_AUX;                                 
+                                                                                
+//*                                                                             
+//*-- 3: CREATE SQLDI STOGROUP AND MODEL DATABASE ---------------------*        
 //DSNTIAI2 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSPRINT DD  SYSOUT=*                                                         
@@ -378,10 +378,10 @@
    CREATE DATABASE DSNAIDB2 CCSID UNICODE                                       
      STOGROUP DSNAIDSG                                                          
      BUFFERPOOL BP16K0                                                          
-     INDEXBP BP0 #
-
-//*
-//*-- 4: CREATE SQLDI STORED PROCEDURES -------------------------------*
+     INDEXBP BP0 #                                                              
+                                                                                
+//*                                                                             
+//*-- 4: CREATE SQLDI STORED PROCEDURES -------------------------------*        
 //DSNTIAI3 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSPRINT DD  SYSOUT=*                                                         
@@ -1111,8 +1111,8 @@ BEGIN
 END #                                                                           
                                                                                 
                                                                                 
-//*
-//*-- 5: GRANT ACCESS FOR SQL DATA INSIGHTS USERS ---------------------*
+//*                                                                             
+//*-- 5: GRANT ACCESS FOR SQL DATA INSIGHTS USERS ---------------------*        
 //DSNTIAI4 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
 //SYSTSPRT DD  SYSOUT=*                                                         
 //SYSPRINT DD  SYSOUT=*                                                         

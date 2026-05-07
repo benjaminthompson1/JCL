@@ -9,7 +9,7 @@
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  Update ARCHIVE DD DSN to the target MQ archive log dataset           
 //*--------------------------------------------------------------------*        
-//*-- 1: EXTRACT COMMITTED MESSAGES FROM MQ ARCHIVE LOG ---------------*
+//*-- 1: EXTRACT COMMITTED MESSAGES FROM MQ ARCHIVE LOG ---------------*        
 //PRTLOG   EXEC PGM=CSQ1LOGP                                                    
 //STEPLIB  DD DISP=SHR,DSN=CSQ911.SCSQANLE                                      
 //         DD DISP=SHR,DSN=CSQ911.SCSQLOAD                                      
@@ -34,9 +34,9 @@
 //*--------------------------------------------------------------------*        
 //SYSIN    DD *                                                                 
  EXTRACT(YES)                                                                   
-/*
-//*
-//*-- 2: FILTER AND SORT COMMITTED MESSAGES BY QUEUE NAME -------------*
+/*                                                                              
+//*                                                                             
+//*-- 2: FILTER AND SORT COMMITTED MESSAGES BY QUEUE NAME -------------*        
 //DFSORT   EXEC PGM=SORT,COND=(0,NE)                                            
 //SORTIN   DD DISP=(OLD,DELETE),DSN=*.PRTLOG.CSQCMT                             
 //SORTOUT  DD DSN=XBT.INTRA.DATASET,                                            

@@ -7,7 +7,7 @@
 //* AUTH:  Ben               DATE: 2025-06-27                                   
 //* NOTE:  Substitute #globalzone and #target with actual dataset names         
 //*--------------------------------------------------------------------*        
-//        SET CSI=#globalzone
+//        SET CSI=#globalzone                                                   
 //APPLY   EXEC PGM=GIMSMP                                                       
 //SMPCSI  DD DISP=SHR,DSN=&CSI                                                  
 //* SMP/E TEMP DATASETS (OPTIONAL)                                              

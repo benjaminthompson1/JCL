@@ -7,13 +7,13 @@
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  Substitute #globalzone, #smpptfdsn, #fromnts, and #sourceid          
 //*--------------------------------------------------------------------*        
-//        SET CSI=#globalzone
-//        SET SMPPTF=#smpptfdsn
-//RECNTS   EXEC PGM=GIMSMP
-//SMPCSI   DD DISP=OLD,DSN=&CSI
-//SMPOUT   DD SYSOUT=*
-//SMPLOG   DD SYSOUT=*
-//SMPPTFIN DD DISP=SHR,DSN=&SMPPTF                                           
+//        SET CSI=#globalzone                                                   
+//        SET SMPPTF=#smpptfdsn                                                 
+//RECNTS   EXEC PGM=GIMSMP                                                      
+//SMPCSI   DD DISP=OLD,DSN=&CSI                                                 
+//SMPOUT   DD SYSOUT=*                                                          
+//SMPLOG   DD SYSOUT=*                                                          
+//SMPPTFIN DD DISP=SHR,DSN=&SMPPTF                                              
 //SYSPRINT DD SYSOUT=*                                                          
 //SMPCNTL  DD *                                                                 
   SET BOUNDARY(GLOBAL) .                                                        

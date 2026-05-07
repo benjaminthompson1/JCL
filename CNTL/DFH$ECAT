@@ -9,7 +9,7 @@
 //* AUTH:  Ben               DATE: 2025-07-10                                   
 //* NOTE:  Update dataset prefix to match the CICS installation                 
 //*--------------------------------------------------------------------*        
-//*-- 1: DELETE AND DEFINE CICS EXAMPLE CATALOG KSDS ------------------*
+//*-- 1: DELETE AND DEFINE CICS EXAMPLE CATALOG KSDS ------------------*        
 //DEFKSDS EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                                
 //SYSPRINT DD SYSOUT=*                                                          
 //AMSDUMP  DD SYSOUT=*                                                          
@@ -27,9 +27,9 @@
           ) -                                                                   
           INDEX (NAME(APP.EXMPLAPP.EXMPCAT.INDEX) -                             
           )                                                                     
-/*
-//*
-//*-- 2: LOAD SAMPLE CATALOG DATA INTO VSAM KSDS ----------------------*
+/*                                                                              
+//*                                                                             
+//*-- 2: LOAD SAMPLE CATALOG DATA INTO VSAM KSDS ----------------------*        
 //CPYKSDS  EXEC PGM=IDCAMS,REGION=64M,COND=(0,LT)                               
 //SYSPRINT DD SYSOUT=*                                                          
 //AMSDUMP  DD SYSOUT=*                                                          

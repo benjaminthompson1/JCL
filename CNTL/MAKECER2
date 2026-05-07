@@ -12,7 +12,7 @@
 //* NOTE:  Deletes existing keyrings and certificates before recreating         
 //*        Review and back up existing certificates before running              
 //*--------------------------------------------------------------------*        
-//*-- 1: DELETE CA CERTIFICATE IF IT EXISTS ---------------------------*
+//*-- 1: DELETE CA CERTIFICATE IF IT EXISTS ---------------------------*        
 //STEP010 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
@@ -20,8 +20,8 @@ RACDCERT CERTAUTH DELETE(LABEL('++MY_CA_CERT++')) ID(++USERID++)
 SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
 SETROPTS RACLIST(FACILITY) REFRESH                                              
 /*                                                                              
-//*
-//*-- 2: CREATE CA CERTIFICATE ----------------------------------------*
+//*                                                                             
+//*-- 2: CREATE CA CERTIFICATE ----------------------------------------*        
 //STEP020 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
@@ -35,8 +35,8 @@ WITHLABEL('++MY_CA_CERT++')
 SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
 SETROPTS RACLIST(FACILITY) REFRESH                                              
 /*                                                                              
-//*
-//*-- 3: DELETE NON-CA CERTIFICATE IF IT EXISTS -----------------------*
+//*                                                                             
+//*-- 3: DELETE NON-CA CERTIFICATE IF IT EXISTS -----------------------*        
 //STEP030 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
@@ -44,8 +44,8 @@ RACDCERT ID(++USERID++) DELETE(LABEL('++MY_CERT++')
 SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
 SETROPTS RACLIST(FACILITY) REFRESH                                              
 /*                                                                              
-//*
-//*-- 4: CREATE NON-CA CERTIFICATE SIGNED BY CA CERT ------------------*
+//*                                                                             
+//*-- 4: CREATE NON-CA CERTIFICATE SIGNED BY CA CERT ------------------*        
 //STEP040 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
@@ -61,51 +61,51 @@ ALTNAME(IP(++MY_IP++) DOMAIN('++MY_DOMAIN++'))
 SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
 SETROPTS RACLIST(FACILITY) REFRESH                                              
 /*                                                                              
-//*
-//*-- 5: LIST CA CERTIFICATE ------------------------------------------*
+//*                                                                             
+//*-- 5: LIST CA CERTIFICATE ------------------------------------------*        
 //STEP050 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
 RACDCERT CERTAUTH LIST(LABEL('++MY_CA_CERT++'))                                 
 /*                                                                              
-//*
-//*-- 6: LIST NON-CA CERTIFICATE --------------------------------------*
+//*                                                                             
+//*-- 6: LIST NON-CA CERTIFICATE --------------------------------------*        
 //STEP060 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
 RACDCERT LIST(LABEL('++MY_CERT++')) ID(++USERID++)                              
 /*                                                                              
-//*
-//*-- 7: DELETE KEY RING IF IT EXISTS ---------------------------------*
+//*                                                                             
+//*-- 7: DELETE KEY RING IF IT EXISTS ---------------------------------*        
 //STEP070 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
 RACDCERT ID(++USERID++) DELRING(++MY_KEYRING++)                                 
 /*                                                                              
-//*
-//*-- 8: CREATE KEY RING ----------------------------------------------*
+//*                                                                             
+//*-- 8: CREATE KEY RING ----------------------------------------------*        
 //STEP080 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
 RACDCERT ID(++USERID++) ADDRING(++MY_KEYRING++)                                 
 /*                                                                              
-//*
-//*-- 9: LIST KEY RING ------------------------------------------------*
+//*                                                                             
+//*-- 9: LIST KEY RING ------------------------------------------------*        
 //STEP090 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
 RACDCERT LISTRING(++MY_KEYRING++) ID(++USERID++)                                
 /*                                                                              
-//*
-//*-- 10: CONNECT NON-CA CERT TO KEY RING AS DEFAULT ------------------*
+//*                                                                             
+//*-- 10: CONNECT NON-CA CERT TO KEY RING AS DEFAULT ------------------*        
 //STEP100 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=0M                               
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
 RACDCERT ID(++USERID++) CONNECT(LABEL('++MY_CERT++') -                          
 RING(++MY_KEYRING++) DEFAULT)                                                   
 /*                                                                              
-//*
-//*-- 11: CONNECT CA CERT TO KEY RING ---------------------------------*
+//*                                                                             
+//*-- 11: CONNECT CA CERT TO KEY RING ---------------------------------*        
 //STEP110 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=0M                               
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
@@ -116,15 +116,15 @@ USAGE(CERTAUTH))
 SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH                                     
 SETROPTS RACLIST(FACILITY) REFRESH                                              
 /*                                                                              
-//*
-//*-- 12: DISPLAY KEY RING WITH CONNECTED CERTIFICATES ----------------*
+//*                                                                             
+//*-- 12: DISPLAY KEY RING WITH CONNECTED CERTIFICATES ----------------*        
 //STEP120 EXEC PGM=IKJEFT01,DYNAMNBR=30,REGION=4096K                            
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN DD *                                                                  
 RACDCERT LISTRING(++MY_KEYRING++) ID(++USERID++)                                
 /*                                                                              
-//*
-//*-- 13: EXPORT CA CERTIFICATE TO DATASET FOR DISTRIBUTION -----------*
+//*                                                                             
+//*-- 13: EXPORT CA CERTIFICATE TO DATASET FOR DISTRIBUTION -----------*        
 //STEP130 EXEC PGM=IKJEFT01,DYNAMNBR=50                                         
 //SYSLBC DD DSN=SYS1.BRODCAST,DISP=SHR                                          
 //SYSPRINT DD SYSOUT=*                                                          

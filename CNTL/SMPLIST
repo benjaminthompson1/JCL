@@ -7,9 +7,9 @@
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  Substitute #globalzone; non-destructive, report output only          
 //*--------------------------------------------------------------------*        
-//        SET CSI=#globalzone
-//LISTSMPE EXEC PGM=GIMSMP
-//SMPCSI   DD DISP=SHR,DSN=&CSI                                          
+//        SET CSI=#globalzone                                                   
+//LISTSMPE EXEC PGM=GIMSMP                                                      
+//SMPCSI   DD DISP=SHR,DSN=&CSI                                                 
 //SMPLOG   DD SYSOUT=*                                                          
 //SMPHOLD  DD DUMMY                                                             
 //SMPOUT   DD SYSOUT=*                                                          

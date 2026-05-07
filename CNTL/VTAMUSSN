@@ -9,7 +9,7 @@
 //* AUTH:  Ben               DATE: 2026-04-17                                   
 //* NOTE:  Update SYSLIB, SYSLMOD DSNs and the module name before run           
 //*--------------------------------------------------------------------*        
-//*-- 1: ASSEMBLE VTAM USS TABLE USING ASMA90 -------------------------*
+//*-- 1: ASSEMBLE VTAM USS TABLE USING ASMA90 -------------------------*        
 //ASM      EXEC PGM=ASMA90,                                             00110000
 //         PARM='OBJECT,NODECK,XREF(SHORT)'                             00120000
 //SYSLIB   DD DSN=SYS1.MACLIB,DISP=SHR                                  00130000
@@ -20,8 +20,8 @@
 //         SPACE=(CYL,(1,1)),DISP=(,PASS),                              00180000
 //         DCB=(RECFM=FB,LRECL=80,BLKSIZE=800)                          00190000
 //SYSIN    DD DSN=USER.Z31A.VTAM.SOURCE(USSN),DISP=SHR                  00200000
-//*
-//*-- 2: LINK-EDIT USS TABLE USING IEWL -------------------------------*
+//*                                                                             
+//*-- 2: LINK-EDIT USS TABLE USING IEWL -------------------------------*        
 //LKED     EXEC PGM=IEWL,COND=(4,LT,ASM),                               00240000
 //         PARM='LIST,XREF,RENT,REUS'                                   00250000
 //SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(1,1))                              00260000

@@ -7,7 +7,7 @@
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  Substitute #globalzone and #dlib; PURGE frees SMPPTS space           
 //*--------------------------------------------------------------------*        
-//        SET CSI=#globalzone
+//        SET CSI=#globalzone                                                   
 //RECNTS   EXEC PGM=GIMSMP                                                      
 //SMPCSI   DD DISP=SHR,DSN=&CSI                                                 
 //SMPOUT   DD SYSOUT=*                                                          

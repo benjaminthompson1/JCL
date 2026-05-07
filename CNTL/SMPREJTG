@@ -7,9 +7,9 @@
 //* AUTH:  Ben               DATE: 2025-07-14                                   
 //* NOTE:  Uses CHECK by default; remove CHECK to perform actual reject         
 //*--------------------------------------------------------------------*        
-//        SET CSI=#globalzone
-//RECNTS   EXEC PGM=GIMSMP
-//         PARM='CSI=&CSI'                                               
+//        SET CSI=#globalzone                                                   
+//RECNTS   EXEC PGM=GIMSMP                                                      
+//         PARM='CSI=&CSI'                                                      
 //SMPOUT   DD SYSOUT=*                                                          
 //SMPLOG   DD SYSOUT=*                                                          
 //SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(50,10))                                    
