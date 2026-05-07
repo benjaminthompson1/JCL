@@ -40,8 +40,8 @@ PERMIT 'SEB.*' GENERIC +
       ID(IBMUSER) ACCESS(ALTER)                                                 
                                                                                 
 ADDSD 'SEB.HOME.ZFS' +                                                          
-      OWNER(SEB)     +                                                          
-      UACC(READ)     +                                                          
+      OWNER(SEB) +                                                          
+      UACC(READ) +                                                          
       AUDIT(FAILURES(READ))                                                     
 PERMIT 'SEB.HOME.ZFS' +                                                         
       ID(IBMUSER) ACCESS(ALTER)                                                 
