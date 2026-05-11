@@ -11,10 +11,10 @@
 //SYSPRINT DD   SYSOUT=*                                                        
 //SYSIN    DD   *                                                               
   COPY  FULL -                                                                  
-        INDYN((C3RES1)) -                                                       
+        INDYN((A3RES1)) -                                                       
         OUTDYN((X3RES1))                                                        
   COPY  FULL -                                                                  
-        INDYN((C3RES2)) -                                                       
+        INDYN((A3RES2)) -                                                       
         OUTDYN((X3RES2))                                                        
 /*                                                                              
 //*--------------------------------------------------------------------*        

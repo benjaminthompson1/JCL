@@ -14,18 +14,18 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //AMSDUMP  DD SYSOUT=*                                                          
 //SYSIN DD *                                                                    
-   DELETE APP.EXMPLAPP.EXMPCONF PURGE CLUSTER                                   
+   DELETE LAB.EXMPLLAB.EXMPCONF PURGE CLUSTER                                   
    SET MAXCC=0                                                                  
-   DEFINE CLUSTER (NAME(APP.EXMPLAPP.EXMPCONF)-                                 
+   DEFINE CLUSTER (NAME(LAB.EXMPLLAB.EXMPCONF)-                                 
           TRK(1 1) -                                                            
           KEYS(9 0) -                                                           
           RECORDSIZE(350,350) -                                                 
           SHAREOPTIONS(2 3) -                                                   
           INDEXED -                                                             
           ) -                                                                   
-          DATA (NAME(APP.EXMPLAPP.EXMPCONF.DATA) -                              
+          DATA (NAME(LAB.EXMPLLAB.EXMPCONF.DATA) -                              
           ) -                                                                   
-          INDEX (NAME(APP.EXMPLAPP.EXMPCONF.INDEX) -                            
+          INDEX (NAME(LAB.EXMPLLAB.EXMPCONF.INDEX) -                            
           )                                                                     
 /*                                                                              
 //*                                                                             
@@ -38,7 +38,7 @@ EXMP-CONF VSAM N DFH0XCMN DFH0XSDS DFH0XVDS DFH0XSOD DFH0XWOD DFH0XSSM
 OUTBNDURL http://myserver:80/exampleApp/dispatchOrder                           
 VSAM-NAME EXMPCAT                                                               
 WS-SERVER myserver:99999                                                        
-//OUTFILE  DD DSN=APP.EXMPLAPP.EXMPCONF,DISP=SHR                                
+//OUTFILE  DD DSN=LAB.EXMPLLAB.EXMPCONF,DISP=SHR                                
 //SYSIN DD *                                                                    
  REPRO INFILE(INFILE) OUTFILE(OUTFILE)                                          
 /*                                                                              

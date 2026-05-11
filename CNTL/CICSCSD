@@ -9,14 +9,14 @@
 //*--------------------------------------------------------------------*        
 //STEP1 EXEC PGM=DFHCSDUP,                                                      
 //           PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                        
-//STEPLIB  DD DISP=SHR,DSN=DFH620.CICS.SDFHLOAD                                 
-//DFHCSD   DD DISP=SHR,DSN=DFH620.CICS.DFHCSD                                   
+//STEPLIB  DD DISP=SHR,DSN=DFH630.CICS.SDFHLOAD                                 
+//DFHCSD   DD DISP=SHR,DSN=DFH630.CICS.DFHCSD                                   
 //OUTDD    DD SYSOUT=A                                                          
 //SYSPRINT DD SYSOUT=A                                                          
 //SYSIN    DD *                                                                 
   DEFINE FILE(EXMPCAT) GROUP(ZOFFICE)                                           
   DESCRIPTION(CICS Example Application - Catalog File)                          
-       DSNAME(APP.EXMPLAPP.EXMPCAT)                                             
+       DSNAME(LAB.EXMPLAPP.EXMPCAT)                                             
        LSRPOOLNUM(1) RLSACCESS(NO)                                              
        READINTEG(UNCOMMITTED) DSNSHARING(ALLREQS) STRINGS(1)                    
        STATUS(ENABLED) OPENTIME(FIRSTREF) DISPOSITION(SHARE)                    
@@ -28,7 +28,7 @@
        BACKUPTYPE(STATIC)                                                       
   DEFINE FILE(EXMPCONF) GROUP(ZOFFICE)                                          
   DESCRIPTION(CICS Example Application - Configuration File)                    
-       DSNAME(APP.EXMPLAPP.EXMPCONF)                                            
+       DSNAME(LAB.EXMPLAPP.EXMPCONF)                                            
        RLSACCESS(NO) LSRPOOLNUM(1)                                              
        READINTEG(UNCOMMITTED) DSNSHARING(ALLREQS) STRINGS(1)                    
        STATUS(ENABLED) OPENTIME(FIRSTREF) DISPOSITION(SHARE)                    
