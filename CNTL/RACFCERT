@@ -46,6 +46,7 @@ PROFILE NOPREFIX
     RING(DDSServerKeyring) USAGE(PERSONAL) DEFAULT)                             
                                                                                 
   SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                  
+/*                                                                              
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
 //*--------------------------------------------------------------------*        
