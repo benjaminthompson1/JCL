@@ -187,8 +187,8 @@ RFNJOBH   - Pull service from IBM and RECEIVE to GZONE
 == CICS & OTHER PRODUCT SAMPLES                                                 
 =======================================================================         
 CICSCSD   - Define base CICS application CSD entry                              
-CXPS0200  - JCL Expert: scan a single JCL member                                
-CXPS0201  - JCL Expert: scan an entire JCL library                              
+CXPJCLM   - JCL Expert: scan a single JCL member                                
+CXPJCLX   - JCL Expert: scan an entire JCL library                              
 DFH$ECAT  - Copy from CICS SDFHINST                                             
 DFH$ECNF  - Copy from CICS SDFHINST                                             
 DFHAUX    - Format CICS auxiliary temporary storage datasets                    
