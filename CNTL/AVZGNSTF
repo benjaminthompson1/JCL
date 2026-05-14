@@ -10,19 +10,19 @@
 //DEFSTAFF  EXEC PGM=IDCAMS                                             00330000
 //SYSPRINT  DD SYSOUT=*                                                 00340000
 //SYSIN     DD *                                                        00350000
-  DELETE           'APP.STAFF.VSAM'                                     00360000
+  DELETE           'LAB.STAFF.VSAM'                                     00360000
   SET MAXCC = 0                                                         00370000
-  DEFINE CLUSTER ( NAME('APP.STAFF.VSAM') -                             00380000
+  DEFINE CLUSTER ( NAME('LAB.STAFF.VSAM') -                             00380000
                    SHAREOPTIONS(2,3) -                                  00400000
                    INDEXED -                                            00410000
                    UNIQUE ) -                                           00420000
-            DATA ( NAME('APP.STAFF.VSAM.DATA') -                        00430000
+            DATA ( NAME('LAB.STAFF.VSAM.DATA') -                        00430000
                    CYLINDERS(1 1) -                                     00440000
                    KEYS(2,0) -                                          00450000
                    RECORDSIZE(80,80) -                                  00460000
                    FREESPACE(10,10)  -                                  00470000
                    CISZ(512) ) -                                        00480000
-            INDEX( NAME('APP.STAFF.VSAM.INDEX') -                       00490000
+            INDEX( NAME('LAB.STAFF.VSAM.INDEX') -                       00490000
                    CYLINDERS(1 1) -                                     00500000
                    CISZ(512) )                                          00510000
                                                                         00520000
