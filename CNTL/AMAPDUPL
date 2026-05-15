@@ -3,7 +3,7 @@
 //*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUPDUPL                                                              
-//* DESC:  Upload problem data to IBM using AMAPDUPL                   
+//* DESC:  Upload problem data to IBM using AMAPDUPL                            
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  Update userid, password, CASE, and TARGET_DSN before run             
 //*--------------------------------------------------------------------*        
@@ -17,7 +17,7 @@
 //CEEOPTS  DD *                                                                 
   HEAP(32768,32768,ANYWHERE,FREE,8192,4096)                                     
 /*                                                                              
-//* INPUT DATASET CONTAINING PROBLEM DATA                             
+//* INPUT DATASET CONTAINING PROBLEM DATA                                       
 //SYSUT1   DD DISP=SHR,DSN=IBMUSER.AVZ1.OUTPUTD                                 
 //* PRIMARY CONTROL PARAMETERS FOR UPLOAD                                       
 //SYSIN    DD *                                                                 

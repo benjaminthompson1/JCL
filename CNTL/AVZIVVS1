@@ -7,7 +7,7 @@
 //*        Reload the extracted metrics into the AVZ data store                 
 //* STEPS: 1-DMFEXTR1, 2-DMFEXTR2                                               
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE: Customise SET statements        
+//* NOTE: Customise SET statements                                              
 //*--------------------------------------------------------------------*        
 //*                                                                             
 //* CUSTOMIZE THE FOLLOWING:                                                    

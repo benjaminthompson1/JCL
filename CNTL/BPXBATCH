@@ -2,10 +2,11 @@
 //        NOTIFY=&SYSUID,REGION=4M,TIME=1440                                    
 //*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
-//* JOB:   IUBPXBAT                                                              
+//* JOB:   IUBPXBAT                                                             
+                                                                                
 //* DESC:  Execute USS shell commands in batch via BPXBATCH                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  STDIN USS commands scripts to execute                               
+//* NOTE:  STDIN USS commands scripts to execute                                
 //*--------------------------------------------------------------------*        
 //BPXBATCH EXEC PGM=BPXBATCH                                                    
 //* USS SCRIPT PARAMETERS                                                       
@@ -15,4 +16,4 @@
 //SYSERR   DD SYSOUT=*                                                          
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
-//*--------------------------------------------------------------------*     
+//*--------------------------------------------------------------------*        

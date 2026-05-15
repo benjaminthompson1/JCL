@@ -5,7 +5,7 @@
 //* JOB:   IUBPXCL                                                              
 //* DESC:  Delete ZFS files older than 4 days to free space                     
 //* AUTH:  Ben               DATE: 2026-04-06                                   
-//* NOTE:  Update find path and retention days (-mtime +4)      
+//* NOTE:  Update find path and retention days (-mtime +4)                      
 //*--------------------------------------------------------------------*        
 //CLEARN1 EXEC PGM=IKJEFT1A                                                     
 //SYSEXEC  DD DISP=SHR,DSN=SYS1.SBPXEXEC                                        

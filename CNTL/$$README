@@ -157,9 +157,7 @@ RMFCPU    - RMF post-process CPU utilization
 SMFZERT   - SMF dump TYPE 119 for zERT                                          
 SYSLOG    - Dump SYSLOG to a dataset                                            
 IZUDUUID  - z/OS UUID (zOSMF support)                                           
-OMEGCRT   - OMEGAMON Create - STEP 1                                            
-OMEGDIS   - OMEGAMON Discover - STEP 3                                          
-OMEGGEN   - OMEGAMON Generate - STEP 4                                          
+KFJJMCM   - OMEGAMON Phases: 1-CREATE, 2-DISCOVER, 3-GENERATE                   
                                                                                 
 =======================================================================         
 == UNIX SYSTEM SERVICES (USS)                                                   
