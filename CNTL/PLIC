@@ -1,0 +1,21 @@
+//IUPLIC  JOB (FB3),'PLIC',CLASS=A,MSGCLASS=H,                                  
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUPLIC                                                               
+//* DESC:  Compile a PL/I source program                                        
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  Update the SYSIN DD to point to the PL/I source member               
+//*--------------------------------------------------------------------*        
+// EXPORT SYMLIST=(COPYBK)                                                      
+// SET COPYBK=PLIZPER                                                           
+//PLI      EXEC IBMZC,REGION=0M,PARM='AGGREGATE'                                
+//SYSLIB   DD  DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                               
+//SYSIN    DD  *,SYMBOLS=JCLONLY                                                
+ PICSPLI: PROC OPTIONS(MAIN);                                                   
+ %INCLUDE SYSLIB(&COPYBK);                                                      
+ END;                                                                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

@@ -1,0 +1,21 @@
+//IUBPXCL JOB (FB3),'USS CLEANUP',CLASS=A,MSGCLASS=H,                           
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUBPXCL                                                              
+//* DESC:  Delete ZFS files older than 4 days to free space                     
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  Update find path and retention days (-mtime +4)                      
+//*--------------------------------------------------------------------*        
+//CLEARN1 EXEC PGM=IKJEFT1A                                                     
+//SYSEXEC  DD DISP=SHR,DSN=SYS1.SBPXEXEC                                        
+//SYSLBC   DD DISP=SHR,DSN=SYS1.BRODCAST                                        
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+ PROFILE NOPREFIX MSGID WTPMSG                                                  
+ OSHELL find /global/zwicdata/ +                                                
+        -type f -mtime +4 -exec rm -v {} \;                                     
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

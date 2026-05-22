@@ -1,0 +1,53 @@
+//IUGDKUT JOB (FB3),'GDKUTIL',CLASS=A,MSGCLASS=H,                               
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUGDKUT                                                              
+//* DESC:  Upload a z/OS dataset to S3 object storage via GDKUTIL               
+//*        List objects in the S3 bucket                                        
+//*        Download a dataset from S3 object storage                            
+//* STEPS: 1-MINIO1, 2-MINIO2, 3-MINIO3                                         
+//* AUTH:  Ben               DATE: 2025-06-26                                   
+//* NOTE:  Ensure network connectivity to the S3 endpoint before run            
+//*--------------------------------------------------------------------*        
+//*-- 1: UPLOAD DATASET TO S3 OBJECT STORAGE VIA GDKUTIL --------------*        
+//MINIO1   EXEC PGM=GDKUTIL                                                     
+//SYSIN    DD *                                                                 
+  UPLOAD PROVIDER(MINIO) FORMAT(RECORD) LOG(DEBUG) WEBTOOLKITLOGU               
+/*                                                                              
+//OBJNAME  DD *                                                                 
+  /z31c/z31c_SYSLOG                                                             
+/*                                                                              
+//LOCAL    DD DSN=IBMUSER.SYSLOG.OUTPUTD,DISP=SHR                               
+//SYSOUT   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//*                                                                             
+//*-- 2: LIST OBJECTS IN S3 BUCKET VIA GDKUTIL ------------------------*        
+//MINIO2   EXEC PGM=GDKUTIL                                                     
+//SYSIN    DD *                                                                 
+  LIST PROVIDER(MINIO)                                                          
+/*                                                                              
+//OBJNAME  DD *                                                                 
+  /z31c                                                                         
+/*                                                                              
+//SYSOUT   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//*                                                                             
+//*-- 3: DOWNLOAD DATASET FROM S3 OBJECT STORAGE VIA GDKUTIL ----------*        
+//MINIO3   EXEC PGM=GDKUTIL                                                     
+//SYSIN    DD *                                                                 
+  DOWNLOAD PROVIDER(MINIO)                                                      
+/*                                                                              
+//OBJNAME  DD *                                                                 
+  /z31c/z31c_SYSLOG                                                             
+/*                                                                              
+//LOCAL    DD DSN=IBMUSER.SYSLOG.DOWNLOAD.OUTPUTD,                              
+//            DISP=(NEW,CATLG,DELETE),                                          
+//            UNIT=SYSDA,                                                       
+//            SPACE=(CYL,(1,1)),                                                
+//            DCB=(RECFM=VBA,LRECL=240,BLKSIZE=0)                               
+//SYSOUT   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

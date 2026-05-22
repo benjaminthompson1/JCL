@@ -1,0 +1,9 @@
+# Claude Code local artefacts
+.claude/worktrees/
+.claude/settings.local.json
+
+# JVM diagnostic dumps (z/OS Java)
+core.*.dmp
+heapdump.*.phd
+javacore.*.txt
+Snap.*.trc

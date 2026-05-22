@@ -1,0 +1,27 @@
+//IUDSF01 JOB (FB3),'ICKDSF01',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUDSF01                                                              
+//* DESC:  Initialize a DASD volume using ICKDSF                                
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  Vary the device offline and back online before running               
+//*        Failure to do so may result in I/O errors during init                
+//*--------------------------------------------------------------------*        
+//STEP01  EXEC PGM=ICKDSF,REGION=0M                                             
+//SYSPRINT  DD SYSOUT=*                                                         
+//SYSIN     DD *                                                                
+ INIT -                                                                         
+      MAP                /*  MAP DEFECTS           */ -                         
+      UNIT(VVVV)         /*  ADDRESS               */ -                         
+      NOCHECK -                                                                 
+      CONTINUE -                                                                
+      NOVERIFY           /*  DO NOT CHECK VOLID    */ -                         
+      VTOC(9,0,200)      /*  200 TRK VTOC          */ -                         
+      INDEX(0,1,44)      /*  45 TRK INDEX          */ -                         
+      OWNERID('IBMUSER') -                                                      
+      VOLID(NEWNNN)      /*  NEW VOLID             */                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

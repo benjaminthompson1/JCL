@@ -1,0 +1,21 @@
+//IUJMCM JOB (FB3),'KFJJMCM',CLASS=A,MSGCLASS=H,                                
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUJMCM                                                               
+//* DESC:  Create an OMEGAMON configuration using KCIOMEGA                      
+//*        Phases: 1-CREATE, 2-DISCOVER, 3-GENERATE                             
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  Update STEPLIB and KCIFLOW DSNs for the OMEGAMON installation        
+//*--------------------------------------------------------------------*        
+//KFJJMCM  EXEC PGM=KCIOMEGA,REGION=0M,DYNAMNBR=256                             
+//STEPLIB  DD DISP=SHR,DSN=ZMS220.TKANMOD                                       
+//KCIFLOW  DD DISP=SHR,DSN=ZMS220.TKANCUS(KFJOMEGA)                             
+//KCIVARS  DD *                                                                 
+ACTION            CREATE                                                        
+RTE_NAME          Z32A                                                          
+RTE_PLIB_HILEV    OMEGAMON                                                      
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

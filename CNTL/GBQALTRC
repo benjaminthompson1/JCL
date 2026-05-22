@@ -1,0 +1,19 @@
+//IUALTRC JOB (FB3),'GBQALTRC',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUALTRC                                                              
+//* DESC:  Allocate IBM Z DFSMS Cloud Data Manager trace datasets               
+//* AUTH:  Ben               DATE: 2025-08-25                                   
+//* NOTE:  Update HLQ CDM.V1R2M0.GBQS0W1 and STORCLAS as required               
+//*--------------------------------------------------------------------*        
+//ALLOC    EXEC  PGM=IEFBR14                                                    
+//GBQTRC1  DD DISP=(,CATLG),DSN=CDM.V1R2M0.GBQS0W1.TRACE1,                      
+//         LRECL=4096,RECFM=VB,DSORG=PS,                                        
+//         SPACE=(CYL,(100))                                                    
+//GBQTRC2  DD DISP=(,CATLG),DSN=CDM.V1R2M0.GBQS0W1.TRACE2,                      
+//         LRECL=4096,RECFM=VB,DSORG=PS,                                        
+//         SPACE=(CYL,(100))                                                    
+//*********************************************************************         
+//* End of Job                                                                  
+//*********************************************************************         

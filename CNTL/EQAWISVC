@@ -1,0 +1,24 @@
+//IUWISVC JOB (FB3),'EQAWISVC',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUWISVC                                                              
+//* DESC:  Install z/OS Debugger SVCs into a running z/OS system                
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  EQAINSVC must reside in an APF-authorized library                    
+//*--------------------------------------------------------------------*        
+//*                                                                             
+//*--------------------------------------------------------------------*        
+//* Run the program                                                             
+//*--------------------------------------------------------------------*        
+//*                                                                             
+//STEP10   EXEC PGM=EQAINSVC                                                    
+//STEPLIB  DD   DISP=SHR,DSN=ISM403.SEQAAUTH                                    
+//LOADLIB  DD   DISP=SHR,DSN=ISM403.SEQAAUTH                                    
+//SYSUDUMP DD   SYSOUT=*                                                        
+//*                                                                             
+//*                ========> END OF JOB EQAWISVC <========                      
+//                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

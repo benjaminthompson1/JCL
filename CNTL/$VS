@@ -1,0 +1,2 @@
+/*$VS,'SEND "MESSAGE TEXT",USER=(IBMUSER)'                                      
+/*$VS,'$D SPOOL'                                                                

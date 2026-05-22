@@ -1,0 +1,45 @@
+//IURACFZ JOB (FB3),'RACF CERT',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IURACFZ                                                              
+//* DESC:  Create and manage digital certificates using RACF                    
+//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* NOTE:  Update CA label, keyring, subject DN, and ALTNAME before use         
+//*--------------------------------------------------------------------*        
+//RACFSTC  EXEC PGM=IKJEFT1A,DYNAMNBR=75,TIME=100,REGION=6M                     
+//SYSTERM  DD DUMMY                                                             
+//STDOUT   DD SYSOUT=*                                                          
+//STDERR   DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDIN    DD *                                                                 
+//STDENV   DD *                                                                 
+//SYSTSIN  DD *                                                                 
+PROFILE NOPREFIX                                                                
+                                                                                
+  RACDCERT ID(STCAPI) GENCERT +                                                 
+    SUBJECTSDN(CN('S0W1.DAL-EBIS.IHOST.COM') +                                  
+    OU('DTSC') +                                                                
+    O('IBM')) +                                                                 
+    SIZE(2048) +                                                                
+    WITHLABEL('RSEAPI.CERT.S0W1') +                                             
+    SIGNWITH(CERTAUTH LABEL('BaseCA')) +                                        
+    NOTAFTER(DATE(2050/01/02)) +                                                
+    ALTNAME(IP(192.168.1.171) +                                                 
+    DOMAIN('s0w1.dal-ebis.ihost.com') +                                         
+    URI('s0w1.dal-ebis.ihost.com'))                                             
+                                                                                
+  RACDCERT ID(STCAPI) ADDRING(RSEAPIKeyring)                                    
+                                                                                
+  RACDCERT ID(STCAPI) CONNECT(CERTAUTH LABEL('BaseCA') +                        
+    RING(RSEAPIKeyring) USAGE(CERTAUTH))                                        
+                                                                                
+  RACDCERT ID(STCAPI) CONNECT(ID(STCAPI) LABEL('RSEAPI.CERT.S0W1') +            
+    RING(RSEAPIKeyring) USAGE(PERSONAL) DEFAULT)                                
+                                                                                
+  SETROPTS RACLIST(DIGTCERT, DIGTRING) REFRESH                                  
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

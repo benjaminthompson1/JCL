@@ -1,0 +1,22 @@
+//IURSCPY JOB (FB3),'RESCOPYX',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IURSCPY                                                              
+//* DESC:  Restore a DFSMSdss backup to an alternate volume                     
+//* AUTH:  Ben               DATE: 2025-08-21                                   
+//* NOTE:  Ensure target IPL RESVOL volumes are not in use before running       
+//*--------------------------------------------------------------------*        
+//RESCOPYY EXEC PGM=ADRDSSU                                                     
+//SYSPRINT DD   SYSOUT=*                                                        
+//SYSIN    DD   *                                                               
+  COPY  FULL -                                                                  
+        INDYN((A3RES1)) -                                                       
+        OUTDYN((Y3RES1))                                                        
+  COPY  FULL -                                                                  
+        INDYN((A3RES2)) -                                                       
+        OUTDYN((Y3RES2))                                                        
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                         *        
+//*--------------------------------------------------------------------*        

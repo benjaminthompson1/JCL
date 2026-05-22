@@ -1,0 +1,28 @@
+//IUJCLM JOB (FB3),'JCLX MEMBER',CLASS=A,MSGCLASS=H,                            
+//            NOTIFY=&SYSUID,REGION=0M,TIME=1440                                
+//*           TYPRUN=HOLD                                                       
+//*--------------------------------------------------------------------*        
+//* JOB:   IUJCLM                                                      *        
+//* DESC:  Run IBM Z JCL Expert against a single JCL member            *        
+//*        Uses CXPJCLB batch executable (based on IBM sample CXPS0200)*        
+//* STEPS: 1-JCLXPERT                                                  *        
+//* AUTH:  Ben               DATE: 2026-05-13                          *        
+//* NOTE:  Set CXPHLQ (product HLQ), CXPPATH (zFS mount) and JCLMEMB   *        
+//*        (fully qualified PDS(MEMBER)) before submitting             *        
+//*--------------------------------------------------------------------*        
+//*                                                                             
+//         SET CXPHLQ=JCL.V2R1M0                                                
+//         SET CXPPATH='/var/jclexpert'                                         
+//         SET JCLMEMB=IBMUSER.CNTL(CXPJCLX)                                    
+//*                                                                             
+//JCLXPERT EXEC PGM=CXPJCLB,PARM='/OUTPUT=TEXT'                                 
+//STEPLIB  DD  DSN=&CXPHLQ..SCXPLOAD,DISP=SHR                                   
+//CXPHOME  DD  PATH='&CXPPATH',PATHOPTS=ORDONLY                                 
+//INDD     DD  DSN=&JCLMEMB,DISP=SHR                                            
+//SYSPRINT DD  SYSOUT=*                                                         
+//CEEOPTS  DD  *                                                                
+  POSIX(ON)                                                                     
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                         *        
+//*--------------------------------------------------------------------*        

@@ -1,0 +1,24 @@
+//IUDFHA JOB (FB3),'DFHAUX',CLASS=A,MSGCLASS=H,                                 
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUDFHA                                                               
+//* DESC:  Format CICS auxiliary temporary storage datasets                     
+//* AUTH:  Ben               DATE: 2025-07-25                                   
+//* NOTE:  Update DFHAUXT and DFHBUXT DSN to match the CICS installation        
+//*--------------------------------------------------------------------*        
+//DFHTU660 EXEC PGM=DFHTU750,REGION=5M                                          
+//STEPLIB  DD DISP=SHR,DSN=DFH620.CICS.SDFHLOAD                                 
+//         DD DISP=SHR,DSN=DFH620.CICS.SDFHLINK                                 
+//DFHAUXT  DD DISP=SHR,DSN=DFH620.CICS.DFHAUXT                                  
+//DFHBUXT  DD DISP=SHR,DSN=DFH620.CICS.DFHBUXT                                  
+//DFHAXPRT DD SYSOUT=*,HOLD=YES                                                 
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSABEND DD SYSOUT=*                                                          
+//SYSABOUT DD SYSOUT=*                                                          
+//DFHAXPRM DD *                                                                 
+FULL                                                                            
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

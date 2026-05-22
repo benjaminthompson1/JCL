@@ -1,0 +1,25 @@
+//IUMIAPU JOB (FB3),'IXCMIAPU',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUMIAPU                                                              
+//* DESC:  Define a sysplex couple dataset using IXCMIAPU                       
+//* AUTH:  Ben               DATE: 2025-06-17                                   
+//* NOTE:  Update system name S0W1 and retention settings as needed             
+//*--------------------------------------------------------------------*        
+//CREATE   EXEC PGM=IXCMIAPU                                                    
+//SYSPRINT DD   SYSOUT=*                                                        
+//SYSIN    DD   *                                                               
+  DATA TYPE(LOGR)                                                               
+  DEFINE LOGSTREAM NAME(IFASMF.SMFALL.S0W1)                                     
+  DASDONLY(YES)                                                                 
+  STG_SIZE(12800)                                                               
+  LS_SIZE(180000)                                                               
+  AUTODELETE(YES)                                                               
+  RETPD(2)                                                                      
+  HIGHOFFLOAD(60)                                                               
+  LOWOFFLOAD(35)                                                                
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

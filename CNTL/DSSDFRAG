@@ -1,0 +1,20 @@
+//IUDFRAG JOB (FB3),'DSSDFRAG',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUDFRAG                                                              
+//* DESC:  Defragment a DASD volume using DFSMSdss                              
+//* AUTH:  Ben               DATE: 2026-02-11                                   
+//* NOTE:  Remove TYPRUN=NORUN from PARM to perform defragmentation             
+//*--------------------------------------------------------------------*        
+//DSSDFRAG EXEC PGM=ADRDSSU,REGION=0M PARM='TYPRUN=NORUN'                       
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSIN    DD *                                                                 
+   DEFRAG DYNAM(A3USR1) WRC                                                     
+   DEFRAG DYNAM(A3USR2) WRC                                                     
+   DEFRAG DYNAM(A3USR3) WRC                                                     
+   DEFRAG DYNAM(A3USR4) WRC                                                     
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

@@ -1,0 +1,25 @@
+//IUSYSLG JOB (FB3),'SYSLOG EXTRACT',CLASS=A,MSGCLASS=H,                        
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUSYSLG                                                              
+//* DESC:  Dump the JES syslog to a sequential dataset                          
+//* AUTH:  Ben               DATE: 2025-07-14                                   
+//* NOTE:  Customize output DSN and time range before run                       
+//*        Requires SDSF LOG and PT authority to access the syslog              
+//*--------------------------------------------------------------------*        
+//DUMPLOG  EXEC PGM=ISFAFD,DYNAMNBR=150,PARM='++122,1000'                       
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSOUT   DD SYSOUT=*                                                          
+//ISFOUT   DD DSN=IBMUSER.SYSLOG.TEMP,                                          
+//            DISP=(NEW,CATLG,DELETE),                                          
+//            UNIT=DISK,SPACE=(CYL,(100,100),RLSE)                              
+//ISFIN    DD *                                                                 
+LOG S                                                                           
+PT ODSN 'IBMUSER.SYSLOG.TEMP' * SHR                                             
+PT 00.01.00 05/20/2023 05.28.00 07/20/2023                                      
+CLOSE                                                                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        

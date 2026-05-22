@@ -1,0 +1,37 @@
+//IUXMIT JOB (FB3),'XMIT TERSE',CLASS=A,MSGCLASS=H,                             
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*       TYPRUN=HOLD                                                           
+//*--------------------------------------------------------------------*        
+//* JOB:   IUXMIT                                                               
+//* DESC:  Delete the prior XMIT output dataset                                 
+//*        Transmit a PDS library to an XMIT format dataset                     
+//*        Compress the XMIT dataset using AMATERSE PACK                        
+//* STEPS: 1-DELETE, 2-XMIT, 3-AMATERSE                                         
+//* AUTH:  Ben               DATE: 2026-04-17                                   
+//* NOTE:  Update source library DSN and target XMIT dataset names              
+//*--------------------------------------------------------------------*        
+//*-- 1: DELETE EXISTING XMIT OUTPUT DATASET --------------------------*        
+//DELETE   EXEC  PGM=IEFBR14                                                    
+//FILE     DD DISP=(MOD,DELETE),DSN=IBMUSER.COBOL.LOAD.XMIT,                    
+//            UNIT=SYSDA,SPACE=(TRK,1)                                          
+//*-- 2: TRANSMIT LOAD LIBRARY TO XMIT FORMAT -------------------------*        
+//XMIT     EXEC PGM=IKJEFT01,REGION=4M,COND=(0,NE)                              
+//FILEIN   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
+//FILEOUT  DD DSN=IBMUSER.COBOL.LOAD.XMIT,                                      
+//            DISP=(NEW,CATLG),UNIT=SYSDA,                                      
+//            SPACE=(TRK,(1,1),RLSE)                                            
+//SYSTSIN  DD *                                                                 
+  XMIT A.B FILE(FILEIN) OUTFILE(FILEOUT) -                                      
+       SYSOUT(Z) NOEPILOG NOLOG NOPROLOG                                        
+//SYSTSPRT DD SYSOUT=*                                                          
+//*                                                                             
+//*-- 3: PACK XMIT FILE USING AMATERSE --------------------------------*        
+//AMATERSE EXEC PGM=AMATERSE,PARM=PACK                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD.XMIT                              
+//SYSUT2   DD DSN=IBMUSER.COBOL.LOAD.XMIT.TRS,                                  
+//            DISP=(NEW,CATLG),UNIT=SYSDA,                                      
+//            SPACE=(TRK,(1,1),RLSE)                                            
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
