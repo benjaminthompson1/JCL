@@ -84,7 +84,7 @@ HLASM     - Compile and link HLASM
 REXX      - Submit REXX in batch                                                
 REXXC     - Run compiled REXX exec in batch                                     
 REXXCOMP  - Compile REXX exec using the REXX compiler                           
-JVMJCL17  - JZOS V17 batch Java                                                 
+JVMJCL21  - JZOS V21 batch Java                                                 
 PYTHON    - IVP Batch Python                                                    
 PICSCALC  - PL/I bit offsets for DVM DFAT EXIT                                  
                                                                                 

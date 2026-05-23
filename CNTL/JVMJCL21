@@ -3,11 +3,11 @@
 //*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
 //* JOB:   IUJZOSA                                                              
-//* DESC:  Run a Java application using JZOS JVM launcher (v17)                 
+//* DESC:  Run a Java application using JZOS JVM launcher (v21)                 
 //* AUTH:  Ben               DATE: 2025-08-04                                   
-//* NOTE:  Ensure PROC=JVMPRC17 is available and Java 17 is installed           
+//* NOTE:  Ensure PROC=JVMPRC21 is available and Java 21 is installed           
 //*--------------------------------------------------------------------*        
-//JAVA EXEC PROC=JVMPRC17,                                                      
+//JAVA EXEC PROC=JVMPRC21,                                                      
 // JAVACLS='com.ibm.jzos.sample.HelloWorld'                                     
 //STDENV DD *                                                                   
 #--------------------------------------------------------------------           
@@ -15,7 +15,7 @@
 #--------------------------------------------------------------------           
                                                                                 
 . /etc/profile                                                                  
-export JAVA_HOME=/usr/lpp/java/J17.0_64                                         
+export JAVA_HOME=/usr/lpp/java/J21.0_64                                         
                                                                                 
 export PATH=/bin:"${JAVA_HOME}"/bin                                             
 LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin                                        
@@ -42,7 +42,7 @@ export CLASSPATH="$CLASSPATH":
 #export JZOS_MAIN_ARGS=""                                                       
                                                                                 
 # Configure JVM options                                                         
-IJO="-Xms16m -Xmx128m"                                                          
+IJO="-Xms16m -Xmx128m -Dfile.encoding=COMPAT"                                   
 # Uncomment the following to aid in debugging "Class Not Found" problems        
 #IJO="$IJO -verbose:class"                                                      
 # Uncomment the following if you want to run with Ascii file encoding..         
