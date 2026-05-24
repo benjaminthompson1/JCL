@@ -9,7 +9,7 @@
 //*--------------------------------------------------------------------*        
 //DB2RUN EXEC PGM=IKJEFT01,DYNAMNBR=20                                          
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
-//         DD DISP=SHR,DSN=ISM403.SEQAMOD                                       
+//         DD DISP=SHR,DSN=ISM500.SEQAMOD                                       
 //         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
