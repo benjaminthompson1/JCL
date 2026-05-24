@@ -9,9 +9,9 @@
 //*--------------------------------------------------------------------*        
 //* STEP: DEFINE LIBRARIES FOR PROGRAM EXECUTION                                
 //*--------------------------------------------------------------------*        
-//JOBLIB   DD DSN=CSQ911.SCSQLOAD,DISP=SHR                                      
-//         DD DSN=CSQ911.SCSQANLE,DISP=SHR                                      
-//         DD DSN=CSQ911.SCSQAUTH,DISP=SHR                                      
+//JOBLIB   DD DSN=CSQ920.SCSQLOAD,DISP=SHR                                      
+//         DD DSN=CSQ920.SCSQANLE,DISP=SHR                                      
+//         DD DSN=CSQ920.SCSQAUTH,DISP=SHR                                      
 //*--------------------------------------------------------------------*        
 //* STEP: PUT MESSAGES TO MQ QUEUE USING CSQ4BVK1                               
 //*--------------------------------------------------------------------*        

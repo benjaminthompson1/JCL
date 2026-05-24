@@ -11,7 +11,7 @@
 //* STEP: EXECUTE MQSC COMMANDS VIA CSQUTIL                                     
 //*--------------------------------------------------------------------*        
 //CQSUTIL  EXEC PGM=CSQUTIL,PARM='CSQ9'                                         
-//STEPLIB  DD DISP=SHR,DSN=CSQ911.SCSQANLE                                      
+//STEPLIB  DD DISP=SHR,DSN=CSQ920.SCSQANLE                                      
 //SYSPRINT DD SYSOUT=*                                                          
 //*--------------------------------------------------------------------*        
 //* OPTIONAL: GENERATE DEFINE/ALTER/REPLACE COMMANDS TO OUTPUT1                 

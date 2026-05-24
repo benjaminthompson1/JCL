@@ -8,7 +8,7 @@
 //* NOTE:  Set GOPGM= to the target COBOL program name before run               
 //*--------------------------------------------------------------------*        
 //COBCBG1 EXEC IGYQCBG,                                                         
-//             LNGPRFX=IGY640,                                                  
+//             LNGPRFX=IGY650,                                                  
 //             LIBPRF1=CEE,                                                     
 //*            GPARM='/TEST(,,,TCPIP&10.1.1.86%8001:*)',                        
 //             GOPGM=HELLOW                                                     
@@ -19,7 +19,7 @@
 //BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.OBJECT(&GOPGM)                 
 //BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD(&GOPGM)                   
 //GO.STEPLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                           
-//             DD DISP=SHR,DSN=ISM403.SEQAMOD                                   
+//             DD DISP=SHR,DSN=ISM500.SEQAMOD                                   
 //* OPTIONAL RUNTIME DD STATEMENTS FOR PROGRAM INPUT/OUTPUT                     
 //*GO.STDNTCRS   DD DISP=SHR,DSN=IBMUSER.COBOL.STUDENT.COURSES                  
 //*GO.STCRSRPT   DD SYSOUT=*                                                    

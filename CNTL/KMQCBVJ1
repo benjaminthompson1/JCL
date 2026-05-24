@@ -12,14 +12,14 @@
 //             BPARM='XREF,MAP,DYNAM=DLL',                                      
 //             GOPGM=CSQ4BVJ1                                                   
 //COBOL.SYSLIB DD DISP=SHR,DSN=IBMUSER.COBOL.COPYLIB                            
-//             DD DISP=SHR,DSN=CSQ911.SCSQCOBC                                  
-//COBOL.SYSIN  DD DISP=SHR,DSN=CSQ911.SCSQCOBS(&GOPGM)                          
+//             DD DISP=SHR,DSN=CSQ920.SCSQCOBC                                  
+//COBOL.SYSIN  DD DISP=SHR,DSN=CSQ920.SCSQCOBS(&GOPGM)                          
 //COBOL.SYSLIN DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
 //BIND.SYSLIB  DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD                               
 //BIND.SYSOBJ  DD DISP=SHR,DSN=CEE.SCEEOBJ                                      
-//             DD DISP=SHR,DSN=CSQ911.SCSQDEFS                                  
+//             DD DISP=SHR,DSN=CSQ920.SCSQDEFS                                  
 //BIND.SYSLIN  DD DISP=SHR,DSN=IBMUSER.COBOL.OBJECT(&GOPGM)                     
-//             DD DISP=SHR,DSN=CSQ911.SCSQLOAD(CSQBSTUB)                        
+//             DD DISP=SHR,DSN=CSQ920.SCSQLOAD(CSQBSTUB)                        
 //BIND.SYSLMOD DD DISP=SHR,DSN=IBMUSER.COBOL.LOAD(&GOPGM)                       
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  

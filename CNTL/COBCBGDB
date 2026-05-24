@@ -12,7 +12,7 @@
 //*--------------------------------------------------------------------*        
 //*-- 1: COMPILE AND BIND PROGRAM WITH DB2 SUPPORT --------------------*        
 //COMPILE EXEC IGYQCB,                                                          
-//             LNGPRFX=IGY640,                                                  
+//             LNGPRFX=IGY650,                                                  
 //             LIBPRF1=CEE,                                                     
 //             BPARM='DYNAM=NO',                                                
 //             GOPGM=ORGREP                                                     
@@ -43,7 +43,7 @@
 //*-- 3: RUN PROGRAM WITH DEBUG TOOL ENABLED --------------------------*        
 //DB2RUN EXEC PGM=IKJEFT01,REGION=0M,DYNAMNBR=20                                
 //STEPLIB  DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
-//         DD DISP=SHR,DSN=ISM403.SEQAMOD                                       
+//         DD DISP=SHR,DSN=ISM500.SEQAMOD                                       
 //         DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.LOAD                               
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN  DD *                                                                 

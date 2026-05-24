@@ -11,8 +11,8 @@
 //*--------------------------------------------------------------------*        
 //*-- 1: EXTRACT COMMITTED MESSAGES FROM MQ ARCHIVE LOG ---------------*        
 //PRTLOG   EXEC PGM=CSQ1LOGP                                                    
-//STEPLIB  DD DISP=SHR,DSN=CSQ911.SCSQANLE                                      
-//         DD DISP=SHR,DSN=CSQ911.SCSQLOAD                                      
+//STEPLIB  DD DISP=SHR,DSN=CSQ920.SCSQANLE                                      
+//         DD DISP=SHR,DSN=CSQ920.SCSQLOAD                                      
 //*--------------------------------------------------------------------*        
 //* INPUT: MQ ARCHIVE LOG DATASET                                               
 //*--------------------------------------------------------------------*        

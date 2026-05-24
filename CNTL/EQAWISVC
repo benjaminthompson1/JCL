@@ -13,8 +13,8 @@
 //*--------------------------------------------------------------------*        
 //*                                                                             
 //STEP10   EXEC PGM=EQAINSVC                                                    
-//STEPLIB  DD   DISP=SHR,DSN=ISM403.SEQAAUTH                                    
-//LOADLIB  DD   DISP=SHR,DSN=ISM403.SEQAAUTH                                    
+//STEPLIB  DD   DISP=SHR,DSN=ISM500.SEQAAUTH                                    
+//LOADLIB  DD   DISP=SHR,DSN=ISM500.SEQAAUTH                                    
 //SYSUDUMP DD   SYSOUT=*                                                        
 //*                                                                             
 //*                ========> END OF JOB EQAWISVC <========                      

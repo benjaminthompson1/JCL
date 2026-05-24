@@ -8,8 +8,8 @@
 //* NOTE:  Update queue manager name in EXEC PARM before run                    
 //*--------------------------------------------------------------------*        
 //JOBLIB   DD   DSN=IBMUSER.COBOL.LOAD,DISP=SHR                                 
-//         DD   DSN=CSQ911.SCSQANLE,DISP=SHR                                    
-//         DD   DSN=CSQ911.SCSQAUTH,DISP=SHR                                    
+//         DD   DSN=CSQ920.SCSQANLE,DISP=SHR                                    
+//         DD   DSN=CSQ920.SCSQAUTH,DISP=SHR                                    
 //*                                                                             
 //GETMSGS  EXEC PGM=CSQ4BVJ1,REGION=1024K,                                      
 //  PARM=('CSQ9,KMQ.ANSIBLE.TEST,99,D,S')                                       

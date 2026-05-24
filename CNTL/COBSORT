@@ -24,7 +24,7 @@
 //*                                                                             
 //*-- 2: COMPILE, BIND AND EXECUTE CNTRLBRK COBOL PROGRAM -------------*        
 //COBCBG1 EXEC IGYQCBG,                                                         
-//             LNGPRFX=IGY640,                                                  
+//             LNGPRFX=IGY650,                                                  
 //             LIBPRF1=CEE,                                                     
 //             CPARM='TEST',                                                    
 //             GPARM='/TEST(,,,TCPIP&10.1.1.36%8001:*)',                        
