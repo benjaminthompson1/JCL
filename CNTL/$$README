@@ -1,6 +1,6 @@
 $$README contents of IBMUSER.GIT.JCL.CNTL                                       
 =======================================================================         
-Last updated: 2026-04-02                                                        
+Last updated: 2026-05-25                                                        
                                                                                 
 This library contains sample and utility JCL.                                   
 Members are grouped by category for easier navigation.                          
@@ -189,7 +189,8 @@ CXPJCLM   - JCL Expert: scan a single JCL member
 CXPJCLX   - JCL Expert: scan an entire JCL library                              
 DFH$ECAT  - Copy from CICS SDFHINST                                             
 DFH$ECNF  - Copy from CICS SDFHINST                                             
-DFHAUX    - Format CICS auxiliary temporary storage datasets                    
+DFHAUX    - Format CICS auxiliary temporary storage datasets
+DFHIJVMS  - Create customised CICS JVM server profiles in USS JVMProfiles dir
 EQAPRFSU  - z/OS Debugger: configure Debug Profile Service                      
 EQARMTSU  - z/OS Debugger: configure Remote Debug Service                       
 EQAWCCSD  - z/OS Debugger: define CICS programs and transactions                
