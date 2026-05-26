@@ -2,10 +2,11 @@
 //       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
 //*       TYPRUN=HOLD                                                           
 //*--------------------------------------------------------------------*        
-//* JOB:   IUDSSMVE                                                             
+//* JOB:   IUDSSMV                                                              
 //* DESC:  Move datasets to a target volume using DFSMSdss                      
-//* AUTH:  Ben               DATE: 2026-04-06                                   
+//* AUTH:  Ben               DATE: 2026-05-26                                   
 //* NOTE:  Remove TYPRUN=NORUN from PARM to perform the actual move             
+//*        Uncomment optional parameters as needed                              
 //*--------------------------------------------------------------------*        
 //MOVE     EXEC PGM=ADRDSSU,REGION=0M,PARM='TYPRUN=NORUN'                       
 //FROMVOL  DD  UNIT=SYSDA,VOL=SER=A4USR1,DISP=SHR                               
@@ -26,12 +27,16 @@
   DYNALLOC    -                                                                 
   OPT(4) TOL(ENQF) -                                                            
   WAIT(10,10) -                                                                 
-  ADMINISTRATOR                                                                 
-/*                                                                              
+  ADMINISTRATOR   
+/*                                                                  
+//*--------------------------------------------------------------------*        
+//* OPTIONAL: Specify target storage class (SMS-managed)                        
+//*--------------------------------------------------------------------*        
+//*  STORCLAS(STGMGMT) -                                                        
+//*--------------------------------------------------------------------*        
+//* OPTIONAL: Specify target volume(s) for non-SMS datasets                     
+//*--------------------------------------------------------------------*        
+//*  OUTDYNAM((TMM201)) - 
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
 //*--------------------------------------------------------------------*        
-                                                                                
-//                                                                              
-  STORCLAS(STGMGMT) -                                                           
-  OUTDYNAM((TMM201)) -                                                          

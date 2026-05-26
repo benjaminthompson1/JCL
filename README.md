@@ -68,8 +68,8 @@ See `$$DOCJCL` for the full style reference.
 - `CSQLOGP1` - Print the MQ active log using CSQ1LOGP
 - `CSQLOGP2` - Print and sort committed messages from the MQ active log
 - `CSQUTIL` - Run MQ utility commands against a queue manager
-- `CXPS0200` - Scan a single JCL member for errors using JCL Expert
-- `CXPS0201` - Scan an entire JCL library for errors using JCL Expert
+- `CXPJCLM` - Scan a single JCL member for errors using JCL Expert
+- `CXPJCLX` - Scan an entire JCL library for errors using JCL Expert
 - `DCATTEST` - Create a test dataset and verify distributed catalog access
 - `DCOLLECT` - Collect dataset and volume data using IDCAMS DCOLLECT
 - `DFH$ECAT` - Define and populate the CICS extended catalog VSAM dataset
@@ -134,7 +134,7 @@ See `$$DOCJCL` for the full style reference.
 - `IZUNASEC` - Define RACF security profiles for z/OSMF
 - `JES2CKPT` - Create JES2 checkpoint datasets
 - `JES2VFY` - Verify JES2 parm syntax in test mode
-- `JVMJCL17` - Run a Java application using JZOS JVM launcher (v17)
+- `JVMJCL21` - Run a Java application using JZOS JVM launcher (v21)
 - `KMQCBVJ1` - Compile and link the MQ CSQ4BVJ1 get-messages sample
 - `KMQCBVK1` - Compile and link the MQ CSQ4BVK1 put-messages sample
 - `KMQGBVJ1` - Get and print messages from an MQ queue using CSQ4BVJ1
@@ -195,7 +195,7 @@ See `$$DOCJCL` for the full style reference.
 | **COBOL compilation** | `COBC`, `COBCB`, `COBCBG`, `COBCBDB`, `COBCBGDB`, `COBCBMQ` |
 | **COBOL execution** | `COBRUN`, `COBRUNDB`, `COBRUNGH`, `COBSORT` |
 | **Other compilation** | `PLIC`, `HLASM`, `REXXCOMP` |
-| **REXX, Java & Python** | `REXX`, `REXXC`, `JVMJCL17`, `PYTHON` |
+| **REXX, Java & Python** | `REXX`, `REXXC`, `JVMJCL21`, `PYTHON` |
 | **Db2 & SQL Data Insights** | `DSNBIND`, `DSNREST`, `DSNTIJRS`, `DSNTIJR2`, `DSNTIJAI`, `DSNTIJAV`, `DSNTIJTC`, `CRDB2ARC` |
 | **DVM** | `AVZBINDD`, `AVZIVVS1`, `AVZGNSTF`, `AVZRADB2`, `DVMSQL` |
 | **MQ** | `CSQUTIL`, `CSQ4BCLR`, `CSQ4BVJR`, `CSQLOGP1`, `CSQLOGP2`, `KMQCBVJ1`, `KMQCBVK1`, `KMQGBVJ1`, `KMQPBVK1` |
@@ -214,5 +214,5 @@ See `$$DOCJCL` for the full style reference.
 | **JES2** | `JES2CKPT`, `JES2VFY` |
 | **USS** | `BPXBATCH`, `BPXCLEAN` |
 | **VTP** | `BZUDUMP`, `BZUPLAY`, `BZUREC` |
-| **JCL Expert** | `CXPS0200`, `CXPS0201` |
+| **JCL Expert** | `CXPJCLM`, `CXPJCLX` |
 | **Miscellaneous** | `AMAPDUPL`, `ICKDSF01`, `ISCJCL86`, `PICSCALC`, `VTAMUSSN`, `UJ04501`, `ACBJBARD` |

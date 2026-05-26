@@ -73,7 +73,7 @@
 //*                - Target volume
 //*                  (May be removed for SMS managed data sets)
 //*
-//* /usr/lpp/java/J21.0_64/
+//* java/J21.0_64
 //*                - Names of the java directories under /usr/lpp
 //*
 //*
@@ -94,8 +94,8 @@
     DFH630.CICS.SDFHENV +
     DFH630.CICS.XDFHENV +
     DFHJVMAX +
-     cicsts63 +
-    /usr/lpp/java/J21.0_64/ +
+    cicsts63 +
+    java/J21.0_64 +
  /usr/lpp/cicsts/cicsts63/JVMProfiles/DFHJVMAX.jvmprofile
 /*
 //*
@@ -109,8 +109,8 @@
     DFH630.CICS.SDFHENV +
     DFH630.CICS.XDFHENV +
     DFHOSGI +
-     cicsts63 +
-    /usr/lpp/java/J21.0_64/ +
+    cicsts63 +
+    java/J21.0_64 +
  /usr/lpp/cicsts/cicsts63/JVMProfiles/DFHOSGI.jvmprofile
 /*
 //*
@@ -123,8 +123,8 @@
     DFH630.CICS.SDFHENV +
     DFH630.CICS.XDFHENV +
     DFHWLP +
-     cicsts63 +
-    /usr/lpp/java/J21.0_64/ +
+    cicsts63 +
+    java/J21.0_64 +
  /usr/lpp/cicsts/cicsts63/JVMProfiles/DFHWLP.jvmprofile
 /*
 //*
@@ -137,8 +137,8 @@
     DFH630.CICS.SDFHENV +
     DFH630.CICS.XDFHENV +
     EYUCMCIJ +
-     cicsts63 +
-    /usr/lpp/java/J21.0_64/ +
+    cicsts63 +
+    java/J21.0_64 +
  /usr/lpp/cicsts/cicsts63/JVMProfiles/EYUCMCIJ.jvmprofile
 /*
 //*@PH35122A
@@ -151,8 +151,8 @@
     DFH630.CICS.SDFHENV +
     DFH630.CICS.XDFHENV +
     EYUSMSSJ +
-     cicsts63 +
-    /usr/lpp/java/J21.0_64/ +
+    cicsts63 +
+    java/J21.0_64 +
  /usr/lpp/cicsts/cicsts63/JVMProfiles/EYUSMSSJ.jvmprofile
 /*
 //*--------------------------------------------------------------------*
