@@ -108,7 +108,7 @@
 //         SET SVRPATH='/usr/lpp/IBM/debug'                                     
 //         SET CFGDIR='/etc/debug'                                              
 //         SET WRKDIR='/var/debug'                                              
-//         SET JAVADIR='/usr/lpp/java/J11.0_64'                                 
+//         SET JAVADIR='/usr/lpp/java/J17.0_64'                                 
 //         SET STOREPW='liberty'                                                
 //*                                                                             
 //* Execute $SVRPATH/bin/eqaprfsu.sh                                            

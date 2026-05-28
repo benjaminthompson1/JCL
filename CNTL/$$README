@@ -189,8 +189,8 @@ CXPJCLM   - JCL Expert: scan a single JCL member
 CXPJCLX   - JCL Expert: scan an entire JCL library                              
 DFH$ECAT  - Copy from CICS SDFHINST                                             
 DFH$ECNF  - Copy from CICS SDFHINST                                             
-DFHAUX    - Format CICS auxiliary temporary storage datasets
-DFHIJVMS  - Create customised CICS JVM server profiles in USS JVMProfiles dir
+DFHAUX    - Format CICS auxiliary temporary storage datasets                    
+DFHIJVMS  - Create customised CICS JVM server profiles in USS JVMProfiles dir   
 EQAPRFSU  - z/OS Debugger: configure Debug Profile Service                      
 EQARMTSU  - z/OS Debugger: configure Remote Debug Service                       
 EQAWCCSD  - z/OS Debugger: define CICS programs and transactions                

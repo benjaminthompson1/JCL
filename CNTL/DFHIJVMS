@@ -1,160 +1,160 @@
-//IUIJVMS JOB (FB3),'DFHIJVMS',CLASS=A,MSGCLASS=H,                     
-//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                           
-//*       TYPRUN=HOLD
-//*********************************************************************
-//*                                                                   *
-//*   PID 5655-YA1                                                    *
-//*   Copyright IBM Corp. 1999, 2025                                  *
-//*                                                                   *
-//* STATUS = 7.6.0                                                    *
-//*                                                                   *
-//* CHANGE ACTIVITY :                                                 *
-//*                                                                   *
-//*   $MOD(DFHIJVMS),COMP(INSTALL),PROD(CICS    ):                    *
-//*                                                                   *
-//*  PN= REASON REL YYMMDD HDXXIII : REMARKS                          *
-//* $L0= Base   530 99     HD3SCWG : Base                             *
-//* $L1= 937    660 080625 HDJQKS  : Add JVM server profile DFHJVMAX  *
-//* $L2= 941    660 081216 HDIKTG  : Support for Java 6               *
-//* $P1= D06165 630 030205 HD1OGOW : Fix missing properties/profiles  *
-//* $P2= D07561 630 030516 HDCQMDB : Remove references to DFHJVM      *
-//* $P3= D07793 630 030603 HD3SCWG : Add DFHJVMCD                     *
-//* $P4= D12323 640 041126 HD3SCWG : Add pathprefix                   *
-//* $P5= D18564 650 070412 HD3SCWG : Add VOLUME parameter             *
-//* $D1= I07921 660 080701 HDIKTG  : Tidy up JVM profiles             *
-//*      R16971 680 120207 HDLULGJ : Remove DFJEJBPL                  *
-//*      R36025 680 120309 HDLULGJ : Remove DFHJVMPR DFHJVMCD         *
-//*      R54944 680 120706 HDJYISB : Add DFHWLP                       *
-//*      D55573 680 120815 HDJBAPC : Update JCL Comments              *
-//*      R73092 690 130704 HDJCIDH : Add .jvmprofile                  *
-//*      R34328 670 130913 HDDLCRP : Add DFHJVMST                     *
-//*      D83584 680 131220 HDJBAPC : Added .jvmprofile to DFHJVMST    *
-//*     D119721 710 161103 HD2GJST : Add comment about volume         *
-//*     R140725 710 170925 HDLXDR  : Add EYUCMCIJ                     *
-//*     PH35122 730 211122 HDOQTF  : Add EYUSMSSJ                     *
-//*      G11960 760 250608 HDJBAPC : Remove DFHJVMST                  *
-//*                                                                   *
-//*********************************************************************
-//*
-//* This job invokes the DFHIJVME program to create customized
-//* versions of members
-//*                     DFHJVMAX
-//*                     DFHOSGI
-//*                     DFHWLP
-//*                     EYUCMCIJ
-//*                     EYUSMSSJ
-//*
-//* of dataset DFH630.CICS.SDFHENV
-//*
-//* This job:
-//*   * Creates an XDFHENV dataset using the same dataset attributes
-//*      as the SDFHENV dataset.
-//*   * Creates customized versions of the JVM profiles
-//*     in the XDFHENV dataset and copies them to the JVM profiles
-//*     directory  under  /usr/lpp/cicsts/cicsts63
-//*
-//*
-//* Add a JOB statement and change the following
-//* to suit your installation requirements:
-//*
-//* DFH630
-//*                - High-level dataset qualifier(s) for target and
-//*                  distribution libraries
-//*
-//*  
-//*                - Optional directory path to prefix /usr/lpp ...
-//*                  Can be a null.
-//*
-//* cicsts63
-//*                - Name of the directory for this install -
-//*                  following  /usr/lpp/cicsts
-//*
-//* A3USR5
-//*                - Target volume
-//*                  (May be removed for SMS managed data sets)
-//*
-//* java/J21.0_64
-//*                - Names of the java directories under /usr/lpp
-//*
-//*
-//XDFHENV  EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)
-//SYSTSPRT DD SYSOUT=*
-//SYSTSIN  DD *
-  ALLOCATE FILE(XDFHENV) NEW REUSE VOLUME(A3USR5) +
-    DATASET('DFH630.CICS.XDFHENV') +
-       LIKE('DFH630.CICS.SDFHENV')
-  LISTD 'DFH630.CICS.XDFHENV' HISTORY
-/*
-//DFHJVMAX EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)
-//SYSPROC  DD DISP=SHR,
-// DSN=DFH630.CICS.SDFHINST
-//SYSTSPRT DD SYSOUT=*
-//SYSTSIN  DD *
-  %DFHIJVME +
-    DFH630.CICS.SDFHENV +
-    DFH630.CICS.XDFHENV +
-    DFHJVMAX +
-    cicsts63 +
-    java/J21.0_64 +
- /usr/lpp/cicsts/cicsts63/JVMProfiles/DFHJVMAX.jvmprofile
-/*
-//*
-//*
-//DFHOSGI  EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)
-//SYSPROC  DD DISP=SHR,
-// DSN=DFH630.CICS.SDFHINST
-//SYSTSPRT DD SYSOUT=*
-//SYSTSIN  DD *
-  %DFHIJVME +
-    DFH630.CICS.SDFHENV +
-    DFH630.CICS.XDFHENV +
-    DFHOSGI +
-    cicsts63 +
-    java/J21.0_64 +
- /usr/lpp/cicsts/cicsts63/JVMProfiles/DFHOSGI.jvmprofile
-/*
-//*
-//DFHWLP   EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)
-//SYSPROC  DD DISP=SHR,
-// DSN=DFH630.CICS.SDFHINST
-//SYSTSPRT DD SYSOUT=*
-//SYSTSIN  DD *
-  %DFHIJVME +
-    DFH630.CICS.SDFHENV +
-    DFH630.CICS.XDFHENV +
-    DFHWLP +
-    cicsts63 +
-    java/J21.0_64 +
- /usr/lpp/cicsts/cicsts63/JVMProfiles/DFHWLP.jvmprofile
-/*
-//*
-//EYUCMCIJ  EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)
-//SYSPROC  DD DISP=SHR,
-// DSN=DFH630.CICS.SDFHINST
-//SYSTSPRT DD SYSOUT=*
-//SYSTSIN  DD *
-  %DFHIJVME +
-    DFH630.CICS.SDFHENV +
-    DFH630.CICS.XDFHENV +
-    EYUCMCIJ +
-    cicsts63 +
-    java/J21.0_64 +
- /usr/lpp/cicsts/cicsts63/JVMProfiles/EYUCMCIJ.jvmprofile
-/*
-//*@PH35122A
-//EYUSMSSJ  EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)
-//SYSPROC  DD DISP=SHR,
-// DSN=DFH630.CICS.SDFHINST
-//SYSTSPRT DD SYSOUT=*
-//SYSTSIN  DD *
-  %DFHIJVME +
-    DFH630.CICS.SDFHENV +
-    DFH630.CICS.XDFHENV +
-    EYUSMSSJ +
-    cicsts63 +
-    java/J21.0_64 +
- /usr/lpp/cicsts/cicsts63/JVMProfiles/EYUSMSSJ.jvmprofile
-/*
-//*--------------------------------------------------------------------*
-//* End of Job
-//*--------------------------------------------------------------------*
+//IUIJVMS JOB (FB3),'DFHIJVMS',CLASS=A,MSGCLASS=H,                              
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*       TYPRUN=HOLD                                                           
+//*********************************************************************         
+//*                                                                   *         
+//*   PID 5655-YA1                                                    *         
+//*   Copyright IBM Corp. 1999, 2025                                  *         
+//*                                                                   *         
+//* STATUS = 7.6.0                                                    *         
+//*                                                                   *         
+//* CHANGE ACTIVITY :                                                 *         
+//*                                                                   *         
+//*   $MOD(DFHIJVMS),COMP(INSTALL),PROD(CICS    ):                    *         
+//*                                                                   *         
+//*  PN= REASON REL YYMMDD HDXXIII : REMARKS                          *         
+//* $L0= Base   530 99     HD3SCWG : Base                             *         
+//* $L1= 937    660 080625 HDJQKS  : Add JVM server profile DFHJVMAX  *         
+//* $L2= 941    660 081216 HDIKTG  : Support for Java 6               *         
+//* $P1= D06165 630 030205 HD1OGOW : Fix missing properties/profiles  *         
+//* $P2= D07561 630 030516 HDCQMDB : Remove references to DFHJVM      *         
+//* $P3= D07793 630 030603 HD3SCWG : Add DFHJVMCD                     *         
+//* $P4= D12323 640 041126 HD3SCWG : Add pathprefix                   *         
+//* $P5= D18564 650 070412 HD3SCWG : Add VOLUME parameter             *         
+//* $D1= I07921 660 080701 HDIKTG  : Tidy up JVM profiles             *         
+//*      R16971 680 120207 HDLULGJ : Remove DFJEJBPL                  *         
+//*      R36025 680 120309 HDLULGJ : Remove DFHJVMPR DFHJVMCD         *         
+//*      R54944 680 120706 HDJYISB : Add DFHWLP                       *         
+//*      D55573 680 120815 HDJBAPC : Update JCL Comments              *         
+//*      R73092 690 130704 HDJCIDH : Add .jvmprofile                  *         
+//*      R34328 670 130913 HDDLCRP : Add DFHJVMST                     *         
+//*      D83584 680 131220 HDJBAPC : Added .jvmprofile to DFHJVMST    *         
+//*     D119721 710 161103 HD2GJST : Add comment about volume         *         
+//*     R140725 710 170925 HDLXDR  : Add EYUCMCIJ                     *         
+//*     PH35122 730 211122 HDOQTF  : Add EYUSMSSJ                     *         
+//*      G11960 760 250608 HDJBAPC : Remove DFHJVMST                  *         
+//*                                                                   *         
+//*********************************************************************         
+//*                                                                             
+//* This job invokes the DFHIJVME program to create customized                  
+//* versions of members                                                         
+//*                     DFHJVMAX                                                
+//*                     DFHOSGI                                                 
+//*                     DFHWLP                                                  
+//*                     EYUCMCIJ                                                
+//*                     EYUSMSSJ                                                
+//*                                                                             
+//* of dataset DFH630.CICS.SDFHENV                                              
+//*                                                                             
+//* This job:                                                                   
+//*   * Creates an XDFHENV dataset using the same dataset attributes            
+//*      as the SDFHENV dataset.                                                
+//*   * Creates customized versions of the JVM profiles                         
+//*     in the XDFHENV dataset and copies them to the JVM profiles              
+//*     directory  under  /usr/lpp/cicsts/cicsts63                              
+//*                                                                             
+//*                                                                             
+//* Add a JOB statement and change the following                                
+//* to suit your installation requirements:                                     
+//*                                                                             
+//* DFH630                                                                      
+//*                - High-level dataset qualifier(s) for target and             
+//*                  distribution libraries                                     
+//*                                                                             
+//*                                                                             
+//*                - Optional directory path to prefix /usr/lpp ...             
+//*                  Can be a null.                                             
+//*                                                                             
+//* cicsts63                                                                    
+//*                - Name of the directory for this install -                   
+//*                  following  /usr/lpp/cicsts                                 
+//*                                                                             
+//* A3USR5                                                                      
+//*                - Target volume                                              
+//*                  (May be removed for SMS managed data sets)                 
+//*                                                                             
+//* java/J21.0_64                                                               
+//*                - Names of the java directories under /usr/lpp               
+//*                                                                             
+//*                                                                             
+//XDFHENV  EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)                  
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  ALLOCATE FILE(XDFHENV) NEW REUSE VOLUME(A3USR5) +                             
+    DATASET('DFH630.CICS.XDFHENV') +                                            
+       LIKE('DFH630.CICS.SDFHENV')                                              
+  LISTD 'DFH630.CICS.XDFHENV' HISTORY                                           
+/*                                                                              
+//DFHJVMAX EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)                  
+//SYSPROC  DD DISP=SHR,                                                         
+// DSN=DFH630.CICS.SDFHINST                                                     
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  %DFHIJVME +                                                                   
+    DFH630.CICS.SDFHENV +                                                       
+    DFH630.CICS.XDFHENV +                                                       
+    DFHJVMAX +                                                                  
+    cicsts63 +                                                                  
+    java/J21.0_64 +                                                             
+ /usr/lpp/cicsts/cicsts63/JVMProfiles/DFHJVMAX.jvmprofile                       
+/*                                                                              
+//*                                                                             
+//*                                                                             
+//DFHOSGI  EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)                  
+//SYSPROC  DD DISP=SHR,                                                         
+// DSN=DFH630.CICS.SDFHINST                                                     
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  %DFHIJVME +                                                                   
+    DFH630.CICS.SDFHENV +                                                       
+    DFH630.CICS.XDFHENV +                                                       
+    DFHOSGI +                                                                   
+    cicsts63 +                                                                  
+    java/J21.0_64 +                                                             
+ /usr/lpp/cicsts/cicsts63/JVMProfiles/DFHOSGI.jvmprofile                        
+/*                                                                              
+//*                                                                             
+//DFHWLP   EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)                  
+//SYSPROC  DD DISP=SHR,                                                         
+// DSN=DFH630.CICS.SDFHINST                                                     
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  %DFHIJVME +                                                                   
+    DFH630.CICS.SDFHENV +                                                       
+    DFH630.CICS.XDFHENV +                                                       
+    DFHWLP +                                                                    
+    cicsts63 +                                                                  
+    java/J21.0_64 +                                                             
+ /usr/lpp/cicsts/cicsts63/JVMProfiles/DFHWLP.jvmprofile                         
+/*                                                                              
+//*                                                                             
+//EYUCMCIJ  EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)                 
+//SYSPROC  DD DISP=SHR,                                                         
+// DSN=DFH630.CICS.SDFHINST                                                     
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  %DFHIJVME +                                                                   
+    DFH630.CICS.SDFHENV +                                                       
+    DFH630.CICS.XDFHENV +                                                       
+    EYUCMCIJ +                                                                  
+    cicsts63 +                                                                  
+    java/J21.0_64 +                                                             
+ /usr/lpp/cicsts/cicsts63/JVMProfiles/EYUCMCIJ.jvmprofile                       
+/*                                                                              
+//*@PH35122A                                                                    
+//EYUSMSSJ  EXEC PGM=IKJEFT01,REGION=4M,DYNAMNBR=99,COND=(0,LT)                 
+//SYSPROC  DD DISP=SHR,                                                         
+// DSN=DFH630.CICS.SDFHINST                                                     
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+  %DFHIJVME +                                                                   
+    DFH630.CICS.SDFHENV +                                                       
+    DFH630.CICS.XDFHENV +                                                       
+    EYUSMSSJ +                                                                  
+    cicsts63 +                                                                  
+    java/J21.0_64 +                                                             
+ /usr/lpp/cicsts/cicsts63/JVMProfiles/EYUSMSSJ.jvmprofile                       
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------         
