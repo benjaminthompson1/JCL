@@ -13,14 +13,14 @@
 //*********************************************************************         
 //*                                                                             
 //*  IBM z/OS Debugger                                                          
-//*               16.0                                                          
+//*               17.0                                                          
 //*                                                                             
 //*                                                                   *         
 //*********************************************************************         
 //* Licensed Materials - Property of IBM                              *         
 //*                                                                   *         
 //* 5724-T07: IBM z/OS Debugger                                       *         
-//* Copyright IBM Corp. 2013, 2022 All Rights Reserved                *         
+//* Copyright IBM Corp. 2013, 2024 All Rights Reserved                *         
 //*                                                                   *         
 //* US Government Users Restricted Rights - Use, duplication or       *         
 //* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. *         
@@ -203,9 +203,9 @@
 //*                8       *******************************************          
 //*         LOG 0----+----1----+----2----+----3----+----4----+----5---          
 //*         ********************************* TOP OF LOG *************          
-//*         0001 IBM z/OS Debugger 16.0.n                                       
-//*         0002 11/19/2022 04:11:41 PM                                         
-//*         0003 5724-T07: Copyright IBM Corp. 1992, 2022                       
+//*         0001 IBM z/OS Debugger 17.0.n                                       
+//*         0002 11/19/2024 04:11:41 PM                                         
+//*         0003 5724-T07: Copyright IBM Corp. 1992, 2024                       
 //*         PF  1:?          2:STEP       3:QUIT       4:LIST       5:          
 //*         PF  7:UP         8:DOWN       9:GO        10:ZOOM      11:          
 //*                                                                             
@@ -316,7 +316,7 @@
 //*                                                                             
 //        SET LNGPRFX=IGY650                                                    
 //        SET LIBPRFX=CEE                                                       
-//        SET CICSPRFX=DFH620.CICS                                              
+//        SET CICSPRFX=DFH630.CICS                                              
 //*                                                                             
 //        SET EQAIVP=&SYSUID..EQAIVP                                            
 //*                                                                             

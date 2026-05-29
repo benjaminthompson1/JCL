@@ -14,13 +14,13 @@
 //*********************************************************************         
 //*                                                                             
 //*  IBM z/OS Debugger                                                          
-//*               16.0                                                          
+//*               17.0                                                          
 //*                                                                             
 //*********************************************************************         
 //* Licensed Materials - Property of IBM                                        
 //*                                                                             
 //* 5724-T07: IBM z/OS Debugger                                                 
-//* Copyright IBM Corp. 2013, 2022 All Rights Reserved                          
+//* Copyright IBM Corp. 2013, 2024 All Rights Reserved                          
 //*                                                                             
 //* US Government Users Restricted Rights - Use, duplication or                 
 //* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.           
@@ -117,16 +117,16 @@
 //*     non-LE events is not available.  Debugging of non-LE programs *         
 //*     will be restricted in this z/OS Debugger session.             *         
 //*                                                                   *         
-//*   * IBM z/OS Debugger 16.0.n                                      *         
-//*   * 11/19/2022 04:11:41 PM                                        *         
-//*   * 5724-T07: Copyright IBM Corp. 1992, 2022                      *         
+//*   * IBM z/OS Debugger 17.0.n                                      *         
+//*   * 11/19/2024 04:11:41 PM                                        *         
+//*   * 5724-T07: Copyright IBM Corp. 1992, 2024                      *         
 //*   * *** Commands file commands follow ***                         *         
 //*     COMMENT Simple test of PROGT ;                                *         
 //*     COMMENT show build date/time and service level (if any) ;     *         
 //*     CALL %VER ;                                                   *         
-//*   * IBM z/OS Debugger 16.0.n                                      *         
-//*   * 08/19/2022 08:01:00 AM Level: 16.0.n PHnnnnn                  *         
-//*   * 5724-T07: Copyright IBM Corp. 1992, 2022                      *         
+//*   * IBM z/OS Debugger 17.0.n                                      *         
+//*   * 08/19/2024 08:01:00 AM Level: 17.0.n PHnnnnn                  *         
+//*   * 5724-T07: Copyright IBM Corp. 1992, 2024                      *         
 //*     QUERY DYNDEBUG ;                                              *         
 //*   * The setting of DYNDEBUG is ON                                 *         
 //*     STEP 3 ;                                                      *         
@@ -190,7 +190,7 @@
 //*                                                                             
 //        SET LNGPRFX=IGY650                                                    
 //        SET LIBPRFX=CEE                                                       
-//        SET DTPRFX=ISM403                                                     
+//        SET DTPRFX=ISM500                                                   
 //*                                                                             
 //        SET UNITDEV=SYSALLDA                                                  
 //*                                                                             

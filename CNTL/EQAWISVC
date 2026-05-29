@@ -16,9 +16,7 @@
 //STEPLIB  DD   DISP=SHR,DSN=ISM500.SEQAAUTH                                    
 //LOADLIB  DD   DISP=SHR,DSN=ISM500.SEQAAUTH                                    
 //SYSUDUMP DD   SYSOUT=*                                                        
-//*                                                                             
-//*                ========> END OF JOB EQAWISVC <========                      
-//                                                                              
+//*                                                                                                                                                
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
 //*--------------------------------------------------------------------*        
