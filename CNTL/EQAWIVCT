@@ -323,11 +323,11 @@
 //        SET UNITDEV=SYSALLDA                                                  
 //*                                                                             
 //*-- 1: ALLOCATE CATALOGED LOAD LIBRARY DATASET ----------------------*        
-//ALLOCC   EXEC PGM=IEFBR14                                                     
-//LOADPDSE DD DSN=&EQAIVP..LOADPDSE,                                            
-//         DISP=(MOD,CATLG),                                                    
-//         DCB=(DSORG=PO,RECFM=U,LRECL=0,BLKSIZE=32760),                        
-//         SPACE=(CYL,(1,1)),UNIT=&UNITDEV.,DSNTYPE=LIBRARY                     
+//*ALLOCC   EXEC PGM=IEFBR14                                                    
+//*LOADPDSE DD DSN=&EQAIVP..LOADPDSE,                                           
+//*         DISP=(MOD,CATLG),                                                   
+//*         DCB=(DSORG=PO,RECFM=U,LRECL=0,BLKSIZE=32760),                       
+//*         SPACE=(CYL,(1,1)),UNIT=&UNITDEV.,DSNTYPE=LIBRARY                    
 //*                                                                             
 //*-- 2: COMPILE COBOL TEST PROGRAM WITH CICS SUPPORT -----------------*        
 //COMPILE EXEC PGM=IGYCRCTL,                                                    
@@ -437,14 +437,13 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD DISP=(NEW,DELETE),DSN=&&SYSUT1,UNIT=&UNITDEV.,                    
 //            SPACE=(CYL,(1,1))                                                 
-//SYSLMOD  DD DISP=(SHR,KEEP),DSN=&EQAIVP..LOADPDSE                             
+//*SYSLMOD  DD DISP=(SHR,KEEP),DSN=&EQAIVP..LOADPDSE   
+//SYSLMOD  DD DISP=(SHR,KEEP),DSN=LAB.CICS.LOAD                          
 //SYSLIN   DD *                                                                 
      INCLUDE OBJECT                                                             
      INCLUDE SYSLIB(DFHELII)                                                    
      NAME CICIVCT(R)                                                            
-/*                                                                              
-//*                                                                             
-//*                ========> END OF JOB EQAWIVCT <========                      
+/*                   
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
 //*--------------------------------------------------------------------*        
