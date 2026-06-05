@@ -7,12 +7,12 @@
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  EQAINSVC must reside in an APF-authorized library                    
 //*--------------------------------------------------------------------*        
-//*
-//INSTSVCS EXEC PGM=EQAINSVC
+//*                                                                             
+//INSTSVCS EXEC PGM=EQAINSVC                                                    
 //STEPLIB  DD   DISP=SHR,DSN=ISM500.SEQAAUTH                                    
 //LOADLIB  DD   DISP=SHR,DSN=ISM500.SEQAAUTH                                    
 //SYSUDUMP DD   SYSOUT=*                                                        
-//*
+//*                                                                             
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
 //*--------------------------------------------------------------------*        

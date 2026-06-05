@@ -7,13 +7,13 @@
 //* AUTH:  Ben               DATE: 2026-04-06                                   
 //* NOTE:  This job completes with RC=4, which is normal                        
 //*--------------------------------------------------------------------*        
-//        SET DFHPRFX=DFH630.CICS                                          
+//        SET DFHPRFX=DFH630.CICS                                               
 //        SET CSDPRFX=DFH630.CICS                                               
-//        SET DTPRFX=ISM500                                               
+//        SET DTPRFX=ISM500                                                     
 //EQACICS EXEC PGM=DFHCSDUP,REGION=1024K,                                       
 //             PARM='CSD(READWRITE),PAGESIZE(60),NOCOMPAT'                      
 //STEPLIB  DD DISP=SHR,DSN=&DFHPRFX..SDFHLOAD                                   
-//DFHCSD   DD DISP=SHR,DSN=&CSDPRFX..DFHCSD                                
+//DFHCSD   DD DISP=SHR,DSN=&CSDPRFX..DFHCSD                                     
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSIN    DD *                                                                 
 **********************************************************************          

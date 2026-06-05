@@ -437,13 +437,13 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //SYSUT1   DD DISP=(NEW,DELETE),DSN=&&SYSUT1,UNIT=&UNITDEV.,                    
 //            SPACE=(CYL,(1,1))                                                 
-//*SYSLMOD  DD DISP=(SHR,KEEP),DSN=&EQAIVP..LOADPDSE   
-//SYSLMOD  DD DISP=(SHR,KEEP),DSN=LAB.CICS.LOAD                          
+//*SYSLMOD  DD DISP=(SHR,KEEP),DSN=&EQAIVP..LOADPDSE                            
+//SYSLMOD  DD DISP=(SHR,KEEP),DSN=LAB.CICS.LOAD                                 
 //SYSLIN   DD *                                                                 
      INCLUDE OBJECT                                                             
      INCLUDE SYSLIB(DFHELII)                                                    
      NAME CICIVCT(R)                                                            
-/*                   
+/*                                                                              
 //*--------------------------------------------------------------------*        
 //* End of Job                                                                  
 //*--------------------------------------------------------------------*        
