@@ -1,0 +1,150 @@
+//IUTEJ1L JOB (FB3),'DSNTEJ1L',CLASS=A,MSGCLASS=H,                              
+//       NOTIFY=&SYSUID,REGION=0M,TIME=1440                                     
+//*      TYPRUN=HOLD                                                            
+//*********************************************************************         
+//*  NAME = DSNTEJ1L                                                            
+//*                                                                             
+//*  DESCRIPTIVE NAME = DB2 SAMPLE APPLICATION                                  
+//*                     PHASE 1                                                 
+//*                     L/E                                                     
+//*                                                                             
+//*    Licensed Materials - Property of IBM                                     
+//*    5698-DB2                                                                 
+//*    COPYRIGHT IBM CORP 1982, 2022                                            
+//*                                                                             
+//*    STATUS = Version 13                                                      
+//*                                                                             
+//*  FUNCTION = THIS JCL CREATES THE DSNTEP2 LOAD MODULE FROM THE               
+//*             SHIPPED OBJECT DECK, DSNTEP2L, AND LINKS THE                    
+//*             PACKAGE AND PLAN FOR THIS VERSION OF DSNTEP2.                   
+//*                                                                             
+//*           = THIS JCL ALSO CREATES THE DSNTEP4 LOAD MODULE FROM              
+//*             THE SHIPPED OBJECT DECK, DSNTEP4L, AND LINKS THE                
+//*             PACKAGE AND PLAN FOR THIS VERSION OF DSNTEP4.                   
+//*                                                                             
+//*         THIS JOB IS RUN AFTER DSNTEJ1 AND AFTER YOU HAVE                    
+//*         ACTIVATED A DB2 FUNCTION LEVEL THAT IS EQUAL TO                     
+//*         OR HIGHER THAN THE APPLCOMPAT SETTING OF THE                        
+//*         BIND PACKAGE COMMANDS.                                              
+//*                                                                             
+//*   NOTE: IF YOU RUN THIS JOB, YOU DO NOT NEED TO RUN THE SAMPLE              
+//*         JOB DSNTEJ1P EXCEPT TO PREPARE CUSTOMIZED VERSIONS OF               
+//*         THE DSNTEP2 AND DSNTEP4 SOURCE CODE (YOU NEED A PL/I                
+//*         COMPILER TO RUN DSNTEJ1P SUCCESSFULLY).                             
+//*                                                                             
+//*  CHANGE ACTIVITY =                                                          
+//*    08/18/2014 Single-phase migration            s21938_inst1 s21938         
+//*    02/15/2016 Long data set names                           PI42601         
+//*    09/27/2021 REPLACE APPLCOMPAT(V13R1) WITH           E6837-S14594         
+//*                       APPLCOMPAT(V13R1M501)                                 
+//*                                                                             
+//*********************************************************************         
+//JOBLIB   DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
+//         DD DISP=SHR,DSN=CEE.SCEERUN                                          
+//*                                                                             
+//*        STEP 1 : CREATE DSNTEP2 LOADMOD FROM DSNTEP2L OBJECT DECK            
+//*                                                                             
+//PH01LS01 EXEC PGM=IEWL,PARM='XREF'                                            
+//SYSLIB   DD DISP=SHR,DSN=CEE.SCEELKED                                         
+//         DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
+//SDSNSAMP DD DISP=SHR,                                                         
+//         DSN=DSND10.SDSNSAMP(DSNTEP2L)                                        
+//SYSLMOD  DD DISP=SHR,                                                         
+//         DSN=DSND10.DBDG.RUNLIB.LOAD(DSNTEP2)                                 
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSUT1   DD UNIT=SYSDA,SPACE=(1024,(50,50))                                   
+//SYSLIN   DD *                                                                 
+     INCLUDE SDSNSAMP(DSNTEP2L)                                                 
+     INCLUDE SYSLIB(DSNELI)                                                     
+     NAME DSNTEP2(R)                                                            
+//*                                                                             
+//*        STEP 2 : BIND AND RUN PROGRAM DSNTEP2, TO                            
+//*                 PRINT THE TABLES                                            
+//*                                                                             
+//PH01LS02 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
+//DBRMLIB  DD DISP=SHR,DSN=DSND10.SDSNSAMP                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+ DSN SYSTEM(DBDG)                                                               
+ BIND PACKAGE (DSNTEP2) MEMBER(DSN@EP2L) APPLCOMPAT(V13R1M501) +                
+      CURRENTDATA(NO) ACT(REP) ISO(CS) ENCODING(EBCDIC)                         
+ BIND PLAN(DSNTEP13)  PKLIST(*.DSNTEP2.*) +                                     
+      ACTION(REPLACE) RETAIN +                                                  
+      CURRENTDATA(NO) ISO(CS) ENCODING(EBCDIC) SQLRULES(DB2)                    
+ RUN  PROGRAM(DSNTEP2) PLAN(DSNTEP13) +                                         
+      LIB('DSND10.DBDG.RUNLIB.LOAD') +                                          
+      PARMS('/ALIGN(MID)')                                                      
+ END                                                                            
+//*                                                                             
+//SYSIN    DD *                                                                 
+    SET CURRENT SQLID = 'IBMUSER';                                              
+    GRANT EXECUTE, BIND ON PLAN DSNTEP13                                        
+      TO PUBLIC;                                                                
+    SELECT EMPNO, FIRSTNME, MIDINIT, LASTNAME,                                  
+      WORKDEPT, PHONENO, HIREDATE, JOB, EDLEVEL,                                
+      SEX, BIRTHDATE, SALARY, BONUS, COMM,                                      
+      SALARY+BONUS+COMM AS TOTAL_SALARY                                         
+     FROM EMP                                                                   
+     ORDER BY TOTAL_SALARY;                                                     
+    SELECT * FROM DEPT;                                                         
+    SELECT * FROM ACT;                                                          
+    SELECT * FROM EMPPROJACT;                                                   
+    SELECT * FROM PROJ;                                                         
+    SELECT * FROM PROJACT;                                                      
+//*                                                                             
+//*        STEP 3 : CREATE DSNTEP4 LOADMOD FROM DSNTEP4L OBJECT DECK            
+//*                                                                             
+//PH01LS03 EXEC PGM=IEWL,COND=(4,LT),PARM='XREF'                                
+//SYSLIB   DD DISP=SHR,DSN=CEE.SCEELKED                                         
+//         DD DISP=SHR,DSN=DSND10.SDSNLOAD                                      
+//SDSNSAMP DD DISP=SHR,                                                         
+//         DSN=DSND10.SDSNSAMP(DSNTEP4L)                                        
+//SYSLMOD  DD DISP=SHR,                                                         
+//         DSN=DSND10.DBDG.RUNLIB.LOAD(DSNTEP4)                                 
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSUT1   DD UNIT=SYSDA,SPACE=(1024,(50,50))                                   
+//SYSLIN   DD *                                                                 
+     INCLUDE SDSNSAMP(DSNTEP4L)                                                 
+     INCLUDE SYSLIB(DSNELI)                                                     
+     NAME DSNTEP4(R)                                                            
+//*                                                                             
+//*        STEP 4 : BIND AND RUN PROGRAM DSNTEP4, TO                            
+//*                 PRINT THE TABLES                                            
+//*                                                                             
+//PH01LS04 EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(4,LT)                            
+//DBRMLIB  DD DISP=SHR,DSN=DSND10.SDSNSAMP                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+ DSN SYSTEM(DBDG)                                                               
+ BIND PACKAGE (DSNTEP4) MEMBER(DSN@EP4L) APPLCOMPAT(V13R1M501) +                
+      CURRENTDATA(NO) ACT(REP) ISO(CS) ENCODING(EBCDIC)                         
+ BIND PLAN(DSNTP413)  PKLIST(*.DSNTEP4.*) +                                     
+      ACTION(REPLACE) RETAIN +                                                  
+      CURRENTDATA(NO) ISO(CS) ENCODING(EBCDIC) SQLRULES(DB2)                    
+ RUN  PROGRAM(DSNTEP4) PLAN(DSNTP413) +                                         
+      LIB('DSND10.DBDG.RUNLIB.LOAD') +                                          
+      PARMS('/ALIGN(MID)')                                                      
+ END                                                                            
+//*                                                                             
+//SYSIN    DD *                                                                 
+    SET CURRENT SQLID = 'IBMUSER';                                              
+    GRANT EXECUTE, BIND ON PLAN DSNTP413                                        
+      TO PUBLIC;                                                                
+    SELECT EMPNO, FIRSTNME, MIDINIT, LASTNAME,                                  
+      WORKDEPT, PHONENO, HIREDATE, JOB, EDLEVEL,                                
+      SEX, BIRTHDATE, SALARY, BONUS, COMM,                                      
+      SALARY+BONUS+COMM AS TOTAL_SALARY                                         
+     FROM EMP                                                                   
+     ORDER BY TOTAL_SALARY;                                                     
+    SELECT * FROM DEPT;                                                         
+    SELECT * FROM ACT;                                                          
+    SELECT * FROM EMPPROJACT;                                                   
+    SELECT * FROM PROJ;                                                         
+    SELECT * FROM PROJACT;                                                      
+//*                                                                             

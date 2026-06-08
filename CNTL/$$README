@@ -99,6 +99,7 @@ CRDB2ARC  - COBOL RUN DB2ARCH
 DVMSQL    - Create sample DB/TB for DVM                                         
 DSNBIND   - Db2 BIND                                                            
 DSNREST   - Enable Db2 native REST services for ZCEE                            
+DSNTEJ1L  - one-time DSNTEP2/DSNTEP13 bind job for DBDG                         
 DSNTIJAI  - SQLDI Pseudo Catalog                                                
 DSNTIJAV  - SQLDI IVP                                                           
 DSNTIJRS  - Enable Db2 REST services                                            
