@@ -13,7 +13,7 @@
 //SYSTSPRT DD SYSOUT=*                                                          
 //SYSTSIN  DD *                                                                 
  PROFILE NOPREFIX MSGID WTPMSG                                                  
- OSHELL find /global/zwicdata/ +                                                
+ OSHELL find /var/zwic/ +                                                       
         -type f -mtime +4 -exec rm -v {} \;                                     
 /*                                                                              
 //*--------------------------------------------------------------------*        
