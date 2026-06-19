@@ -1,8 +1,27 @@
-# Claude Code local artefacts
+# Claude Code local artifacts
 .claude/
+
+# Bob mode-specific rules and MCP configuration
+.bob/
+
+# VSCode editor settings
+.vscode/
 
 # JVM diagnostic dumps (z/OS Java)
 core.*.dmp
 heapdump.*.phd
 javacore.*.txt
 Snap.*.trc
+
+# z/OS temporary files
+*.tmp
+*.bak
+*.old
+
+# OS-specific files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Personal workspace files
+*.code-workspace
