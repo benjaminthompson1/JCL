@@ -11,35 +11,35 @@
 //* NOTE:  Ensure network connectivity to the S3 endpoint before run            
 //*--------------------------------------------------------------------*        
 //*-- 1: UPLOAD DATASET TO S3 OBJECT STORAGE VIA GDKUTIL --------------*        
-//MINIO1   EXEC PGM=GDKUTIL                                                     
+//SWFS1   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
-  UPLOAD PROVIDER(MINIO) FORMAT(RECORD) LOG(DEBUG) WEBTOOLKITLOGU               
+  UPLOAD PROVIDER(Z32ASWFS) FORMAT(RECORD) LOG(DEBUG) WEBTOOLKITLOGU  
 /*                                                                              
 //OBJNAME  DD *                                                                 
-  /z31c/z31c_SYSLOG                                                             
+  /z32a/z32a_SYSLOG                                                             
 /*                                                                              
 //LOCAL    DD DSN=IBMUSER.SYSLOG.OUTPUTD,DISP=SHR                               
 //SYSOUT   DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //*                                                                             
 //*-- 2: LIST OBJECTS IN S3 BUCKET VIA GDKUTIL ------------------------*        
-//MINIO2   EXEC PGM=GDKUTIL                                                     
+//SWFS2   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
-  LIST PROVIDER(MINIO)                                                          
+  LIST PROVIDER(Z32ASWFS)        
 /*                                                                              
 //OBJNAME  DD *                                                                 
-  /z31c                                                                         
+  /z32a                                                                         
 /*                                                                              
 //SYSOUT   DD SYSOUT=*                                                          
 //SYSPRINT DD SYSOUT=*                                                          
 //*                                                                             
 //*-- 3: DOWNLOAD DATASET FROM S3 OBJECT STORAGE VIA GDKUTIL ----------*        
-//MINIO3   EXEC PGM=GDKUTIL                                                     
+//SWFS3   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
-  DOWNLOAD PROVIDER(MINIO)                                                      
+  DOWNLOAD PROVIDER(Z32ASWFS)                            
 /*                                                                              
 //OBJNAME  DD *                                                                 
-  /z31c/z31c_SYSLOG                                                             
+  /z32a/z32a_SYSLOG                                                             
 /*                                                                              
 //LOCAL    DD DSN=IBMUSER.SYSLOG.DOWNLOAD.OUTPUTD,                              
 //            DISP=(NEW,CATLG,DELETE),                                          
