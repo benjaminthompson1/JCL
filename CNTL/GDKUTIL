@@ -13,7 +13,7 @@
 //*-- 1: UPLOAD DATASET TO S3 OBJECT STORAGE VIA GDKUTIL --------------*        
 //SWFS1   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
-  UPLOAD PROVIDER(Z32ASWFS) FORMAT(RECORD) LOG(DEBUG) WEBTOOLKITLOGU  
+  UPLOAD PROVIDER(HOMES3) FORMAT(RECORD) LOG(DEBUG) WEBTOOLKITLOGU  
 /*                                                                              
 //OBJNAME  DD *                                                                 
   /z32a/z32a_SYSLOG                                                             
@@ -25,7 +25,7 @@
 //*-- 2: LIST OBJECTS IN S3 BUCKET VIA GDKUTIL ------------------------*        
 //SWFS2   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
-  LIST PROVIDER(Z32ASWFS)        
+  LIST PROVIDER(HOMES3)        
 /*                                                                              
 //OBJNAME  DD *                                                                 
   /z32a                                                                         
@@ -36,7 +36,7 @@
 //*-- 3: DOWNLOAD DATASET FROM S3 OBJECT STORAGE VIA GDKUTIL ----------*        
 //SWFS3   EXEC PGM=GDKUTIL                                                     
 //SYSIN    DD *                                                                 
-  DOWNLOAD PROVIDER(Z32ASWFS)                            
+  DOWNLOAD PROVIDER(HOMES3)                            
 /*                                                                              
 //OBJNAME  DD *                                                                 
   /z32a/z32a_SYSLOG                                                             
