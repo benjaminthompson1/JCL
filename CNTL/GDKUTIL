@@ -11,9 +11,9 @@
 //* NOTE:  Ensure network connectivity to the S3 endpoint before run            
 //*--------------------------------------------------------------------*        
 //*-- 1: UPLOAD DATASET TO S3 OBJECT STORAGE VIA GDKUTIL --------------*        
-//SWFS1   EXEC PGM=GDKUTIL                                                     
+//SWFS1   EXEC PGM=GDKUTIL                                                      
 //SYSIN    DD *                                                                 
-  UPLOAD PROVIDER(HOMES3) FORMAT(RECORD) LOG(DEBUG) WEBTOOLKITLOGU  
+  UPLOAD PROVIDER(HOMES3) FORMAT(RECORD) LOG(DEBUG) WEBTOOLKITLOGU              
 /*                                                                              
 //OBJNAME  DD *                                                                 
   /z32a/z32a_SYSLOG                                                             
@@ -23,9 +23,9 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //*                                                                             
 //*-- 2: LIST OBJECTS IN S3 BUCKET VIA GDKUTIL ------------------------*        
-//SWFS2   EXEC PGM=GDKUTIL                                                     
+//SWFS2   EXEC PGM=GDKUTIL                                                      
 //SYSIN    DD *                                                                 
-  LIST PROVIDER(HOMES3)        
+  LIST PROVIDER(HOMES3)                                                         
 /*                                                                              
 //OBJNAME  DD *                                                                 
   /z32a                                                                         
@@ -34,9 +34,9 @@
 //SYSPRINT DD SYSOUT=*                                                          
 //*                                                                             
 //*-- 3: DOWNLOAD DATASET FROM S3 OBJECT STORAGE VIA GDKUTIL ----------*        
-//SWFS3   EXEC PGM=GDKUTIL                                                     
+//SWFS3   EXEC PGM=GDKUTIL                                                      
 //SYSIN    DD *                                                                 
-  DOWNLOAD PROVIDER(HOMES3)                            
+  DOWNLOAD PROVIDER(HOMES3)                                                     
 /*                                                                              
 //OBJNAME  DD *                                                                 
   /z32a/z32a_SYSLOG                                                             

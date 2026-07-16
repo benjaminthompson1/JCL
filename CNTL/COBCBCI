@@ -1,0 +1,82 @@
+//IUCICS   JOB (FB3),'CICS COBOL BUILD',CLASS=A,MSGCLASS=H,                     
+//        NOTIFY=&SYSUID,REGION=0M,TIME=1440                                    
+//*--------------------------------------------------------------------*        
+//* JOB:   IUCICS                                                               
+//* DESC:  Compile and link-edit a CICS COBOL program with TEST debug           
+//*        hooks, adapted from IBM's z/OS Debugger CICS IVP (EQAWIVCT)          
+//* AUTH:  Ben               DATE: 2026-07-16                                   
+//* NOTE:  Set GOPGM= to the target program name before run.                    
+//*        Run once for DFH0XCMN, once for DFH0XVDS.                            
+//*--------------------------------------------------------------------*        
+//        SET LNGPRFX=IGY650                                                    
+//        SET LIBPRFX=CEE                                                       
+//        SET CICSPRFX=DFH630.CICS                                              
+//        SET UNITDEV=SYSALLDA                                                  
+//        SET GOPGM=DFH0XCMN                                                    
+//*                                                                             
+//*-- 1: COMPILE COBOL PROGRAM WITH CICS SUPPORT + TEST HOOKS ---------*        
+//COMPILE EXEC PGM=IGYCRCTL,                                                    
+// PARM=('APOST,NONAME,TEST,CICS("SP COBOL3")'),                                
+// REGION=0M                                                                    
+//STEPLIB  DD DISP=SHR,DSN=&LNGPRFX..SIGYCOMP                                   
+//         DD DISP=SHR,DSN=&CICSPRFX..SDFHLOAD                                  
+//         DD DISP=SHR,DSN=&LIBPRFX..SCEERUN                                    
+//         DD DISP=SHR,DSN=&LIBPRFX..SCEERUN2                                   
+//SYSLIB   DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.COPYLIB                            
+//         DD DISP=SHR,DSN=&CICSPRFX..SDFHC370                                  
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD DSN=&&SYSUT1,UNIT=&UNITDEV.,                                      
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT2   DD DSN=&&SYSUT2,UNIT=&UNITDEV.,                                      
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT3   DD DSN=&&SYSUT3,UNIT=&UNITDEV.,                                      
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT4   DD DSN=&&SYSUT4,UNIT=&UNITDEV.,                                      
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT5   DD DSN=&&SYSUT5,UNIT=&UNITDEV.,                                      
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT6   DD DSN=&&SYSUT6,UNIT=&UNITDEV.,                                      
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT7   DD DSN=&&SYSUT7,UNIT=&UNITDEV.,                                      
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT8   DD DSN=&&SYSUT8,UNIT=&UNITDEV.,                                      
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT9   DD DSN=&&SYSUT9,UNIT=&UNITDEV.,                                      
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT10  DD DSN=&&SYSUT10,UNIT=&UNITDEV.,                                     
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT11  DD DSN=&&SYSUT11,UNIT=&UNITDEV.,                                     
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT12  DD DSN=&&SYSUT12,UNIT=&UNITDEV.,                                     
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT13  DD DSN=&&SYSUT13,UNIT=&UNITDEV.,                                     
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT14  DD DSN=&&SYSUT14,UNIT=&UNITDEV.,                                     
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSUT15  DD DSN=&&SYSUT15,UNIT=&UNITDEV.,                                     
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSMDECK DD DSN=&&SYSMDECK,UNIT=&UNITDEV.,                                    
+//         DISP=(NEW,DELETE),SPACE=(CYL,(1,1))                                  
+//SYSLIN   DD DSN=&&OBJECT,DISP=(NEW,PASS),UNIT=&UNITDEV.,                      
+//            DCB=(DSORG=PS,RECFM=FB,LRECL=80,BLKSIZE=0),                       
+//            SPACE=(CYL,(1,1))                                                 
+//SYSIN    DD DISP=SHR,DSN=IBMUSER.GIT.COBOL.SOURCE(&GOPGM)                     
+//*                                                                             
+//*-- 2: LINK-EDIT COMPILED PROGRAM INTO LAB.CICS.LOAD -----------------*       
+//BIND    EXEC PGM=HEWL,PARM='CALL,LIST,XREF,LET,MAP,RENT',REGION=0M            
+//SYSLIB   DD DISP=SHR,DSN=&LIBPRFX..SCEELKED                                   
+//         DD DISP=SHR,DSN=&LIBPRFX..SCEELKEX                                   
+//         DD DISP=SHR,DSN=&CICSPRFX..SDFHLOAD                                  
+//OBJECT   DD DISP=(SHR,DELETE),DSN=&&OBJECT                                    
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSUT1   DD DISP=(NEW,DELETE),DSN=&&SYSUT1,UNIT=&UNITDEV.,                    
+//         SPACE=(CYL,(1,1))                                                    
+//SYSLMOD  DD DISP=(SHR,KEEP),DSN=LAB.CICS.LOAD                                 
+//SYSLIN   DD *                                                                 
+     INCLUDE OBJECT                                                             
+     INCLUDE SYSLIB(DFHELII)                                                    
+     NAME DFH0XCMN(R)                                                           
+/*                                                                              
+//*--------------------------------------------------------------------*        
+//* End of Job                                                                  
+//*--------------------------------------------------------------------*        
